@@ -1,6 +1,8 @@
 # CSCD70 Compiler Optimizations
 
-<img src="http://llvm.org/docs/_static/logo.png">
+<p align="middle">
+  <img src="http://llvm.org/docs/_static/logo.png">
+</p>
 
 This repository contains tutorials materials for class **CSCD70 Compiler Optimizations** @ **University of Toronto**.
 
