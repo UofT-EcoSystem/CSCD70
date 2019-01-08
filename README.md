@@ -6,6 +6,6 @@
 
 This repository contains tutorials materials for class **CSCD70 Compiler Optimizations** @ **University of Toronto**.
 
-## Questions & Concerns?
+## Questions or Concerns?
 
 If you are any questions or concerns, please submit a new issue in the [**Issues**]() tab.
