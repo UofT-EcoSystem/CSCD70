@@ -8,4 +8,4 @@ This repository contains tutorials materials for class **CSCD70 Compiler Optimiz
 
 ## Questions or Concerns?
 
-If you are any questions or concerns, please submit a new issue in the [**Issues**]() tab.
+If you are any questions or concerns, please submit a new issue in the [**Issues**](https://github.com/ArmageddonKnight/CSCD70/issues) tab.
