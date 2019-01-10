@@ -1,4 +1,4 @@
-OPTIMIZER := ./FunctionInfo.so
+OPTIMIZER := FunctionInfo.so
 OPT_PASSES := -function-info
 
 LLVM_VERSION := 6.0
@@ -19,12 +19,13 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 
 # Every optimized bytecode depends on the corresponding raw bytecode and the optimizer.
 ./tests/%-opt.bc: ./tests/%.bc $(OPTIMIZER)
-	opt-$(LLVM_VERSION) -load $(OPTIMIZER) $(OPT_PASSES) $< -o $@
+	env LD_LIBRARY_PATH=. opt-$(LLVM_VERSION) -load $(OPTIMIZER) $(OPT_PASSES) $< -o $@
 
 # Every raw bytecode is built from the corresponding C source file.
-# We use the option  `-O0 -Xclang -disable-O0-optnone` to disable LLVM native optimizations.
+# You can also use the option `-O0 -Xclang -disable-O0-optnone` 
+# (rather than `-O2`) to disable Clang native optimizations.
 ./tests/%.bc: ./tests/%.c
-	clang-$(LLVM_VERSION)  -emit-llvm -c $< -o $@
+	clang-$(LLVM_VERSION) -O2 -emit-llvm -c $< -o $@
 
 # Build the optimizer from the source files.
 $(OPTIMIZER): $(OPT_OBJs)
