@@ -7,13 +7,6 @@ using namespace llvm;
 namespace {
 class FunctionInfo : public ModulePass
 {
-private:
-	
-	bool runOnFunction(Function & F)
-	{
-		return false;
-	}
-	
 public:
 	static char ID;
 
@@ -33,10 +26,7 @@ public:
 	{
 		outs() << "CSCD70 Functions Information Pass" << "\n";
 
-		for (Module::iterator iter = M.begin(); iter != M.end(); ++iter)
-		{
-			runOnFunction(*iter);
-		}
+		// @TODO
 		
 		return false;
 	}
