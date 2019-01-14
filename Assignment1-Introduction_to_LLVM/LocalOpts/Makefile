@@ -36,4 +36,4 @@ $(OPTIMIZER): $(OPT_OBJs)
 
 .PHONY: clean
 clean:
-	rm -f ./tests/*.ll
+	$(RM) ./tests/*.ll
