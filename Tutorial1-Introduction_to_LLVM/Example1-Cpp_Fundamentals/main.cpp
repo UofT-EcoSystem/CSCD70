@@ -26,7 +26,7 @@ int main()
 	 * 
 	 * `< unsigned (<- typename) >` is an instantiation of the template.
 	 * We can create another array of floating values using the statement:
-	* 	std::vector < float > b = { 1.0, 2.0, 3.0 };
+	 * 	std::vector < float > b = { 1.0, 2.0, 3.0 };
 	 */
 	std::vector < unsigned > a = { 1, 2, 3, 4, 5 };
 
