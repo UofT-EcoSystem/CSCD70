@@ -4,4 +4,4 @@
 
 ## Changelog
 
-- Added an example on **Standard-Template-Library (STL) `iterator`** and **Variable Reference**.
+- Added an example on **Standard-Template-Library (STL) Data Structure** and **Variable Reference**.
