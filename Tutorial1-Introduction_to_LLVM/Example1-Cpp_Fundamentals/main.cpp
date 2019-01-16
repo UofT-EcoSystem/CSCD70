@@ -61,7 +61,7 @@ int main()
 	for (std::unordered_map < std::string, unsigned > ::iterator iter = b.begin(); iter != b.end(); ++iter)
 	{
 		// When we dereference the iterator, what we get is a `pair`.
-		// The first element is the constant, and the second element is the value.
+		// The first element is the constant key, and the second element is the value.
 		std::pair < const std::string, unsigned > & key_value_pair = *iter;
 
 		std::cout << "(" << key_value_pair.first << ", " << key_value_pair.second << "), ";
