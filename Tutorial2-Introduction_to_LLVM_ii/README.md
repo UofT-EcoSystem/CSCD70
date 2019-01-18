@@ -2,7 +2,7 @@
 
 ## Abstract
 
-- How to write an LLVM Transformation pass?
+- How to write an LLVM **Transformation** pass?
   - Basic Instruction Manipulation
   - User-Use-Usee Relationship
 - How to build up the *connection* between **Analysis** and **Transformation** passes?
