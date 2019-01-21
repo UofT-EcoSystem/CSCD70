@@ -27,7 +27,7 @@ private:
 
 		// print the 1st instruction
 		outs() << _1st_inst << "\n";
-		// print the 1st instruction 
+		// print the 1st instruction as an operand
 		_1st_inst.printAsOperand(outs(), false); outs() << "\n";
 
 		// =================================================================================
