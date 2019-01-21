@@ -9,3 +9,7 @@
   - User-Use-Usee Relationship
 - How to build up the *connection* between **Analysis** and **Transform** passes?
   - LLVM Pass Manager: Require and Preserve
+
+## ChangLog
+
+- Added the `addPreserved < A >` to the list of common **Pass Manager** function calls.
