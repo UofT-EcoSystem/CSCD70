@@ -13,7 +13,7 @@ public:
 	FunctionInfo() : ModulePass(ID)
 	{}
 
-	~FunctionInfo()
+	virtual ~FunctionInfo()
 	{}
 
   	// We don't modify the program, so we preserve all analysis.
