@@ -5,11 +5,12 @@
 ## Abstract
 
 - Static Single Assignment (**SSA**)
-  - Definition
+  - Definition and Motivation
   - **<img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" />-Nodes**
-    - <img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" />-Node Placement Problem: Dominance Frontier, 
-      <img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" /> Placement, 
-      Variable Renaming
+    - <img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" />-Node Placement Problem:
+      1. Dominance Frontier
+      2. <img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" /> Placement
+      3. Variable Renaming
     - Handling <img src="https://latex.codecogs.com/gif.latex?\phi" title="\phi" />-Nodes in LLVM
 
 ## Changelog
