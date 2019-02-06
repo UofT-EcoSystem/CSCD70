@@ -50,29 +50,8 @@ struct hash < Expression >
 };
 } // namespace std
 
-namespace {
-class AvailExprMeetOp : public dfa::MeetOpABC
-{
-	virtual void operator()(const BitVector & parent_bv,
-	                              BitVector &  child_bv) const override final
-	{
-		// @TODO
-	}
-};
-
-class AvailExprInstTransferFunc : public dfa::InstTransferFuncABC
-{
-	virtual bool operator()(const Instruction & bb) const override final
-	{
-		// @TODO
-		return false;
-	}
-};
-
 class AvailExpr : public dfa::Framework < Expression, 
-	                                  dfa::Direction::Forward, 
-			                  AvailExprMeetOp,
-				          AvailExprInstTransferFunc >
+	                                  dfa::Direction::Forward >
 {
 protected:
 	// Initialize the domain.
@@ -89,9 +68,7 @@ public:
 	static char ID;
 
 	AvailExpr() : dfa::Framework < Expression, 
-		                       dfa::Direction::Forward, 
-		                       AvailExprMeetOp,
-				       AvailExprInstTransferFunc > (ID) {}
+		                       dfa::Direction::Forward > (ID) {}
 };
 
 char AvailExpr::ID = 1; 

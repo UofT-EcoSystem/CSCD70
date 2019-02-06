@@ -29,27 +29,9 @@ using namespace llvm;
 namespace dfa {
 enum class Direction { Forward, Backward };
 
-class MeetOpABC
-{
-	virtual void operator()(const BitVector & parent_bv,
-	                              BitVector &  child_bv) const = 0;
-};
-
-class InstTransferFuncABC
-{
-	virtual bool operator()(const Instruction & inst) const = 0;
-};
-
-template < typename  TDomainElement, 
-           Direction TDirection, 
-           typename  TMeetOp,
-	   typename  TInstTransferFunc >
+template < typename TDomainElement, Direction TDirection >
 class Framework : public FunctionPass
 {
-	static_assert(std::is_base_of < MeetOpABC, TMeetOp > ::value, 
-		"TMeetOp must derive from MeetOpABC.");
-	static_assert(std::is_base_of < InstTransferFuncABC, TInstTransferFunc > ::value, 
-		"TInstTransferFunc must derive from InstTransferFuncABC.");
 protected:
 
 	/***********************************************************************
@@ -106,7 +88,9 @@ protected:
 		}
 		__applyInitialConditions(func);
 	}
-	// Apply the Initial Conditions, should be called by '_initializeInstBVMap'.
+	// Apply the Boundary Conditions, should be called by 'runOnFunction'.
+	virtual void  _applyBoundaryConditions() = 0;
+	// Apply the Initial  Conditions, should be called by '_initializeInstBVMap'.
 	virtual void __applyInitialConditions(const Function & func) = 0;
 
 	// Dump, for each Instruction in the Function, the associated IO BitVector Pair.
@@ -193,6 +177,8 @@ public:
 		do 
 		{
 			is_convergent = true;
+
+			_applyBoundaryConditions();
 
 			if (_traverseCFG(func))
 			{
