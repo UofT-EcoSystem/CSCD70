@@ -55,22 +55,24 @@ class AvailExpr : public dfa::Framework < Expression,
 	                                  dfa::Direction::Forward >
 {
 protected:
-	virtual void _initializeDomain(const Function & func) override final
+	virtual void _initializeDomain   (const Function & func) override final
 	{
 		// @TODO
 	}
-	virtual void  _applyBoundaryConditions() override final
+	virtual BitVector __getBoundaryCondition(const Function & func,
+	                                         const BasicBlock & bb) override final
+	{
+		// @TODO
+		return BitVector(_domain.size());
+	}
+	virtual void _initializeInstBVMap(const Function & func) override final
 	{
 		// @TODO
 	}
-	virtual void __applyInitialConditions(const Function & func) override final
+	virtual BitVector __meetOp(const BasicBlock & bb) override final
 	{
 		// @TODO
-	}
-	virtual bool __meetOp(const BasicBlock & bb) override final
-	{
-		// @TODO
-		return false;
+		return BitVector(_domain.size());
 	}
 	virtual bool __instTransferFunc(const Instruction & inst, 
 	                                const BitVector & ibv, BitVector & obv) override final

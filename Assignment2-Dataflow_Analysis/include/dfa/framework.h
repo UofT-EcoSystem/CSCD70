@@ -72,23 +72,10 @@ protected:
 	// Mapping from Instruction Pointer to BitVector 
 	std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
 
-	// Initialize the Instruction-IO BitVector Pair Mapping.
-	virtual void _initializeInstBVMap(const Function & func)
-	{
-		for (auto & bb : func)
-		{
-			for (auto & inst : bb)
-			{
-				_inst_bv_map.insert(std::make_pair(&inst, 
-					BitVector(_domain.size())));
-			}
-		}
-		__applyInitialConditions(func);
-	}
-	// Apply the Boundary Conditions, should be called by 'runOnFunction'.
-	virtual void  _applyBoundaryConditions() = 0;
-	// Apply the Initial  Conditions, should be called by '_initializeInstBVMap'.
-	virtual void __applyInitialConditions(const Function & func) = 0;
+	virtual BitVector __getBoundaryCondition(const Function & func,
+	                                         const BasicBlock & bb) = 0;
+	// Initialize the Instruction-BitVector Mapping.
+	virtual void _initializeInstBVMap(const Function & func) = 0;
 
 	// Dump, for each Instruction in the Function, the associated BitVector.
 	void _dumpInstBVMap(const Function & func) const
@@ -97,17 +84,20 @@ protected:
 		outs() << "* Instruction-IO BitVector Mapping          " << "\n";
 		outs() << "********************************************" << "\n";
 
-		for (const auto & bb : func)
+		for (const auto & entry : _inst_bv_map)
 		{
-			for (const auto & inst : bb)
+			const Instruction & inst = *entry.first;
+			const BitVector   & bv   =  entry.second;
+				
+			if (TDirection == Direction::Forward)
 			{
 				outs() << "Instruction: " << inst << "\n";
-
-				const BitVector & bv = _inst_bv_map.at(&inst);
-				
-				outs() << "\t";
-				__dumpDomainWithMask(bv); 
-				outs() << "\n";
+				outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
+			}
+			else if (TDirection == Direction::Backward)
+			{
+				outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
+				outs() << "Instruction: " << inst << "\n";
 			}
 		}
 	}
@@ -116,9 +106,9 @@ protected:
 	 * Meet Operator and Transfer Function
 	 ***********************************************************************/
 	
-	virtual bool __meetOp(const BasicBlock & bb) = 0;
+	virtual BitVector __meetOp(const BasicBlock & bb) = 0;
 	virtual bool __instTransferFunc(const Instruction & inst, 
-	                        const BitVector & ibv, BitVector & obv) = 0;
+	                                const BitVector & ibv, BitVector & obv) = 0;
 
 	/***********************************************************************
 	 * CFG Traversal
@@ -160,8 +150,6 @@ public:
 		do 
 		{
 			is_convergent = true;
-
-			_applyBoundaryConditions();
 
 			if (_traverseCFG(func))
 			{
