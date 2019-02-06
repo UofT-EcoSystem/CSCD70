@@ -1,9 +1,8 @@
 #pragma once
 
-#include <utility> // std::pair
 #include <type_traits>
-#include <unordered_set> // Hash Set
-#include <unordered_map> // Hash Map
+#include <unordered_set>
+#include <unordered_map>
 
 #include <llvm/Pass.h>
 #include <llvm/ADT/BitVector.h> // BitVector
@@ -73,7 +72,7 @@ protected:
 	std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
 
 	virtual BitVector __getBoundaryCondition(const Function & func,
-	                                         const BasicBlock & bb) = 0;
+	                                         const BasicBlock & bb) const = 0;
 	// Initialize the Instruction-BitVector Mapping.
 	virtual void _initializeInstBVMap(const Function & func) = 0;
 
@@ -81,23 +80,41 @@ protected:
 	void _dumpInstBVMap(const Function & func) const
 	{
 		outs() << "********************************************" << "\n";
-		outs() << "* Instruction-IO BitVector Mapping          " << "\n";
+		outs() << "* Instruction-BitVector Mapping             " << "\n";
 		outs() << "********************************************" << "\n";
 
-		for (const auto & entry : _inst_bv_map)
+		for (const auto & bb : func)
 		{
-			const Instruction & inst = *entry.first;
-			const BitVector   & bv   =  entry.second;
-				
-			if (TDirection == Direction::Forward)
+			for (const auto & inst : bb)
 			{
-				outs() << "Instruction: " << inst << "\n";
-				outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
-			}
-			else if (TDirection == Direction::Backward)
-			{
-				outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
-				outs() << "Instruction: " << inst << "\n";
+				const BitVector & bv = _inst_bv_map.at(&inst);
+					
+				if (TDirection == Direction::Forward)
+				{
+					if (&bb   == &(func.getEntryBlock()) && 
+					    &inst == &(*bb.begin()))
+					{
+						outs() << "Boundary Condition: ";
+						__dumpDomainWithMask(__getBoundaryCondition(func, bb));
+						outs() << "\n";
+					}
+
+					outs() << "Instruction: " << inst << "\n";
+					outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
+				}
+				else if (TDirection == Direction::Backward)
+				{
+					outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
+					outs() << "Instruction: " << inst << "\n";
+
+					if (isa < ReturnInst > (inst) || 
+					    isa < UnreachableInst > (inst))
+					{
+						outs() << "Boundary Condition: ";
+						__dumpDomainWithMask(__getBoundaryCondition(func, bb));
+						outs() << "\n";
+					}
+				}
 			}
 		}
 	}
@@ -142,7 +159,7 @@ public:
 
 	virtual bool runOnFunction(Function & func)
 	{
-		// Initialize the Domain and the Instruction-IO BitVector mapping.
+		// Initialize the Domain and the Instruction-BitVector mapping.
 		_initializeDomain   (func);
 		_initializeInstBVMap(func);
 

@@ -39,11 +39,11 @@ struct hash < Expression >
 {
 	std::size_t operator()(const Expression & expr) const
 	{
-		std::hash < unsigned > unsigned_hasher; std::hash < std::size_t > std_size_t_hasher;
+		std::hash < unsigned > unsigned_hasher; std::hash < const Value * > value_ptr_hasher;
 
 		std::size_t opcode_hash = unsigned_hasher(expr.getOpcode());
-		std::size_t lhs_operand_hash = std_size_t_hasher(std::size_t(expr.getLHSOperand()));
-		std::size_t rhs_operand_hash = std_size_t_hasher(std::size_t(expr.getRHSOperand()));
+		std::size_t lhs_operand_hash = value_ptr_hasher((expr.getLHSOperand()));
+		std::size_t rhs_operand_hash = value_ptr_hasher((expr.getRHSOperand()));
 
 		return opcode_hash ^ (lhs_operand_hash << 1) ^ (rhs_operand_hash << 1);
 	}
@@ -60,14 +60,22 @@ protected:
 		// @TODO
 	}
 	virtual BitVector __getBoundaryCondition(const Function & func,
-	                                         const BasicBlock & bb) override final
+	                                         const BasicBlock & bb) const override final
 	{
 		// @TODO
 		return BitVector(_domain.size());
 	}
 	virtual void _initializeInstBVMap(const Function & func) override final
 	{
-		// @TODO
+		for (auto & bb : func)
+		{
+			for (auto & inst : bb)
+			{
+				// @TODO
+				_inst_bv_map.insert(std::make_pair(&inst, 
+					                           BitVector(_domain.size())));
+			}
+		}
 	}
 	virtual BitVector __meetOp(const BasicBlock & bb) override final
 	{
