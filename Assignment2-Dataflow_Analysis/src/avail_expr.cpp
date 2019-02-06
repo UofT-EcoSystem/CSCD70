@@ -50,19 +50,33 @@ struct hash < Expression >
 };
 } // namespace std
 
+namespace {
 class AvailExpr : public dfa::Framework < Expression, 
 	                                  dfa::Direction::Forward >
 {
 protected:
-	// Initialize the domain.
 	virtual void _initializeDomain(const Function & func) override final
 	{
 		// @TODO
 	}
-	// Initialize the Instruction-IO BitVector Pair mapping.
+	virtual void  _applyBoundaryConditions() override final
+	{
+		// @TODO
+	}
 	virtual void __applyInitialConditions(const Function & func) override final
 	{
 		// @TODO
+	}
+	virtual bool __meetOp(const BasicBlock & bb) override final
+	{
+		// @TODO
+		return false;
+	}
+	virtual bool __instTransferFunc(const Instruction & inst, 
+	                                const BitVector & ibv, BitVector & obv) override final
+	{
+		// @TODO
+		return false;
 	}
 public:
 	static char ID;

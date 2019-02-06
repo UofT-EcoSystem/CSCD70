@@ -41,7 +41,7 @@ protected:
 	std::unordered_set < TDomainElement > _domain; // Domain
 
 	// Initialize the domain.
-	virtual void _initializeDomain   (const Function & func) = 0;
+	virtual void _initializeDomain(const Function & func) = 0;
 
 	// Dump the domain with mask, used for debugging purpose.
 	// E.g., If your domain is {%1, %2, %3}, 
@@ -66,13 +66,11 @@ protected:
 	}
 
 	/***********************************************************************
-	 * Instruction-IO BitVector Pair Mapping
+	 * Instruction-BitVector Mapping
 	 ***********************************************************************/
 
-	typedef std::pair < BitVector, BitVector > _io_bv_pair_t;
-	// Mapping from Instruction Pointer to IO BitVector Pair
-	std::unordered_map < const Instruction *, _io_bv_pair_t > 
-		_inst_ptr_io_bv_pair_map;
+	// Mapping from Instruction Pointer to BitVector 
+	std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
 
 	// Initialize the Instruction-IO BitVector Pair Mapping.
 	virtual void _initializeInstBVMap(const Function & func)
@@ -81,9 +79,8 @@ protected:
 		{
 			for (auto & inst : bb)
 			{
-				_inst_ptr_io_bv_pair_map.insert(std::make_pair(
-					&inst, std::make_pair(BitVector(_domain.size()),
-					                      BitVector(_domain.size()))));
+				_inst_bv_map.insert(std::make_pair(&inst, 
+					BitVector(_domain.size())));
 			}
 		}
 		__applyInitialConditions(func);
@@ -93,8 +90,8 @@ protected:
 	// Apply the Initial  Conditions, should be called by '_initializeInstBVMap'.
 	virtual void __applyInitialConditions(const Function & func) = 0;
 
-	// Dump, for each Instruction in the Function, the associated IO BitVector Pair.
-	void _dumpInstPtrIOBVPairMap(const Function & func) const
+	// Dump, for each Instruction in the Function, the associated BitVector.
+	void _dumpInstBVMap(const Function & func) const
 	{
 		outs() << "********************************************" << "\n";
 		outs() << "* Instruction-IO BitVector Mapping          " << "\n";
@@ -106,36 +103,22 @@ protected:
 			{
 				outs() << "Instruction: " << inst << "\n";
 
-				const _io_bv_pair_t & io_bv_pair = 
-					_inst_ptr_io_bv_pair_map.at(&inst);
+				const BitVector & bv = _inst_bv_map.at(&inst);
 				
-				outs() << "\t" "IN: ";
-				__dumpDomainWithMask(io_bv_pair.first);
-				outs() << ", " "OUT: ";
-				__dumpDomainWithMask(io_bv_pair.second); 
+				outs() << "\t";
+				__dumpDomainWithMask(bv); 
 				outs() << "\n";
 			}
 		}
 	}
 
 	/***********************************************************************
-	 * Transfer Function
+	 * Meet Operator and Transfer Function
 	 ***********************************************************************/
 	
-	template < Direction _TDirection = TDirection >
-	std::enable_if_t < _TDirection == Direction:: Forward, bool >
-	__bbTransferFunc(const BasicBlock & bb)
-	{
-		// @TODO
-		return false;
-	}
-	template < Direction _TDirection = TDirection >
-	std::enable_if_t < _TDirection == Direction::Backward, bool >
-	__bbTransferFunc(const BasicBlock & bb)
-	{
-		// @TODO
-		return false;
-	}
+	virtual bool __meetOp(const BasicBlock & bb) = 0;
+	virtual bool __instTransferFunc(const Instruction & inst, 
+	                        const BitVector & ibv, BitVector & obv) = 0;
 
 	/***********************************************************************
 	 * CFG Traversal
@@ -186,7 +169,7 @@ public:
 			}
 		} while (!is_convergent);
 
-		_dumpInstPtrIOBVPairMap(func);
+		_dumpInstBVMap(func);
 
 		return false;
 	}
