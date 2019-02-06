@@ -43,7 +43,7 @@ class InstTransferFuncABC
 template < typename  TDomainElement, 
            Direction TDirection, 
            typename  TMeetOp,
-	   typename  TBBTransferFunc >
+	   typename  TInstTransferFunc >
 class Framework : public FunctionPass
 {
 	static_assert(std::is_base_of < MeetOpABC, TMeetOp > ::value, 
