@@ -1,5 +1,4 @@
 OPTIMIZER := dfa.so
-OPT_PASSES := -avail-expr
 
 LLVM_VERSION := 6.0
 
@@ -20,7 +19,7 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 	llvm-dis-$(LLVM_VERSION) $< -o=$@
 
 ./tests/%-opt.bc: ./tests/%-m2r.bc $(OPTIMIZER)
-	env LD_LIBRARY_PATH=. opt-$(LLVM_VERSION) -load $(OPTIMIZER) $(OPT_PASSES) $< -o $@
+	env LD_LIBRARY_PATH=. opt-$(LLVM_VERSION) -load $(OPTIMIZER) -$* $< -o $@
 
 ./tests/%-m2r.bc: ./tests/%.bc
 	opt-$(LLVM_VERSION) -mem2reg $< -o $@
