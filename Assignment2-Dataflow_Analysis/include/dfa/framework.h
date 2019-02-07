@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 #include <llvm/Pass.h>
-#include <llvm/ADT/BitVector.h> // BitVector
+#include <llvm/ADT/BitVector.h>
 #include <llvm/ADT/PostOrderIterator.h>
 #include <llvm/IR/CFG.h>
 #include <llvm/IR/Function.h>
