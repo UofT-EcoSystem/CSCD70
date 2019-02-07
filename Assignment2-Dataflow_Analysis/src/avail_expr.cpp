@@ -55,7 +55,9 @@ class AvailExpr : public dfa::Framework < Expression,
 	                                  dfa::Direction::Forward >
 {
 protected:
-	virtual void _initializeDomain   (const Function & func) override final
+
+
+	virtual void _initializeDomain(const Function & func) override final
 	{
 		// @TODO
 	}
@@ -71,7 +73,7 @@ protected:
 		{
 			for (auto & inst : bb)
 			{
-				// @TODO
+				// @TODO Change the initialization if necessary.
 				_inst_bv_map.insert(std::make_pair(&inst, 
 					                           BitVector(_domain.size())));
 			}
@@ -96,5 +98,5 @@ public:
 };
 
 char AvailExpr::ID = 1; 
-RegisterPass < AvailExpr > Y ("avail-expr", "Available Expression");
+RegisterPass < AvailExpr > Y ("avail_expr", "Available Expression");
 } // namespace anonymous
