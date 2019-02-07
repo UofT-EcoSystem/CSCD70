@@ -156,7 +156,7 @@ public:
 		AU.setPreservesAll();
 	}
 
-	virtual bool runOnFunction(Function & func)
+	virtual bool runOnFunction(Function & func) override final
 	{
 		// Initialize the Domain and the Instruction-BitVector mapping.
 		_initializeDomain   (func);
