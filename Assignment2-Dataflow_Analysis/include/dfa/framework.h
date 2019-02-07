@@ -53,7 +53,7 @@ protected:
 		outs() << "{";
 
 		unsigned mask_idx = 0;
-		for (const auto & element : _domain)
+		for (auto & element : _domain)
 		{
 			if (!mask[mask_idx++])
 			{
@@ -83,9 +83,9 @@ protected:
 		outs() << "* Instruction-BitVector Mapping             " << "\n";
 		outs() << "********************************************" << "\n";
 
-		for (const auto & bb : func)
+		for (auto & bb : func)
 		{
-			for (const auto & inst : bb)
+			for (auto & inst : bb)
 			{
 				const BitVector & bv = _inst_bv_map.at(&inst);
 					
@@ -148,8 +148,6 @@ protected:
 
 public:
 	Framework(char ID) : FunctionPass(ID) {}
-	
-	virtual ~Framework() {}
 
 	// We don't modify the program, so we preserve all analysis.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const
