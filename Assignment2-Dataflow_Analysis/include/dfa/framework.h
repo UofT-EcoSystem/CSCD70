@@ -71,12 +71,13 @@ protected:
 	// Mapping from Instruction Pointer to BitVector 
 	std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
 
+	// Get the Boundary Condition if 'bb' is indeed the boundary.
 	virtual BitVector __getBoundaryCondition(const Function & func,
 	                                         const BasicBlock & bb) const = 0;
 	// Initialize the Instruction-BitVector Mapping.
 	virtual void _initializeInstBVMap(const Function & func) = 0;
 
-	// Dump, for each Instruction in the Function, the associated BitVector.
+	// Dump, for each Instruction in 'func', the associated bitvector.
 	void _dumpInstBVMap(const Function & func) const
 	{
 		outs() << "********************************************" << "\n";
