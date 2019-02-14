@@ -11,8 +11,7 @@ all: $(OPTIMIZER)
 # Build the optimizer from the source files.
 $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
-.INTERMEDIATE: $(OPT_OBJs) # Mark object files as intermediate targets.
 
 .PHONY: clean
 clean:
-	$(RM) $(OPTIMIZER)
+	$(RM) $(OPTIMIZER) $(OPT_OBJs)

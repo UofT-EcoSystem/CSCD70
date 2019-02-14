@@ -30,8 +30,7 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 # Build the optimizer from the source files.
 $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
-.INTERMEDIATE: $(OPTIMIZER) $(OPT_OBJs)
 
 .PHONY: clean
 clean:
-	$(RM) $(TEST_OPT_LLs) $(TEST_RAW_LLs) 
+	$(RM) $(TEST_OPT_LLs) $(TEST_RAW_LLs) $(OPTIMIZER) $(OPT_OBJs)
