@@ -4,4 +4,10 @@ This folder contains the LLVM docker image which you could use to build the exam
 
 ## Introduction
 
+
+
 ## Instructions
+
+1. Download *Docker*
+  - [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+  - [MAC](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
