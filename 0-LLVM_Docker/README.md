@@ -6,6 +6,8 @@ This folder contains the LLVM *Docker* image which you could use to build the ex
 
 *Docker* has the 
 
+Compared with the virtual machine solution, *Docker* has very low performance overhead ("*The general result is that Docker is **nearly identical to Native performance** and faster than KVM in every category*" as per the performance study [here](https://stackoverflow.com/a/26149994/6320608)).
+
 ## Instructions
 
 - Download *Docker*: 
