@@ -23,7 +23,8 @@ Compared with the virtual machine solution, *Docker* has very low performance ov
 - Build the LLVM image.
 
 ```
-# Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0".
-docker build . -t llvm:6.0
+# Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0",
+# and remove the intermediate containers if the build is successful.
+docker build . -t llvm:6.0 --rm
 ```
 
