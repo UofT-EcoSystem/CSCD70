@@ -18,11 +18,30 @@ Compared with the virtual machine solution, *Docker* has very low performance ov
 
 - Download *Docker*: 
   [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), 
-  [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac), 
-  [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+  [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
+
+```bash
+# Ubuntu installation
+sudo apt-get update && sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+sudo apt-get update && sudo apt-get install -y \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io
+```
+
 - Build the LLVM image.
 
-```
+```bash
 # Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0",
 # and remove the intermediate containers if the build is successful.
 docker build . -t llvm:6.0 --rm
