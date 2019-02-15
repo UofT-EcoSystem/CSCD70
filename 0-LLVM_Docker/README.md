@@ -21,7 +21,7 @@ Compared with the virtual machine solution, *Docker* has very low performance ov
   [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
 
 ```bash
-# Ubuntu installation
+# Ubuntu (x86_64/amd64) Installation
 sudo apt-get update && sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
