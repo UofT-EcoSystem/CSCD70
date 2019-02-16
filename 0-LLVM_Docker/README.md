@@ -16,7 +16,7 @@ Compared with the virtual machine solution, *Docker* has very low performance ov
 
 ## Instructions
 
-- Download *Docker*: 
+- **Download *Docker***: 
   [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), 
   [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
 
