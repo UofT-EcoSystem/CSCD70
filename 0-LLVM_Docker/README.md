@@ -50,5 +50,11 @@ docker build . -t llvm:6.0
 
 ```bash
 # Create a container for the first assignment.
-docker run -dit --name CSCD70_A1 -v Assignment1-Introduction_to_LLVM:/mnt llvm:6.0 
+docker run -dit --name CSCD70_A1 -v Assignment1-Introduction_to_LLVM:/mnt llvm:6.0
+# Options:
+#    -dit  : 
+#   --name : Name of the Container
+#    -v    : Mount the `Assignment1...` directory to /mnt in the container.
+#            This way any changes made natively will be reflected 
+#            in the container as well (and vice versa).
 ```
