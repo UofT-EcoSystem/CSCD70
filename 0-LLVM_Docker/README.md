@@ -39,19 +39,19 @@ sudo apt-get update && sudo apt-get install -y \
     containerd.io
 ```
 
-- **Build the LLVM image.**
+- **Build the LLVM image**:
 
 ```bash
 # Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0".
 docker build . -t llvm:6.0
 ```
 
-- **Create a container from the newly built LLVM image.**
+- **Create a container**:
 
 ```bash
 # Create a container for the first assignment.
-cd ../Assignment1-Introduction_to_LLVM
-docker run -it --rm -v $(pwd)FunctionInfo:/mnt --name CSCD70_A1 llvm:6.0 
+cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
+docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 llvm:6.0 
 
 # Options:
 #    -it   : Allocate a pseudo tty (-t) and connect STDIN. 
@@ -70,8 +70,18 @@ docker run -it --rm -v $(pwd)FunctionInfo:/mnt --name CSCD70_A1 llvm:6.0
 #     Otherwise the default command `/bin/bash` will run.
 ```
 
-- **Run the experiments**.
+- **Run the experiments**:
 
 ```bash
 cd /mnt && make -f Optimize.mk all
+```
+
+- **You can also combine the first two steps**:
+
+```bash
+cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
+docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt llvm:6.0 \
+    make -f Optimize.mk all
+# Pay attention to the additional `-w /mnt` (set working directory as /mnt)
+# and the appended build command `make -f Optimize.mk all`.
 ```
