@@ -4,7 +4,7 @@ This folder contains the LLVM *Docker* image which you could use to run experime
 
 ## Introduction
 
-*Docker* runs our applications in a **lightweight** *container* by using the *image* that has all the necessary software components installed, "*taking no more memory than any other executable*" [[1]](https://docs.docker.com/get-started/).
+*Docker* runs our applications in a **lightweight** *container* by using the *image* that has all the necessary software components installed. Think of it as `conda` or `virtualenv`, but at a broader scope for almost all common software libraries.
 
 Compared with the virtual machine solution, *Docker* has very low performance overhead ("*The general result is that Docker is **nearly identical to Native performance** and faster than KVM in every category*" [[2]](https://stackoverflow.com/a/26149994/6320608)).
 
