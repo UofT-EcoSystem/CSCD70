@@ -82,6 +82,6 @@ cd /mnt && make -f Optimize.mk all
 cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
 docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt llvm:6.0 \
     make -f Optimize.mk all
-# Pay attention to the additional `-w /mnt` (set working directory as /mnt)
+# Pay attention to the additional `-w /mnt` (set working directory as `/mnt`)
 # and the appended build command `make -f Optimize.mk all`.
 ```
