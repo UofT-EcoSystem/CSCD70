@@ -42,8 +42,13 @@ sudo apt-get update && sudo apt-get install -y \
 - Build the LLVM image.
 
 ```bash
-# Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0",
-# and remove the intermediate containers if the build is successful.
-docker build . -t llvm:6.0 --rm
+# Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0".
+docker build . -t llvm:6.0
 ```
 
+- Create a container from the newly built LLVM image.
+
+```bash
+# Create a container for the first assignment.
+docker run -dit --name CSCD70_A1 -v Assignment1-Introduction_to_LLVM:/mnt llvm:6.0 
+```
