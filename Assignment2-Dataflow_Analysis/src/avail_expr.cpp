@@ -55,8 +55,6 @@ class AvailExpr : public dfa::Framework < Expression,
 	                                  dfa::Direction::Forward >
 {
 protected:
-
-
 	virtual void _initializeDomain(const Function & func) override final
 	{
 		// @TODO
@@ -79,7 +77,8 @@ protected:
 			}
 		}
 	}
-	virtual BitVector __meetOp(const BasicBlock & bb) override final
+	virtual BitVector __meetOp(const BasicBlock & bb, 
+	                           const pred_const_range & parents) override final
 	{
 		// @TODO
 		return BitVector(_domain.size());

@@ -29,8 +29,8 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 
 $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
-./src/%.o: ./src/%.cpp ./include/dfa/framework.h
+$(OPT_OBJs): ./include/dfa/framework.h
 
 .PHONY: clean
 clean:
-	$(RM) ./tests/*.ll
+	$(RM) $(TEST_OPT_LLs) $(TEST_RAW_LLs) $(OPTIMIZER) $(OPT_OBJs)
