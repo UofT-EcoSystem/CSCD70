@@ -127,8 +127,7 @@ protected:
 	typedef std::conditional_t < TDirection == Direction:: Forward,
         	                     pred_const_range,
                                      succ_const_range > parent_const_range;
-	virtual BitVector __meetOp(const BasicBlock & bb, 
-	                           const parent_const_range & parents) = 0;
+	virtual BitVector __meetOp(const parent_const_range & parents) = 0;
 	virtual bool __instTransferFunc(const Instruction & inst, 
 	                                const BitVector & ibv, BitVector & obv) = 0;
 

@@ -4,4 +4,5 @@
 
 ## Changelog
 
+- Changed the arguments of `meetOp` from `BasicBlock` to `parent_const_range`.
 - Added the header dependency, without it any change in the header will not be reflected in `make`.
