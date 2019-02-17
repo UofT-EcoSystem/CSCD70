@@ -1,6 +1,6 @@
 # LLVM Docker Image
 
-This folder contains the LLVM *Docker* image which you could use to run experiments or build examples in any OS.
+This folder contains the LLVM *Docker* image which you could use to run experiments or build examples in any OS. You can skip this section if you are running experiments on the UG workstations since they already have LLVM installed.
 
 ## Introduction
 
