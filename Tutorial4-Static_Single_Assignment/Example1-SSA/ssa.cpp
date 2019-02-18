@@ -96,9 +96,7 @@ public:
 
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const
 	{
-		AU.addRequired  < DominanceFrontierWrapperPass > (); 
-		AU.addPreserved < DominanceFrontierWrapperPass > ();
-		
+		AU.addRequired < DominanceFrontierWrapperPass > (); 
 		AU.setPreservesAll();
 	}
   
