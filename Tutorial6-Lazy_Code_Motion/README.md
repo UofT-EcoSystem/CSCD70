@@ -1,4 +1,4 @@
-# [Tutoiral 6 Lazy Code Motion](https://v2.overleaf.com/read/dyjffnjmznyn)
+# [Tutorial 6 Lazy Code Motion](https://v2.overleaf.com/read/dyjffnjmznyn)
 
 *Please click on the title for the tutorial slides.*
 
