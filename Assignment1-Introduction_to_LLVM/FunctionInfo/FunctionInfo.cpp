@@ -17,12 +17,12 @@ public:
 	{}
 
   	// We don't modify the program, so we preserve all analysis.
-	virtual void getAnalysisUsage(AnalysisUsage & AU) const
+	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
 	{
 		AU.setPreservesAll();
 	}
   
-	virtual bool runOnModule(Module & M)
+	virtual bool runOnModule(Module & M) override final
 	{
 		outs() << "CSCD70 Functions Information Pass" << "\n";
 
