@@ -12,12 +12,12 @@ public:
 
 	// @TODO Add or remove method definitions if necessary.
 	
-	virtual void getAnalysisUsage(AnalysisUsage & AU) const
+	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
 	{
 		AU.setPreservesAll();
 	}
 
-	bool runOnFunction(Function & func)
+	virtual bool runOnFunction(Function & func) override final
 	{
 		return false;
 	}
