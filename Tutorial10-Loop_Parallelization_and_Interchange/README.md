@@ -5,9 +5,9 @@
 ## Abstract
 
 - Loop **Parallelization**
-  - Outermost loop carries the dependency.
+  - **Outermost** loop carries the dependency.
   - **Outer** Loop Parallelism vs. **Inner** Loop Parallelism
 - Loop **Interchange**
   - **Motivation**: Data Locality and Outer Parallelism
   - **Validity** Analysis using Data Dependency
-  - ND-Scenario: Loop Permutation
+  - ND-Scenario: Loop **Permutation**
