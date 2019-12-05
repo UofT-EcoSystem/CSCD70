@@ -5,11 +5,10 @@
  * 	- `std::unordered_map`: http://www.cplusplus.com/reference/unordered_map/unordered_map/
  * 	- More C++ Containers : http://www.cplusplus.com/reference/stl/
  */ 	
-#include <vector>
-#include <unordered_map>
-
-#include <string>   // C++ Strings
-#include <iostream> // Print Statements
+#include <vector>         // List
+#include <unordered_map>  // Hash Table
+#include <string>         // String
+#include <iostream>       // Print Statements
 
 int main()
 {
@@ -21,11 +20,13 @@ int main()
          * 
          * `a` is an array of unsigned integer values.
          * 
-         * `std` is a namespace. It is used to avoid name clashes.
+         * `std` is a namespace. It is used to avoid name clashes and can be used to 
          * Functions/Data structures that are supported by the C++ standard belong to this namespace.
          * 
          * `< unsigned (<- typename) >` is an instantiation of the template.
+         * 
          * We can create another array of floating values using the statement:
+         * 
          * 	std::vector < float > b = { 1.0, 2.0, 3.0 };
          */
         std::vector < unsigned > a = { 1, 2, 3, 4, 5 };
@@ -66,7 +67,8 @@ int main()
 
                 std::cout << "(" << key_value_pair.first << ", " << key_value_pair.second << "), ";
                 // We can collapse the above two statements in one:
-                // 	std::cout << ... iter->first ... iter->second ...
+                // 	
+                //     std::cout << ... iter->first ... iter->second ...
         }
         std::cout << std::endl; // newline character
 
