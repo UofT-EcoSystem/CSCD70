@@ -11,7 +11,5 @@
   - Iterator
   - Downcasting
   - LLVM Pass Interfaces
+- C++ Fundamentals
 
-## Changelog
-
-- Added an example on **Standard-Template-Library (STL) Data Structure** and **Variable Reference**.
