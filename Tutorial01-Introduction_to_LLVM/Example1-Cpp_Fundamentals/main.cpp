@@ -25,28 +25,31 @@ int main()
          * types. In the example below, `< unsigned (<- typename) >` is an
          * instantiation of the `vector` template class (for unsigned integer).
          * Similarly, we can create another array of floating point values using
-         * the statement: `std::vector < float > b = { 1.0, 2.0, 3.0 };`
+         * the statement: `std::vector < float > b = { 1.0, 2.0, 3.0 };`.
          */
         std::vector < unsigned > a = { 1, 2, 3, 4, 5 };
 
         /**
-         * Traverse through `a` using iterator.
+         * Traverse through `a` using *iterators*. 
+         * `std::vector < unsigned > ::iterator` is the typename for the
+         * iterators. If you find it tedious, you can let the compiler
+         * automatically infer the typename for you:
          * 
-         * `std::vector < unsigned > ::iterator` is the typename for the iterator.
-         * If you find it tedious, you can let the compiler automatically infer the typename for you: 
-         * 	for (auto iter = a.begin(); ...)
+         *     for (auto iter = a.begin(); ...)
          */
-        for (std::vector < unsigned > ::iterator iter = a.begin(); iter != a.end(); ++iter)
+        for (std::vector < unsigned > ::iterator iter = a.begin();
+             iter != a.end(); ++iter)
         {
-                // Dereference the iterator the obtain the array value.
+                // dereference the iterator the obtain the array value.
                 std::cout << *iter << ", ";
         }
-        std::cout << std::endl; // newline character
+        std::cout << std::endl;  // newline character
         // =====================================================================
         // std::unordered_map
         // =====================================================================
         /**
-         * `unordered_map` is the dictionary-like data structure in STL.
+         * `unordered_map` is the dictionary-like data structure in STL. We can
+         * see that it is taking two template arguments
          * 
          * `b` is a dictionary that uses string as the key and unsigned integer as the value.
          */
