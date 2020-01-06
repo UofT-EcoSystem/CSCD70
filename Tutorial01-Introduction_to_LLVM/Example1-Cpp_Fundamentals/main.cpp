@@ -18,20 +18,14 @@ int main()
         /**
          * `std` is the standard namespace. It is used to avoid name clashes of
          * classes, variables, and functions. Classes/Variables/Functions that
-         * are supported by the C++ standard belong to this namespace.
+         * are supported by the C++ standard library belong to this namespace.
          * 
-         * `vector` is the list-like data structure in STL.
-         * `< unsigned (<- typename) >` is an instantiation of the template class.
-         * 
-         * `a` is an array of
-         * unsigned integer values. 
-         * 
-         * 
-         * 
-         * 
-         * We can create another array of floating values using the statement:
-         * 
-         * 	std::vector < float > b = { 1.0, 2.0, 3.0 };
+         * `vector` is the list-like data structure in STL. It is a
+         * *template class*. A template class can be *instantiated* for various
+         * types. In the example below, `< unsigned (<- typename) >` is an
+         * instantiation of the `vector` template class (for unsigned integer).
+         * Similarly, we can create another array of floating point values using
+         * the statement: `std::vector < float > b = { 1.0, 2.0, 3.0 };`
          */
         std::vector < unsigned > a = { 1, 2, 3, 4, 5 };
 
