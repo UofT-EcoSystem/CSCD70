@@ -49,9 +49,10 @@ int main()
         // =====================================================================
         /**
          * `unordered_map` is the dictionary-like data structure in STL. We can
-         * see that it is taking two template arguments
-         * 
-         * `b` is a dictionary that uses string as the key and unsigned integer as the value.
+         * see that it is taking two template arguments (i.e., `string` and
+         * `unsigned`). The first argument is the key type and the second one is
+         * the value type (hence `b` is a dictionary that uses string as the key
+         * and unsigned integer as the value).
          */
         std::unordered_map < std::string, unsigned > b = 
                 {
@@ -60,15 +61,20 @@ int main()
                         {"Blue" , 2}
                 };
         
-        for (std::unordered_map < std::string, unsigned > ::iterator iter = b.begin(); iter != b.end(); ++iter)
+        for (std::unordered_map < std::string, unsigned > ::iterator iter = b.begin();
+             iter != b.end(); ++iter)
         {
-                // When we dereference the iterator, what we get is a `pair`.
-                // The first element is the constant key, and the second element is the value.
+                // When we dereference the iterator, what we get is a
+                // *reference* to a *pair* object (we will illustrate an example
+                // on the reference concept soon). The first element of the pair
+                // reference is the *constant* key, and the second element is
+                // the value corresponding to the key.
                 std::pair < const std::string, unsigned > & key_value_pair = *iter;
 
-                std::cout << "(" << key_value_pair.first << ", " << key_value_pair.second << "), ";
-                // We can collapse the above two statements in one:
-                // 	
+                std::cout << "(" << key_value_pair.first << ", "
+                          << key_value_pair.second << "), ";
+                // Alternatively, we can also write:
+                //
                 //     std::cout << ... iter->first ... iter->second ...
         }
         std::cout << std::endl; // newline character
@@ -77,13 +83,23 @@ int main()
         // Variable Reference
         // =====================================================================
 
-        int   x = 100; 
-        int & y = x; // `y` is a reference to `x`
-        int   z = x; // `z` is a copy      of `x`
+        int x = 100; 
+        int * ptr_x = &x; //  `ptr_x` is a pointer     to `x`.
+        int & ref_x = x;  //  `ref_x` is a *reference* to `x`
+        int copy_x = x;   // `copy_x` is a copy of `x`.
 
-        x = 50;
+        x = 50;  // When we modify the value of `x`, we are modifying the value
+                 // of `ref_x` and the value that `ptr_x` is pointing to and at
+                 // the same time, but not the value of `copy_x`.
 
-        std::cout << "x: " << x << ", y: " << y << ", z: " << z << std::endl;
+        std::cout << "x: " << x << ", "
+                  <<  "ptr_x: " << *ptr_x << ", "
+                  <<  "ref_x: " <<  ref_x << ", " 
+                  << "copy_x: " << copy_x << std::endl;
+
+        // From the above example, we can observe that reference is, in some
+        // sense, similar in spirit to pointer. Indeed, one way to interpret
+        // references is that they are simpler form of pointers.
 
         return 0;
 }
