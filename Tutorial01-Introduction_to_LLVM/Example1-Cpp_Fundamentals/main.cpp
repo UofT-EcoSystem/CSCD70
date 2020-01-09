@@ -84,22 +84,19 @@ int main()
         // =====================================================================
 
         int x = 100; 
-        int * ptr_x = &x; //  `ptr_x` is a pointer     to `x`.
-        int & ref_x = x;  //  `ref_x` is a *reference* to `x`
-        int copy_x = x;   // `copy_x` is a copy of `x`.
+        int * ptr_x = &x;  // `ptr_x` is a pointer to `x`.
+        int & ref_x =  x;  // `ref_x` is a *reference* to `x`
+        int copy_x = x;    // `copy_x` is a copy of `x`.
 
         x = 50;  // When we modify the value of `x`, we are modifying the value
                  // of `ref_x` and the value that `ptr_x` is pointing to and at
                  // the same time, but not the value of `copy_x`.
-
         std::cout << "x: " << x << ", "
-                  <<  "ptr_x: " << *ptr_x << ", "
-                  <<  "ref_x: " <<  ref_x << ", " 
+                  << "ptr_x: " << *ptr_x << ", "
+                  << "ref_x: " <<  ref_x << ", "
                   << "copy_x: " << copy_x << std::endl;
-
-        // From the above example, we can observe that reference is, in some
-        // sense, similar in spirit to pointer. Indeed, one way to interpret
-        // references is that they are simpler form of pointers.
-
+        // Note that we do NOT need to "take the address of" and/or
+        // "dereference" when dealing when references, which make them a cleaner
+        // solution when compared with pointers.
         return 0;
 }
