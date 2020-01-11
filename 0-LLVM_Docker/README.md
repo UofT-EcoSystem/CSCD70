@@ -1,12 +1,20 @@
 # LLVM Docker Image
 
-This folder contains the LLVM *Docker* image which you could use to run experiments or build examples in any OS. You can skip this section if you are running experiments on the UG workstations since they already have LLVM installed.
+This folder contains the LLVM Docker image which you could use to run
+experiments or build examples in almost any OS. You can skip this section if you
+are using the UG workstations since they already have LLVM installed.
 
 ## Introduction
 
-*Docker* runs our applications in a **lightweight** *container* by using the *image* that has all the necessary software components installed. Think of it as `conda` or `virtualenv`, but at a broader scope for almost all common software libraries.
+Docker runs our applications in a **lightweight** *container* by using the
+*image* that has all the necessary software components installed. Think of it as
+`conda` or `virtualenv` (both are used to create an isolated Python
+environment), but at a broader scope for almost all common software libraries.
 
-Compared with the virtual machine solution, *Docker* has very low performance overhead ("*The general result is that Docker is **nearly identical to Native performance** and faster than KVM in every category*" [[1]](https://stackoverflow.com/a/26149994/6320608)).
+Compared with the virtual machine solution, *Docker* has very low performance
+overhead ("*The general result is that Docker is **nearly identical to Native
+performance** and faster than KVM in every category*"
+[[1]](https://stackoverflow.com/a/26149994/6320608)).
 
 <p align="middle">
   <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
