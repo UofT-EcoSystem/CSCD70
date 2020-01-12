@@ -83,3 +83,18 @@ docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt llvm:6.0 \
 # Pay attention to the additional `-w /mnt` (set working directory as `/mnt`)
 # and the appended build command `make -f Optimize.mk all`.
 ```
+
+### Docker Compose
+
+Docker Compose is a simple wrapper on top of the docker commands. There is a
+docker-compose file provided in this folder. We can do the same things as we
+have previously described, but with much simpler commands.
+
+```bash
+# Install docker-compose.
+pip3 install docker-compose
+# Build the LLVM docker image.
+docker-compose build llvm-6_0
+# Create a container.
+docker-compose run --rm llvm-6_0
+```
