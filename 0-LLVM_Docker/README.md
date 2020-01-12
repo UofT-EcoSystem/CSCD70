@@ -58,9 +58,11 @@ docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 llvm:6.0
 # Note:
 # - The image name (llvm:6.0) should always come last.
 # - Directory path should be absolute path (`$(pwd)`).
-# - Additiaonlly, you can append commands to the image name (e.g.
-#   `cd /mnt && make -f Optimize.mk all`), otherwise the default command
-#   `/bin/bash` will run.
+# - Additiaonlly, you can append commands to the image name. E.g.,
+# 
+#       cd /mnt && make -f Optimize.mk all
+# 
+#   Otherwise the default command `/bin/bash` will run.
 ```
 
 - **Run the experiments**:
