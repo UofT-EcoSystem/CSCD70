@@ -13,7 +13,8 @@ environment), but at a broader scope for almost all common software libraries.
 Compared with the virtual machine solution, Docker has very low performance
 overhead ("*The general result is that Docker is **nearly identical to Native
 performance** and faster than KVM in every category*"
-[[1]](https://stackoverflow.com/a/26149994/6320608)).
+[[1]](https://stackoverflow.com/a/26149994/6320608)), making itself an ideal
+solution for software development nowadays.
 
 <p align="middle">
   <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
@@ -23,34 +24,19 @@ performance** and faster than KVM in every category*"
 
 ## Instructions
 
-- **Download *Docker***: 
+- **Download and Install Docker**: 
   [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), 
-  [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
+  [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac),
+  [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+
+- **Build the LLVM docker image**:
+  - An *image* is an isolated environment that includes all necessary software
+    components.
 
 ```bash
-# Ubuntu (x86_64/amd64) Installation
-sudo apt-get update && sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-sudo apt-get update && sudo apt-get install -y \
-    docker-ce \
-    docker-ce-cli \
-    containerd.io
-```
-
-- **Build the LLVM image**:
-
-```bash
-# Build the docker image from file Dockerfile and tag (-t) it with name "llvm:6.0".
-docker build . -t llvm:6.0
+# Build the docker image from file `llvm-6_0.Dockerfile` and tag (-t) it with
+# name `llvm:6.0`.
+docker build . -t llvm:6.0 -f llvm-6_0.Dockerfile
 ```
 
 - **Create a container**:
@@ -61,20 +47,20 @@ cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
 docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 llvm:6.0 
 
 # Options:
-#    -it   : Allocate a pseudo tty (-t) and connect STDIN. 
-#            These options must be used for interactive processes.
-#   --rm   : Cleanup the container when we exit.
-#   --name : Name of the Container
-#    -v    : Mount the `FunctionInfo` directory to /mnt in the container.
-#            This way any changes made natively will be reflected 
-#            in the container as well (and vice versa).
+#  -it   : Allocate a pseudo tty (-t) and connect STDIN (-i). These options must
+#          be used for interactive processes.
+# --rm   : (Optional) Cleanup the container when we exit.
+# --name : (Optional) Name of the Container
+#  -v    : Mount the `FunctionInfo` directory to /mnt in the container. This way
+#          any changes made natively will be reflected in the container as well
+#          (and vice versa).
 
 # Note:
-#   - The image name (llvm:6.0) should always come last.
-#   - Directory path should be absolute path (`$(pwd)`).
-#   - Additionally, you can append commands to the image name 
-#     (e.g., `cd /mnt && make -f Optimize all`).
-#     Otherwise the default command `/bin/bash` will run.
+# - The image name (llvm:6.0) should always come last.
+# - Directory path should be absolute path (`$(pwd)`).
+# - Additiaonlly, you can append commands to the image name (e.g.
+#   `cd /mnt && make -f Optimize.mk all`), otherwise the default command
+#   `/bin/bash` will run.
 ```
 
 - **Run the experiments**:
