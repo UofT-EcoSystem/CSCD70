@@ -4,7 +4,7 @@
   <img src="http://llvm.org/docs/_static/logo.png">
 </p>
 
-This repository contains tutorials materials for class 
+This repository contains tutorials materials for class
 **CSCD70 Compiler Optimization** @ **University of Toronto**.
 
 ## Questions or Concerns?
@@ -14,6 +14,5 @@ If you have any questions or concerns, please submit a new issue in the
 
 ## Acknowledgement
 
-Thanks to Professor Gennady Pekhimenko (University of Toronto),
-Nandita Vijaykumar (Carnegie Mellon), and 
+Thanks to Professor Gennady Pekhimenko, Professor Nandita Vijaykumar, and
 students from previous offerings of CSCD70.
