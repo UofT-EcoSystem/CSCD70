@@ -10,5 +10,5 @@
   - Downcasting
   - LLVM Pass Interfaces
 - C++ Fundamentals
-  - Variable References
+  - Pointer vs. Reference
   - Standard Template Library (STL)
