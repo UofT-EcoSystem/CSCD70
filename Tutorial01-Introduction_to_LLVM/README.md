@@ -1,6 +1,4 @@
-# [Tutorial 1 Introduction to LLVM](https://v2.overleaf.com/read/zrrmfspqjzgv)
-
-*Please click on the title for the tutorial slides.*
+# Tutorial 1 Introduction to LLVM
 
 ## Abstract
 
@@ -12,4 +10,5 @@
   - Downcasting
   - LLVM Pass Interfaces
 - C++ Fundamentals
-
+  - Variable References
+  - Standard Template Library (STL)

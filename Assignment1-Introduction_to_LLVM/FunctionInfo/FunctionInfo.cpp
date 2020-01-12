@@ -10,11 +10,8 @@ class FunctionInfo : public ModulePass
 public:
 	static char ID;
 
-	FunctionInfo() : ModulePass(ID)
-	{}
-
-	virtual ~FunctionInfo()
-	{}
+	FunctionInfo() : ModulePass(ID) {}
+	virtual ~FunctionInfo() {}
 
   	// We don't modify the program, so we preserve all analysis.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
@@ -26,7 +23,7 @@ public:
 	{
 		outs() << "CSCD70 Functions Information Pass" << "\n";
 
-		// @TODO
+		// @TODO Please complete this function.
 		
 		return false;
 	}
@@ -34,6 +31,9 @@ public:
 
 char FunctionInfo::ID = 0;
 
-RegisterPass < FunctionInfo > X ("function-info", "CSCD70: Functions Information");
+RegisterPass < FunctionInfo > X (
+	"function-info",
+	"CSCD70: Functions Information"
+);
 
-} // Anonymous Namespace
+}  // Anonymous Namespace
