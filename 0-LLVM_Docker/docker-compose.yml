@@ -1,0 +1,11 @@
+version: '2.3'
+
+services:
+    llvm-6_0:
+        image: llvm:6.0
+        build:
+            context: .
+            dockerfile: llvm-6_0.Dockerfile
+        volumes:
+            - ..:/mnt
+        working_dir: /mnt

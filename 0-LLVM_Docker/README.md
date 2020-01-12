@@ -34,12 +34,15 @@ solution for software development nowadays.
     components.
 
 ```bash
-# Build the docker image from file `llvm-6_0.Dockerfile` and tag (-t) it with
-# name `llvm:6.0`.
+# Build the docker image from file (-f) `llvm-6_0.Dockerfile` and tag (-t) it
+# with name `llvm:6.0`.
 docker build . -t llvm:6.0 -f llvm-6_0.Dockerfile
 ```
 
 - **Create a container**:
+  - A *container* is an instantiation of an image. Apparantly multiple
+    containers can be created out of an image (it is similar to the conda where
+    we have multiple Python projects using the same conda environment).
 
 ```bash
 # Create a container for the first assignment.
