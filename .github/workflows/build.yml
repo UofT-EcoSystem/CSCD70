@@ -8,15 +8,15 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: Install Prequisites
-              runs: |
+              run: |
                 export LLVM_VERSION=6.0
                 sudo apt-get update
-                sudo apt-get install -y llvm-${LLVM_VERSION}-runtime llvm-${LLVM_VERSION}-dev clang-${LLVM_VERSION}
+                sudo apt-get install -y --no-install-recommends llvm-${LLVM_VERSION}-runtime llvm-${LLVM_VERSION}-dev clang-${LLVM_VERSION}
             - name: Assignment1
-              runs: |
+              run: |
                 cd Assignment1-Introduction_to_LLVM/FunctionInfo
                 make
             - name: Tutorial1
-              runs: |
+              run: |
                 cd Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals
                 make
