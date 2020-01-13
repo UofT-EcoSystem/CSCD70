@@ -1,5 +1,7 @@
 # Tutorial 1 Introduction to LLVM
 
+*Please click on the tital for the tutorial slides.*
+
 ## Abstract
 
 - What are **Intermediate Representation (IR)** and **Optimization Passes**?

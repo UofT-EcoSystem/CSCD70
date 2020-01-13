@@ -14,5 +14,6 @@ If you have any questions or concerns, please submit a new issue in the
 
 ## Acknowledgement
 
-Thanks to Professor Gennady Pekhimenko, Professor Nandita Vijaykumar, and
-students from previous offerings of CSCD70.
+Thanks to Professor Gennady Pekhimenko (University of Toronto), Professor
+Nandita Vijaykumar (University of Toronto), and students from 2018-2019
+offerings of CSCD70.
