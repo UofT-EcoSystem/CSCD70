@@ -7,7 +7,7 @@
 - What are **Intermediate Representation (IR)** and **Optimization Passes**?
 - **Analysis** vs. **Transform** Passes
 - How to write an LLVM **Analysis** pass?
-  - Program Structure
+  - LLVM Module
   - Iterator
   - Downcasting
   - LLVM Pass Interfaces
