@@ -25,3 +25,13 @@ jobs:
               run: |
                 cd Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals
                 make
+            - name: Tutorial2
+              run: |
+                cd Tutorial02-Introduction_to_LLVM_ii
+                cd Example1-Transform
+                make
+                cd ..
+                cd Example2-Pass_Manager
+                make 
+                cd ..
+
