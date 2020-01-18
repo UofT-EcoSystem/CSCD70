@@ -112,8 +112,9 @@ public:
 		return transformed;
 	}
 };  // class UserDemo
+}  // namespace anonymous
+
 char UserDemo::ID = 0;
 RegisterPass < UserDemo > X (
 	"transform",
 	"Example Transform Pass"); 
-}  // namespace anonymous

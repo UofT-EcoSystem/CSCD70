@@ -7,7 +7,6 @@ using namespace llvm;
 class Analysis;
 
 namespace {
-
 class AnotherTransform : public ModulePass
 {	
 public:
@@ -40,6 +39,7 @@ public:
 	}
 };  // class AnotherTransform
 }  // namespace anonymous
+
 char AnotherTransform::ID = 2;
 RegisterPass < AnotherTransform > Z (
 	"another-transform",

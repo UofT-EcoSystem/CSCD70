@@ -11,32 +11,34 @@ class Transform : public ModulePass
 public:
 	static char ID;
 
-	Transform() : ModulePass(ID)
-	{}
-
-	~Transform()
-	{}
+	Transform() : ModulePass(ID) {}
+	virtual ~Transform() {}
 
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const
 	{
-		// If you comment this line out, then the 'Analysis' pass will not be run.
-		// The LLVM will also give you a runtime error upon executing the statement
-		// 	std::vector < unsigned > my_stats = getAnalysis < Analysis > ().getStats();
-		// (shown below in the `runOnModule` method) as you have not requested pass `Analysis`.
+		// If you comment this line out, the 'Analysis' pass will not be
+		// run. LLVM will also give you a runtime error upon executing
+		//
+		//     std::vector < unsigned > my_stats = 
+		//		getAnalysis < Analysis > ().getStats(); 
+		//
+		// (shown below in the `runOnModule` method) as you have not
+		// requested pass `Analysis`.
 		AU.addRequired  < Analysis > ();
-		// If you comment this line out, then the 'Analysis' pass will be run once again on 'AnotherTransform'.
+		// If you comment this line out, the 'Analysis' pass will be run
+		// once again on 'AnotherTransform'.
 		AU.addPreserved < Analysis > ();
 
 		AU.setPreservesCFG();
 	}
-  
 	virtual bool runOnModule(Module & M)
 	{
 		outs() << "Transform" << "\n";
 
 		std::vector < unsigned > my_stats = getAnalysis < Analysis > ().getStats();
 
-		for (auto iter = my_stats.begin(); iter != my_stats.end(); ++iter)
+		for (auto iter = my_stats.begin();
+		     iter != my_stats.end(); ++iter)
 		{
 			outs() << *iter << ", ";
 		}
@@ -44,10 +46,10 @@ public:
 
 		return true;
 	}
-};
+};  // class Transform
+}  // namespace anonymous
 
 char Transform::ID = 1;
-
-RegisterPass < Transform > Y ("transform", "Transform");
-
-} // Anonymous Namespace
+RegisterPass < Transform > Y (
+	"transform",
+	"Transform");

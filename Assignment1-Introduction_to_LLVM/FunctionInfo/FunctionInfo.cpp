@@ -27,6 +27,7 @@ public:
 	}
 };  // class FunctionInfo
 }  // namespace anonymous
+
 char FunctionInfo::ID = 0;
 RegisterPass < FunctionInfo > X (
 	"function-info",
