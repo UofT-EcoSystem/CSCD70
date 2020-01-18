@@ -7,5 +7,5 @@ services:
             context: .
             dockerfile: llvm-9.Dockerfile
         volumes:
-            - ..:/mnt
+            - .:/mnt
         working_dir: /mnt

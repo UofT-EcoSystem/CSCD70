@@ -21,4 +21,4 @@ RUN apt-get install -y --no-install-recommends \
         llvm-${LLVM_VERSION}-tools clang-${LLVM_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install lit cmake==3.14.2
+RUN pip3 install lit cmake==3.14.4
