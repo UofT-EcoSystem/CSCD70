@@ -6,7 +6,7 @@
 
 - How to write an LLVM **Transform** pass?
   - Basic Instruction Manipulation
-  - User-Use-Usee Relationship
+  - User-Use-Value Relationship
 - How to build up the *connection* between **Analysis** and **Transform** passes?
   - LLVM Pass Manager: Require and Preserve
 
