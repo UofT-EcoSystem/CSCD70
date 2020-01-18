@@ -1,6 +1,6 @@
 # [Tutorial 1 Introduction to LLVM](https://www.overleaf.com/read/ntrxhjmhkkrt)
 
-*Please click on the tital for the tutorial slides.*
+*Please click on the title for the tutorial slides.*
 
 ## Abstract
 
