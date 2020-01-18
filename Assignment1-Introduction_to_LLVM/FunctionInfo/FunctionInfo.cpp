@@ -12,13 +12,11 @@ public:
 
 	FunctionInfo() : ModulePass(ID) {}
 	virtual ~FunctionInfo() {}
-
   	// We don't modify the program, so we preserve all analysis.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
 	{
 		AU.setPreservesAll();
 	}
-  
 	virtual bool runOnModule(Module & M) override final
 	{
 		outs() << "CSCD70 Functions Information Pass" << "\n";
@@ -27,13 +25,10 @@ public:
 		
 		return false;
 	}
-};
-
+};  // class FunctionInfo
+}  // namespace anonymous
 char FunctionInfo::ID = 0;
-
 RegisterPass < FunctionInfo > X (
 	"function-info",
 	"CSCD70: Functions Information"
 );
-
-}  // Anonymous Namespace
