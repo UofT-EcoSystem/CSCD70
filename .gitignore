@@ -1,4 +1,8 @@
+# LLVM
 *.o
 *.ll
 *.so
+
+# IDE
 .vscode
+.DS_Store
