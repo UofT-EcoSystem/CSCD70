@@ -1,5 +1,5 @@
 #include <llvm/IR/Function.h>
-#include <llvm/IR/LegacyPassManager.h>
+// #include <llvm/IR/LegacyPassManager.h>
 #include <llvm/Pass.h>
 #include <llvm/Passes/PassBuilder.h>
 #include <llvm/Passes/PassPlugin.h>
@@ -9,7 +9,6 @@
 using namespace llvm;
 
 namespace {
-
 struct HelloWorld : PassInfoMixin < HelloWorld > 
 {
         PreservedAnalyses run(Function & F, 
@@ -17,12 +16,11 @@ struct HelloWorld : PassInfoMixin < HelloWorld >
         {
                 outs() << "CSCD70 Functions Information Pass" << "\n";
 
-                // // @TODO Please complete this function.
+                // @TODO Please complete this function.
 
                 return PreservedAnalyses::all();
         }
 };
-
 }  // namespace anonymous
 
 //-----------------------------------------------------------------------------
@@ -66,6 +64,3 @@ static RegisterPass<LegacyHelloWorld>
       true,  // This pass doesn't modify the CFG => true
       false  // This pass is not a pure analysis pass => false
     );
-
-
-}  // namespace anonymous
