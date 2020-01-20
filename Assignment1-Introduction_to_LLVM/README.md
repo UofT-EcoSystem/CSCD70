@@ -4,5 +4,5 @@
 
 ## Changelog
 
-- Fixed the incorrect path to the optimization pass shared library `FunctionInfo.so`.
+- Fixed the incorrect path to the shared library `FunctionInfo.so`.
 - Added two FAQs regarding the local optimizations part of the assignment.
