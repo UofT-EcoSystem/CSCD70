@@ -16,9 +16,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
 
 RUN apt-get install -y --no-install-recommends \
         vim build-essential python3-dev \
-        llvm-${LLVM_VERSION} \
-        llvm-${LLVM_VERSION}-dev \
-        llvm-${LLVM_VERSION}-tools clang-${LLVM_VERSION} && \
+        llvm-${LLVM_VERSION}* clang-${LLVM_VERSION}* && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install lit cmake==3.14.4
