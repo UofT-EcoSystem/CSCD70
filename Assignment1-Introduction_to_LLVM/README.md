@@ -4,5 +4,5 @@
 
 ## Changelog
 
-- Fixed the incorrect path to the shared library `FunctionInfo.so`.
-- Added two FAQs on the local optimizations part of the assignment.
+- `[2020/01/20]` Fixed the incorrect path to the optimizer library `FunctionInfo.so`.
+- `[2020/01/20]` Added two FAQs on the local optimizations part of the assignment.
