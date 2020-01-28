@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v1
-            - name: Install Prequisites
+            - name: Install LLVM
               run: |
                 export LLVM_VERSION=6.0
                 sudo apt-get update
@@ -26,13 +26,10 @@ jobs:
                 make
             - name: Tutorial2
               run: |
-                cd Tutorial02-Introduction_to_LLVM_ii
-                cd Example1-Transform
+                cd Tutorial02-Introduction_to_LLVM_ii/Example1-Transform
                 make
-                cd ..
-                cd Example2-Pass_Manager
-                make 
-                cd ..
+                cd ../Example2-Pass_Manager
+                make
             - name: (Experimental) LLVM 9
               run: |
                 cd experimental/llvm-9
