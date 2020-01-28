@@ -12,11 +12,15 @@ RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && rm -f get-pip.py && \
-    apt-get purge -y wget gnupg ca-certificates software-properties-common
+    apt-get purge -y wget gnupg ca-certificates software-properties-common && \
+    apt-get autoremove -y
 
 RUN apt-get install -y --no-install-recommends \
-        vim build-essential python3-dev \
-        llvm-${LLVM_VERSION} clang-${LLVM_VERSION} && \
+        vim \
+        build-essential \
+        llvm-${LLVM_VERSION} \
+        llvm-${LLVM_VERSION}-dev \
+        clang-${LLVM_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install lit==0.9.0 cmake==3.12.0

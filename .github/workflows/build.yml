@@ -11,7 +11,7 @@ jobs:
               run: |
                 export LLVM_VERSION=6.0
                 sudo apt-get update
-                sudo apt-get install -y --no-install-recommends llvm-${LLVM_VERSION} clang-${LLVM_VERSION}
+                sudo apt-get install -y --no-install-recommends llvm-${LLVM_VERSION} llvm-${LLVM_VERSION}-dev clang-${LLVM_VERSION}
             - name: LLVM Docker
               run: |
                 cd 0-LLVM_Docker
