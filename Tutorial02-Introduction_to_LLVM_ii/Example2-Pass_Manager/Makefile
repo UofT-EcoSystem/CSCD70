@@ -3,7 +3,7 @@ OPT_PASSES := -transform -another-transform
 
 LLVM_VERSION := 6.0
 
-CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags) -rdynamic -g -std=c++17
+CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags)
 
 OPT_OBJs := $(subst .cpp,.o,$(wildcard *.cpp))
 
