@@ -4,5 +4,4 @@
 *.so
 
 # IDE
-.vscode
 .DS_Store
