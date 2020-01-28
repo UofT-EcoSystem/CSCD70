@@ -63,9 +63,9 @@ private:
 			_1st_inst.getOperand(0), _1st_inst.getOperand(0));
 		
 		new_inst->insertAfter(&_1st_inst);
-
-		// Q: Is there any alternative to updating each reference separetely?
+		// Q: Is there any alternative to updating each reference separately?
 		//    Please check the documentation and try answering this.
+		// Q: What happens if we update the use references WITHOUT the insertion?
 		_1st_inst.user_begin()->setOperand(0, new_inst);
 
 		return true;

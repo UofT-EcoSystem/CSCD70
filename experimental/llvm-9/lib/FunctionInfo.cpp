@@ -21,7 +21,7 @@ struct FunctionInfo : PassInfoMixin < FunctionInfo >
 }  // namespace anonymous
 
 extern "C" 
-llvm::PassPluginLibraryInfo llvmGetPassPluginInfo()
+PassPluginLibraryInfo llvmGetPassPluginInfo()
 {
         return {.APIVersion = LLVM_PLUGIN_API_VERSION,
                 .PluginName = "FunctionInfo",
@@ -29,7 +29,7 @@ llvm::PassPluginLibraryInfo llvmGetPassPluginInfo()
                 .RegisterPassBuilderCallbacks = [](PassBuilder & PB) {
                         PB.registerPipelineParsingCallback(
                                 [](StringRef Name, FunctionPassManager & FPM,
-                                ArrayRef < PassBuilder::PipelineElement > )
+                                   ArrayRef < PassBuilder::PipelineElement >) -> bool
                                 {
                                         if (Name == "function-info")
                                         {
@@ -38,6 +38,6 @@ llvm::PassPluginLibraryInfo llvmGetPassPluginInfo()
                                         }
                                         return false;
                                 });
-                        }
-                };
+                        }  // RegisterPassBuilderCallbacks
+                };  // struct PassPluginLibraryInfo
 }
