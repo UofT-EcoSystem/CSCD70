@@ -10,6 +10,10 @@ endif()
 execute_process (
     COMMAND llvm-config-${LLVM_VERSION} --cxxflags
     OUTPUT_VARIABLE LLVM_CONFIG_CXXFLAGS
+    OUTPUT_STRIP_TRAILING_WHITESPACE  # remove the trailing newline character
 )
 
-message("${LLVM_CONFIG_CXXFLAGS}")
+set(CMAKE_CXX_FLAGS ${LLVM_CONFIG_CXXFLAGS})
+
+add_subdirectory(lib)
+add_subdirectory(tests)
