@@ -8,30 +8,30 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: Install LLVM
-                run: |
-                    export LLVM_VERSION=6.0
-                    sudo apt-get update
-                    sudo apt-get install -y --no-install-recommends llvm-${LLVM_VERSION} llvm-${LLVM_VERSION}-dev clang-${LLVM_VERSION}
+              run: |
+                  export LLVM_VERSION=6.0
+                  sudo apt-get update
+                  sudo apt-get install -y --no-install-recommends llvm-${LLVM_VERSION} llvm-${LLVM_VERSION}-dev clang-${LLVM_VERSION}
             - name: LLVM Docker
-                run: |
-                    cd 0-LLVM_Docker
-                    docker-compose up llvm-6_0
+              run: |
+                  cd 0-LLVM_Docker
+                  docker-compose up llvm-6_0
             - name: Assignment1
-                run: |
-                    cd Assignment1-Introduction_to_LLVM/FunctionInfo
-                    make
+              run: |
+                  cd Assignment1-Introduction_to_LLVM/FunctionInfo
+                  make
             - name: Tutorial1
-                run: |
-                    cd Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals
-                    make
+              run: |
+                  cd Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals
+                  make
             - name: Tutorial2
-                run: |
-                    cd Tutorial02-Introduction_to_LLVM_ii/Example1-Transform
-                    make
-                    cd ../Example2-Pass_Manager
-                    make
+              run: |
+                  cd Tutorial02-Introduction_to_LLVM_ii/Example1-Transform
+                  make
+                  cd ../Example2-Pass_Manager
+                  make
             - name: (Experimental) LLVM 9
-                run: |
-                    cd experimental/llvm-9
-                    docker-compose up llvm-9
-                    docker-compose run --rm llvm-9 bash -ce "mkdir -p build; cd build; cmake ..; make"
+              run: |
+                  cd experimental/llvm-9
+                  docker-compose up llvm-9
+                  docker-compose run --rm llvm-9 bash -ce "mkdir -p build; cd build; cmake ..; make"
