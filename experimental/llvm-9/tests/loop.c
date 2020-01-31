@@ -1,4 +1,4 @@
-// RUN: clang -emit-llvm -c %s -o - | \
+// RUN: clang -O2 -emit-llvm -c %s -o - | \
 // RUN: opt -load-pass-plugin %dylibdir/libFunctionInfo%dylibext \
 // RUN:     -passes=function-info -disable-output 2>&1 - | \
 // RUN: FileCheck %s

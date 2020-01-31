@@ -25,4 +25,4 @@ jobs:
               working-directory: experimental/llvm-9
               run: |
                    docker-compose up llvm-9
-                   docker-compose run --rm llvm-9 bash -ce "mkdir -p build; cd build; cmake ..; make"
+                   docker-compose run --rm llvm-9 bash -ce "mkdir -p build; cd build; cmake ..; make; make test"

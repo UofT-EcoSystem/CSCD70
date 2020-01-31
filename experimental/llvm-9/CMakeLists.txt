@@ -10,8 +10,9 @@ endif()
 execute_process(COMMAND llvm-config-${LLVM_VERSION} --cxxflags
                 OUTPUT_VARIABLE LLVM_CONFIG_CXXFLAGS
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
-
 set(CMAKE_CXX_FLAGS ${LLVM_CONFIG_CXXFLAGS})
 
 add_subdirectory(lib)
+include(CTest)
+enable_testing()
 add_subdirectory(tests)
