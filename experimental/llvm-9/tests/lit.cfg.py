@@ -6,7 +6,7 @@ import os
 config.name = 'LLVM-9'
 # the Test Format used to Interpret Tests
 config.test_format = lit.formats.ShTest(not llvm_config.use_lit_shell)
-config.suffixes = ['.ll']
+config.suffixes = ['.c', '.ll']
 config.test_source_root = os.path.dirname(__file__)
 config.excludes = ['Inputs']
 

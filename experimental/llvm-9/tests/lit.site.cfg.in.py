@@ -6,7 +6,7 @@ import os
 
 config.llvm_tools_dir = "@LLVM_CONFIG_BINDIR@"
 config.llvm_dylib_ext = "@CMAKE_SHARED_LIBRARY_SUFFIX@"
-config.llvm_dylib_dir = "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@"
+config.llvm_dylib_dir = "@CMAKE_LIBRARY_OUTPUT_DIR@"
 config.test_exec_root = os.path.join("@CMAKE_CURRENT_BINARY_DIR@")
 
 lit.llvm.initialize(lit_config, config)
