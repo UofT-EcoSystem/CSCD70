@@ -17,7 +17,7 @@ private:
         {
                 void visitPHINode(PHINode & PhiInst)
                 {
-                        outs() << "I am PHI Node: " << PhiInst << "\n"
+                        outs() << "I am PHI Node: " << PhiInst << "\n";
                         outs() << "\t" "I am in Basic Block: ";
                         PhiInst.getParent()->printAsOperand(outs(), false);
                         outs() << "\n";
