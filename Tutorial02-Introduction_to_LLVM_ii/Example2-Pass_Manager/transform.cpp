@@ -46,10 +46,11 @@ public:
 
 		return true;
 	}
-};  // class Transform
-}  // namespace anonymous
+};
 
 char Transform::ID = 1;
 RegisterPass < Transform > Y (
 	"transform",
 	"Transform");
+
+}  // namespace anonymous

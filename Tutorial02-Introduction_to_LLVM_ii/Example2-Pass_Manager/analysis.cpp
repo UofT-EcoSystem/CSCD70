@@ -21,4 +21,4 @@ bool Analysis::runOnModule(Module & M)
 }
 
 char Analysis::ID = 0;
-RegisterPass < Analysis > X ("analysis", "Analysis");
+static RegisterPass < Analysis > X ("analysis", "Analysis");

@@ -26,11 +26,11 @@ public:
 		
 		return false;
 	}
-};  // class FunctionInfo
-}  // namespace anonymous
+};
 
 char FunctionInfo::ID = 0;
 RegisterPass < FunctionInfo > X (
 	"function-info",
-	"CSCD70: Functions Information"
-);
+	"CSCD70: Functions Information");
+
+}  // namespace anonymous

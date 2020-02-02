@@ -37,10 +37,11 @@ public:
 
 		return true;
 	}
-};  // class AnotherTransform
-}  // namespace anonymous
+};
 
 char AnotherTransform::ID = 2;
 RegisterPass < AnotherTransform > Z (
 	"another-transform",
 	"Another Transform");
+
+}  // namespace anonymous
