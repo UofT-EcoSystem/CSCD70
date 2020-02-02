@@ -21,6 +21,9 @@ jobs:
               run: |
                    docker-compose run --rm -w /mnt/Tutorial02-Introduction_to_LLVM_ii/Example1-Transform llvm-6_0 make
                    docker-compose run --rm -w /mnt/Tutorial02-Introduction_to_LLVM_ii/Example2-Pass_Manager llvm-6_0 make
+            - name: Tutorial4
+              working-directory: 0-LLVM_Docker
+              run: docker-compose run --rm -w /mnt/Tutorial04-Static_Single_Assignment/Example1-SSA llvm-6_0 make
             - name: (Experimental) LLVM 9
               working-directory: experimental/llvm-9
               run: |
