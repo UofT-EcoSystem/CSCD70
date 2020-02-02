@@ -16,8 +16,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
     apt-get autoremove -y
 
 RUN apt-get install -y --no-install-recommends \
-        vim \
-        build-essential \
+        vim git build-essential \
         llvm-${LLVM_VERSION} \
         llvm-${LLVM_VERSION}-dev \
         clang-${LLVM_VERSION} && \
