@@ -15,7 +15,9 @@ private:
         // We do not cover the instructor visitor pattern in class. The reason
         // is because in the scope of this class, for-loops can be used to
         // achieve the same functionality (i.e., traverse through of all the
-        // instructions in the basic block).
+        // instructions in the basic block). However, the visitor pattern splits
+        // the handling of different instruction types into different methods,
+        // which can be a cleaner solution than the straightforward for-loops.
         struct PHINodeVisitor : public InstVisitor < PHINodeVisitor >
         {
                 // The method name must be `visit`+Opcode (`PHINode` in this case).
