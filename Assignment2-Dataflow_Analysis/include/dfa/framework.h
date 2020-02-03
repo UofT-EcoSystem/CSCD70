@@ -1,7 +1,6 @@
 #pragma once
 
 #include <type_traits>
-#include <unordered_set>
 #include <unordered_map>
 
 #include <llvm/Pass.h>
@@ -17,68 +16,62 @@ using namespace llvm;
 namespace dfa {
 enum class Direction { Forward, Backward };
 
-template < typename TDomainElement, Direction TDirection >
+/// @brief Dataflow Analysis Framework
+/// @tparam TDomain     Domain
+/// @tparam TDirection  Analysis Direction
+template < typename TDomain, Direction TDirection >
 class Framework : public FunctionPass
 {
 protected:
-
         /***********************************************************************
          * Domain
          ***********************************************************************/
+        TDomain _domain;  // Domain
 
-        std::unordered_set < TDomainElement > _domain; // Domain
-
-        // Initialize the domain.
-        virtual void _initializeDomain(const Function & func) = 0;
-
-        // Dump the domain with mask, used for debugging purpose.
-        // E.g., If your domain is {%1, %2, %3}, 
-        //       dumping it with mask '001' will give you {%3, }.
-        void __dumpDomainWithMask(const BitVector & mask) const
+        /// @brief Dump the domain under `mask`. E.g., If _domian={%1, %2, %3,},
+        ///        dumping it with mask = 001 will give {%3,}.
+        void dumpDomainWithMask(const BitVector & mask) const
         {
                 outs() << "{";
 
-                unsigned mask_idx = 0;
-                for (auto & element : _domain)
+                CHECK(mask.size() == _domain.size(),
+                      "The size of mask must be equal to the size of domain.")
+                
+                for (unsigned mask_idx = 0; mask_idx < mask.size(); ++mask_idx)
                 {
-                        if (!mask[mask_idx++])
+                        if (!mask[mask_idx])
                         {
                                 continue;
                         }
-                        outs() << element << ", ";
-                }
+                        outs() << _domain[mask_idx] << ", ";
+                }  // for (mask_idx ∈ [0, mask.size()))
                 outs() << "}";
         }
-
         /***********************************************************************
          * Instruction-BitVector Mapping
          ***********************************************************************/
-
-        // Mapping from Instruction Pointer to BitVector 
+        /// Mapping from Instruction Pointer to BitVector
         std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
-
-        // Get the Boundary Condition if 'bb' is indeed the boundary.
-        virtual BitVector __getBoundaryCondition(const Function & func,
-                                                 const BasicBlock & bb) const = 0;
-        // Initialize the Instruction-BitVector Mapping.
-        virtual void _initializeInstBVMap(const Function & func) = 0;
+        /// @brief Return the boundary condition.
+        virtual BitVector BC(const Function & func,
+                             const BasicBlock & bb) const = 0;
 
         // Dump, for each Instruction in 'func', the associated bitvector.
-        void _dumpInstBVMap(const Function & func) const
+        void dumpInstBVMap(const Function & func) const
         {
                 outs() << "********************************************" << "\n";
                 outs() << "* Instruction-BitVector Mapping             " << "\n";
                 outs() << "********************************************" << "\n";
 
-                for (auto & bb : func)
+                for (const auto & bb : func)
                 {
-                        for (auto & inst : bb)
+                        for (const auto & inst : bb)
                         {
                                 const BitVector & bv = _inst_bv_map.at(&inst);
                                         
                                 if (TDirection == Direction::Forward)
                                 {
-                                        if (&bb   == &(func.getEntryBlock()) && 
+                                        if (&bb == &(func.getEntryBlock()) && 
                                             &inst == &(*bb.begin()))
                                         {
                                                 outs() << "Boundary Condition: ";
@@ -102,42 +95,33 @@ protected:
                                                 outs() << "\n";
                                         }
                                 }
-                        }
-                }
+                        }  // for (inst ∈ bb)
+                }  // for (bb ∈ func)
         }
 
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        
-        typedef std::conditional_t < TDirection == Direction:: Forward,
+        typedef std::conditional_t < TDirection == Direction::Forward,
                                      pred_const_range,
                                      succ_const_range > parent_const_range;
-        virtual BitVector __meetOp(const parent_const_range & parents) = 0;
-        virtual bool __instTransferFunc(const Instruction & inst, 
-                                        const BitVector & ibv, BitVector & obv) = 0;
+        virtual BitVector MeetOp(const parent_const_range & parents) = 0;
+        /// @brief Instruction Transfer Function, to be implemented by child class.
+        /// @param inst  Instruction
+        virtual bool InstTransferFunc(const Instruction & inst, 
+                                      const BitVector & ibv, BitVector & obv) = 0;
 
         /***********************************************************************
          * CFG Traversal
          ***********************************************************************/
-
-        template < Direction _TDirection = TDirection >
-        std::enable_if_t < _TDirection == Direction:: Forward, bool >
-        _traverseCFG(const Function & func)
+        bool traverseCFG(const Function & func)
         {
                 // @TODO
                 return false;
         }
-        template < Direction _TDirection = TDirection >
-        std::enable_if_t < _TDirection == Direction::Backward, bool >
-        _traverseCFG(const Function & func)
-        {
-                // @TODO
-                return false;
-        }
-
 public:
-        Framework(char ID) : FunctionPass(ID) {}
+        Framework(const char ID) : FunctionPass(ID) {}
+        virtual ~Framework() override {}
 
         // We don't modify the program, so we preserve all analysis.
         virtual void getAnalysisUsage(AnalysisUsage & AU) const
@@ -147,8 +131,7 @@ public:
 
         virtual bool runOnFunction(Function & func) override final
         {
-                // Initialize the Domain and the Instruction-BitVector mapping.
-                _initializeDomain   (func);
+                TDomain domain;
                 _initializeInstBVMap(func);
 
                 bool is_convergent;
@@ -156,13 +139,13 @@ public:
                 {
                         is_convergent = true;
 
-                        if (_traverseCFG(func))
+                        if (traverseCFG(func))
                         {
                                 is_convergent = false;
                         }
                 } while (!is_convergent);
 
-                _dumpInstBVMap(func);
+                dumpInstBVMap(func);
 
                 return false;
         }
