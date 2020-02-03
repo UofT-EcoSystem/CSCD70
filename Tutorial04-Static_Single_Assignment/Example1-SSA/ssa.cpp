@@ -12,22 +12,21 @@ namespace {
 class SSADemo : public ModulePass
 {
 private:
-        
-        struct PhiNodeVisitor : public InstVisitor < PhiNodeVisitor >
+        struct PHINodeVisitor : public InstVisitor < PHINodeVisitor >
         {
-                void visitPHINode(PHINode & PhiInst)
+                void visitPHINode(PHINode & phi_inst)
                 {
-                        outs() << "I am PHI Node: " << PhiInst << "\n";
+                        outs() << "I am PHI Node: " << phi_inst << "\n";
                         outs() << "\t" "I am in Basic Block: ";
-                        PhiInst.getParent()->printAsOperand(outs(), false);
+                        phi_inst.getParent()->printAsOperand(outs(), false);
                         outs() << "\n";
                         outs() << "\t" "The Nodes that I have are:" "\n";
-                        for (unsigned node_idx = 0; node_idx < PhiInst.getNumIncomingValues(); ++node_idx)
+                        for (unsigned node_idx = 0; node_idx < phi_inst.getNumIncomingValues(); ++node_idx)
                         {
                                 outs() << "\t\t" "Value: ";
-                                PhiInst.getIncomingValue(node_idx)->printAsOperand(outs(), false);
+                                phi_inst.getIncomingValue(node_idx)->printAsOperand(outs(), false);
                                 outs() << " <- " "BB: ";
-                                PhiInst.getIncomingBlock(node_idx)->printAsOperand(outs(), false);
+                                phi_inst.getIncomingBlock(node_idx)->printAsOperand(outs(), false);
                                 outs() << "\n";
                         }
                 }
