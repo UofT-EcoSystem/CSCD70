@@ -12,8 +12,13 @@ namespace {
 class SSADemo : public ModulePass
 {
 private:
+        // We do not cover the instructor visitor pattern in class. The reason
+        // is because in the scope of this class, for-loops can be used to
+        // achieve the same functionality (i.e., traverse through of all the
+        // instructions in the basic block).
         struct PHINodeVisitor : public InstVisitor < PHINodeVisitor >
         {
+                // The method name must be `visit`+Opcode (`PHINode` in this case).
                 void visitPHINode(PHINode & phi_inst)
                 {
                         outs() << "I am PHI Node: " << phi_inst << "\n";
@@ -35,17 +40,15 @@ private:
         bool runOnBasicBlock(BasicBlock & B, DominanceFrontier & dom_frontier)
         {
                 outs() << "*****************************************************" "\n";
-                
+
                 for (auto iter = B.begin(); iter != B.end(); ++iter)
                 {
                         _phi_node_visitor.visit(*iter);
                 }
-                
+
                 DominanceFrontier::iterator dom_frontier_iter = dom_frontier.find(&B);
-                
                 assert(dom_frontier_iter != dom_frontier.end() && 
                        "BasicBlock much exist in the list of Dominance Frontier.");
-                
                 outs() << "Dominance Frontier: " << "{";
                 for (auto df_set_iter  = dom_frontier_iter->second.begin();
                           df_set_iter != dom_frontier_iter->second.end(); 
@@ -84,6 +87,8 @@ public:
 
         virtual void getAnalysisUsage(AnalysisUsage & AU) const
         {
+                // Require that `DominanceFrontier` pass to run first before the
+                // current pass (-> Tutorial 2 Example 2 Pass Manager).
                 AU.addRequired < DominanceFrontierWrapperPass > (); 
                 AU.setPreservesAll();
         }
