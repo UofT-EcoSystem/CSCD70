@@ -1,7 +1,9 @@
 #pragma once
 
+#include <cassert>
 #include <type_traits>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <llvm/Pass.h>
 #include <llvm/ADT/BitVector.h>
@@ -17,6 +19,18 @@ namespace dfa {
 /// Analysis Direction, used as Template Parameter
 enum class Direction { Forward, Backward };
 
+template < Direction TDirection >
+struct parent_const_range {};
+
+template <>
+struct parent_const_range < Direction::Forward > 
+{ 
+        typedef pred_const_range type;
+};
+
+template < Direction TDirection >
+using parent_const_range_t = typename parent_const_range < TDirection > ::type;
+
 /// Dataflow Analysis Framework
 /// 
 /// @tparam TDomainElement  Domain Element
@@ -29,9 +43,11 @@ class Framework : public FunctionPass
 /// @param dir  Direction of Analysis
 /// @param ret  Return Type
 #define METHOD_ENABLE_IF_DIRECTION(dir, ret)                                    \
-        template < _TDirection = TDirection >                                   \
+        template < Direction _TDirection = TDirection >                         \
         std::enable_if_t < _TDirection == dir, ret >
 protected:
+        typedef TDomainElement domain_element_t;
+        static constexpr Direction direction_c = TDirection;
         /***********************************************************************
          * Domain
          ***********************************************************************/
@@ -52,23 +68,24 @@ private:
         {
                 outs() << "{";
 
-                CHECK(mask.size() == _domain.size(),
-                      "The size of mask must be equal to the size of domain.")
+                assert(mask.size() == _domain.size() &&
+                       "The size of mask must be equal to the size of domain.");
                 
-                for (unsigned mask_idx = 0; mask_idx < mask.size(); ++mask_idx)
+                unsigned mask_idx = 0;
+                for (const auto & elem : _domain)
                 {
-                        if (!mask[mask_idx])
+                        if (!mask[mask_idx++])
                         {
                                 continue;
                         }
-                        outs() << _domain[mask_idx] << ", ";
+                        outs() << elem << ", ";
                 }  // for (mask_idx ∈ [0, mask.size()))
                 outs() << "}";
         }
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, void)
         printInstBV(const Function & func,
                     const BasicBlock & bb,
-                    const Instruction & inst)
+                    const Instruction & inst) const
         {
                 if (&inst == &(*bb.begin()))
                 {
@@ -87,13 +104,13 @@ private:
                 }
                 outs() << "Instruction: " << inst << "\n";
                 outs() << "\t";
-                printDomainWithMask(bv);
+                printDomainWithMask(_inst_bv_map.at(&inst));
                 outs() << "\n";
         }
-        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, void)
+        METHOD_ENABLE_IF_DIRECTION(Direction::Backward, void)
         printInstBV(const Function & func,
                     const BasicBlock & bb,
-                    const Instruction & inst)
+                    const Instruction & inst) const
         {
                 outs() << "\t";
                 printDomainWithMask(_inst_bv_map.at(&inst));
@@ -133,16 +150,7 @@ protected:
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        template < typename _TDirection > struct parent_const_range {};
-        template <>
-        struct parent_const_range < Direction::Forward > 
-        { 
-                typedef pred_const_range type;
-        };
-        template < typename _TDirection >
-        typedef parent_const_range < _TDirection > ::type parent_const_range_t;
-
-        virtual BitVector MeetOp(const ParentConstRange < TDirection > & parents) = 0;
+        virtual BitVector MeetOp(const parent_const_range_t < TDirection > & parents) = 0;
         /// @brief Instruction Transfer Function, to be implemented by child class.
         /// 
         /// @param inst  Instruction
@@ -161,7 +169,7 @@ protected:
                 return false;
         }
 public:
-        Framework(const char ID) : FunctionPass(ID) {}
+        Framework(char ID) : FunctionPass(ID) {}
         virtual ~Framework() override {}
 
         // We don't modify the program, so we preserve all analysis.
@@ -172,15 +180,15 @@ public:
 
         virtual bool runOnFunction(Function & func) override final
         {
-                _domain = TDomain(func);
-                for (const auto & bb : func)
-                {
-                        for (const auto & inst : bb)
-                        {
-                                _inst_bv_map.insert(std::make_pair(
-                                        &inst, IC()));
-                        }
-                }
+                // _domain = TDomain(func);
+                // for (const auto & bb : func)
+                // {
+                //         for (const auto & inst : bb)
+                //         {
+                //                 _inst_bv_map.insert(std::make_pair(
+                //                         &inst, IC()));
+                //         }
+                // }
 
                 bool is_convergent;
                 do 

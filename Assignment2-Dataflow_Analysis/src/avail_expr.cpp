@@ -65,7 +65,7 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector MeetOp(const parent_const_range_t < dfa::Direction::Forward > & parents) override final
+        virtual BitVector MeetOp(const dfa::parent_const_range_t < direction_c > & parents) override final
         {
                 // @TODO
                 return BitVector(_domain.size());
@@ -80,8 +80,8 @@ protected:
 public:
         static char ID;
 
-        AvailExpr() : dfa::Framework < Expression, 
-                                       dfa::Direction::Forward > (ID) {}
+        AvailExpr() : dfa::Framework < domain_element_t, 
+                                       direction_c > (ID) {}
 };
 
 char AvailExpr::ID = 1; 
