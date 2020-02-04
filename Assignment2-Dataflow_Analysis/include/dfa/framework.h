@@ -14,23 +14,40 @@
 using namespace llvm;
 
 namespace dfa {
+/// Analysis Direction, used as Template Parameter
 enum class Direction { Forward, Backward };
 
-/// @brief Dataflow Analysis Framework
+/// Dataflow Analysis Framework
+/// 
 /// @tparam TDomain     Domain
 /// @tparam TDirection  Analysis Direction
 template < typename TDomain, Direction TDirection >
 class Framework : public FunctionPass
 {
+/// This macro selectively enables methods depending the direction of analysis.
+/// 
+/// @param dir  Direction of Analysis
+/// @param ret  Return Type
+#define METHOD_ENABLE_IF_DIRECTION(dir, ret)                                    \
+        template < _TDirection = TDirection >                                   \
+        std::enable_if_t < _TDirection == dir, ret >
 protected:
         /***********************************************************************
          * Domain
          ***********************************************************************/
-        TDomain _domain;  // Domain
-
+        TDomain _domain;
+        /***********************************************************************
+         * Instruction-BitVector Mapping
+         ***********************************************************************/
+        /// Mapping from Instruction Pointer to BitVector
+        std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
+        /// @brief Return the boundary condition.
+        virtual BitVector BC(const Function & func,
+                             const BasicBlock & bb) const = 0;
+private:
         /// @brief Dump the domain under `mask`. E.g., If _domian={%1, %2, %3,},
-        ///        dumping it with mask = 001 will give {%3,}.
-        void dumpDomainWithMask(const BitVector & mask) const
+        ///        dumping it with mask=001 will give {%3,}.
+        void printDomainWithMask(const BitVector & mask) const
         {
                 outs() << "{";
 
@@ -47,17 +64,59 @@ protected:
                 }  // for (mask_idx ∈ [0, mask.size()))
                 outs() << "}";
         }
-        /***********************************************************************
-         * Instruction-BitVector Mapping
-         ***********************************************************************/
-        /// Mapping from Instruction Pointer to BitVector
-        std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
-        /// @brief Return the boundary condition.
-        virtual BitVector BC(const Function & func,
-                             const BasicBlock & bb) const = 0;
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, void)
+        printInstBV(const Function    & func,
+                    const BasicBlock  & bb,
+                    const Instruction & inst,
+                    const BitVector   & bv)
+        {
+                if (&inst == &(*bb.begin()))
+                {
+                        if (&bb == &(func.getEntryBlock()))
+                        {
+                                outs() << "BC:\t";
+                                printDomainWithMask(BC(func, bb));
+                                outs() << "\n";
+                        }
+                        else
+                        {
+                                outs() << "MeetOp:\t";
+                                // @TODO
+                                outs() << "\n";
+                        }
+                }
+                outs() << "Instruction: " << inst << "\n";
+                outs() << "\t";
+                printDomainWithMask(bv);
+                outs() << "\n";
+        }
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, void)
+        printInstBV(const Function    & func,
+                    const BasicBlock  & bb,
+                    const Instruction & inst)
+        {
+                outs() << "\t";
+                printDomainWithMask(_inst_bv_map.at(&inst));
+                outs() << "\n";
+                outs() << "Instruction: " << inst << "\n";
 
+                if (isa < ReturnInst > (inst) || 
+                    isa < UnreachableInst > (inst))
+                {
+                        outs() << "BC:\t";
+                        printDomainWithMask(BC(func, bb));
+                        outs() << "\n";
+                }
+                else if (&inst == &(*bb.rbegin()))
+                {
+                        outs() << "MeetOp:\t";
+                        // @TODO
+                        outs() << "\n";
+                }
+        }
+protected:
         // Dump, for each Instruction in 'func', the associated bitvector.
-        void dumpInstBVMap(const Function & func) const
+        void printInstBVMap(const Function & func) const
         {
                 outs() << "********************************************" << "\n";
                 outs() << "* Instruction-BitVector Mapping             " << "\n";
@@ -67,47 +126,26 @@ protected:
                 {
                         for (const auto & inst : bb)
                         {
-                                const BitVector & bv = _inst_bv_map.at(&inst);
-                                        
-                                if (TDirection == Direction::Forward)
-                                {
-                                        if (&bb == &(func.getEntryBlock()) && 
-                                            &inst == &(*bb.begin()))
-                                        {
-                                                outs() << "Boundary Condition: ";
-                                                __dumpDomainWithMask(__getBoundaryCondition(func, bb));
-                                                outs() << "\n";
-                                        }
-
-                                        outs() << "Instruction: " << inst << "\n";
-                                        outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
-                                }
-                                else if (TDirection == Direction::Backward)
-                                {
-                                        outs() << "\t"; __dumpDomainWithMask(bv); outs() << "\n";
-                                        outs() << "Instruction: " << inst << "\n";
-
-                                        if (isa < ReturnInst > (inst) || 
-                                            isa < UnreachableInst > (inst))
-                                        {
-                                                outs() << "Boundary Condition: ";
-                                                __dumpDomainWithMask(__getBoundaryCondition(func, bb));
-                                                outs() << "\n";
-                                        }
-                                }
+                                printInstBV(func, bb, inst);                                
                         }  // for (inst ∈ bb)
                 }  // for (bb ∈ func)
         }
-
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        typedef std::conditional_t < TDirection == Direction::Forward,
-                                     pred_const_range,
-                                     succ_const_range > parent_const_range;
-        virtual BitVector MeetOp(const parent_const_range & parents) = 0;
+        template < typename _TDirection > struct ParentConstRange {};
+        template <>
+        struct ParentConstRange < Direction::Forward > 
+        { 
+                typedef pred_const_range type;
+        };
+
+        virtual BitVector MeetOp(const ParentConstRange < TDirection > & parents) = 0;
         /// @brief Instruction Transfer Function, to be implemented by child class.
+        /// 
         /// @param inst  Instruction
+        /// @param ibv   Input BitVector
+        /// @param obv   Output BitVector
         virtual bool InstTransferFunc(const Instruction & inst, 
                                       const BitVector & ibv, BitVector & obv) = 0;
 
@@ -145,7 +183,7 @@ public:
                         }
                 } while (!is_convergent);
 
-                dumpInstBVMap(func);
+                printInstBVMap(func);
 
                 return false;
         }

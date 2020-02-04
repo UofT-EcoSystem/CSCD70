@@ -59,8 +59,8 @@ protected:
         {
                 // @TODO
         }
-        virtual BitVector __getBoundaryCondition(const Function & func,
-                                                 const BasicBlock & bb) const override final
+        virtual BitVector BC(const Function & func,
+                             const BasicBlock & bb) const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
