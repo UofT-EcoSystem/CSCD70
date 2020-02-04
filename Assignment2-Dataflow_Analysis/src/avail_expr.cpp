@@ -26,8 +26,8 @@ public:
 raw_ostream & operator<<(raw_ostream & outs, const Expression & Expr)
 {
         outs << "[" << Instruction::getOpcodeName(Expr._opcode) << " ";
-                Expr._lhs->printAsOperand(outs, false); outs << ", ";
-                Expr._rhs->printAsOperand(outs, false);	outs << "]";
+        Expr._lhs->printAsOperand(outs, false); outs << ", ";
+        Expr._rhs->printAsOperand(outs, false); outs << "]";
 
         return outs;
 }
