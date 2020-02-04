@@ -87,8 +87,8 @@ docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt llvm:6.0 \
 ### Docker Compose
 
 Docker Compose is a simple wrapper on top of the docker commands. There is a
-docker-compose file provided in this folder. We can do the same things as we
-have previously described, but with much simpler commands.
+docker-compose file provided in the project root folder. We can do the same
+things as we have previously described, but with much simpler commands.
 
 ```bash
 # Install docker-compose.
