@@ -5,10 +5,10 @@ class Expression
 private:
         unsigned _opcode; const Value * _lhs, * _rhs;
 public:
-        Expression(unsigned opcode = 0, 
-                   const Value * lhs = nullptr, 
-                   const Value * rhs = nullptr) : 
-                _opcode(opcode), _lhs(lhs), _rhs(rhs) {}
+        Expression(const unsigned opcode = 0, 
+                   const Value * const lhs = nullptr, 
+                   const Value * const rhs = nullptr)
+                : _opcode(opcode), _lhs(lhs), _rhs(rhs) {}
 
         bool operator==(const Expression & Expr) const
         {
@@ -55,35 +55,24 @@ class AvailExpr : public dfa::Framework < Expression,
                                           dfa::Direction::Forward >
 {
 protected:
-        virtual void _initializeDomain(const Function & func) override final
-        {
-                // @TODO
-        }
-        virtual BitVector BC(const Function & func,
-                             const BasicBlock & bb) const override final
+        virtual BitVector IC() const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual void _initializeInstBVMap(const Function & func) override final
-        {
-                for (auto & bb : func)
-                {
-                        for (auto & inst : bb)
-                        {
-                                // @TODO Change the initialization if necessary.
-                                _inst_bv_map.insert(std::make_pair(&inst, 
-                                                                   BitVector(_domain.size())));
-                        }
-                }
-        }
-        virtual BitVector __meetOp(const pred_const_range & parents) override final
+        virtual BitVector BC() const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual bool __instTransferFunc(const Instruction & inst, 
-                                        const BitVector & ibv, BitVector & obv) override final
+        virtual BitVector MeetOp(const parent_const_range_t < dfa::Direction::Forward > & parents) override final
+        {
+                // @TODO
+                return BitVector(_domain.size());
+        }
+        virtual bool InstTransferFunc(const Instruction & inst, 
+                                      const BitVector & ibv,
+                                      BitVector & obv) override final
         {
                 // @TODO
                 return false;
