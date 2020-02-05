@@ -20,25 +20,6 @@ namespace dfa {
 /// Analysis Direction, used as Template Parameter
 enum class Direction { Forward, Backward };
 
-template < Direction TDirection >
-struct meetop_const_range {};
-
-template <>
-struct meetop_const_range < Direction::Forward > 
-{ 
-        typedef pred_const_range type;
-};
-
-// @TODO
-
-template < Direction TDirection >
-using meetop_const_range_t = typename meetop_const_range < TDirection > ::type;
-
-template < Direction TDirection >
-struct traversal_order_const_iter
-
-template 
-
 /// Dataflow Analysis Framework
 /// 
 /// @tparam TDomainElement  Domain Element
@@ -133,8 +114,11 @@ protected:
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
+        using meetop_const_range_t = typename std::conditional < 
+                TDirection == Direction::Forward,
+                pred_const_range, void > ::type;
         /// @brief Return the operands for the MeetOp.
-        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range_t < TDirection >)
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range_t)
         MeetOperands(const BasicBlock & bb) const
         {
                 return predecessors(&bb);
@@ -142,7 +126,7 @@ protected:
         /// @brief Apply the meet operation to a range of operands.
         /// 
         /// @return the Resulting BitVector after the Meet Operation
-        virtual BitVector MeetOp(const meetop_const_range_t < TDirection > & parents) const = 0;
+        virtual BitVector MeetOp(const meetop_const_range_t & parents) const = 0;
         /// @brief Apply the instruction transfer function to the input
         ///        bitvector `ibv` to obtain the output bitvector `obv`.
         /// 
@@ -153,6 +137,9 @@ protected:
         /***********************************************************************
          * CFG Traversal
          ***********************************************************************/
+        using traversal_iter_t = typename std::conditional < 
+                TDirection == Direction::Forward,
+                Function::iterator, void > ::type;
         bool traverseCFG(const Function & func)
         {
                 // @TODO

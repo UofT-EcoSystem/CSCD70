@@ -65,7 +65,7 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector MeetOp(const dfa::meetop_const_range_t < direction_c > & parents) const override final
+        virtual BitVector MeetOp(const meetop_const_range_t & parents) const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
