@@ -23,7 +23,7 @@ enum class Direction { Forward, Backward };
 /// Dataflow Analysis Framework
 /// 
 /// @tparam TDomainElement  Domain Element
-/// @tparam TDirection      Analysis Direction
+/// @tparam TDirection      Direction of Analysis
 template < typename TDomainElement, Direction TDirection >
 class Framework : public FunctionPass
 {
