@@ -11,7 +11,7 @@ public:
 	static char ID;
 
 	FunctionInfo() : ModulePass(ID) {}
-	virtual ~FunctionInfo() {}
+	virtual ~FunctionInfo() override {}
 
   	// We don't modify the program, so we preserve all analysis.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final

@@ -5,10 +5,10 @@ class Expression
 private:
         unsigned _opcode; const Value * _lhs, * _rhs;
 public:
-        Expression(const unsigned opcode = 0, 
-                   const Value * const lhs = nullptr, 
-                   const Value * const rhs = nullptr)
-                : _opcode(opcode), _lhs(lhs), _rhs(rhs) {}
+        Expression(const Instruction & inst)
+        {
+                // TODO
+        }
 
         bool operator==(const Expression & Expr) const
         {
@@ -65,7 +65,7 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector MeetOp(const dfa::parent_const_range_t < direction_c > & parents) override final
+        virtual BitVector MeetOp(const dfa::meetop_const_range_t < direction_c > & parents) const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
@@ -82,6 +82,7 @@ public:
 
         AvailExpr() : dfa::Framework < domain_element_t, 
                                        direction_c > (ID) {}
+        virtual ~AvailExpr() override {}
 };
 
 char AvailExpr::ID = 1; 

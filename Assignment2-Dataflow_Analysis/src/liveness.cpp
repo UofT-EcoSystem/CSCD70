@@ -9,7 +9,7 @@ public:
         static char ID;
 
         Liveness() : FunctionPass(ID) {}
-        virtual ~Liveness() {}
+        virtual ~Liveness() override {}
 
         // @TODO Add or remove method definitions if necessary.
         

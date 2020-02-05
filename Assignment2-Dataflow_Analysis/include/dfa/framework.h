@@ -10,6 +10,7 @@
 #include <llvm/ADT/PostOrderIterator.h>
 #include <llvm/IR/CFG.h>
 #include <llvm/IR/Function.h>
+#include <llvm/IR/InstIterator.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/Support/raw_ostream.h>
 
@@ -20,16 +21,23 @@ namespace dfa {
 enum class Direction { Forward, Backward };
 
 template < Direction TDirection >
-struct parent_const_range {};
+struct meetop_const_range {};
 
 template <>
-struct parent_const_range < Direction::Forward > 
+struct meetop_const_range < Direction::Forward > 
 { 
         typedef pred_const_range type;
 };
 
+// @TODO
+
 template < Direction TDirection >
-using parent_const_range_t = typename parent_const_range < TDirection > ::type;
+using meetop_const_range_t = typename meetop_const_range < TDirection > ::type;
+
+template < Direction TDirection >
+struct traversal_order_const_iter
+
+template 
 
 /// Dataflow Analysis Framework
 /// 
@@ -83,13 +91,15 @@ private:
                 outs() << "}";
         }
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, void)
-        printInstBV(const Function & func,
-                    const BasicBlock & bb,
-                    const Instruction & inst) const
+        printInstBV(const Instruction & inst) const
         {
-                if (&inst == &(*bb.begin()))
+                const BasicBlock * const pbb = inst.getParent();
+
+                if (&inst == &(*pbb->begin()))
                 {
-                        if (&bb == &(func.getEntryBlock()))
+                        // If the predecessors of `bb` is empty, then we are at
+                        // the function entry, hence print the BC.
+                        if (pred_empty(pbb))
                         {
                                 outs() << "BC:\t";
                                 printDomainWithMask(BC());
@@ -98,7 +108,7 @@ private:
                         else
                         {
                                 outs() << "MeetOp:\t";
-                                // @TODO
+                                printDomainWithMask(MeetOp(MeetOperands(*pbb)));
                                 outs() << "\n";
                         }
                 }
@@ -106,30 +116,6 @@ private:
                 outs() << "\t";
                 printDomainWithMask(_inst_bv_map.at(&inst));
                 outs() << "\n";
-        }
-        METHOD_ENABLE_IF_DIRECTION(Direction::Backward, void)
-        printInstBV(const Function & func,
-                    const BasicBlock & bb,
-                    const Instruction & inst) const
-        {
-                outs() << "\t";
-                printDomainWithMask(_inst_bv_map.at(&inst));
-                outs() << "\n";
-                outs() << "Instruction: " << inst << "\n";
-
-                if (isa < ReturnInst > (inst) || 
-                    isa < UnreachableInst > (inst))
-                {
-                        outs() << "BC:\t";
-                        printDomainWithMask(BC());
-                        outs() << "\n";
-                }
-                else if (&inst == &(*bb.rbegin()))
-                {
-                        outs() << "MeetOp:\t";
-                        // @TODO
-                        outs() << "\n";
-                }
         }
 protected:
         /// @brief Dump, for each Instruction in 'func', the associated bitvector.
@@ -139,23 +125,27 @@ protected:
                 outs() << "* Instruction-BitVector Mapping             " << "\n";
                 outs() << "********************************************" << "\n";
 
-                for (const auto & bb : func)
+                for (const auto & inst : instructions(func))
                 {
-                        for (const auto & inst : bb)
-                        {
-                                printInstBV(func, bb, inst);                                
-                        }  // for (inst ∈ bb)
-                }  // for (bb ∈ func)
+                        printInstBV(inst);
+                }
         }
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        virtual BitVector MeetOp(const parent_const_range_t < TDirection > & parents) = 0;
-        /// @brief Instruction Transfer Function, to be implemented by child class.
+        /// @brief Return the operands for the MeetOp.
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range_t < TDirection >)
+        MeetOperands(const BasicBlock & bb) const
+        {
+                return predecessors(&bb);
+        }
+        /// @brief Apply the meet operation to a range of operands.
         /// 
-        /// @param inst  Instruction
-        /// @param ibv   Input BitVector
-        /// @param obv   Output BitVector
+        /// @return the Resulting BitVector after the Meet Operation
+        virtual BitVector MeetOp(const meetop_const_range_t < TDirection > & parents) const = 0;
+        /// @brief Apply the instruction transfer function to the input
+        ///        bitvector `ibv` to obtain the output bitvector `obv`.
+        /// 
         /// @return true if `obv` has been changed, false otherwise
         virtual bool InstTransferFunc(const Instruction & inst, 
                                       const BitVector & ibv,
@@ -180,16 +170,14 @@ public:
 
         virtual bool runOnFunction(Function & func) override final
         {
-                // _domain = TDomain(func);
-                // for (const auto & bb : func)
-                // {
-                //         for (const auto & inst : bb)
-                //         {
-                //                 _inst_bv_map.insert(std::make_pair(
-                //                         &inst, IC()));
-                //         }
-                // }
-
+                for (const auto & inst : instructions(func))
+                {
+                        _domain.emplace(inst);
+                }
+                for (const auto & inst : instructions(func))
+                {
+                        _inst_bv_map.emplace(&inst, IC());
+                }
                 bool is_convergent;
                 do 
                 {
