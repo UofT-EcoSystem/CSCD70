@@ -11,6 +11,8 @@ jobs:
               run: docker-compose build llvm-6_0
             - name: Assignment1
               run: docker-compose run --rm -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo llvm-6_0 make
+            - name: Assignment2
+              run: docker-compose run --rm -w /mnt/Assignment2-Dataflow_Analysis llvm-6_0 make
             - name: Tutorial1
               run: docker-compose run --rm -w /mnt/Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals llvm-6_0 make
             - name: Tutorial2

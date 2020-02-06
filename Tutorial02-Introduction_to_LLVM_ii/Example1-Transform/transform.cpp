@@ -90,7 +90,7 @@ public:
 	static char ID;
 
 	UserDemo() : ModulePass(ID) {}
-	virtual ~UserDemo() {}
+	virtual ~UserDemo() override {}
 
 	// This time, we do modify the program, however, we preserve the CFG.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const

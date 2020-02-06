@@ -13,7 +13,7 @@ public:
 	static char ID;
 
 	AnotherTransform() : ModulePass(ID) {}
-	virtual ~AnotherTransform() {}
+	virtual ~AnotherTransform() override {}
 
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const
 	{

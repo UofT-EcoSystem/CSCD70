@@ -85,7 +85,7 @@ public:
         static char ID;
 
         SSADemo() : ModulePass(ID) {}
-        virtual ~SSADemo() {}
+        virtual ~SSADemo() override {}
 
         virtual void getAnalysisUsage(AnalysisUsage & AU) const
         {
