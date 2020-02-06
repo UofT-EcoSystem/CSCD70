@@ -20,6 +20,17 @@ namespace dfa {
 /// Analysis Direction, used as Template Parameter
 enum class Direction { Forward, Backward };
 
+template < Direction TDirection >
+struct FrameworkMetaHelper {};
+
+template <>
+struct FrameworkMetaHelper < Direction::Forward >
+{
+        typedef pred_const_range            meetop_const_range;
+        typedef Function::const_iterator    bb_traversal_const_iterator;
+        typedef BasicBlock::const_iterator  inst_traversal_const_iterator;
+};
+
 /// Dataflow Analysis Framework
 /// 
 /// @tparam TDomainElement  Domain Element
@@ -114,11 +125,11 @@ protected:
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        using meetop_const_range_t = typename std::conditional < 
-                TDirection == Direction::Forward,
-                pred_const_range, void > ::type;
+        using meetop_const_range =
+                typename FrameworkMetaHelper < TDirection > ::
+                        meetop_const_range;
         /// @brief Return the operands for the MeetOp.
-        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range_t)
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range)
         MeetOperands(const BasicBlock & bb) const
         {
                 return predecessors(&bb);
@@ -126,20 +137,25 @@ protected:
         /// @brief Apply the meet operation to a range of operands.
         /// 
         /// @return the Resulting BitVector after the Meet Operation
-        virtual BitVector MeetOp(const meetop_const_range_t & parents) const = 0;
+        virtual BitVector MeetOp(const meetop_const_range & meet_operands) const = 0;
         /// @brief Apply the instruction transfer function to the input
         ///        bitvector `ibv` to obtain the output bitvector `obv`.
         /// 
         /// @return true if `obv` has been changed, false otherwise
-        virtual bool InstTransferFunc(const Instruction & inst, 
-                                      const BitVector & ibv,
-                                      BitVector & obv) = 0;
+        virtual bool TransferFunc(const Instruction & inst, 
+                                  const BitVector & ibv,
+                                  BitVector & obv) = 0;
         /***********************************************************************
          * CFG Traversal
          ***********************************************************************/
-        using traversal_iter_t = typename std::conditional < 
-                TDirection == Direction::Forward,
-                Function::iterator, void > ::type;
+private:
+        using bb_traversal_const_iterator =
+                typename FrameworkMetaHelper < TDirection > ::
+                        bb_traversal_const_iterator;
+        using inst_traversal_const_iterator =
+                typename FrameworkMetaHelper < TDirection > ::
+                        inst_traversal_const_iterator;
+protected:
         bool traverseCFG(const Function & func)
         {
                 // @TODO

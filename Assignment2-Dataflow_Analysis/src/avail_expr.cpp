@@ -65,14 +65,14 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector MeetOp(const meetop_const_range_t & parents) const override final
+        virtual BitVector MeetOp(const meetop_const_range & meet_operands) const override final
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual bool InstTransferFunc(const Instruction & inst, 
-                                      const BitVector & ibv,
-                                      BitVector & obv) override final
+        virtual bool TransferFunc(const Instruction & inst, 
+                                  const BitVector & ibv,
+                                  BitVector & obv) override final
         {
                 // @TODO
                 return false;
