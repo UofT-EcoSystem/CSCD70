@@ -3,7 +3,7 @@
 // @TODO 
 
 namespace {
-class Liveness : public FunctionPass
+class Liveness final : public FunctionPass
 {
 public:
         static char ID;
@@ -13,12 +13,12 @@ public:
 
         // @TODO Add or remove method definitions if necessary.
         
-        virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
+        virtual void getAnalysisUsage(AnalysisUsage & AU) const override
         {
                 AU.setPreservesAll();
         }
 
-        virtual bool runOnFunction(Function & func) override final
+        virtual bool runOnFunction(Function & func) override
         {
                 return false;
         }

@@ -9,7 +9,7 @@
 using namespace llvm;
 
 namespace {
-class SSADemo : public ModulePass
+class SSADemo final : public ModulePass
 {
 private:
         // We do not cover the instructor visitor pattern in class. The reason

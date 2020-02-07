@@ -114,13 +114,13 @@ private:
         }
 protected:
         /// @brief Dump, for each Instruction in 'func', the associated bitvector.
-        void printInstBVMap(const Function & func) const
+        void printInstBVMap(const Function & F) const
         {
                 outs() << "********************************************" << "\n";
                 outs() << "* Instruction-BitVector Mapping             " << "\n";
                 outs() << "********************************************" << "\n";
 
-                for (const auto & inst : instructions(func))
+                for (const auto & inst : instructions(F))
                 {
                         printInstBV(inst);
                 }
@@ -160,9 +160,9 @@ private:
                         inst_traversal_const_range;
         /// @brief Return the traversal order of the basic blocks.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
-        BBTraversalOrder(const Function & func) const
+        BBTraversalOrder(const Function & F) const
         {
-                return make_range(func.begin(), func.end());
+                return make_range(F.begin(), F.end());
         }
         /// @brief Return the traversal order of the instructions.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, inst_traversal_const_range)
@@ -186,13 +186,13 @@ public:
                 AU.setPreservesAll();
         }
 
-        virtual bool runOnFunction(Function & func) override final
+        virtual bool runOnFunction(Function & F) override final
         {
-                for (const auto & inst : instructions(func))
+                for (const auto & inst : instructions(F))
                 {
                         _domain.emplace(inst);
                 }
-                for (const auto & inst : instructions(func))
+                for (const auto & inst : instructions(F))
                 {
                         _inst_bv_map.emplace(&inst, IC());
                 }
@@ -201,13 +201,13 @@ public:
                 {
                         is_convergent = true;
 
-                        if (traverseCFG(func))
+                        if (traverseCFG(F))
                         {
                                 is_convergent = false;
                         }
                 } while (!is_convergent);
 
-                printInstBVMap(func);
+                printInstBVMap(F);
 
                 return false;
         }

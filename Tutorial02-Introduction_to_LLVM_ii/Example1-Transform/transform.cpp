@@ -8,7 +8,7 @@
 using namespace llvm;
 
 namespace {
-class UserDemo : public ModulePass
+class Transform : public ModulePass
 {
 private:
 	bool runOnBasicBlock(BasicBlock & B)
@@ -89,8 +89,8 @@ private:
 public:
 	static char ID;
 
-	UserDemo() : ModulePass(ID) {}
-	virtual ~UserDemo() override {}
+	Transform() : ModulePass(ID) {}
+	virtual ~Transform() override {}
 
 	// This time, we do modify the program, however, we preserve the CFG.
 	virtual void getAnalysisUsage(AnalysisUsage & AU) const
@@ -113,8 +113,8 @@ public:
 	}
 };
 
-char UserDemo::ID = 0;
-RegisterPass < UserDemo > X (
+char Transform::ID = 0;
+RegisterPass < Transform > X (
 	"transform",
 	"Example Transform Pass"); 
 

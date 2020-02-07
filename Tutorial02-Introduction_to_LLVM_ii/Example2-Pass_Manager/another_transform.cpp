@@ -7,7 +7,7 @@ using namespace llvm;
 class Analysis;
 
 namespace {
-class AnotherTransform : public ModulePass
+class AnotherTransform final : public ModulePass
 {	
 public:
 	static char ID;

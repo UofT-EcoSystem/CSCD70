@@ -6,7 +6,7 @@ using namespace llvm;
 
 namespace {
 
-class Transform : public ModulePass
+class Transform final : public ModulePass
 {	
 public:
 	static char ID;

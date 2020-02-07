@@ -5,7 +5,7 @@
 using namespace llvm;
 
 namespace {
-class FunctionInfo : public ModulePass
+class FunctionInfo final : public ModulePass
 {
 public:
 	static char ID;
@@ -14,11 +14,12 @@ public:
 	virtual ~FunctionInfo() override {}
 
   	// We don't modify the program, so we preserve all analysis.
-	virtual void getAnalysisUsage(AnalysisUsage & AU) const override final
+	virtual void getAnalysisUsage(AnalysisUsage & AU) const override
 	{
 		AU.setPreservesAll();
 	}
-	virtual bool runOnModule(Module & M) override final
+
+	virtual bool runOnModule(Module & M) override
 	{
 		outs() << "CSCD70 Functions Information Pass" << "\n";
 

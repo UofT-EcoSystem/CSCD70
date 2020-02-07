@@ -51,28 +51,28 @@ struct hash < Expression >
 } // namespace std
 
 namespace {
-class AvailExpr : public dfa::Framework < Expression, 
-                                          dfa::Direction::Forward >
+class AvailExpr final : public dfa::Framework < Expression, 
+                                                dfa::Direction::Forward >
 {
 protected:
-        virtual BitVector IC() const override final
+        virtual BitVector IC() const override
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector BC() const override final
+        virtual BitVector BC() const override
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual BitVector MeetOp(const meetop_const_range & meet_operands) const override final
+        virtual BitVector MeetOp(const meetop_const_range & meet_operands) const override
         {
                 // @TODO
                 return BitVector(_domain.size());
         }
         virtual bool TransferFunc(const Instruction & inst, 
                                   const BitVector & ibv,
-                                  BitVector & obv) override final
+                                  BitVector & obv) override
         {
                 // @TODO
                 return false;
