@@ -20,14 +20,14 @@ public:
         const Value * getLHSOperand() const { return _lhs; }
         const Value * getRHSOperand() const { return _rhs; }
 
-        friend raw_ostream & operator<<(raw_ostream & outs, const Expression & Expr);
+        friend raw_ostream & operator<<(raw_ostream & outs, const Expression & expr);
 }; 
 
-raw_ostream & operator<<(raw_ostream & outs, const Expression & Expr)
+raw_ostream & operator<<(raw_ostream & outs, const Expression & expr)
 {
-        outs << "[" << Instruction::getOpcodeName(Expr._opcode) << " ";
-        Expr._lhs->printAsOperand(outs, false); outs << ", ";
-        Expr._rhs->printAsOperand(outs, false); outs << "]";
+        outs << "[" << Instruction::getOpcodeName(expr._opcode) << " ";
+        expr._lhs->printAsOperand(outs, false); outs << ", ";
+        expr._rhs->printAsOperand(outs, false); outs << "]";
 
         return outs;
 }
@@ -39,11 +39,11 @@ struct hash < Expression >
 {
         std::size_t operator()(const Expression & expr) const
         {
-                std::hash < unsigned > unsigned_hasher; std::hash < const Value * > value_ptr_hasher;
+                std::hash < unsigned > unsigned_hasher; std::hash < const Value * > pvalue_hasher;
 
                 std::size_t opcode_hash = unsigned_hasher(expr.getOpcode());
-                std::size_t lhs_operand_hash = value_ptr_hasher((expr.getLHSOperand()));
-                std::size_t rhs_operand_hash = value_ptr_hasher((expr.getRHSOperand()));
+                std::size_t lhs_operand_hash = pvalue_hasher((expr.getLHSOperand()));
+                std::size_t rhs_operand_hash = pvalue_hasher((expr.getRHSOperand()));
 
                 return opcode_hash ^ (lhs_operand_hash << 1) ^ (rhs_operand_hash << 1);
         }
