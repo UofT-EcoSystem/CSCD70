@@ -21,14 +21,16 @@ namespace dfa {
 enum class Direction { Forward, Backward };
 
 template < Direction TDirection >
-struct FrameworkMetaHelper {};
+struct FrameworkMetaData {};
 
 template <>
-struct FrameworkMetaHelper < Direction::Forward >
+struct FrameworkMetaData < Direction::Forward >
 {
-        typedef pred_const_range            meetop_const_range;
-        typedef Function::const_iterator    bb_traversal_const_iterator;
-        typedef BasicBlock::const_iterator  inst_traversal_const_iterator;
+        typedef pred_const_range  meetop_const_range;
+        typedef iterator_range < Function::const_iterator >
+                bb_traversal_const_range;
+        typedef iterator_range < BasicBlock::const_iterator >
+                inst_traversal_const_range;
 };
 
 /// Dataflow Analysis Framework
@@ -89,9 +91,10 @@ private:
 
                 if (&inst == &(*pbb->begin()))
                 {
-                        // If the predecessors of `bb` is empty, then we are at
-                        // the function entry, hence print the BC.
-                        if (pred_empty(pbb))
+                        meetop_const_range meet_operands = MeetOperands(*pbb);
+                        // If the list of meet operands is empty, then we are at
+                        // the boundary, hence print the BC.
+                        if (meet_operands.begin() == meet_operands.end())
                         {
                                 outs() << "BC:\t";
                                 printDomainWithMask(BC());
@@ -100,7 +103,7 @@ private:
                         else
                         {
                                 outs() << "MeetOp:\t";
-                                printDomainWithMask(MeetOp(MeetOperands(*pbb)));
+                                printDomainWithMask(MeetOp(meet_operands));
                                 outs() << "\n";
                         }
                 }
@@ -126,7 +129,7 @@ protected:
          * Meet Operator and Transfer Function
          ***********************************************************************/
         using meetop_const_range =
-                typename FrameworkMetaHelper < TDirection > ::
+                typename FrameworkMetaData < TDirection > ::
                         meetop_const_range;
         /// @brief Return the operands for the MeetOp.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range)
@@ -149,12 +152,24 @@ protected:
          * CFG Traversal
          ***********************************************************************/
 private:
-        using bb_traversal_const_iterator =
-                typename FrameworkMetaHelper < TDirection > ::
-                        bb_traversal_const_iterator;
-        using inst_traversal_const_iterator =
-                typename FrameworkMetaHelper < TDirection > ::
-                        inst_traversal_const_iterator;
+        using bb_traversal_const_range =
+                typename FrameworkMetaData < TDirection > ::
+                        bb_traversal_const_range;
+        using inst_traversal_const_range =
+                typename FrameworkMetaData < TDirection > ::
+                        inst_traversal_const_range;
+        /// @brief Return the traversal order of the basic blocks.
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
+        BBTraversalOrder(const Function & func) const
+        {
+                return make_range(func.begin(), func.end());
+        }
+        /// @brief Return the traversal order of the instructions.
+        METHOD_ENABLE_IF_DIRECTION(Direction::Forward, inst_traversal_const_range)
+        InstTraversalOrder(const BasicBlock & bb) const
+        {
+                return make_range(bb.begin(), bb.end());
+        }
 protected:
         bool traverseCFG(const Function & func)
         {
