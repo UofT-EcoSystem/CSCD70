@@ -8,7 +8,7 @@
 using namespace llvm;
 
 namespace {
-class Transform : public ModulePass
+class Transform final : public ModulePass
 {
 private:
 	bool runOnBasicBlock(BasicBlock & B)

@@ -4,7 +4,8 @@ ENV LLVM_VERSION=6.0
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        vim git build-essential \
+        vim git ca-certificates \
+        build-essential \
         llvm-${LLVM_VERSION} \
         llvm-${LLVM_VERSION}-dev \
         clang-${LLVM_VERSION} && \
