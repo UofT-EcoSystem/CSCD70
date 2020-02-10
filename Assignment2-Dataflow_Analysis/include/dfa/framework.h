@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cassert>
-#include <memory>
+#include <stdexcept>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -22,10 +22,10 @@ namespace dfa {
 enum class Direction { Forward, Backward };
 
 template < Direction TDirection >
-struct FrameworkMetaData {};
+struct FrameworkMetaHelper {};
 
 template <>
-struct FrameworkMetaData < Direction::Forward >
+struct FrameworkMetaHelper < Direction::Forward >
 {
         typedef pred_const_range  meetop_const_range;
         typedef iterator_range < Function::const_iterator >
@@ -47,7 +47,7 @@ class Framework : public FunctionPass
 /// @param ret  Return Type
 #define METHOD_ENABLE_IF_DIRECTION(dir, ret)                                    \
         template < Direction _TDirection = TDirection >                         \
-        std::enable_if_t < _TDirection == dir, ret >
+        typename std::enable_if < _TDirection == dir, ret > ::type
 protected:
         typedef TDomainElement domain_element_t;
         static constexpr Direction direction_c = TDirection;
@@ -65,7 +65,7 @@ protected:
         /// @brief Return the boundary condition.
         virtual BitVector BC() const = 0;
 private:
-        /// @brief Dump the domain under `mask`. E.g., If `_domian`={%1, %2,
+        /// @brief Dump the domain under @p `mask`. E.g., If `_domian`={%1, %2,
         ///        %3,}, dumping it with `mask`=001 will give {%3,}.
         void printDomainWithMask(const BitVector & mask) const
         {
@@ -114,7 +114,7 @@ private:
                 outs() << "\n";
         }
 protected:
-        /// @brief Dump, for each Instruction in 'func', the associated bitvector.
+        /// @brief Dump, ∀inst ∈ @p 'F', the associated bitvector.
         void printInstBVMap(const Function & F) const
         {
                 outs() << "********************************************" << "\n";
@@ -130,32 +130,34 @@ protected:
          * Meet Operator and Transfer Function
          ***********************************************************************/
         using meetop_const_range =
-                typename FrameworkMetaData < TDirection > ::
+                typename FrameworkMetaHelper < TDirection > ::
                         meetop_const_range;
-        /// @brief Return the operands for the MeetOp.
+        /// @brief Return the operands for the meet operation.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range)
         MeetOperands(const BasicBlock & bb) const
         {
                 return predecessors(&bb);
         }
-        /// @brief Apply the meet operation to a range of operands.
+        /// @brief Apply the meet operation to a range of @p `meet_operands`.
         /// 
         /// @return the Resulting BitVector after the Meet Operation
         virtual BitVector MeetOp(const meetop_const_range & meet_operands) const = 0;
-        /// @brief Apply the instruction transfer function at @p `inst` to the
-        ///        instruction-bitvector mapping `_inst_bv_map`.
-        /// 
-        /// @return true if `_inst_bv_map` has been changed, false otherwise
-        virtual bool TransferFunc(const Instruction & inst) = 0;
+        /// @brief Apply the transfer function at instruction @p `inst` to the
+        ///        input bitvector @p `ibv` to get the output bitvector @p `obv` .
+        ///
+        /// @return true if @p `obv` has been changed, false otherwise
+        virtual bool TransferFunc(const Instruction & inst,
+                                  const BitVector & ibv,
+                                  BitVector & obv) = 0;
         /***********************************************************************
          * CFG Traversal
          ***********************************************************************/
 private:
         using bb_traversal_const_range =
-                typename FrameworkMetaData < TDirection > ::
+                typename FrameworkMetaHelper < TDirection > ::
                         bb_traversal_const_range;
         using inst_traversal_const_range =
-                typename FrameworkMetaData < TDirection > ::
+                typename FrameworkMetaHelper < TDirection > ::
                         inst_traversal_const_range;
         /// @brief Return the traversal order of the basic blocks.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
@@ -189,7 +191,11 @@ public:
         {
                 for (const auto & inst : instructions(F))
                 {
-                        _domain.emplace(inst);
+                        // try to insert the instruction into the domain, and
+                        // throw an `invalid_argument` exception if failed
+                        try {
+                                _domain.emplace(inst);
+                        } catch (const std::invalid_argument & ia_except) {}
                 }
                 for (const auto & inst : instructions(F))
                 {

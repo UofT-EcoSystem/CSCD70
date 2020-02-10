@@ -77,7 +77,9 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual bool TransferFunc(const Instruction & inst) override
+        virtual bool TransferFunc(const Instruction & inst,
+                                  const BitVector & ibv,
+                                  BitVector & obv) override
         {
                 // @TODO
                 return false;
