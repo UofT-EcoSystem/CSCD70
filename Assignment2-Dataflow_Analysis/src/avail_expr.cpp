@@ -1,5 +1,7 @@
 #include "dfa/framework.h"
 
+namespace {
+
 class Expression
 {
 private:
@@ -7,7 +9,7 @@ private:
 public:
         Expression(const Instruction & inst)
         {
-                // TODO
+                // @TODO
         }
 
         bool operator==(const Expression & Expr) const
@@ -32,7 +34,10 @@ raw_ostream & operator<<(raw_ostream & outs, const Expression & expr)
         return outs;
 }
 
+}  // namespace anonymous
+
 namespace std {
+
 // Construct a hash code for 'Expression'.
 template <>
 struct hash < Expression >
@@ -48,9 +53,11 @@ struct hash < Expression >
                 return opcode_hash ^ (lhs_operand_hash << 1) ^ (rhs_operand_hash << 1);
         }
 };
-} // namespace std
+
+}  // namespace std
 
 namespace {
+
 class AvailExpr final : public dfa::Framework < Expression, 
                                                 dfa::Direction::Forward >
 {
@@ -70,9 +77,7 @@ protected:
                 // @TODO
                 return BitVector(_domain.size());
         }
-        virtual bool TransferFunc(const Instruction & inst, 
-                                  const BitVector & ibv,
-                                  BitVector & obv) override
+        virtual bool TransferFunc(const Instruction & inst) override
         {
                 // @TODO
                 return false;

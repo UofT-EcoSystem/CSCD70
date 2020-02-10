@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <memory>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -141,13 +142,11 @@ protected:
         /// 
         /// @return the Resulting BitVector after the Meet Operation
         virtual BitVector MeetOp(const meetop_const_range & meet_operands) const = 0;
-        /// @brief Apply the instruction transfer function to the input
-        ///        bitvector `ibv` to obtain the output bitvector `obv`.
+        /// @brief Apply the instruction transfer function at @p `inst` to the
+        ///        instruction-bitvector mapping `_inst_bv_map`.
         /// 
-        /// @return true if `obv` has been changed, false otherwise
-        virtual bool TransferFunc(const Instruction & inst, 
-                                  const BitVector & ibv,
-                                  BitVector & obv) = 0;
+        /// @return true if `_inst_bv_map` has been changed, false otherwise
+        virtual bool TransferFunc(const Instruction & inst) = 0;
         /***********************************************************************
          * CFG Traversal
          ***********************************************************************/
