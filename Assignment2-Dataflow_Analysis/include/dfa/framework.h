@@ -186,16 +186,15 @@ public:
         {
                 AU.setPreservesAll();
         }
-
+protected:
+        /// @brief Initialize the domain from each instruction.
+        virtual void InitializeDomainFromInstruction(const Instruction & inst) = 0;
+public:
         virtual bool runOnFunction(Function & F) override final
         {
                 for (const auto & inst : instructions(F))
                 {
-                        // try to insert the instruction into the domain, and
-                        // throw an `invalid_argument` exception if failed
-                        try {
-                                _domain.emplace(inst);
-                        } catch (const std::invalid_argument & ia_except) {}
+                        InitializeDomainFromInstruction(inst);
                 }
                 for (const auto & inst : instructions(F))
                 {

@@ -84,6 +84,14 @@ protected:
                 // @TODO
                 return false;
         }
+        virtual void InitializeDomainFromInstruction(const Instruction & inst) override
+        {
+                // try to insert the instruction into the domain, and throw an
+                // `invalid_argument` exception if failed
+                try {
+                        _domain.emplace(inst);
+                } catch (const std::invalid_argument & ia_except) {}
+        }
 public:
         static char ID;
 
