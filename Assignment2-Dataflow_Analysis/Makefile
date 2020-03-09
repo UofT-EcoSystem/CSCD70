@@ -2,7 +2,7 @@ OPTIMIZER := dfa.so
 
 LLVM_VERSION ?= 6.0
 
-CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags) -fexceptions -I./include
+CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags) -I./include
 
 OPT_OBJs := $(subst .cpp,.o,$(wildcard ./src/*.cpp))
 

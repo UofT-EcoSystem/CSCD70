@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cassert>
-#include <stdexcept>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
