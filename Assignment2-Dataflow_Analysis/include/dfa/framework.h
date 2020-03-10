@@ -20,19 +20,6 @@ namespace dfa {
 /// Analysis Direction, used as Template Parameter
 enum class Direction { Forward, Backward };
 
-template < Direction TDirection >
-struct FrameworkMetaHelper {};
-
-template <>
-struct FrameworkMetaHelper < Direction::Forward >
-{
-        typedef pred_const_range  meetop_const_range;
-        typedef iterator_range < Function::const_iterator >
-                bb_traversal_const_range;
-        typedef iterator_range < BasicBlock::const_iterator >
-                inst_traversal_const_range;
-};
-
 /// Dataflow Analysis Framework
 /// 
 /// @tparam TDomainElement  Domain Element
@@ -40,13 +27,24 @@ struct FrameworkMetaHelper < Direction::Forward >
 template < typename TDomainElement, Direction TDirection >
 class Framework : public FunctionPass
 {
-/// This macro selectively enables methods depending the direction of analysis.
-/// 
+/// This macro selectively enables methods depending on the analysis direction.
+///
 /// @param dir  Direction of Analysis
 /// @param ret  Return Type
 #define METHOD_ENABLE_IF_DIRECTION(dir, ret)                                    \
         template < Direction _TDirection = TDirection >                         \
         typename std::enable_if < _TDirection == dir, ret > ::type
+/// This macro does typedef depending on the analysis direction. If the
+/// direction in the template argument does not match the argument, the
+/// resulting type is not defined.
+///
+/// @param type_name  Name of the Resulting Type
+/// @param dir        Direction of Analysis
+/// @param T          Type Definition if `TDirection == dir`
+#define TYPEDEF_IF_DIRECTION(type_name, dir, T)                                 \
+        using type_name = typename std::enable_if < TDirection == dir, T > ::type
+/// @todo For ∀`METHOD_ENABLE` and `TYPEDEF`, you will have to add the
+///       equivalent definition for backward analysis.
 protected:
         typedef TDomainElement domain_element_t;
         static constexpr Direction direction_c = TDirection;
@@ -60,8 +58,12 @@ protected:
         /// Mapping from Instruction Pointer to BitVector
         std::unordered_map < const Instruction *, BitVector > _inst_bv_map;
         /// @brief Return the initial condition.
+        /// 
+        /// @todo  Override this method in every child class.
         virtual BitVector IC() const = 0;
         /// @brief Return the boundary condition.
+        /// 
+        /// @todo  Override this method in every child class.
         virtual BitVector BC() const = 0;
 private:
         /// @brief Dump the domain under @p `mask`. E.g., If `_domian`={%1, %2,
@@ -128,23 +130,27 @@ protected:
         /***********************************************************************
          * Meet Operator and Transfer Function
          ***********************************************************************/
-        using meetop_const_range =
-                typename FrameworkMetaHelper < TDirection > ::
-                        meetop_const_range;
+        TYPEDEF_IF_DIRECTION(meetop_const_range,
+                             Direction::Forward,
+                             pred_const_range);
         /// @brief Return the operands for the meet operation.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, meetop_const_range)
         MeetOperands(const BasicBlock & bb) const
         {
                 return predecessors(&bb);
         }
-        /// @brief Apply the meet operation to a range of @p `meet_operands`.
+        /// @brief  Apply the meet operation to a range of @p `meet_operands`.
         /// 
         /// @return the Resulting BitVector after the Meet Operation
+        /// 
+        /// @todo   Override this method in every child class.
         virtual BitVector MeetOp(const meetop_const_range & meet_operands) const = 0;
-        /// @brief Apply the transfer function at instruction @p `inst` to the
-        ///        input bitvector @p `ibv` to get the output bitvector @p `obv` .
+        /// @brief  Apply the transfer function at instruction @p `inst` to the
+        ///         input bitvector to get the output bitvector.
         ///
-        /// @return true if @p `obv` has been changed, false otherwise
+        /// @return True if @p `obv` has been changed, False otherwise
+        /// 
+        /// @todo   Override this method in every child class.
         virtual bool TransferFunc(const Instruction & inst,
                                   const BitVector & ibv,
                                   BitVector & obv) = 0;
@@ -152,13 +158,16 @@ protected:
          * CFG Traversal
          ***********************************************************************/
 private:
-        using bb_traversal_const_range =
-                typename FrameworkMetaHelper < TDirection > ::
-                        bb_traversal_const_range;
-        using inst_traversal_const_range =
-                typename FrameworkMetaHelper < TDirection > ::
-                        inst_traversal_const_range;
+        TYPEDEF_IF_DIRECTION(bb_traversal_const_range,
+                             Direction::Forward,
+                             iterator_range < Function::const_iterator > );
+        TYPEDEF_IF_DIRECTION(inst_traversal_const_range,
+                             Direction::Forward,
+                             iterator_range < BasicBlock::const_iterator > );
         /// @brief Return the traversal order of the basic blocks.
+        ///
+        /// @todo  Modify the implementation (and the above typedef accordingly)
+        ///        for the optimal traversal order.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
         BBTraversalOrder(const Function & F) const
         {
@@ -171,9 +180,13 @@ private:
                 return make_range(bb.begin(), bb.end());
         }
 protected:
+        /// @brief  Traverse through the CFG and update `inst_bv_map`.
+        /// 
+        /// @return True if changes are made to `inst_bv_map`, False otherwise
+        /// 
+        /// @todo   Implement this method for all the child classes.
         bool traverseCFG(const Function & func)
         {
-                // @TODO
                 return false;
         }
 public:
@@ -187,6 +200,8 @@ public:
         }
 protected:
         /// @brief Initialize the domain from each instruction.
+        /// 
+        /// @todo  Override this method in every child class.
         virtual void InitializeDomainFromInstruction(const Instruction & inst) = 0;
 public:
         virtual bool runOnFunction(Function & F) override final
@@ -199,16 +214,9 @@ public:
                 {
                         _inst_bv_map.emplace(&inst, IC());
                 }
-                bool is_convergent;
-                do 
-                {
-                        is_convergent = true;
-
-                        if (traverseCFG(F))
-                        {
-                                is_convergent = false;
-                        }
-                } while (!is_convergent);
+                // keep traversing until changes have been made to the
+                // instruction-bv mapping
+                while (traverseCFG(F)) {}
 
                 printInstBVMap(F);
 
