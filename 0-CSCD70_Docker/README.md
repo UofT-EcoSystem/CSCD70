@@ -1,8 +1,8 @@
-# LLVM Docker Image
+# Docker Image
 
-This folder contains the LLVM Docker image which you could use to run
-experiments or build examples in almost any OS. You can skip this section if you
-are using the UG workstations since they already have LLVM installed.
+This folder contains the Docker image which you could use to run experiments or
+build examples in almost any OS. You can skip this section if you are using the
+UG workstations since they already have LLVM installed.
 
 ## Introduction
 
@@ -29,14 +29,14 @@ solution for software development nowadays.
   [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac),
   [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
-- **Build the LLVM docker image**:
+- **Build the docker image**:
   - An *image* is an isolated environment that includes all necessary software
     components.
 
 ```bash
-# Build the docker image from file (-f) `llvm-6_0.Dockerfile` and tag (-t) it
-# with name `llvm:6.0`.
-docker build . -t llvm:6.0 -f llvm-6_0.Dockerfile
+# Build the docker image from file (-f) `cscd70.Dockerfile` and tag (-t) it
+# with name `cscd70:6.0`.
+docker build . -t cscd70:6.0 -f cscd70.Dockerfile
 ```
 
 - **Create a container**:
@@ -47,7 +47,7 @@ docker build . -t llvm:6.0 -f llvm-6_0.Dockerfile
 ```bash
 # Create a container for the first assignment.
 cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
-docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 llvm:6.0 
+docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 cscd70:6.0 
 
 # Options:
 #  -it   : Allocate a pseudo tty (-t) and connect STDIN (-i). These options must
@@ -59,7 +59,7 @@ docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 llvm:6.0
 #          (and vice versa).
 
 # Note:
-# - The image name (llvm:6.0) should always come last.
+# - The image name (cscd70:6.0) should always come last.
 # - Directory path should be absolute path (`$(pwd)`).
 # - Additiaonlly, you can append commands to the image name. E.g.,
 # 
@@ -78,7 +78,7 @@ cd /mnt && make -f Optimize.mk all
 
 ```bash
 cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
-docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt llvm:6.0 \
+docker run -it --rm -v $(pwd):/mnt --name CSCD70_A1 -w /mnt cscd70:6.0 \
     make -f Optimize.mk all
 # Pay attention to the additional `-w /mnt` (set working directory as `/mnt`)
 # and the appended build command `make -f Optimize.mk all`.
@@ -91,10 +91,10 @@ docker-compose file provided in the project root folder. We can do the same
 things as we have previously described, but with much simpler commands.
 
 ```bash
-# Install docker-compose.
+# Install docker-compose via python-pip.
 pip3 install docker-compose
-# Build the LLVM docker image.
-docker-compose build llvm-6_0
-# Create a container.
-docker-compose run --rm llvm-6_0
+
+# Build the LLVM docker image and Create a container.
+docker-compose build cscd70-dev
+docker-compose run --rm cscd70-dev
 ```

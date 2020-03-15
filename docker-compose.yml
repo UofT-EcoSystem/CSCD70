@@ -1,11 +1,11 @@
 version: '2.3'
 
 services:
-    llvm-6_0:
-        image: llvm:6.0
+    cscd70-dev:
+        image: cscd70:6.0
         build:
-            context: ./0-LLVM_Docker
-            dockerfile: llvm-6_0.Dockerfile
+            context: ./0-CSCD70_Docker
+            dockerfile: cscd70.Dockerfile
         volumes:
             - .:/mnt
         working_dir: /mnt
