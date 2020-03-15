@@ -4,9 +4,11 @@
 
 using namespace llvm;
 
-class Analysis;
+
+class Analysis;  // Forward Declaration
 
 namespace {
+
 class AnotherTransform final : public ModulePass
 {	
 public:
