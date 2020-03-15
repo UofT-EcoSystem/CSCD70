@@ -1,4 +1,5 @@
-OPTIMIZER := dfa.so
+OPTIMIZER := licm.so
+OPT_PASSES := -loop-invariant-code-motion
 
 LLVM_VERSION ?= 6.0
 
@@ -19,7 +20,7 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 	llvm-dis-$(LLVM_VERSION) $< -o=$@
 
 ./tests/%-opt.bc: ./tests/%-m2r.bc $(OPTIMIZER)
-	env LD_LIBRARY_PATH=. opt-$(LLVM_VERSION) -load $(OPTIMIZER) -$* $< -o $@
+	env LD_LIBRARY_PATH=. opt-$(LLVM_VERSION) -load $(OPTIMIZER) ${OPT_PASSES} $< -o $@
 
 ./tests/%-m2r.bc: ./tests/%.bc
 	opt-$(LLVM_VERSION) -mem2reg $< -o $@
@@ -30,7 +31,8 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
 
-$(OPT_OBJs): ./include/dfa/framework.h
+$(OPT_OBJs): ./include/dfa/framework.h \
+             ./src/dominators.h
 
 .PHONY: clean
 clean:

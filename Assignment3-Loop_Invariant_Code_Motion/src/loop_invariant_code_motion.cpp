@@ -22,8 +22,14 @@ public:
 
         virtual bool runOnLoop(Loop * L, LPPassManager & LPM)
 	{
-                
+                return false;
         }
 };
+
+char LoopInvariantCodeMotion::ID = 0;
+
+RegisterPass < LoopInvariantCodeMotion > X (
+	"loop-invariant-code-motion",
+	"Loop Invariant Code Motion");
 
 }  // namespace anonymous
