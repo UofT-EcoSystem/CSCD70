@@ -32,7 +32,7 @@ $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
 
 $(OPT_OBJs): ./include/dfa/framework.h \
-             ./src/dominators.h
+             ./src/dominators_tree.h
 
 .PHONY: clean
 clean:
