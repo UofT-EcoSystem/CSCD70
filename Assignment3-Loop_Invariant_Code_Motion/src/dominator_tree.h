@@ -3,14 +3,14 @@
 #include <dfa/framework.h>
 
 
-// @TODO Implement `Dominators` using the `dfa::Framework` interface.
-class Dominators final : public FunctionPass
+// @TODO Implement `DominatorTree` using the `dfa::Framework` interface.
+class DominatorTree final : public FunctionPass
 {
 public:
         static char ID;
 
-        Dominators() : FunctionPass(ID) {}
-        virtual ~Dominators() override {}
+        DominatorTree() : FunctionPass(ID) {}
+        virtual ~DominatorTree() override {}
 
         // @TODO Add or remove method definitions if necessary.
         

@@ -1,4 +1,4 @@
-#include "./dominators.h"
+#include "./dominator_tree.h"
 
 #include <llvm/Analysis/LoopPass.h>
 
