@@ -14,7 +14,7 @@ jobs:
             - name: Assignment2
               run: docker-compose run --rm -w /mnt/Assignment2-Dataflow_Analysis cscd70-dev make
             - name: Assignemnt 3
-              run: docker-compose run --rm -w /mnt/Assignment3-Loop_Invariant_Code_Motion cscd70-dev make
+              run: docker-compose run --rm -w /mnt/Assignment3-Loop_Invariant_Code_Motion/LICM cscd70-dev make
             - name: Tutorial1
               run: docker-compose run --rm -w /mnt/Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals cscd70-dev make
             - name: Tutorial2
