@@ -87,8 +87,6 @@ protected:
         }
         virtual void InitializeDomainFromInstruction(const Instruction & inst) override
         {
-                // try to insert the instruction into the domain, and throw an
-                // `invalid_argument` exception if failed
                 if (isa < BinaryOperator > (inst))
                 {
                         _domain.emplace(inst);

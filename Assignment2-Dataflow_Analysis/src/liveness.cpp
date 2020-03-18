@@ -7,7 +7,7 @@ using namespace llvm;
 
 namespace {
 
-// @TODO Implement `Liveness` using the `dfa::Framework` interface.
+/// @todo Implement @c Liveness using the @c dfa::Framework interface.
 class Liveness final : public FunctionPass
 {
 public:

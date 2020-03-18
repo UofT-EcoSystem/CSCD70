@@ -43,7 +43,7 @@ class Framework : public FunctionPass
 /// @param T          Type Definition if `TDirection == dir`
 #define TYPEDEF_IF_DIRECTION(type_name, dir, T)                                 \
         using type_name = typename std::enable_if < TDirection == dir, T > ::type
-/// @todo For ∀`METHOD_ENABLE` and `TYPEDEF`, you will have to add the
+/// @todo For ∀ @c METHOD_ENABLE and @c TYPEDEF , you will have to add the
 ///       equivalent definition for backward analysis.
 protected:
         typedef TDomainElement domain_element_t;
@@ -66,8 +66,8 @@ protected:
         /// @todo  Override this method in every child class.
         virtual BitVector BC() const = 0;
 private:
-        /// @brief Dump the domain under @p mask. E.g., If `_domian`={%1, %2,
-        ///        %3,}, dumping it with `mask`=001 will give {%3,}.
+        /// @brief Dump the domain under @p mask . E.g., If @c domian = {%1, %2,
+        ///        %3,}, dumping it with @p mask = 001 will give {%3,}.
         void printDomainWithMask(const BitVector & mask) const
         {
                 outs() << "{";
@@ -139,7 +139,7 @@ protected:
         {
                 return predecessors(&bb);
         }
-        /// @brief  Apply the meet operation to a range of `meet_operands`.
+        /// @brief  Apply the meet operation to a range of @p meet_operands .
         /// 
         /// @return the Resulting BitVector after the Meet Operation
         /// 
@@ -160,7 +160,7 @@ protected:
 private:
         TYPEDEF_IF_DIRECTION(bb_traversal_const_range,
                              Direction::Forward,
-                             ReversePostOrderTraversal < const Function * > );
+                             iterator_range < Function::const_iterator > );
         TYPEDEF_IF_DIRECTION(inst_traversal_const_range,
                              Direction::Forward,
                              iterator_range < BasicBlock::const_iterator > );
@@ -171,18 +171,18 @@ private:
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
         BBTraversalOrder(const Function & F) const
         {
-                return ReversePostOrderTraversal < const Function * > (&F);
+                return make_range(F.begin(), F.end());
         }
         /// @brief Return the traversal order of the instructions.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, inst_traversal_const_range)
         InstTraversalOrder(const BasicBlock & bb) const
         {
-                return make_range(bb.rend(), bb.rbegin());
+                return make_range(bb.begin(), bb.end());
         }
 protected:
-        /// @brief  Traverse through the CFG and update `inst_bv_map`.
+        /// @brief  Traverse through the CFG and update @c inst_bv_map .
         /// 
-        /// @return True if changes are made to `inst_bv_map`, False otherwise
+        /// @return True if changes are made to @c inst_bv_map, False otherwise
         /// 
         /// @todo   Implement this method for all the child classes.
         bool traverseCFG(const Function & func)
