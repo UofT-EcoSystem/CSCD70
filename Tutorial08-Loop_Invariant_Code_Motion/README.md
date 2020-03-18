@@ -5,4 +5,10 @@
 ## Abstract
 
 - **Loop Invariant Code Motion**
-  - 
+  - Loop Invariant Instructions
+  - Dominator Tree
+  - Loop Exits
+  - Code Motion Candidates
+    - Loop Invariant
+    - Dominates All Loop Exits
+  - Code Motion
