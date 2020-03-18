@@ -66,7 +66,7 @@ protected:
         /// @todo  Override this method in every child class.
         virtual BitVector BC() const = 0;
 private:
-        /// @brief Dump the domain under @p `mask`. E.g., If `_domian`={%1, %2,
+        /// @brief Dump the domain under @p mask. E.g., If `_domian`={%1, %2,
         ///        %3,}, dumping it with `mask`=001 will give {%3,}.
         void printDomainWithMask(const BitVector & mask) const
         {
@@ -115,7 +115,7 @@ private:
                 outs() << "\n";
         }
 protected:
-        /// @brief Dump, ∀inst ∈ @p 'F', the associated bitvector.
+        /// @brief Dump, ∀inst ∈ @p F, the associated bitvector.
         void printInstBVMap(const Function & F) const
         {
                 outs() << "********************************************" << "\n";
@@ -139,16 +139,16 @@ protected:
         {
                 return predecessors(&bb);
         }
-        /// @brief  Apply the meet operation to a range of @p `meet_operands`.
+        /// @brief  Apply the meet operation to a range of `meet_operands`.
         /// 
         /// @return the Resulting BitVector after the Meet Operation
         /// 
         /// @todo   Override this method in every child class.
         virtual BitVector MeetOp(const meetop_const_range & meet_operands) const = 0;
-        /// @brief  Apply the transfer function at instruction @p `inst` to the
+        /// @brief  Apply the transfer function at instruction @p inst to the
         ///         input bitvector to get the output bitvector.
         ///
-        /// @return True if @p `obv` has been changed, False otherwise
+        /// @return True if @p obv has been changed, False otherwise
         /// 
         /// @todo   Override this method in every child class.
         virtual bool TransferFunc(const Instruction & inst,
@@ -160,7 +160,7 @@ protected:
 private:
         TYPEDEF_IF_DIRECTION(bb_traversal_const_range,
                              Direction::Forward,
-                             iterator_range < Function::const_iterator > );
+                             ReversePostOrderTraversal < const Function * > );
         TYPEDEF_IF_DIRECTION(inst_traversal_const_range,
                              Direction::Forward,
                              iterator_range < BasicBlock::const_iterator > );
@@ -171,13 +171,13 @@ private:
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, bb_traversal_const_range)
         BBTraversalOrder(const Function & F) const
         {
-                return make_range(F.begin(), F.end());
+                return ReversePostOrderTraversal < const Function * > (&F);
         }
         /// @brief Return the traversal order of the instructions.
         METHOD_ENABLE_IF_DIRECTION(Direction::Forward, inst_traversal_const_range)
         InstTraversalOrder(const BasicBlock & bb) const
         {
-                return make_range(bb.begin(), bb.end());
+                return make_range(bb.rend(), bb.rbegin());
         }
 protected:
         /// @brief  Traverse through the CFG and update `inst_bv_map`.
