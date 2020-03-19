@@ -5,7 +5,7 @@ LLVM_VERSION ?= 6.0
 
 CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags) -I./include
 
-OPT_OBJs := $(subst .cpp,.o,$(wildcard ./src/*.cpp))
+OPT_OBJs := $(subst .cpp,.o,$(wildcard *.cpp))
 
 TEST_SRCs := $(basename $(notdir $(wildcard ./tests/*.c)))
 TEST_RAW_LLs := $(subst .c,.ll,$(wildcard ./tests/*.c))
@@ -30,9 +30,6 @@ all: $(TEST_OPT_LLs) $(TEST_RAW_LLs)
 
 $(OPTIMIZER): $(OPT_OBJs)
 	$(CXX) -dylib -shared $^ -o $@
-
-$(OPT_OBJs): ./include/dfa/framework.h \
-             ./src/dominator_tree.h
 
 .PHONY: clean
 clean:
