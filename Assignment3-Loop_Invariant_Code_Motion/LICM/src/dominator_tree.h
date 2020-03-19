@@ -3,7 +3,7 @@
 #include <dfa/framework.h>
 
 
-// @TODO Implement `DominatorTree` using the `dfa::Framework` interface.
+/// @todo Implement @c DominatorTree using the @c dfa::Framework interface.
 class DominatorTree final : public FunctionPass
 {
 public:
