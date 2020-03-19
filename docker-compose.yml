@@ -2,10 +2,7 @@ version: '2.3'
 
 services:
     cscd70-dev:
-        image: cscd70:6.0
-        build:
-            context: ./0-CSCD70_Docker
-            dockerfile: cscd70.Dockerfile
+        image: armageddonknight/cscd70:latest
         volumes:
             - .:/mnt
         working_dir: /mnt
