@@ -9,7 +9,8 @@ This repository contains the course materials for class
 
 ## Questions or Concerns?
 
-If you have any questions or concerns, please open a new thread on Piazza.
+If you have any questions or concerns, please open a new thread on Piazza
+so that all your colleagues can benefit.
 
 ## Acknowledgement
 
