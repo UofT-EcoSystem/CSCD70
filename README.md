@@ -1,4 +1,4 @@
-# CSCD70 Compiler Optimization ![](https://github.com/ArmageddonKnight/CSCD70/workflows/build/badge.svg)
+# CSCD70 Compiler Optimization
 
 <p align="middle">
   <img src="http://llvm.org/docs/_static/logo.png">
