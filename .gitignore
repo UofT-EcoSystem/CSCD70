@@ -2,3 +2,6 @@
 
 # Build Artifacts
 build
+
+# IDE
+.vscode

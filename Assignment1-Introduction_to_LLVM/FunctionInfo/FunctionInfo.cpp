@@ -20,7 +20,7 @@ class FunctionInfo final : public ModulePass
     AU.setPreservesAll();
   }
   virtual bool runOnModule(Module & M) override {
-  outs() << "CSCD70 Functions Information Pass" << "\n";
+    outs() << "CSCD70 Functions Information Pass" << "\n";
 
     // @TODO Please complete this function.
     
