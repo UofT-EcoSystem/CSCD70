@@ -1,6 +1,6 @@
 // RUN: clang -O2 -emit-llvm -c %s -o - | \
-// RUN: opt -load-pass-plugin %dylibdir/libFunctionInfo%dylibext \
-// RUN:     -passes=function-info -disable-output 2>&1 - | \
+// RUN: env LD_LIBRARY_PATH=%dylibdir \
+// RUN: opt -load libFunctionInfo%dylibext -function-info -disable-output 2>&1 - | \
 // RUN: FileCheck %s
 
 // CHECK: CSCD70 Functions Information Pass

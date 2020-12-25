@@ -13,10 +13,10 @@ RUN apt-get update && \
 RUN wget https://apt.llvm.org/llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh ${LLVM_VERSION} && \
-    apt-get install -y llvm llvm-dev clang-format clang-tidy && \
+    apt-get install -y llvm llvm-dev clang clang-format clang-tidy && \
     rm -rf llvm.sh /var/lib/apt/lists/*
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && rm -f get-pip.py
 
-RUN pip3 install cmake
+RUN pip3 install lit==0.11.0 cmake==3.18.4
