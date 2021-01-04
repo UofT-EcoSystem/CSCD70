@@ -7,9 +7,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
+              with:
+                persist-credentials: false
             - name: Build
               run: cd Website && make html
-            - name: Publish :rocket:
+            - name: Publish
               uses: JamesIves/github-pages-deploy-action@3.7.1
               with:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
