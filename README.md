@@ -1,6 +1,6 @@
-![](http://llvm.org/docs/_static/logo.png)
+![LLVM logo](http://llvm.org/docs/_static/logo.png)
 
-# CSCD70 Compiler Optimization
+# CSCD70 Compiler Optimization ![website](https://github.com/ArmageddonKnight/CSCD70-Dev/workflows/website/badge.svg)
 
 This repository contains the course materials for class
 **CSCD70 Compiler Optimization** @ **University of Toronto**.
