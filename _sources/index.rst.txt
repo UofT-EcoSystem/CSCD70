@@ -2,8 +2,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-CSCD70 Compiler Optimizations
-========================================
+CSCD70 Compiler Optimization
+============================
 
 .. toctree::
    :hidden:
