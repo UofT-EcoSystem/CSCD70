@@ -12,7 +12,9 @@ jobs:
             - name: Sphinx
               run: sudo -H pip3 install sphinx
             - name: Build
-              run: cd Website && make html
+              run: | 
+                cd Website && make html
+                touch .nojekyll && mv .nojekyll build/html
             - name: Publish
               uses: JamesIves/github-pages-deploy-action@3.7.1
               with:
