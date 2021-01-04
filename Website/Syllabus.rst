@@ -5,15 +5,10 @@ Syllabus
 General Course Information
 --------------------------
 
-+------------------------+-------------------------------------------------------+
-| **Instructor**         | Professor Gennady Pekhimenko                          |
-+------------------------+-------------------------------------------------------+
-| **Teaching Assistant** | Bojian Zheng                                          |
-+------------------------+-------------------------------------------------------+
-| **Discussion Board**   | https://piazza.com/utoronto.ca/winter2021/cscd70/home |
-+------------------------+-------------------------------------------------------+
-| **MarkUs**             | https://markus.utsc.utoronto.ca/cscd70w21             |
-+------------------------+-------------------------------------------------------+
+:Instructor: Professor Gennady Pekhimenko
+:Teaching Assistant: Bojian Zheng
+:Discussion Board: https://piazza.com/utoronto.ca/winter2021/cscd70/home
+:MarkUs:  https://markus.utsc.utoronto.ca/cscd70w21
 
 Course Description
 ------------------
