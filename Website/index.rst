@@ -9,7 +9,8 @@ CSCD70 Compiler Optimizations
    :hidden:
 
    Syllabus
-   
+   Lecture Slides
+
 
 Welcome everyone to CSCD70. The first lecture AND tutorial will be on Jan. 11.
 We will be using Quercus and Piazza for important announcements and this webpage
@@ -20,9 +21,9 @@ Course Materials
 ----------------
 
 +--------------------------+---------------------------------------------------+
-| :doc:`Syllabus`          |                                                   |
+| :doc:`Syllabus`          | | Prerequisites, Marking Scheme                   |
 +--------------------------+---------------------------------------------------+
-| :doc:`Lecture Slides`    |                                                   |
+| :doc:`Lecture Slides`    | | in both PDF and PPTX format                     |
 +--------------------------+---------------------------------------------------+
 | `GitHub Repository`_     | | Assignments, Tutorial Materials,                |
 |                          | | and Code Samples                                |
