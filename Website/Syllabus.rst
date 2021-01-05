@@ -7,7 +7,7 @@ General Course Information
 
 :Instructor: Professor Gennady Pekhimenko
 :Teaching Assistant: `Bojian Zheng`_
-:Zoom: https://vectorinstitute.zoom.us/join/99214420711 (Passcode: 487511)
+:Zoom: https://vectorinstitute.zoom.us/j/99214420711 (Passcode: 487511)
 :Discussion Board: https://piazza.com/utoronto.ca/winter2021/cscd70/home
 :MarkUs:  https://markus.utsc.utoronto.ca/cscd70w21
 
