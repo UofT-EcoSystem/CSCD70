@@ -9,9 +9,9 @@ Introduction
 
 Docker runs our applications in a **lightweight** *container* by using the
 *image* that has all the necessary software components installed. Think of it as
-`conda` or `virtualenv` (both are used to create an isolated Python
+`conda` or `virtualenv` (both are used to create an containerized Python
 environment), but at a broader scope for almost all common software libraries.
-Compared with virtual machines, Docker has negligible performance
+Compared with the virtual machines, Docker has negligible performance
 overhead [1]_, making itself an ideal solution for software development nowadays.
 
 .. raw:: html
