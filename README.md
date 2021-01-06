@@ -7,7 +7,7 @@ This repository contains the course materials for class
 
 ## Questions or Concerns?
 
-If you have any questions or concerns, please open a new thread on Piazza
+If you have any questions or concerns, please open a new thread on [Piazza](https://piazza.com/utoronto.ca/winter2021/cscd70/home)
 so that all your colleagues can benefit.
 
 ## Acknowledgement
