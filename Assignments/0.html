@@ -62,10 +62,10 @@
 <h2><a class="toc-backref" href="#id5">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Docker runs our applications in a <strong>lightweight</strong> <em>container</em> by using the
 <em>image</em> that has all the necessary software components installed. Think of it as
-<cite>conda</cite> or <cite>virtualenv</cite> (both are used to create an containerized Python
-environment), but at a broader scope for almost all common software libraries.
-Compared with the virtual machines, Docker has negligible performance
-overhead <a class="footnote-reference brackets" href="#id3" id="id1">1</a>, making itself an ideal solution for software development nowadays.</p>
+<cite>conda</cite> or <cite>virtualenv</cite> (both are used to as an containerized Python
+environment), but at a broader scope for almost all software libraries. Compared
+with the virtual machines, Docker has negligible performance overhead <a class="footnote-reference brackets" href="#id3" id="id1">1</a>,
+making itself an ideal solution for software development.</p>
 <embed>
   <p align="middle">
     <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
@@ -103,9 +103,8 @@ docker build . -t cscd70:2021S
 </li>
 <li><p><strong>Create a Docker container</strong>:</p>
 <ul class="simple">
-<li><p>A <em>container</em> is an instantiation of an image. Apparantly multiple
-containers can be created out of an image (it is similar to the conda where
-we have multiple Python projects using the same conda environment).</p></li>
+<li><p>A <em>container</em> is an instantiation of an image. Multiple
+containers can be created out of the same image.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
 <span class="nb">cd</span> ../Assignment1-Introduction_to_LLVM/FunctionInfo
@@ -151,9 +150,9 @@ cmake .. <span class="o">&amp;&amp;</span> make
 </div>
 <div class="section" id="docker-compose">
 <h3><a class="toc-backref" href="#id8">Docker-Compose</a><a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h3>
-<p>Docker-Compose is a simple wrapper on top of the docker commands.
-There is a docker-compose file provided in the project root folder.
-We can do the same things as we have previously described, but with much simpler commands.</p>
+<p>Docker-Compose is a simple wrapper on top of the docker commands. There is a
+docker-compose file provided in the root folder of the <a class="reference external" href="https://github.com/UofT-EcoSystem/CSCD70">GitHub repo</a>. We can do
+the same things as we have previously described, but much simpler:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install docker-compose via python-pip.</span>
 pip3 install docker-compose
 

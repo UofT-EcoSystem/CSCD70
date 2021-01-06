@@ -11,10 +11,10 @@ Introduction
 
 Docker runs our applications in a **lightweight** *container* by using the
 *image* that has all the necessary software components installed. Think of it as
-`conda` or `virtualenv` (both are used to create an containerized Python
-environment), but at a broader scope for almost all common software libraries.
-Compared with the virtual machines, Docker has negligible performance
-overhead [1]_, making itself an ideal solution for software development nowadays.
+`conda` or `virtualenv` (both are used to as an containerized Python
+environment), but at a broader scope for almost all software libraries. Compared
+with the virtual machines, Docker has negligible performance overhead [1]_,
+making itself an ideal solution for software development.
 
 .. raw:: html
 
@@ -49,9 +49,8 @@ Docker
      docker build . -t cscd70:2021S
 - **Create a Docker container**:
 
-  - A *container* is an instantiation of an image. Apparantly multiple
-    containers can be created out of an image (it is similar to the conda where
-    we have multiple Python projects using the same conda environment).
+  - A *container* is an instantiation of an image. Multiple
+    containers can be created out of the same image.
 
   .. code-block:: bash
 
@@ -83,9 +82,11 @@ Docker
 Docker-Compose
 """"""""""""""
  
-Docker-Compose is a simple wrapper on top of the docker commands.
-There is a docker-compose file provided in the project root folder.
-We can do the same things as we have previously described, but with much simpler commands.
+Docker-Compose is a simple wrapper on top of the docker commands. There is a
+docker-compose file provided in the root folder of the `GitHub repo`_. We can do
+the same things as we have previously described, but much simpler:
+
+.. _GitHub repo: https://github.com/UofT-EcoSystem/CSCD70
 
 .. code-block:: bash
 
