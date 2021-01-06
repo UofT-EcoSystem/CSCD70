@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 0 Introduction to Docker &#8212; CSCD70 2021S documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Assignments" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Assignments"
+             accesskey="P">previous</a> |</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html"></a>&raquo;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Assignments</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Assignment 0 Introduction to Docker </a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="assignment-0-introduction-to-docker-ready">
+<h1>Assignment 0 Introduction to Docker <img alt="ready" src="https://img.shields.io/badge/ready%3F-yes-brightgreen" /><a class="headerlink" href="#assignment-0-introduction-to-docker-ready" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#instructions" id="id6">Instructions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#docker" id="id7">Docker</a></p></li>
+<li><p><a class="reference internal" href="#docker-compose" id="id8">Docker-Compose</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#references" id="id9">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id5">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Docker runs our applications in a <strong>lightweight</strong> <em>container</em> by using the
+<em>image</em> that has all the necessary software components installed. Think of it as
+<cite>conda</cite> or <cite>virtualenv</cite> (both are used to create an containerized Python
+environment), but at a broader scope for almost all common software libraries.
+Compared with the virtual machines, Docker has negligible performance
+overhead <a class="footnote-reference brackets" href="#id3" id="id1">1</a>, making itself an ideal solution for software development nowadays.</p>
+<embed>
+  <p align="middle">
+    <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
+    <img width="32.9%" src="https://docs.docker.com/images/VM%402x.png">
+  </p>
+</embed><p><a class="footnote-reference brackets" href="#id4" id="id2">2</a></p>
+</div>
+<div class="section" id="instructions">
+<h2><a class="toc-backref" href="#id6">Instructions</a><a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="docker">
+<h3><a class="toc-backref" href="#id7">Docker</a><a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><strong>Download and Install Docker</strong>:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Windows</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-windows">https://hub.docker.com/editions/community/docker-ce-desktop-windows</a></p>
+</dd>
+<dt class="field-even">Mac</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a></p>
+</dd>
+<dt class="field-odd">Ubuntu</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p>
+</dd>
+</dl>
+</li>
+<li><p><strong>Build the Docker image</strong>:</p>
+<ul class="simple">
+<li><p>An <em>image</em> is an isolated environment that includes all necessary software
+components.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.</span>
+docker build . -t cscd70:2021S
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a Docker container</strong>:</p>
+<ul class="simple">
+<li><p>A <em>container</em> is an instantiation of an image. Apparantly multiple
+containers can be created out of an image (it is similar to the conda where
+we have multiple Python projects using the same conda environment).</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
+<span class="nb">cd</span> ../Assignment1-Introduction_to_LLVM/FunctionInfo
+docker run -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt --rm --name cscd70_a1 cscd70:2021S
+</pre></div>
+</div>
+<dl class="option-list">
+<dt><kbd><span class="option">-t</span></kbd></dt>
+<dd><p>Allocate a pseudo TTY.</p>
+</dd>
+<dt><kbd><span class="option">-i</span></kbd></dt>
+<dd><p>Connect to STDIN.</p>
+</dd>
+<dt><kbd><span class="option">-v</span></kbd></dt>
+<dd><p>Mount the current working directory (i.e., <code class="code docutils literal notranslate"><span class="pre">FunctionInfo</span></code>) to <code class="code docutils literal notranslate"><span class="pre">/mnt</span></code> in the container.</p>
+</dd>
+<dt><kbd><span class="option">--rm</span></kbd></dt>
+<dd><p>(Optional) Cleanup the container when we exit.</p>
+</dd>
+<dt><kbd><span class="option">--name</span></kbd></dt>
+<dd><p>(Optional) Name of the Container</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Note that:</p>
+<ol class="arabic simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">-it</span></code> must be used jointly for an interactive bash shell,</p></li>
+<li><p>Any changes made natively in the mounted directory will be reflected in the container as well (and vice versa).
+The mounted directory must be in <strong>absolute path</strong>.</p></li>
+<li><p>The image name (i.e., <code class="code docutils literal notranslate"><span class="pre">cscd70:latest</span></code>) should always come last.</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>Run the experiments</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /mnt
+mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+cmake .. <span class="o">&amp;&amp;</span> make
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="docker-compose">
+<h3><a class="toc-backref" href="#id8">Docker-Compose</a><a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h3>
+<p>Docker-Compose is a simple wrapper on top of the docker commands.
+There is a docker-compose file provided in the project root folder.
+We can do the same things as we have previously described, but with much simpler commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install docker-compose via python-pip.</span>
+pip3 install docker-compose
+
+docker-compose build cscd70-dev     <span class="c1"># Build the image.</span>
+docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h2><a class="toc-backref" href="#id9">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://stackoverflow.com/a/26149994/6320608">https://stackoverflow.com/a/26149994/6320608</a></p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h3>Important Links</h3>
+     
+<ul class="want-points">
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Syllabus.html">Syllabus</a></li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Lecture%20Slides.html">Lecture Slides</a></li>
+  <li><a href="https://github.com/UofT-EcoSystem/CSCD70">GitHub Repository</a></li>
+</ul>
+
+<h3>Documentations</h3>
+     
+<ul class="want-points">
+  <li><a href="http://www.cplusplus.com/">C++</a></li>
+  <li><a href="https://llvm.org/doxygen/">LLVM Doxygen</a></li>
+  <li><a href="https://llvm.org/docs/ProgrammersManual.html">LLVM Programmer's Manual</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Assignments"
+             >previous</a> |</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html"></a>&raquo;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Assignments</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Assignment 0 Introduction to Docker </a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, University of Toronto.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.2.
+    </div>
+  </body>
+</html>
