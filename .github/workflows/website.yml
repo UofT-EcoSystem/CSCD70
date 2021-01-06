@@ -10,7 +10,7 @@ jobs:
               with:
                 persist-credentials: false
             - name: Sphinx
-              run: sudo -H pip3 install sphinx
+              run: sudo -H pip3 install sphinx sphinxemoji
             - name: Build
               run: | 
                 cd Website && make html
