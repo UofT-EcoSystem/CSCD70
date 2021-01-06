@@ -25,6 +25,7 @@ overhead [1]_, making itself an ideal solution for software development nowadays
 [2]_
 
 Instructions
+------------
 
 - **Download and Install Docker**:
   
@@ -38,8 +39,26 @@ Instructions
   .. code-block:: bash
 
      # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.
-     docker build . -t cscd70:6.0
+     docker build . -t cscd70:2021S
+- **Create a container**:
 
+  - A *container* is an instantiation of an image. Apparantly multiple
+    containers can be created out of an image (it is similar to the conda where
+    we have multiple Python projects using the same conda environment).
+
+  .. code-block:: bash
+
+     # Create a container for the first assignment.
+     cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
+     docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2021S
+
+  -it     Allocate a pseudo tty (-t) and connect STDIN (-i). These options must
+          be used for starting an interactive bash shell.
+  -v      Mount the `FunctionInfo` directory to /mnt in the container. This way
+          any changes made natively will be reflected in the container as well
+          (and vice versa).
+  --rm    (Optional) Cleanup the container when we exit.
+  --name  (Optional) Name of the Container
 
 References
 ----------
