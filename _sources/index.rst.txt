@@ -18,19 +18,4 @@ We will be using Quercus and Piazza for important announcements and this webpage
 for uploading course materials, so please make sure that you check them
 regularly for any updates.
 
-Course Materials
-----------------
-
-======================================== ================================================================================
-:doc:`Syllabus`                          Prerequisites, Marking Scheme
----------------------------------------- --------------------------------------------------------------------------------
-:doc:`Lecture Slides`                    in pdf and pptx format
----------------------------------------- --------------------------------------------------------------------------------
-:doc:`Assignments <Assignments/index>`   | Programming Assignments
-                                         | and Theoretical Questions
----------------------------------------- --------------------------------------------------------------------------------
-`GitHub Repository`_                     | Assignments, Tutorial Materials,
-                                         | and Code Samples
-======================================== ================================================================================
-
-.. _GitHub Repository: https://github.com/UofT-EcoSystem/CSCD70
+|:point_right:| Please checkout the right hand side for important course materials.
