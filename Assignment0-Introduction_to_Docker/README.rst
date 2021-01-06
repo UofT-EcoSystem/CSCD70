@@ -27,12 +27,15 @@ overhead [1]_, making itself an ideal solution for software development nowadays
 Instructions
 ------------
 
+Docker
+""""""
+
 - **Download and Install Docker**:
   
   :Windows: https://hub.docker.com/editions/community/docker-ce-desktop-windows
   :Mac: https://hub.docker.com/editions/community/docker-ce-desktop-mac
   :Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
-- **Build the docker image**:
+- **Build the Docker image**:
 
   - An *image* is an isolated environment that includes all necessary software
     components.
@@ -40,7 +43,7 @@ Instructions
 
      # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.
      docker build . -t cscd70:2021S
-- **Create a container**:
+- **Create a Docker container**:
 
   - A *container* is an instantiation of an image. Apparantly multiple
     containers can be created out of an image (it is similar to the conda where
@@ -54,14 +57,42 @@ Instructions
   
   -t      Allocate a pseudo tty.
   -i      Connect to STDIN.
-  -v      Mount the current working directory to :code:`/mnt` in the container.
+  -v      Mount the current working directory (i.e., :code:`FunctionInfo`) to :code:`/mnt` in the container.
   --rm    (Optional) Cleanup the container when we exit.
   --name  (Optional) Name of the Container
-  - Note that :code:`-it` must be used jointly for an interactive bash shell. 
+
+  - Note that:
+
+    #. :code:`-it` must be used jointly for an interactive bash shell,
+    #. Any changes made natively in the mounted directory will be reflected in the container as well (and vice versa).
+       The mounted directory must be in **absolute path**.
+    #. The image name (i.e., :code:`cscd70:latest`) should always come last.
+
+- **Run the experiments**:
+
+  .. code-block:: bash
+     
+     cd /mnt
+     mkdir build && cd build
+     cmake .. && make
+
+Docker-Compose
+""""""""""""""
+ 
+Docker-Compose is a simple wrapper on top of the docker commands.
+There is a docker-compose file provided in the project root folder.
+We can do the same things as we have previously described, but with much simpler commands.
+
+.. code-block:: bash
+
+   # Install docker-compose via python-pip.
+   pip3 install docker-compose
+
+   docker-compose build cscd70-dev     # Build the image.
+   docker-compose run --rm cscd70-dev  # Create a container.
 
 References
 ----------
 
 .. [1] https://stackoverflow.com/a/26149994/6320608
 .. [2] https://docs.docker.com/get-started/
- 
