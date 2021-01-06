@@ -1,7 +1,7 @@
 Assignment 0 Introduction to Docker |ready|
 ===========================================
 
-.. |ready| image:: https://img.shields.io/badge/ready%3F-yes-lightgreen
+.. |ready| image:: https://img.shields.io/badge/ready%3F-yes-brightgreen
 
 .. contents::
    :local:
