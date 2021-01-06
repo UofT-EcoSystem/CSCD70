@@ -69,7 +69,7 @@ Docker
     #. :code:`-it` must be used jointly for an interactive bash shell,
     #. Any changes made natively in the mounted directory will be reflected in the container as well (and vice versa).
        The mounted directory must be in **absolute path**.
-    #. The image name (i.e., :code:`cscd70:latest`) should always come last.
+    #. The image name (i.e., :code:`cscd70:2021S`) should always come last.
 
 - **Run the experiments**:
 
