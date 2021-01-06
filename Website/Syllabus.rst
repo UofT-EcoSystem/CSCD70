@@ -7,15 +7,18 @@ General Course Information
 
 :Instructor: Professor Gennady Pekhimenko
 :Teaching Assistant: `Bojian Zheng`_
-:Lecture Hours & Locations:
+:Lecture Hours & Locations [#]_:
     | Mon. 1:00-3:00 p.m.
     | https://vectorinstitute.zoom.us/j/99214420711 (Passcode: 487511)
-:Tutorial Hours and Locations:
+:Tutorial Hours & Locations:
     | Mon. 10:00-11:00 a.m. (same Zoom link)
 :Discussion Board: https://piazza.com/utoronto.ca/winter2021/cscd70/home
 :MarkUs:  https://markus.utsc.utoronto.ca/cscd70w21
 
 .. _bojian Zheng: mailto:bojian@cs.toronto.edu
+.. [#] Lectures and tutorials will be recorded and later uploaded to `UofT MyMedia`_ and YouTube.
+
+.. _UofT MyMedia: https://mymedia.library.utoronto.ca/
 
 Course Description
 ------------------
