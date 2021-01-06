@@ -10,6 +10,7 @@ CSCD70 Compiler Optimization
 
    Syllabus
    Lecture Slides
+   Assignments/index
 
 
 Welcome everyone to CSCD70. The first lecture AND tutorial will be on Jan. 11.
@@ -20,13 +21,16 @@ regularly for any updates.
 Course Materials
 ----------------
 
-+--------------------------+---------------------------------------------------+
-| :doc:`Syllabus`          | | Prerequisites, Marking Scheme                   |
-+--------------------------+---------------------------------------------------+
-| :doc:`Lecture Slides`    | | in both PDF and PPTX format                     |
-+--------------------------+---------------------------------------------------+
-| `GitHub Repository`_     | | Assignments, Tutorial Materials,                |
-|                          | | and Code Samples                                |
-+--------------------------+---------------------------------------------------+
+======================================== ================================================================================
+:doc:`Syllabus`                          Prerequisites, Marking Scheme
+---------------------------------------- --------------------------------------------------------------------------------
+:doc:`Lecture Slides`                    in pdf and pptx format
+---------------------------------------- --------------------------------------------------------------------------------
+:doc:`Assignments <Assignments/index>`   | Programming Assignments
+                                         | and Theoretical Questions
+---------------------------------------- --------------------------------------------------------------------------------
+`GitHub Repository`_                     | Assignments, Tutorial Materials,
+                                         | and Code Samples
+======================================== ================================================================================
 
 .. _GitHub Repository: https://github.com/UofT-EcoSystem/CSCD70

@@ -24,6 +24,7 @@ overhead [1]_, making itself an ideal solution for software development nowadays
        <img width="32.9%" src="https://docs.docker.com/images/VM%402x.png">
      </p>
    </embed>
+
 [2]_
 
 Instructions
@@ -41,6 +42,7 @@ Docker
 
   - An *image* is an isolated environment that includes all necessary software
     components.
+
   .. code-block:: bash
 
      # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.
