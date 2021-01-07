@@ -46,7 +46,9 @@ Docker
   .. code-block:: bash
 
      # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.
+     cd Assignment0-Introduction_to_Docker
      docker build . -t cscd70:2021S
+
 - **Create a Docker container**:
 
   - A *container* is an instantiation of an image. Multiple
@@ -55,7 +57,7 @@ Docker
   .. code-block:: bash
 
      # Create a container for the first assignment.
-     cd ../Assignment1-Introduction_to_LLVM/FunctionInfo
+     cd Assignment1-Introduction_to_LLVM/FunctionInfo
      docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2021S
   
   -t      Allocate a pseudo TTY.

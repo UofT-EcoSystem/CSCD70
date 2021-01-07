@@ -14,6 +14,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Assignment 1 Introduction to LLVM" href="1.html" />
     <link rel="prev" title="Assignments" href="index.html" />
 <style type="text/css">
   div.footer a {text-decoration: none;}
@@ -28,6 +29,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="1.html" title="Assignment 1 Introduction to LLVM"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Assignments"
              accesskey="P">previous</a> |</li>
@@ -97,6 +101,7 @@ making itself an ideal solution for software development.</p>
 components.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.</span>
+<span class="nb">cd</span> Assignment0-Introduction_to_Docker
 docker build . -t cscd70:2021S
 </pre></div>
 </div>
@@ -107,7 +112,7 @@ docker build . -t cscd70:2021S
 containers can be created out of the same image.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
-<span class="nb">cd</span> ../Assignment1-Introduction_to_LLVM/FunctionInfo
+<span class="nb">cd</span> Assignment1-Introduction_to_LLVM/FunctionInfo
 docker run -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt --rm --name cscd70_a1 cscd70:2021S
 </pre></div>
 </div>
@@ -227,6 +232,9 @@ docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="1.html" title="Assignment 1 Introduction to LLVM"
+             >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Assignments"
              >previous</a> |</li>
