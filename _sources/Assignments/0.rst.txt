@@ -4,9 +4,13 @@ Assignment 0 Introduction to Docker |ready|
 .. |ready| image:: https://img.shields.io/badge/ready%3F-yes-brightgreen
 
 .. note::
-   Please feel free to skip this if you are working on the MathLab machines
-   @mathlab.utsc.utoronto.ca as they already have all the necessary software
+
+   Please feel free to skip this section if you are working on the MathLab
+   machines @\ |MathLab|_ as they already have all the necessary software
    components installed.
+
+.. |MathLab| replace:: mathlab.utsc.utoronto.ca
+.. _MathLab: mathlab.utsc.utoronto.ca
 
 .. contents::
    :local:
