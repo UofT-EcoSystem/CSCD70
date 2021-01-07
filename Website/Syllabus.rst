@@ -23,16 +23,16 @@ General Course Information
 Course Description
 ------------------
 
-The goal of this course is introduce students to the theoretical and practical aspects
-of building optimizing compilers that effectively exploit modern architectures.
-The course will begin with the fundamentals of compiler optimization,
-and will build upon these fundamentals to address issues in state-of-the-art 
-commercial and research machines.
-Topics include the followings: intermediate representations, basic blocks and control flow graphs,
-dataflow analysis, partial redundancy elimination, loop optimizations,
-register allocation, instruction scheduling, inter-procedural analysis,
-memory hierarchy optimizations, extracting parallelism, and dynamic optimizations.
-Students will implement significant optimizations within LLVM, a modern research compiler framework.
+The goal of this course is introduce students to the theoretical and practical
+aspects of building optimizing compilers that effectively exploit modern
+architectures. The course will begin with the fundamentals of compiler
+optimization, and will build upon these fundamentals to address issues in
+state-of-the-art commercial and research machines. Topics include the
+followings: intermediate representations, basic blocks and control flow graphs,
+dataflow analysis, partial redundancy elimination, loop optimizations, register
+allocation, instruction scheduling, inter-procedural analysis, memory hierarchy
+optimizations, extracting parallelism, and dynamic optimizations. Students will
+implement significant optimizations within LLVM, a modern research compiler framework.
 
 
 Prerequisites
@@ -47,18 +47,17 @@ Course Work and Grading
 
 * **Assignments (45%)**
   
-  A major focus of this course is the assignments.
-  We prefer that you work in **groups of two** on the assignments.
-  The assignments will contain both programming and theoretical questions.
-  There will be three assignments, each worth 15% of your final grade.
-  The first assignment will be distributed on Jan. 11 and 
-  it will introduce you to the LLVM compiler framework.
+  A major focus of this course is the assignments. We prefer that you work in
+  **groups of two** on the assignments. The assignments will contain both
+  programming and theoretical questions. There will be three assignments, each
+  worth 15% of your final grade. The first assignment will be distributed on
+  Jan. 11 and it will introduce you to the LLVM compiler framework.
 
 * **Midterm (20%)** and **Final Exam (35%)**
 
   There will be a midterm exam covering the first half of the course material
-  and a final covering the whole. Both exams will be closed book, closed notes [#]_.
+  and a final covering the whole. Both exams will be closed book, closed notes
+  [#]_.
 
-.. [#] Please note that due to the situation of the pandemic,
-       the exams will most likely happen online.
-       We will announce more details on this later.
+.. [#] Please note that due to the situation of the pandemic, the exams will
+       most likely happen online. We will announce more details on this later.
