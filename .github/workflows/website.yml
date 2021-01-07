@@ -12,7 +12,7 @@ jobs:
             - name: Sphinx
               run: |
                 sudo apt-get install -y python3-setuptools 
-                sudo -H pip3 install sphinx sphinxemoji
+                sudo -H pip3 install sphinx sphinxemoji recommonmark
             - name: Build
               run: | 
                 cd Website && make html

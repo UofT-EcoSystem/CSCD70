@@ -31,6 +31,7 @@ release = '2021S'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'recommonmark',
     'sphinxemoji.sphinxemoji',
 ]
 
