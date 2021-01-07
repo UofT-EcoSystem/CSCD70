@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 1 Introduction to LLVM &#8212; CSCD70 2021S documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Assignment 0 Introduction to Docker" href="0.html" />
+<style type="text/css">
+  div.footer a {text-decoration: none;}
+  div.body   a {text-decoration: none;}
+  pre a {text-decoration: none;}
+</style>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="0.html" title="Assignment 0 Introduction to Docker"
+             accesskey="P">previous</a> |</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html"></a>&raquo;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Assignments</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Assignment 1 Introduction to LLVM </a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="assignment-1-introduction-to-llvm-ready">
+<h1>Assignment 1 Introduction to LLVM <img alt="ready" src="https://img.shields.io/badge/ready%3F-no-red" /><a class="headerlink" href="#assignment-1-introduction-to-llvm-ready" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#abstract" id="id1">Abstract</a></p></li>
+<li><p><a class="reference internal" href="#policy" id="id2">Policy</a></p>
+<ul>
+<li><p><a class="reference internal" href="#collaboration" id="id3">Collaboration</a></p></li>
+<li><p><a class="reference internal" href="#submission" id="id4">Submission</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#problem-statement" id="id5">Problem Statement</a></p>
+<ul>
+<li><p><a class="reference internal" href="#function-information" id="id6">Function Information</a></p></li>
+<li><p><a class="reference internal" href="#local-optimizations" id="id7">Local Optimizations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#faqs" id="id8">FAQs</a></p></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h2><a class="toc-backref" href="#id1">Abstract</a><a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<p>Welcome to CSCD70 Compiler Optimization. We will be using the Low Level Virtual
+Machine (LLVM) Compiler infrastructure from University of Illinois
+Urbana-Champaign (UIUC) for our programming assignments.</p>
+<p>The objective of this first assignment is to introduce you to LLVM and some ways
+that it can be used to make your programs run faster. In particular, you will be
+using LLVM to analyze code to output interesting properties about your program
+(Section <a class="reference internal" href="#function-information">Function Information</a>) and to perform simple optimizations (Section
+<a class="reference internal" href="#local-optimizations">Local Optimizations</a>).</p>
+</div>
+<div class="section" id="policy">
+<h2><a class="toc-backref" href="#id2">Policy</a><a class="headerlink" href="#policy" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collaboration">
+<h3><a class="toc-backref" href="#id3">Collaboration</a><a class="headerlink" href="#collaboration" title="Permalink to this headline">¶</a></h3>
+<p>You will work in groups of <strong>two</strong> for the assignments in this course. Please turn
+in a single submission per group.</p>
+</div>
+<div class="section" id="submission">
+<h3><a class="toc-backref" href="#id4">Submission</a><a class="headerlink" href="#submission" title="Permalink to this headline">¶</a></h3>
+<p>Please submit all your source code and writeup to <a class="reference external" href="https://markus.utsc.utoronto.ca/cscd70w21">MarkUs</a>. Make sure to
+include the followings:</p>
+</div>
+</div>
+<div class="section" id="problem-statement">
+<h2><a class="toc-backref" href="#id5">Problem Statement</a><a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="function-information">
+<h3><a class="toc-backref" href="#id6">Function Information</a><a class="headerlink" href="#function-information" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="local-optimizations">
+<h3><a class="toc-backref" href="#id7">Local Optimizations</a><a class="headerlink" href="#local-optimizations" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="faqs">
+<h2><a class="toc-backref" href="#id8">FAQs</a><a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h2>
+<p><em>Given below is the questions asked during previous offering of the class.
+Please make sure to read them carefully</em> <strong>BEFORE</strong> <em>approaching the
+assignment. If you do not think they fully answer your question, always
+feel free to open a new thread on</em> <a class="reference external" href="https://piazza.com/utoronto.ca/winter2021/cscd70/home">Piazza</a> <em>.</em></p>
+<dl class="field-list">
+<dt class="field-odd">Q</dt>
+<dd class="field-odd"><p><strong>Can I work in group of one?</strong></p>
+</dd>
+<dt class="field-even">A</dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">Yes. You can. However, we would like to remind you that working in group
+of one would <strong>NOT</strong> give you any advantage in terms of grading.</div>
+<div class="line">For people working in group of two, although it is up to you to decide how
+to distribute the work evenly between the group members, <strong>BOTH</strong> of you
+are responsible for knowing all the assignment materials as they will be
+tested in the exams.</div>
+</div>
+</dd>
+<dt class="field-odd">Q</dt>
+<dd class="field-odd"><p><strong>Are we allowed to include headers other than those that are provided by LLVM (e.g., STL)?</strong></p>
+</dd>
+<dt class="field-even">A</dt>
+<dd class="field-even"><p>Yes. You can, but we strongly doubt whether this is necessary to use
+libraries beyond those of LLVM and STL in this course.</p>
+</dd>
+<dt class="field-odd">Q</dt>
+<dd class="field-odd"><p><strong>How do we know what each type of instruction does?</strong></p>
+</dd>
+<dt class="field-even">A</dt>
+<dd class="field-even"><p>For most instructions you can directly infer from their names. Please refer
+to the <a class="reference external" href="https://llvm.org/docs/LangRef.html">LLVM Language Reference Manual</a> for more detailed information.</p>
+</dd>
+<dt class="field-odd">Q</dt>
+<dd class="field-odd"><p><strong>Suppose that we have the statement</strong> <span class="math notranslate nohighlight">\(i = i + 1\)</span> <strong>. Should we treat
+expression</strong> <span class="math notranslate nohighlight">\(i + 1\)</span> <strong>as available after the statement?</strong></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h3>Course Materials</h3>
+     
+<ul class="want-points">
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Syllabus.html">Syllabus</a></li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Lecture%20Slides.html">Lecture Slides</a></li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Assignments/index.html">Assignments</a></li>
+  <li><a href="https://github.com/UofT-EcoSystem/CSCD70">GitHub Repository</a></li>
+</ul>
+
+<h3>Additional Links</h3>
+
+<ul class="want-points">
+  <li><a href="https://vectorinstitute.zoom.us/j/99214420711">Zoom</a> (Password 487511)</li>
+  <li><a href="https://piazza.com/utoronto.ca/winter2021/cscd70/home">Piazza</a></li>
+  <li><a href="https://markus.utsc.utoronto.ca/cscd70w21">MarkUs</a></li>
+</ul>
+
+<h3>Documentations</h3>
+     
+<ul class="want-points">
+  <li><a href="http://www.cplusplus.com/">C++</a></li>
+  <li><a href="https://llvm.org/doxygen/">LLVM Doxygen</a></li>
+  <li><a href="https://llvm.org/docs/ProgrammersManual.html">LLVM Programmer's Manual</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="0.html" title="Assignment 0 Introduction to Docker"
+             >previous</a> |</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html"></a>&raquo;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Assignments</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Assignment 1 Introduction to LLVM </a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, University of Toronto.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.2.
+    </div>
+  </body>
+</html>
