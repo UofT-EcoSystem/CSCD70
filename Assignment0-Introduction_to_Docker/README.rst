@@ -3,8 +3,14 @@ Assignment 0 Introduction to Docker |ready|
 
 .. |ready| image:: https://img.shields.io/badge/ready%3F-yes-brightgreen
 
+.. note::
+   Please feel free to skip this if you are working on the MathLab machines
+   @mathlab.utsc.utoronto.ca as they already have all the necessary software
+   components installed.
+
 .. contents::
    :local:
+
 
 Introduction
 ------------
@@ -26,6 +32,7 @@ making itself an ideal solution for software development.
    </embed>
 
 [2]_
+
 
 Instructions
 ------------
@@ -97,6 +104,7 @@ the same things as we have previously described, but much simpler:
 
    docker-compose build cscd70-dev     # Build the image.
    docker-compose run --rm cscd70-dev  # Create a container.
+
 
 References
 ----------
