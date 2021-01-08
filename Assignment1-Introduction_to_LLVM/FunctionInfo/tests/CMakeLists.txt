@@ -1,5 +1,7 @@
 # *lit* is the LLVM integrated tester. Please visit
+# 
 #     https://llvm.org/docs/CommandGuide/lit.html
+# 
 # for its documentation.
 execute_process(COMMAND llvm-config --bindir
                 OUTPUT_VARIABLE LLVM_CONFIG_BINDIR

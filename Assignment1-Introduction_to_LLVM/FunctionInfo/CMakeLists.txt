@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.12.0)
 project(FunctionInfo)
 
 # Obtain the build flags from
+# 
 #     llvm-config --cxxflags
+# 
 # and forward them to variable 'CMAKE_CXX_FLAGS'.
 execute_process(COMMAND llvm-config --cxxflags
                 OUTPUT_VARIABLE LLVM_CONFIG_CXXFLAGS

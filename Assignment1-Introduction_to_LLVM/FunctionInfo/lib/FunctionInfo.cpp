@@ -20,7 +20,7 @@ class FunctionInfo final : public ModulePass {
   }
 
   virtual bool runOnModule(Module &M) override {
-    outs() << "CSCD70 Functions Information Pass"
+    outs() << "CSCD70 Function Information Pass"
            << "\n";
 
     // @TODO Please complete this function.
@@ -32,6 +32,6 @@ class FunctionInfo final : public ModulePass {
 char FunctionInfo::ID = 0;
 RegisterPass<FunctionInfo> X(
     "function-info",
-    "CSCD70: Functions Information");
+    "CSCD70: Function Information");
 
 }  // anonymous namespace
