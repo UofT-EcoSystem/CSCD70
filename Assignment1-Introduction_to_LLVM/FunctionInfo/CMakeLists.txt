@@ -17,4 +17,4 @@ add_subdirectory(lib)  # Build the shared library libFunctionInfo.so.
 
 include(CTest)
 enable_testing()
-add_subdirectory(tests)
+add_subdirectory(test)
