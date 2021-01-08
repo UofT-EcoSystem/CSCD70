@@ -18,7 +18,8 @@ config.substitutions.append((r'%dylibext', "@CMAKE_SHARED_LIBRARY_SUFFIX@"))
 config.substitutions.append((r'%dylibdir', "@CMAKE_LIBRARY_OUTPUT_DIR@"))
 
 # Extra config attribute for tool substitutions.
+# FileCheck is not in the default executable path, therefore we need to add it manually.
 config.llvm_config_bindir = "@LLVM_CONFIG_BINDIR@"
 llvm_config.add_tool_substitutions(
-        ["clang", "opt", "FileCheck"],
+        ["FileCheck"],
         config.llvm_config_bindir)
