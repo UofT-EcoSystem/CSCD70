@@ -10,7 +10,6 @@
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 /*! @todo(cscd70) Remove the `--check-prefix=SAMPLE` option.
  */
-
 // SAMPLE: CSCD70 Function Information Pass
 
 int g;
