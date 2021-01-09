@@ -2,6 +2,9 @@
 
 # Build Artifacts
 build
+*.o
+*.bc
+*.so
 
 # IDE
 .vscode
