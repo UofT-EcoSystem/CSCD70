@@ -6,7 +6,7 @@ lit.llvm.initialize(lit_config, config)
 from lit.llvm import llvm_config
 
 
-config.name = 'FunctionInfo'
+config.name = 'LocalOpts'
 config.test_format = lit.formats.ShTest()
 config.test_source_root = "@CMAKE_CURRENT_SOURCE_DIR@"
 config.test_exec_root   = "@CMAKE_CURRENT_BINARY_DIR@"
