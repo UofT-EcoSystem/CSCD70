@@ -1,8 +1,10 @@
 //      Compile the test case into assembly bytecode.
 // RUN: clang -O2 -emit-llvm -c %s -o %basename_t.bc
-//      Disassemble the bytecode into readable format.
+//      Disassemble the bytecode into readable format. The output Loop.c.ll will
+//      be stored in the build/test folder.
 // RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
-//      Run the FunctionInfo pass.
+//      Run the FunctionInfo pass. The `-disable-output` option disables
+//      outputing the bytecode because we are only checking the pass outputs here.
 // RUN: env LD_LIBRARY_PATH=%dylibdir opt -load libFunctionInfo%dylibext -function-info -disable-output 2>&1 %basename_t.bc | \
 //      Check the output "CSCD70 Function Information Pass".
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
