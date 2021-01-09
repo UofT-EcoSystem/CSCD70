@@ -8,4 +8,4 @@ set(CMAKE_LIBRARY_OUTPUT_DIR "${CMAKE_BINARY_DIR}/lib")
 # E.g., @LLVM_BINDIR@ in lit.cfg.in.py will be replaced by `llvm-config --bindir`.
 configure_file(lit.cfg.in.py lit.cfg.py @ONLY)
 
-add_test(NAME FunctionInfo COMMAND lit -v ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME FunctionInfoTest COMMAND lit -v ${CMAKE_CURRENT_BINARY_DIR})
