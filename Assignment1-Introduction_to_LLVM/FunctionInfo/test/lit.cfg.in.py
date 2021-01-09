@@ -16,8 +16,7 @@ config.test_format = lit.formats.ShTest()
                      # The ShTest files contain some number of shell-like
                      # command pipelines, along with assertions about what
                      # should be in the output.
-# TODO Change Sample → Real after you have completed implementing the FunctionInfo pass.
-config.test_source_root = "@CMAKE_CURRENT_SOURCE_DIR@/Sample"
+config.test_source_root = "@CMAKE_CURRENT_SOURCE_DIR@"
 config.test_exec_root   = "@CMAKE_CURRENT_BINARY_DIR@"
 config.suffixes = ['.c', '.ll']
 

@@ -23,7 +23,8 @@ class FunctionInfo final : public ModulePass {
     outs() << "CSCD70 Function Information Pass"
            << "\n";
 
-    // @TODO Please complete this function.
+    /*! @todo(cscd70) Please complete this function.
+     */
 
     return false;
   }
