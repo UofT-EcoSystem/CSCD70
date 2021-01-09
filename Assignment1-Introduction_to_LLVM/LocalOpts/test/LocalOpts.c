@@ -1,8 +1,9 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
+// RUN: 
 // RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
-// RUN: env LD_LIBRARY_PATH=%dylibdir \
-// RUN: opt -load libLocalOpts%dylibext -algebraic-identity -strength-reduction \
-// RUN:                                 -multi-inst-opt %basename_t.bc | \
+// RUN: opt -load %dylibdir/libLocalOpts%dylibext \
+// RUN:     -algebraic-identity -strength-reduction -multi-inst-opt \
+// RUN:     %basename_t.bc | \
 // RUN: FileCheck --match-full-lines %s
 
 int LocalOpts(int a) {
