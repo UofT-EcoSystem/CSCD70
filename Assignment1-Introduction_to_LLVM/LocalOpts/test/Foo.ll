@@ -1,7 +1,7 @@
 ; RUN: opt -load %dylibdir/libLocalOpts%dylibext \
 ; RUN:     -algebraic-identity -strength-reduction -multi-inst-opt \
-; RUN:     %s | llvm-dis - -o=%basename_t.opt.ll
-; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.opt.ll
+; RUN:     %s | llvm-dis - -o=%basename_t
+; RUN: FileCheck --match-full-lines %s --input-file=%basename_t
 define i32 @foo(i32 %0) {
 ; CHECK-LABEL: define i32 @foo(i32 %0) {
 ; @todo(cscd70) Complete the CHECK directives.

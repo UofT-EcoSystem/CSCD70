@@ -12,5 +12,10 @@ jobs:
             - name: Assignment 0 Introduction to Docker
               run: docker-compose build cscd70-dev
             - name: Assignment 1 Introduction to LLVM
-              run: docker-compose run --rm -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo cscd70-dev bash -ce \
-                  "mkdir build && cd build; cmake .. && make && ctest"
+              run: |
+                   docker-compose run --rm -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo \
+                       cscd70-dev bash -ce \
+                      "mkdir build && cd build; cmake .. && make && ctest"
+                   docker-compose run --rm -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
+                       cscd70-dev bash -ce \
+                      "mkdir build && cd build; cmake .. && make && ctest"
