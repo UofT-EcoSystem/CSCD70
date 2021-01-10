@@ -1,14 +1,21 @@
 /*!
  * @file Public Inheritance
  */
-/*! @brief Abstract Base Class @p Animal
- */
 #include <iostream>
 #include <typeinfo>  // std::bad_cast
 
 
+/*! @brief Abstract Base Class @p Animal
+ */
 class Animal {
  public:
+  /*! @note If a base class method is marked as *virtual*, then all the
+   *        inherited methods will also be virtual. Furthermore, when invoking a
+   *        virtual method from a base class pointer/reference, the decision on
+   *        which to call is made based on the type that the pointer/reference
+   *        is pointing to, rather than the pointer/reference itself. Clearly,
+   *        an abstract method should always be virtual.
+   */
   virtual void Run() = 0;
 };
 
@@ -32,13 +39,14 @@ class Dog : public Animal {
   }
 };
 
+
 int main() {
   Fox fox = Fox();
   Animal &animal = fox;
   animal.Run();
-  Fox &rfox = dynamic_cast<Fox &>(animal);
+  Fox &fox_ref = dynamic_cast<Fox &>(animal);
   try {
-    Dog &rdog = dynamic_cast<Dog &>(animal);
+    Dog &dog_ref = dynamic_cast<Dog &>(animal);
   } catch (std::bad_cast &except) {
     std::cerr << except.what() << std::endl;
   }
