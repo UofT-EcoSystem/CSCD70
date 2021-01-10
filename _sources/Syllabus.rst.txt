@@ -11,7 +11,8 @@ General Course Information
     | Mon. 1:00-3:00 p.m.
     | https://vectorinstitute.zoom.us/j/99214420711 (Passcode: 487511)
 :Tutorial Hours & Locations:
-    | Mon. 10:00-11:00 a.m. (same Zoom link)
+    | Mon. 10:00-11:00 a.m.
+    | https://utoronto.zoom.us/j/85194477652 (Passcode: 040333)
 :Discussion Board: https://piazza.com/utoronto.ca/winter2021/cscd70/home
 :MarkUs:  https://markus.utsc.utoronto.ca/cscd70w21
 
