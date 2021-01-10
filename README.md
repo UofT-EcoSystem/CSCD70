@@ -1,6 +1,7 @@
 ![LLVM logo](http://llvm.org/docs/_static/logo.png)
 
-# CSCD70 Compiler Optimization ![build status](https://github.com/UofT-EcoSystem/CSCD70/workflows/build/badge.svg) ![website status](https://github.com/UofT-EcoSystem/CSCD70/workflows/website/badge.svg)
+# CSCD70 Compiler Optimization
+![build status](https://github.com/UofT-EcoSystem/CSCD70/workflows/build/badge.svg) ![website status](https://github.com/UofT-EcoSystem/CSCD70/workflows/website/badge.svg)
 
 This repository contains the course materials for class
 **CSCD70 Compiler Optimization** @ **University of Toronto**.
