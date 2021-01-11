@@ -7,10 +7,10 @@ General Course Information
 
 :Instructor: Professor Gennady Pekhimenko
 :Teaching Assistant: `Bojian Zheng`_
-:Lecture Hours & Locations [#]_:
+:Lectures [#]_:
     | Mon. 1:00-3:00 p.m.
     | https://vectorinstitute.zoom.us/j/99214420711 (Passcode: 487511)
-:Tutorial Hours & Locations:
+:Tutorials:
     | Mon. 10:00-11:00 a.m.
     | https://utoronto.zoom.us/j/85194477652 (Passcode: 040333)
 :Discussion Board: https://piazza.com/utoronto.ca/winter2021/cscd70/home
