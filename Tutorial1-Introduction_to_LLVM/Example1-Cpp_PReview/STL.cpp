@@ -39,10 +39,9 @@ int main()
    *     for (auto iter = a.begin(); ...)
    */
   for (std::vector<unsigned>::iterator iter = a.begin();
-       iter != a.end(); ++iter)
-  {
-          // dereference the iterator the obtain the array value.
-          std::cout << *iter << ", ";
+       iter != a.end(); ++iter) {
+    // dereference the iterator the obtain the array value
+    std::cout << *iter << ", ";
   }
   std::cout << std::endl;
 
