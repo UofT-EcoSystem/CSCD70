@@ -7,7 +7,7 @@ code samples will be posted at the `GitHub repo`_.
 .. _GitHub repo: https://github.com/UofT-EcoSystem/CSCD70
 
 ======== ==================== ================== =======================================
-#        Topic                Slides             Recording
+#        Topic                Slides             Recordings
 ======== ==================== ================== =======================================
 Tut 1.   Introduction to LLVM [|Overleaf Tut1|_] [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
 ======== ==================== ================== =======================================
