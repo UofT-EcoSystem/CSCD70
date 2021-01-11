@@ -53,7 +53,7 @@ int main()
      * *pair* object. The first element of the pair reference is the *constant*
      * key, and the second element is the value corresponding to the key.
      */
-    std::pair < const std::string, unsigned > & key_value_pair = *iter;
+    std::pair<const std::string, unsigned> &key_value_pair = *iter;
 
     std::cout << "(" << key_value_pair.first << ", "
               << key_value_pair.second << "), ";
