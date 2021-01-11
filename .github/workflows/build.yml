@@ -22,6 +22,7 @@ jobs:
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest"
             - name: Tutorial 1 Introduction to LLVM
-              run: docker-compose run --rm \
+              run: |
+                   docker-compose run --rm \
                        -w /mnt/Tutorial1-Introduction_to_LLVM/Example1-Cpp_PReview \
                        cscd70-dev make
