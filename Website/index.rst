@@ -19,5 +19,3 @@ for uploading course materials, so please make sure that you check them
 regularly for any updates.
 
 |:point_right:| Please checkout the right hand side for important course materials.
-
-:doc:`Slides & Recordings`
