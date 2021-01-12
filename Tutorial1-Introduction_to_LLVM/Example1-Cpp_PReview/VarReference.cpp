@@ -19,7 +19,7 @@ int main() {
             << "copy_x: " << x_copy << std::endl;  // `endl` is the end-line.
   /**
    * @note We do NOT need to "take the address of" and/or "dereference" when
-   * dealing when references, which make them a cleaner solution when compared
-   * with pointers.
+   *       dealing when references, which make them a cleaner solution compared
+   *       with pointers.
    */
 }

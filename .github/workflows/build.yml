@@ -25,4 +25,4 @@ jobs:
               run: |
                    docker-compose run --rm \
                        -w /mnt/Tutorial1-Introduction_to_LLVM/Example1-Cpp_PReview \
-                       cscd70-dev make
+                       cscd70-dev "make && ./VarReference && ./PublicInheritance && ./STL"
