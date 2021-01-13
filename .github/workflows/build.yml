@@ -25,4 +25,5 @@ jobs:
               run: |
                    docker-compose run --rm \
                        -w /mnt/Tutorial1-Introduction_to_LLVM/Example1-Cpp_PReview \
-                       cscd70-dev "make && ./VarReference && ./PublicInheritance && ./STL"
+                       cscd70-dev bash -ce \
+                      "make && ./VarReference && ./PublicInheritance && ./STL"
