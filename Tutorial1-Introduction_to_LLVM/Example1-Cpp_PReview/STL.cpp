@@ -43,7 +43,7 @@ int main()
     // dereference the iterator the obtain the array value
     std::cout << *iter << ", ";
   }
-  std::cout << std::endl;
+  std::cout << std::endl;  // newline character
 
   for (std::unordered_map<std::string, unsigned>::iterator iter = b.begin();
        iter != b.end(); ++iter) {
@@ -60,6 +60,6 @@ int main()
     //
     //     std::cout << ... iter->first ... iter->second ...
   }
-  std::cout << std::endl; // newline character
+  std::cout << std::endl;  // newline character
   return 0;
 }
