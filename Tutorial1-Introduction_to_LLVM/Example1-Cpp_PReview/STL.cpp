@@ -2,9 +2,9 @@
  * @file C++ Standard-Template-Library (STL) Data Structure and Variable Reference
  * 
  *       Please refer to the following websites for more detailed documentations regarding:
- * 	   - `std::vector`       : http://www.cplusplus.com/reference/vector/vector/
- * 	   - `std::unordered_map`: http://www.cplusplus.com/reference/unordered_map/unordered_map/
- * 	   - More C++ Containers : http://www.cplusplus.com/reference/stl/
+ * 	   - std::vector        : http://www.cplusplus.com/reference/vector/vector/
+ * 	   - std::unordered_map : http://www.cplusplus.com/reference/unordered_map/unordered_map/
+ * 	   - More C++ Containers: http://www.cplusplus.com/reference/stl/
  */
 #include <iostream>       // Print
 #include <string>         // String
