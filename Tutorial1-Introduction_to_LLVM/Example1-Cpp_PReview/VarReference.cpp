@@ -16,7 +16,7 @@ int main() {
   std::cout << "x: " << x << ", "
             << "x_ptr: " << *x_ptr << ", "
             << "x_ref: " <<  x_ref << ", "
-            << "x_copy: " << x_copy << std::endl;  // `endl` is the end-line.
+            << "x_copy: " << x_copy << std::endl;  // 'endl' is the newline character
   /**
    * @note We do NOT need to "take the address of" and/or "dereference" when
    *       dealing when references, which make them a cleaner solution compared

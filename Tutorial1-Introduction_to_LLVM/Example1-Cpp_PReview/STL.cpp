@@ -25,7 +25,7 @@ int main()
    * unsigned integer). Similarly, we can create another array of floating point
    * values using the statement:
    *
-   *     std::vector<float> b = { 1.0, 2.0, 3.0 };
+   *     std::vector<float> b = {1.0, 2.0, 3.0};
    */
   std::vector<unsigned> a = {1, 2, 3, 4, 5};
   std::unordered_map<std::string, unsigned> b = {
