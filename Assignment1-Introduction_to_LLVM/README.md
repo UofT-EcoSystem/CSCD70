@@ -1,4 +1,1 @@
-# [Assignment 1 Introduction to LLVM](https://www.overleaf.com/read/nvmnmbntgwqn) ![ready](https://img.shields.io/badge/ready%3F-yes-brightgreen)
-
-*Please click on the title for the assignment handout, 
- and search for `todo(cscd70)` in the folder for TODO items.*
+# Assignment 1 Introduction to LLVM <br /> [![handout](https://img.shields.io/badge/handout--lightgreen)](https://www.overleaf.com/read/nvmnmbntgwqn) [![handout](https://img.shields.io/badge/GitHub%20Classroom--lightgreen)](https://classroom.github.com/g/Wv5iNGJt)
