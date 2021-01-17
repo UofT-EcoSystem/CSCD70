@@ -15,21 +15,21 @@ class Transform final : public ModulePass
  private:
   bool runOnBasicBlock(BasicBlock &B) {
     // get the first and second instruction
-    Instruction &_1st_inst = *B.begin(),
-                &_2nd_inst = *(++B.begin());
+    Instruction &Inst1st = *B.begin(),
+                &Inst2nd = *(++B.begin());
 
     // The address of the 1st instruction is equal to that of the 1st operand of
     // the 2nd instruction
-    assert(&_1st_inst == _2nd_inst.getOperand(0));
+    assert(&Inst1st == Inst2nd.getOperand(0));
 
     // print the 1st instruction
-    outs() << _1st_inst << "\n";
+    outs() << Inst1st << "\n";
     // print the 1st instruction as an operand
-    _1st_inst.printAsOperand(outs(), false); outs() << "\n";
+    Inst1st.printAsOperand(outs(), false); outs() << "\n";
 
     // User-Use-Value
-    for (auto *Iter  = _1st_inst.op_begin();
-               Iter != _1st_inst.op_end(); ++Iter) {
+    for (auto *Iter  = Inst1st.op_begin();
+               Iter != Inst1st.op_end(); ++Iter) {
       Value *Operand = *Iter;
 
       if (Argument *Arg = dyn_cast<Argument>(Operand)) {
@@ -42,27 +42,27 @@ class Transform final : public ModulePass
       }
     }
 
-    for (auto Iter  = _1st_inst.user_begin(); 
-              Iter != _1st_inst.user_end(); ++Iter) {
+    for (auto Iter  = Inst1st.user_begin(); 
+              Iter != Inst1st.user_end(); ++Iter) {
       outs() << *(dyn_cast<Instruction>(*Iter)) << "\n";
     }
     
-    for (auto Iter  = _1st_inst. use_begin();
-              Iter != _1st_inst. use_end(); ++Iter) {
+    for (auto Iter  = Inst1st. use_begin();
+              Iter != Inst1st. use_end(); ++Iter) {
       outs() << *(dyn_cast<Instruction>(Iter->getUser())) << "\n";
     }
 
     // Instruction Manipulation
     Instruction *NewInst = BinaryOperator::Create(
         Instruction::Add,
-        _1st_inst.getOperand(0),
-        _1st_inst.getOperand(0));
+        Inst1st.getOperand(0),
+        Inst1st.getOperand(0));
 
-    NewInst->insertAfter(&_1st_inst);
+    NewInst->insertAfter(&Inst1st);
     // Q: Is there any alternative to updating each reference separately?
     //    Please check the documentation and try answering this.
     // Q: What happens if we update the use references WITHOUT the insertion?
-    _1st_inst.user_begin()->setOperand(0, NewInst);
+    Inst1st.user_begin()->setOperand(0, NewInst);
 
     return true;
   }
@@ -103,7 +103,7 @@ class Transform final : public ModulePass
 
 char Transform::ID = 0;
 RegisterPass < Transform > X(
-  "transform",
-  "Example Transform Pass"); 
+    "transform",
+    "Example Transform Pass"); 
 
 }  // anonymous namespace
