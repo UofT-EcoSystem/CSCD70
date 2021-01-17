@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12.0)
-project(Transform)
+project(TransformPassSample)
 
 execute_process(COMMAND llvm-config --cxxflags
                 OUTPUT_VARIABLE LLVM_CXXFLAGS
