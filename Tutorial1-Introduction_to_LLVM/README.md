@@ -1,6 +1,6 @@
 # Tutorial 1 Introduction to LLVM <br /> [![handout](https://img.shields.io/badge/handout--lightgreen)](https://www.overleaf.com/read/ntrxhjmhkkrt)
 
-*Please click on the title for the tutorial slides.*
+*Please click on the badge above for the slides.*
 
 ## Abstract
 
