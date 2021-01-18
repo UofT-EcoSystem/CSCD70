@@ -31,7 +31,7 @@ Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_
 
 .. |Overleaf Tut2| replace:: Overleaf 
 .. _Overleaf Tut2: https://www.overleaf.com/read/vdwnnwdcshyx
-.. |UofT MyMedia Tut1| replace:: UofT MyMedia
-.. _UofT MyMedia Tut1: https://play.library.utoronto.ca/a171c3220a0e5b8dd1702589e1fe9496
-.. |YouTube Tut1| replace:: YouTube
-.. _YouTube Tut1: https://youtu.be/Ar-qb55NELM
+.. |UofT MyMedia Tut2| replace:: UofT MyMedia
+.. _UofT MyMedia Tut2: https://play.library.utoronto.ca/a171c3220a0e5b8dd1702589e1fe9496
+.. |YouTube Tut2| replace:: YouTube
+.. _YouTube Tut2: https://youtu.be/Ar-qb55NELM
