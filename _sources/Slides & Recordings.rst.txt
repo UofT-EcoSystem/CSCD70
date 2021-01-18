@@ -12,7 +12,7 @@ code samples will be posted at the `GitHub repo`_.
 Lec 1.   Introduction            [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_][|YouTube Lec1|_]
 -------- ----------------------- ------------------------- ---------------------------------------
 Tut 1.   Introduction to LLVM    [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
-Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]
+Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
 ======== ======================= ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
@@ -31,3 +31,7 @@ Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]
 
 .. |Overleaf Tut2| replace:: Overleaf 
 .. _Overleaf Tut2: https://www.overleaf.com/read/vdwnnwdcshyx
+.. |UofT MyMedia Tut1| replace:: UofT MyMedia
+.. _UofT MyMedia Tut1: https://play.library.utoronto.ca/a171c3220a0e5b8dd1702589e1fe9496
+.. |YouTube Tut1| replace:: YouTube
+.. _YouTube Tut1: https://youtu.be/Ar-qb55NELM
