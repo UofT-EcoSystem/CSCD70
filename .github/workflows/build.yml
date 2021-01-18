@@ -33,3 +33,7 @@ jobs:
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example1-Transform_Pass_Sample \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest"
+                   docker-compose run --rm \
+                       -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example2-Pass_Manager \
+                       cscd70-dev bash -ce \
+                      "mkdir build && cd build; cmake .. && make && ctest"
