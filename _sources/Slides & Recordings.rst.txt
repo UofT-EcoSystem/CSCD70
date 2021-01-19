@@ -11,7 +11,7 @@ code samples will be posted at the `GitHub repo`_.
 ======== ======================= ========================= =======================================
 Lec 1.   Introduction            [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_][|YouTube Lec1|_]
 Tut 1.   Introduction to LLVM    [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
-Lec 2.   Dataflow                [|PPTX Lec2|][|PDF Lec2|] 
+Lec 2.   Dataflow                [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
 Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
 ======== ======================= ========================= =======================================
 
@@ -31,6 +31,10 @@ Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_
 
 .. |PDF Lec2| replace:: :download:`pdf <Slides/Lecture 2 [Dataflow] 01.18.2021.pdf>`
 .. |PPTX Lec2| replace:: :download:`pptx <Slides/Lecture 2 [Dataflow] 01.18.2021.pptx>`
+.. |UofT MyMedia Lec2| replace:: UofT MyMedia
+.. _UofT MyMedia Lec2: https://play.library.utoronto.ca/0d45b942c49392a41bc7d0fd69d2bfe1
+.. |YouTube Lec2| replace:: YouTube
+.. _YouTube Lec2: https://youtu.be/GBW5xtyoPXE
 
 .. |Overleaf Tut2| replace:: Overleaf 
 .. _Overleaf Tut2: https://www.overleaf.com/read/vdwnnwdcshyx
