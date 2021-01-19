@@ -29,8 +29,8 @@ Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_
 .. |YouTube Tut1| replace:: YouTube
 .. _YouTube Tut1: https://youtu.be/S_OeRTePeXg
 
-.. |PDF Lec2| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.18.2021.pdf>`
-.. |PPTX Lec2| replace:: :download:`pptx <Slides/Lecture 1 [Intro] 01.18.2021.pptx>`
+.. |PDF Lec2| replace:: :download:`pdf <Slides/Lecture 2 [Dataflow] 01.18.2021.pdf>`
+.. |PPTX Lec2| replace:: :download:`pptx <Slides/Lecture 2 [Dataflow] 01.18.2021.pptx>`
 
 .. |Overleaf Tut2| replace:: Overleaf 
 .. _Overleaf Tut2: https://www.overleaf.com/read/vdwnnwdcshyx
