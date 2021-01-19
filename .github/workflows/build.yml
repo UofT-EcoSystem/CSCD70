@@ -5,8 +5,6 @@ on: [push]
 jobs:
     build:
         runs-on: ubuntu-latest
-        env:
-            DOCKER_RUN : "RETURN_CODE=$?; chown -R $(stat -c '%u:%g' /mnt) /mnt; exit ${RETURN_CODE}"
         steps:
             - uses: actions/checkout@master
             - name: Assignment 0 Introduction to Docker
