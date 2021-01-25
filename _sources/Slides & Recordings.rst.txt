@@ -13,7 +13,7 @@ Lec 1.   Introduction            [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_
 Tut 1.   Introduction to LLVM    [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
 Lec 2.   Dataflow                [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
 Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
-Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        
+Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
 ======== ======================= ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
@@ -46,3 +46,7 @@ Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]
 
 .. |Overleaf Tut3| replace:: Overleaf 
 .. _Overleaf Tut3: https://www.overleaf.com/read/bbkbmgnqqffw
+.. |UofT MyMedia Tut3| replace:: UofT MyMedia
+.. _UofT MyMedia Tut3: https://play.library.utoronto.ca/c3dfc5ec42110c0763aa1dbf07a4a867
+.. |YouTube Tut3| replace:: YouTube
+.. _YouTube Tut3: https://youtu.be/PW-Tojf7QR8
