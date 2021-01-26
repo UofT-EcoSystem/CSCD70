@@ -13,6 +13,7 @@ Lec 1.   Introduction            [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_
 Tut 1.   Introduction to LLVM    [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
 Lec 2.   Dataflow                [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
 Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
+Lec 3.   Dataflow ii and Loops   [|PPTX Lec3|][|PDF Lec3|] [|UofT MyMedia Lec3|_][|YouTube Lec3|_]
 Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
 ======== ======================= ========================= =======================================
 
@@ -43,6 +44,13 @@ Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_
 .. _UofT MyMedia Tut2: https://play.library.utoronto.ca/a171c3220a0e5b8dd1702589e1fe9496
 .. |YouTube Tut2| replace:: YouTube
 .. _YouTube Tut2: https://youtu.be/Ar-qb55NELM
+
+.. |PDF Lec3| replace:: :download:`pdf <Slides/Lecture 3 [Dataflow-2 and Loops] 01.25.2021.pdf>`
+.. |PPTX Lec3| replace:: :download:`pptx <Slides/Lecture 3 [Dataflow-2 and Loops] 01.25.2021.pptx>`
+.. |UofT MyMedia Lec3| replace:: UofT MyMedia
+.. _UofT MyMedia Lec3: https://play.library.utoronto.ca/89eefd0c9ba616f817405794e5fbf1a9
+.. |YouTube Lec3| replace:: YouTube
+.. _YouTube Lec3: https://youtu.be/-dc9KL2KAXc
 
 .. |Overleaf Tut3| replace:: Overleaf 
 .. _Overleaf Tut3: https://www.overleaf.com/read/bbkbmgnqqffw
