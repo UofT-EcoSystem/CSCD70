@@ -45,7 +45,7 @@ Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_
 .. |YouTube Tut2| replace:: YouTube
 .. _YouTube Tut2: https://youtu.be/Ar-qb55NELM
 
-.. |PDF Lec3| replace:: :download:`pdf <Slides/Lecture 3 [Dataflow-2 and Loops] 01.25.2021.pdf>`
+.. |PDF Lec3| replace:: :download:`pdf <Slides/Lecture 3 [Dafaflow-2 and Loops] 01.25.2021.pdf>`
 .. |PPTX Lec3| replace:: :download:`pptx <Slides/Lecture 3 [Dataflow-2 and Loops] 01.25.2021.pptx>`
 .. |UofT MyMedia Lec3| replace:: UofT MyMedia
 .. _UofT MyMedia Lec3: https://play.library.utoronto.ca/89eefd0c9ba616f817405794e5fbf1a9
