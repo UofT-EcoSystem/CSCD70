@@ -10,11 +10,16 @@ RUN apt-get update && \
         lsb-release software-properties-common gpg-agent && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://apt.llvm.org/llvm.sh && \
-    chmod +x llvm.sh && \
-    ./llvm.sh ${LLVM_VERSION} && \
-    apt-get install -y llvm llvm-dev clang clang-format clang-tidy && \
-    rm -rf llvm.sh /var/lib/apt/lists/*
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    add-apt-repository "deb http://apt.llvm.org/focal/     llvm-toolchain-focal-${LLVM_VERSION}    main" && \
+    apt-get update && \
+    apt-get install -y llvm-${LLVM_VERSION} llvm-${LLVM_VERSION}-dev \
+                       clang-${LLVM_VERSION} \
+                       clang-format-${LLVM_VERSION} \
+                       clang-tidy-${LLVM_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PATH=${PATH}:/usr/lib/llvm-${LLVM_VERSION}/bin
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && rm -f get-pip.py
