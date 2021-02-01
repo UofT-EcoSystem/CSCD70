@@ -15,6 +15,7 @@ Lec 2.   Dataflow                [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_
 Tut 2.   Introduction to LLVM ii [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
 Lec 3.   Dataflow ii and Loops   [|PPTX Lec3|][|PDF Lec3|] [|UofT MyMedia Lec3|_][|YouTube Lec3|_]
 Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
+Tut 4.   Dataflow Analysis ii    [|Overleaf Tut4|_]
 ======== ======================= ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
@@ -58,3 +59,6 @@ Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_
 .. _UofT MyMedia Tut3: https://play.library.utoronto.ca/c3dfc5ec42110c0763aa1dbf07a4a867
 .. |YouTube Tut3| replace:: YouTube
 .. _YouTube Tut3: https://youtu.be/PW-Tojf7QR8
+
+.. |Overleaf Tut4| replace:: Overleaf 
+.. _Overleaf Tut4: https://www.overleaf.com/read/rynbcdcrtfpg
