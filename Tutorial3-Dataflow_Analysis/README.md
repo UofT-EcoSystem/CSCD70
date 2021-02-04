@@ -4,4 +4,4 @@
 
 ## Abstract
 
-- Dataflow Analysis Case Study: **Available Expressions**
+Dataflow Analysis Case Study: **Available Expressions**
