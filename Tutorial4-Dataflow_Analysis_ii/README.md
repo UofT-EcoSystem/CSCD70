@@ -4,6 +4,4 @@
 
 ## Abstract
 
-- Dataflow Analysis Case Study:
-  - Dominator
-  - Constant Propagation
+Dataflow Analysis Case Study: Dominator, Constant Propagation
