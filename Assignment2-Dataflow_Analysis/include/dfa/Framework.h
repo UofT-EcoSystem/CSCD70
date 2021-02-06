@@ -57,6 +57,9 @@ class Framework {
   // Instruction-BitVector Mapping
   std::unordered_map<const Instruction*, BitVector> InstBVMap;
  private:
+  /**
+   * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
+   */
   TYPEDEF_IF_DIRECTION(MeetOpConstRange, Direction::kForward, const_pred_range);
   TYPEDEF_IF_DIRECTION(BBTraversalConstRange, Direction::kForward,
                        iterator_range<Function::const_iterator>);
@@ -84,7 +87,7 @@ class Framework {
     outs() << "}";
   }
   /**
-   * @todo(cscd70) Provide an equivalent instantiation for the backward pass.
+   * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, void)
   printInstBVMap(const Instruction& Inst) const {
@@ -117,11 +120,44 @@ class Framework {
   getMeetOperands(const BasicBlock& BB) const {
     return predecessors(&BB);
   }
-
+  /*****************************************************************************
+   * Transfer Function
+   *****************************************************************************/
+  /**
+   * @brief  Apply the transfer function at instruction @c Inst to the input
+   *         bitvector to get the output bitvector.
+   * @return true if @c OBV has been changed, false otherwise
+   * 
+   * @todo(cscd70) Please implement this method for every child class.
+   */
+  virtual bool transferFunc(const Instruction& Inst, const BitVector& IBV,
+                            BitVector& OBV) = 0;
+  /*****************************************************************************
+   * CFG Traversal
+   *****************************************************************************/
+  /**
+   * @brief  Return the traversal order of the basic blocks.
+   */
+  METHOD_ENABLE_IF_DIRECTION(Direction::kForward, BBTraversalConstRange)
+  getBBTraversalOrder(const Function& F) const {
+    return make_range(F.begin(), F.end());
+  }
+  /**
+   * @brief  Return the traversal order of the instructions.
+   * 
+   * @todo(cscd70) Please modify the definition (and the above typedef accordingly)
+   *               for the optimal traversal order.
+   */
+  METHOD_ENABLE_IF_DIRECTION(Direction::kForward, InstTraversalConstRange)
+  getInstTraversalOrder(const BasicBlock& BB) const {
+    return make_range(BB.begin(), BB.end());
+  }
  protected:
   /**
    * @brief  Traverse through the CFG and update @c inst_bv_map .
-   * @return true if changes are made to @c inst_bv_map, false otherwise
+   * @return true if changes are made to @c inst_bv_map , false otherwise
+   * 
+   * @todo(cscd70) Please implement this method for every child class.
    */
   bool traverseCFG(const Function& F) {
     return false;
@@ -139,7 +175,7 @@ class Framework {
    */
   virtual void initializeDomainFromInstruction(const Instruction& Inst) = 0;
  public:
-  virtual bool runOnFunction(Function &F) {
+  virtual bool runOnFunction(Function& F) {
     for (const auto& Inst : instructions(F)) {
       initializeDomainFromInstruction(Inst);
     }
