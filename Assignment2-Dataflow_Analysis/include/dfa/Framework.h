@@ -4,6 +4,7 @@
 #include <unordered_set>
 
 #include <llvm/IR/BasicBlock.h>
+#include <llvm/IR/CFG.h>
 #include <llvm/IR/Instruction.h>
 #include <llvm/Pass.h>
 #include <llvm/Support/raw_ostream.h>
@@ -20,7 +21,10 @@ enum class Direction {
 /// 
 /// @tparam TDomainElement  Domain Element
 /// @tparam TDirection      Direction of Analysis
-template<typename TDomainElement, Direction TDirection>
+/// @tparam TMeetOp         Meet Operator
+/// @tparam TBC             Boundary Condition
+template<typename TDomainElement, Direction TDirection,
+         typename TMeetOp, typename TBC>
 class Framework : public FunctionPass {
 
 /**
@@ -32,9 +36,26 @@ class Framework : public FunctionPass {
   template<Direction _TDirection = TDirection>                                  \
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
+/// This macro does typedef depending on the analysis direction. If the
+/// direction in the template argument does not match the argument, the
+/// resulting type is not defined.
+///
+/// @param type_name  Name of the Resulting Type
+/// @param dir        Direction of Analysis
+/// @param T          Type Definition if `TDirection == dir`
+#define TYPEDEF_IF_DIRECTION(type_name, dir, T)                                 \
+  using type_name = typename std::enable_if_t<TDirection == dir, T>
+
  protected:
   /// Domain
   std::unordered_set<TDomainElement> Domain;
+  // Instruction-BitVector Mapping
+  std::unordered_map<const Instruction*, BitVector> InstBVMap;
+ private:
+  TYPEDEF_IF_DIRECTION(MeetOpConstRange, Direction::kForward, const_pred_range);
+  /*****************************************************************************
+   * Auxiliary Print Subroutines
+   *****************************************************************************/
  private:
   /**
    * @brief  Print the domain with mask. E.g., If domian = {%1, %2, %3,},
@@ -60,11 +81,12 @@ class Framework : public FunctionPass {
   PrintInstBV(const Instruction& inst) const {
     const BasicBlock* const InstParent = inst.getParent();
     if (&inst == &(*InstParent->begin())) {
-      typename TMeetOp::MeetOpConstRange meet_operands = MeetOperands(*InstParent);
+      MeetOpConstRange meet_operands = MeetOperands(*InstParent);
       // If the list of meet operands is empty, then we are at the boundary,
       // hence print the BC.
       if (meet_operands.begin() == meet_operands.end()) {
         outs() << "BC:\t";
+        TBC BC;
         PrintDomainWithMask(BC());
         outs() << "\n";
       } else {
@@ -75,7 +97,15 @@ class Framework : public FunctionPass {
     }  // if (&inst == &(*InstParent->begin()))
     outs() << "Instruction: " << inst << "\n";
     outs() << "\t";
-    PrintDomainWithMask(_inst_bv_map.at(&inst));
+    PrintDomainWithMask(InstBVMap.at(&inst));
     outs() << "\n";
   }
+  /*****************************************************************************
+   * Meet Operator
+   *****************************************************************************/
+  METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOpConstRange)
+  MeetOperands(const BasicBlock& bb) const {
+    return predecessors(&bb);
+  }
+
 };
