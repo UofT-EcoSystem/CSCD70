@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace llvm;
-
 
 namespace dfa {
 
@@ -29,6 +27,5 @@ class Intersect final : public MeetOp<bool> {
 };
 
 }  // namespace dfa
-
 
 #endif  // DFA_MEETOP_H
