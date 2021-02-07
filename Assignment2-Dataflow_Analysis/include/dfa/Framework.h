@@ -10,10 +10,11 @@
 #include <llvm/IR/CFG.h>
 #include <llvm/IR/InstIterator.h>
 #include <llvm/IR/Instruction.h>
-#include <llvm/Pass.h>
 #include <llvm/Support/raw_ostream.h>
 
 using namespace llvm;
+
+#include "MeetOp.h"
 
 
 namespace dfa {
@@ -36,24 +37,16 @@ struct FrameworkTypeSupport<Direction::kForward> {
  * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
  */
 
-template<typename T>
-concept MeetOpConcept = std::is_base_of<MeetOp, T>::value;
-
-template<typename T>
-concept BCConcept = std::is_base_of<BC, T>::value;
-
 /**
  * @brief  Dataflow Analysis Framework
  *  
  * @tparam TDomainElement   Domain Element
+ * @tparam TDomainElemRepr  Domain Element Representation (bool by Default)
  * @tparam TDirection       Direction of Analysis
  * @tparam TMeetOp          Meet Operator
- * @tparam TBC              Boundary Condition
- * @tparam TDomainElemRepr  Domain Element Representation (bool by Default)
  */
-template<typename TDomainElement, Direction TDirection,
-         MeetOpConcept TMeetOp, BCConcept TBC,
-         typename TDomainElemRepr = bool>
+template<typename TDomainElement, typename TDomainElemRepr,
+         Direction TDirection, typename TMeetOp>
 class Framework {
 
 /**
@@ -66,9 +59,12 @@ class Framework {
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
  private:
-  using typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
-  using typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
-  using typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
+  using MeetOpConstRange
+      = typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
+  using BBTraversalConstRange
+      = typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
+  using InstTraversalConstRange
+      = typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
  protected:
   /// Domain
   std::unordered_set<TDomainElement> Domain;
@@ -99,7 +95,7 @@ class Framework {
    * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, void)
-  printInstBVMap(const Instruction& Inst) const {
+  printInstBV(const Instruction& Inst) const {
     const BasicBlock* const InstParent = Inst.getParent();
     if (&Inst == &(*InstParent->begin())) {
       MeetOpConstRange MeetOperands = getMeetOperands(*InstParent);
@@ -107,13 +103,11 @@ class Framework {
       // hence print the BC.
       if (MeetOperands.begin() == MeetOperands.end()) {
         outs() << "BC:\t";
-        TBC BC;
-        printDomainWithMask(BC());
+        printDomainWithMask(bc());
         outs() << "\n";
       } else {
         outs() << "MeetOp:\t";
-        TMeetOp MeetOp;
-        printDomainWithMask(MeetOp(MeetOperands));
+        printDomainWithMask(merge(MeetOperands));
         outs() << "\n";
       }
     }  // if (&inst == &(*InstParent->begin()))
@@ -122,12 +116,33 @@ class Framework {
     printDomainWithMask(InstBVMap.at(&Inst));
     outs() << "\n";
   }
+  /**
+   * @brief Dump, ∀inst ∈ @p 'F', the associated bitvector.
+   */
+  void printInstBVMap(const Function& F) const {
+    outs() << "********************************************" << "\n"
+           << "* Instruction-BitVector Mapping             " << "\n"
+           << "********************************************" << "\n";
+    for (const auto& Inst : instructions(F)) {
+      printInstBV(Inst);
+    }
+  }
   /*****************************************************************************
    * Meet Operator
    *****************************************************************************/
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOpConstRange)
   getMeetOperands(const BasicBlock& BB) const {
     return predecessors(&BB);
+  }
+  /**
+   * @brief  Apply the meet operator to the operands.
+   * 
+   * @todo(cscd70) Please complete the defintion of this method.
+   */
+  std::vector<TDomainElemRepr> merge(const MeetOpConstRange& MeetOperands) const {
+    TMeetOp MeetOp;
+
+    return std::vector<TDomainElemRepr>();
   }
   /*****************************************************************************
    * Transfer Function
@@ -145,6 +160,12 @@ class Framework {
   /*****************************************************************************
    * CFG Traversal
    *****************************************************************************/
+  /**
+   * @brief  Boundary Condition
+   */
+  std::vector<TDomainElemRepr> bc() const {
+    return std::vector<TDomainElemRepr>(Domain.size(), false);
+  }
   /**
    * @brief  Return the traversal order of the basic blocks.
    */
@@ -187,12 +208,12 @@ class Framework {
     for (const auto& Inst : instructions(F)) {
       try {
         Domain.emplace(Inst);
-      } catch (const std::invalid_argument& ia) {}
+      } catch (const std::invalid_argument& IA) {}
     }
     for (const auto& Arg : F.args()) {
       try {
         Domain.emplace(Arg);
-      } catch (const std::invalid_argument& ia) {}
+      } catch (const std::invalid_argument& IA) {}
     }
   }
  public:

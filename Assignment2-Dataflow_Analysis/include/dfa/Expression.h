@@ -17,11 +17,11 @@ namespace dfa {
  */
 class Expression {
  private:
-  const unsigned Opcode;
+  unsigned Opcode;
   const Value* LHS = nullptr, * RHS = nullptr;
  public:
   /// @todo(cscd70) Please complete the constructor and the comparator.
-  Expression(const Instruction& Inst) : Opcode(Inst.getOpcode()) {
+  Expression(const Value& V) {
 
 
   }

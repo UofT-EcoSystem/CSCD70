@@ -20,14 +20,13 @@ class MeetOp {
 class Intersect final : public MeetOp<bool> {
  public:
   virtual std::vector<bool> operator()(
-      const std::vector<bool>& LHS,
-      const std::vector<bool>& RHS) const override {
+      const std::vector<bool>& LHS, const std::vector<bool>& RHS) const override {
     return std::vector<bool>();
   }
   virtual std::vector<bool> top() const override {
     return std::vector<bool>();
   }
-}
+};
 
 }  // namespace dfa
 
