@@ -1,4 +1,4 @@
-#pragma once  // NOLINT(llvm-header-guard)
+#pragma once // NOLINT(llvm-header-guard)
 
 #include <exception>
 #include <type_traits>
@@ -15,37 +15,34 @@ using namespace llvm;
 
 #include "MeetOp.h"
 
-
 namespace dfa {
 
 /// Analysis Direction, used as Template Parameter
-enum class Direction {
-  kForward, kBackward
-};
+enum class Direction { kForward, kBackward };
 
-template<Direction TDirection>
+template <Direction TDirection> //
 struct FrameworkTypeSupport {};
 
-template<>
+template <> //
 struct FrameworkTypeSupport<Direction::kForward> {
   typedef const_pred_range MeetOpConstRange;
   typedef iterator_range<Function::const_iterator> BBTraversalConstRange;
   typedef iterator_range<BasicBlock::const_iterator> InstTraversalConstRange;
 };
 /**
- * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
+ * @todo(cscd70) Please provide an instantiation for the backward pass.
  */
 
 /**
  * @brief  Dataflow Analysis Framework
- *  
+ *
  * @tparam TDomainElement   Domain Element
  * @tparam TDomainElemRepr  Domain Element Representation (bool by Default)
  * @tparam TDirection       Direction of Analysis
  * @tparam TMeetOp          Meet Operator
  */
-template<typename TDomainElement, typename TDomainElemRepr,
-         Direction TDirection, typename TMeetOp>
+template <typename TDomainElement, typename TDomainElemRepr,
+          Direction TDirection, typename TMeetOp>
 class Framework {
 
 /**
@@ -53,49 +50,52 @@ class Framework {
  * @param dir  Direction of Analysis
  * @param ret_type  Return Type
  */
-#define METHOD_ENABLE_IF_DIRECTION(dir, ret_type)                               \
-  template<Direction _TDirection = TDirection>                                  \
+#define METHOD_ENABLE_IF_DIRECTION(dir, ret_type)                              \
+  template <Direction _TDirection = TDirection>                                \
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
- private:
-  using MeetOpConstRange
-      = typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
-  using BBTraversalConstRange
-      = typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
-  using InstTraversalConstRange
-      = typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
- protected:
+private:
+  using MeetOpConstRange =
+      typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
+  using BBTraversalConstRange =
+      typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
+  using InstTraversalConstRange =
+      typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
+
+protected:
   /// Domain
   std::unordered_set<TDomainElement> Domain;
   // Instruction-BitVector Mapping
-  std::unordered_map<const Instruction*, std::vector<TDomainElemRepr> > InstBVMap;
+  std::unordered_map<const Instruction *, //
+                     std::vector<TDomainElemRepr>>
+      InstBVMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
- private:
+private:
   /**
    * @brief Print the domain with mask. E.g., If domian = {%1, %2, %3,},
    *        dumping it with mask = 001 will give {%3,}.
    */
-  void printDomainWithMask(const std::vector<TDomainElemRepr>& Mask) const {
+  void printDomainWithMask(const std::vector<TDomainElemRepr> &Mask) const {
     outs() << "{";
     assert(Mask.size() == Domain.size() &&
            "The size of mask must be equal to the size of domain.");
     unsigned MaskIdx = 0;
-    for (const auto& Elem : Domain) {
+    for (const auto &Elem : Domain) {
       if (!Mask[MaskIdx++]) {
         continue;
       }
       outs() << Elem << ", ";
-    }  // for (MaskIdx ∈ [0, Mask.size()))
+    } // for (MaskIdx ∈ [0, Mask.size()))
     outs() << "}";
   }
   /**
-   * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
+   * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, void)
-  printInstBV(const Instruction& Inst) const {
-    const BasicBlock* const InstParent = Inst.getParent();
+  printInstBV(const Instruction &Inst) const {
+    const BasicBlock *const InstParent = Inst.getParent();
     if (&Inst == &(*InstParent->begin())) {
       MeetOpConstRange MeetOperands = getMeetOperands(*InstParent);
       // If the list of meet operands is empty, then we are at the boundary,
@@ -109,7 +109,7 @@ class Framework {
         printDomainWithMask(merge(MeetOperands));
         outs() << "\n";
       }
-    }  // if (&inst == &(*InstParent->begin()))
+    } // if (&inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
     outs() << "\t";
     printDomainWithMask(InstBVMap.at(&Inst));
@@ -118,11 +118,14 @@ class Framework {
   /**
    * @brief Dump, ∀inst ∈ @c F , the associated bitvector.
    */
-  void printInstBVMap(const Function& F) const {
-    outs() << "********************************************" << "\n"
-           << "* Instruction-BitVector Mapping             " << "\n"
-           << "********************************************" << "\n";
-    for (const auto& Inst : instructions(F)) {
+  void printInstBVMap(const Function &F) const {
+    outs() << "********************************************"
+           << "\n"
+           << "* Instruction-BitVector Mapping             "
+           << "\n"
+           << "********************************************"
+           << "\n";
+    for (const auto &Inst : instructions(F)) {
       printInstBV(Inst);
     }
   }
@@ -130,18 +133,16 @@ class Framework {
    * Meet Operator
    *****************************************************************************/
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOpConstRange)
-  getMeetOperands(const BasicBlock& BB) const {
-    return predecessors(&BB);
-  }
+  getMeetOperands(const BasicBlock &BB) const { return predecessors(&BB); }
   /**
    * @brief Apply the meet operator to the operands.
    */
-  std::vector<TDomainElemRepr> merge(const MeetOpConstRange& MeetOperands) const {
+  std::vector<TDomainElemRepr>
+  merge(const MeetOpConstRange &MeetOperands) const {
     TMeetOp MeetOp;
-    /** 
+    /**
      * @todo(cscd70) Please complete the defintion of this method.
      */
-
 
     return std::vector<TDomainElemRepr>(Domain.size(), false);
   }
@@ -152,12 +153,12 @@ class Framework {
    * @brief  Apply the transfer function at instruction @c Inst to the input
    *         bitvector to get the output bitvector.
    * @return true if @c OBV has been changed, false otherwise
-   * 
+   *
    * @todo(cscd70) Please implement this method for every child class.
    */
-  virtual bool transferFunc(const Instruction& Inst,
-                            const std::vector<TDomainElemRepr>& IBV,
-                            std::vector<TDomainElemRepr>& OBV) = 0;
+  virtual bool transferFunc(const Instruction &Inst,
+                            const std::vector<TDomainElemRepr> &IBV,
+                            std::vector<TDomainElemRepr> &OBV) = 0;
   /*****************************************************************************
    * CFG Traversal
    *****************************************************************************/
@@ -171,66 +172,72 @@ class Framework {
    * @brief  Return the traversal order of the basic blocks.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, BBTraversalConstRange)
-  getBBTraversalOrder(const Function& F) const {
+  getBBTraversalOrder(const Function &F) const {
     return make_range(F.begin(), F.end());
   }
   /**
    * @brief Return the traversal order of the instructions.
-   * 
-   * @todo(cscd70) Please modify the definition (and the above typedef accordingly)
-   *               for the optimal traversal order.
+   *
+   * @todo(cscd70) Please modify the definition (and the above typedef
+   * accordingly) for the optimal traversal order.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, InstTraversalConstRange)
-  getInstTraversalOrder(const BasicBlock& BB) const {
+  getInstTraversalOrder(const BasicBlock &BB) const {
     return make_range(BB.begin(), BB.end());
   }
- protected:
+
+protected:
   /**
    * @brief  Traverse through the CFG and update @c inst_bv_map .
    * @return true if changes are made to @c inst_bv_map , false otherwise
-   * 
+   *
    * @todo(cscd70) Please implement this method for every child class.
    */
-  bool traverseCFG(const Function& F) {
-    return false;
-  }
- public:
+  bool traverseCFG(const Function &F) { return false; }
+
+public:
   virtual ~Framework() {}
 
   // We don't modify the program, so we preserve all analysis.
-  virtual void getAnalysisUsage(AnalysisUsage& AU) const {
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const {
     AU.setPreservesAll();
   }
- protected:
+
+protected:
   /**
    * @brief Initialize the domain from each instruction and/or argument.
    */
-  virtual void initializeDomain(const Function& F) {
-    for (const auto& Inst : instructions(F)) {
+  virtual void initializeDomain(const Function &F) {
+    for (const auto &Inst : instructions(F)) {
       try {
         Domain.emplace(Inst);
-      } catch (const std::invalid_argument& IA) {}
+      } catch (const std::invalid_argument &IA) {
+      }
     }
-    for (const auto& Arg : F.args()) {
+    for (const auto &Arg : F.args()) {
       try {
         Domain.emplace(Arg);
-      } catch (const std::invalid_argument& IA) {}
+      } catch (const std::invalid_argument &IA) {
+      }
     }
   }
- public:
-  virtual bool runOnFunction(Function& F) {
+
+public:
+  virtual bool runOnFunction(Function &F) {
     // initialize the domain
     initializeDomain(F);
     // apply the initial conditions
     TMeetOp MeetOp;
-    for (const auto& Inst : instructions(F)) {
+    for (const auto &Inst : instructions(F)) {
       InstBVMap.emplace(&Inst, MeetOp.top(Domain.size()));
     }
-    // keep traversing until changes have been made to the instruction-bitvector mapping
-    while (traverseCFG(F)) {}
+    // keep traversing until changes have been made to the instruction-bitvector
+    // mapping
+    while (traverseCFG(F)) {
+    }
     printInstBVMap(F);
     return false;
   }
 };
 
-}  // namespace dfa
+} // namespace dfa

@@ -12,3 +12,7 @@ add_subdirectory(lib)
 include(CTest)
 enable_testing()
 add_subdirectory(test)
+
+file(GLOB_RECURSE SRC_FILEs "*.h" "*.cpp")
+add_custom_target(format WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                         COMMAND clang-format -i ${SRC_FILEs})

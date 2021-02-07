@@ -3,11 +3,10 @@
 
 using namespace llvm;
 
-
 namespace {
 
 class StrengthReduction final : public FunctionPass {
- public:
+public:
   static char ID;
 
   StrengthReduction() : FunctionPass(ID) {}
@@ -15,20 +14,13 @@ class StrengthReduction final : public FunctionPass {
 
   /*! @todo(cscd70) Please complete the methods below.
    */
-  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {}
 
-  }
-
-  virtual bool runOnFunction(Function &F) override {
-
-
-    return false;
-  }
-};  // class StrengthReduction
+  virtual bool runOnFunction(Function &F) override { return false; }
+}; // class StrengthReduction
 
 char StrengthReduction::ID = 0;
-RegisterPass<StrengthReduction> X(
-    "strength-reduction",
-    "CSCD70: Strength Reduction");
+RegisterPass<StrengthReduction> X("strength-reduction",
+                                  "CSCD70: Strength Reduction");
 
-}  // anonymous namespace
+} // anonymous namespace

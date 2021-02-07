@@ -3,11 +3,10 @@
 
 using namespace llvm;
 
-
 namespace {
 
 class AlgebraicIdentity final : public FunctionPass {
- public:
+public:
   static char ID;
 
   AlgebraicIdentity() : FunctionPass(ID) {}
@@ -15,20 +14,13 @@ class AlgebraicIdentity final : public FunctionPass {
 
   /*! @todo(cscd70) Please complete the methods below.
    */
-  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {}
 
-  }
-
-  virtual bool runOnFunction(Function &F) override {
-
-
-    return false;
-  }
-};  // class AlgebraicIdentity
+  virtual bool runOnFunction(Function &F) override { return false; }
+}; // class AlgebraicIdentity
 
 char AlgebraicIdentity::ID = 0;
-RegisterPass<AlgebraicIdentity> X(
-    "algebraic-identity",
-    "CSCD70: Algebraic Identity");
+RegisterPass<AlgebraicIdentity> X("algebraic-identity",
+                                  "CSCD70: Algebraic Identity");
 
-}  // anonymous namespace
+} // anonymous namespace

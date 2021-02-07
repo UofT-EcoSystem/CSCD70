@@ -4,11 +4,10 @@
 
 using namespace llvm;
 
-
 namespace {
 
 class FunctionInfo final : public ModulePass {
- public:
+public:
   static char ID;
 
   FunctionInfo() : ModulePass(ID) {}
@@ -28,11 +27,9 @@ class FunctionInfo final : public ModulePass {
 
     return false;
   }
-};  // class FunctionInfo
+}; // class FunctionInfo
 
 char FunctionInfo::ID = 0;
-RegisterPass<FunctionInfo> X(
-    "function-info",
-    "CSCD70: Function Information");
+RegisterPass<FunctionInfo> X("function-info", "CSCD70: Function Information");
 
-}  // anonymous namespace
+} // anonymous namespace
