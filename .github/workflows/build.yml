@@ -19,6 +19,14 @@ jobs:
                        -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest"
+            - name: Assignment 2 Dataflow Analysis
+              run: |
+                   docker-compose run --rm \
+                       -w /mnt/Assignment2-Dataflow_Analysis \
+                       cscd70-dev bash -ce \
+                      "mkdir build && cd build; cmake .. && make && ctest"
+            - name: C to LLVM IR
+              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR cscd70-dev make
             - name: Tutorial 1 Introduction to LLVM
               run: |
                    docker-compose run --rm \
@@ -35,5 +43,3 @@ jobs:
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example2-Pass_Manager \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest"
-            - name: C to LLVM IR
-              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR cscd70-dev make

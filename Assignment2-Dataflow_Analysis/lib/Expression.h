@@ -1,5 +1,4 @@
-#ifndef DFA_EXPRESSION_H
-#define DFA_EXPRESSION_H
+#pragma once  // NOLINT(llvm-header-guard)
 
 #include <functional>
 
@@ -10,7 +9,7 @@
 using namespace llvm;
 
 
-namespace dfa {
+namespace {
 
 /**
  * @brief A wrapper for expressions.
@@ -46,16 +45,16 @@ inline raw_ostream& operator<<(raw_ostream& Outs, const Expression& Expr) {
   return Outs;
 }
 
-}  // namespace dfa
+}  // anonymous namespace
 
 namespace std {
 
 /**
- * @brief  Construct a hash code for @c dfa::Expression .
+ * @brief  Construct a hash code for @c Expression .
  */
 template <>
-struct hash<::dfa::Expression> {
-  size_t operator()(const ::dfa::Expression& Expr) const {
+struct hash<Expression> {
+  size_t operator()(const Expression& Expr) const {
     hash<unsigned> UnsignedHasher;
     hash<const Value*> PValueHasher;
     size_t OpcodeHashVal = UnsignedHasher(Expr.getOpcode());
@@ -66,5 +65,3 @@ struct hash<::dfa::Expression> {
 };
 
 }  // namespace std
-
-#endif  // DFA_EXPRESSION_H

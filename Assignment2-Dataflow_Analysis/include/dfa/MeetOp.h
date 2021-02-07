@@ -1,5 +1,4 @@
-#ifndef DFA_MEETOP_H
-#define DFA_MEETOP_H
+#pragma once  // NOLINT(llvm-header-guard)
 
 #include <vector>
 
@@ -30,10 +29,8 @@ class Intersect final : public MeetOp<bool> {
   virtual std::vector<bool> top(const size_t DomainSize) const override {
 
 
-    return std::vector<bool>();
+    return std::vector<bool>(DomainSize, false);
   }
 };
 
 }  // namespace dfa
-
-#endif  // DFA_MEETOP_H

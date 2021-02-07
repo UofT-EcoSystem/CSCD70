@@ -4,7 +4,7 @@
 #include <llvm/IR/Instructions.h>
 #include <llvm/Pass.h>
 
-#include "dfa/Expression.h"
+#include "Expression.h"
 #include "dfa/Framework.h"
 
 using namespace dfa;

@@ -1,5 +1,4 @@
-#ifndef DFA_FRAMEWORK_H
-#define DFA_FRAMEWORK_H
+#pragma once  // NOLINT(llvm-header-guard)
 
 #include <exception>
 #include <type_traits>
@@ -102,16 +101,16 @@ class Framework {
       // If the list of meet operands is empty, then we are at the boundary,
       // hence print the BC.
       if (MeetOperands.begin() == MeetOperands.end()) {
-        outs() << "BC:\t";
+        outs() << "\tBC:";
         printDomainWithMask(bc());
         outs() << "\n";
       } else {
-        outs() << "MeetOp:\t";
+        outs() << "\tMeetOp:";
         printDomainWithMask(merge(MeetOperands));
         outs() << "\n";
       }
     }  // if (&inst == &(*InstParent->begin()))
-    outs() << "Instruction: " << Inst << "\n";
+    outs() << Inst << "\n";
     outs() << "\t";
     printDomainWithMask(InstBVMap.at(&Inst));
     outs() << "\n";
@@ -136,13 +135,15 @@ class Framework {
   }
   /**
    * @brief Apply the meet operator to the operands.
-   * 
-   * @todo(cscd70) Please complete the defintion of this method.
    */
   std::vector<TDomainElemRepr> merge(const MeetOpConstRange& MeetOperands) const {
     TMeetOp MeetOp;
+    /** 
+     * @todo(cscd70) Please complete the defintion of this method.
+     */
 
-    return std::vector<TDomainElemRepr>();
+
+    return std::vector<TDomainElemRepr>(Domain.size(), false);
   }
   /*****************************************************************************
    * Transfer Function
@@ -223,7 +224,7 @@ class Framework {
     // apply the initial conditions
     TMeetOp MeetOp;
     for (const auto& Inst : instructions(F)) {
-      InstBVMap.emplace(&Inst, MeetOp.top());
+      InstBVMap.emplace(&Inst, MeetOp.top(Domain.size()));
     }
     // keep traversing until changes have been made to the instruction-bitvector mapping
     while (traverseCFG(F)) {}
@@ -233,5 +234,3 @@ class Framework {
 };
 
 }  // namespace dfa
-
-#endif  // DFA_FRAMEWORK_H

@@ -1,4 +1,27 @@
-define i32 @AvailExpr(i32 %0, i8** %1) #0 {
+; RUN: opt -S -load %dylibdir/libDFA%dylibext \
+; RUN:     -avail-expr %s -o %basename_t | \
+; RUN: FileCheck --match-full-lines %s
+
+; int main(int argc, char* argv[]) {
+;   int a, b, c, d, e, f;
+;   a = 50;
+;   b = argc + a;
+;   c = 96;
+;   e = b + c;
+;   if (a < b) {
+;     f = b - a;
+;     e = c * b;
+;   } else {
+;     f = b + a;
+;     e = c * b;
+;   }
+;   b = a - c;
+;   d = b + f;
+;   return 0;
+; }
+define i32 @main(i32 %0, i8** %1) #0 {
+; CHECK-LABEL: BC: {}
+; @todo(cscd70) Please complete the CHECK directives.
   %3 = add nsw i32 %0, 50
   %4 = add nsw i32 %3, 96
   %5 = icmp slt i32 50, %3
