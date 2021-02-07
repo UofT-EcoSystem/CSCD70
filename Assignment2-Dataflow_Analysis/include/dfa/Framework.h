@@ -1,6 +1,7 @@
 #ifndef DFA_FRAMEWORK_H
 #define DFA_FRAMEWORK_H
 
+#include <exception>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -22,14 +23,37 @@ enum class Direction {
   kForward, kBackward
 };
 
-/// @brief  Dataflow Analysis Framework
-/// 
-/// @tparam TDomainElement  Domain Element
-/// @tparam TDirection      Direction of Analysis
-/// @tparam TMeetOp         Meet Operator
-/// @tparam TBC             Boundary Condition
+template<Direction TDirection>
+struct FrameworkTypeSupport {};
+
+template<>
+struct FrameworkTypeSupport<Direction::kForward> {
+  typedef const_pred_range MeetOpConstRange;
+  typedef iterator_range<Function::const_iterator> BBTraversalConstRange;
+  typedef iterator_range<BasicBlock::const_iterator> InstTraversalConstRange;
+};
+/**
+ * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
+ */
+
+template<typename T>
+concept MeetOpConcept = std::is_base_of<MeetOp, T>::value;
+
+template<typename T>
+concept BCConcept = std::is_base_of<BC, T>::value;
+
+/**
+ * @brief  Dataflow Analysis Framework
+ *  
+ * @tparam TDomainElement   Domain Element
+ * @tparam TDirection       Direction of Analysis
+ * @tparam TMeetOp          Meet Operator
+ * @tparam TBC              Boundary Condition
+ * @tparam TDomainElemRepr  Domain Element Representation (bool by Default)
+ */
 template<typename TDomainElement, Direction TDirection,
-         typename TMeetOp, typename TBC>
+         MeetOpConcept TMeetOp, BCConcept TBC,
+         typename TDomainElemRepr = bool>
 class Framework {
 
 /**
@@ -41,30 +65,15 @@ class Framework {
   template<Direction _TDirection = TDirection>                                  \
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
-/// This macro does typedef depending on the analysis direction. If the
-/// direction in the template argument does not match the argument, the
-/// resulting type is not defined.
-///
-/// @param type_name  Name of the Resulting Type
-/// @param dir        Direction of Analysis
-/// @param T          Type Definition if `TDirection == dir`
-#define TYPEDEF_IF_DIRECTION(type_name, dir, T)                                 \
-  using type_name = typename std::enable_if_t<TDirection == dir, T>
-
+ private:
+  using typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
+  using typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
+  using typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
  protected:
   /// Domain
   std::unordered_set<TDomainElement> Domain;
   // Instruction-BitVector Mapping
-  std::unordered_map<const Instruction*, BitVector> InstBVMap;
- private:
-  /**
-   * @todo(cscd70) Please provide an equivalent instantiation for the backward pass.
-   */
-  TYPEDEF_IF_DIRECTION(MeetOpConstRange, Direction::kForward, const_pred_range);
-  TYPEDEF_IF_DIRECTION(BBTraversalConstRange, Direction::kForward,
-                       iterator_range<Function::const_iterator>);
-  TYPEDEF_IF_DIRECTION(InstTraversalConstRange, Direction::kForward,
-                       iterator_range<BasicBlock::const_iterator>);
+  std::unordered_map<const Instruction*, std::vector<TDomainElemRepr> > InstBVMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
@@ -73,7 +82,7 @@ class Framework {
    * @brief  Print the domain with mask. E.g., If domian = {%1, %2, %3,},
    *         dumping it with mask = 001 will give {%3,}.
    */
-  void printDomainWithMask(const BitVector& Mask) const {
+  void printDomainWithMask(const std::vector<TDomainElemRepr>& Mask) const {
     outs() << "{";
     assert(Mask.size() == Domain.size() &&
            "The size of mask must be equal to the size of domain.");
@@ -130,8 +139,9 @@ class Framework {
    * 
    * @todo(cscd70) Please implement this method for every child class.
    */
-  virtual bool transferFunc(const Instruction& Inst, const BitVector& IBV,
-                            BitVector& OBV) = 0;
+  virtual bool transferFunc(const Instruction& Inst,
+                            const std::vector<TDomainElemRepr>& IBV,
+                            std::vector<TDomainElemRepr>& OBV) = 0;
   /*****************************************************************************
    * CFG Traversal
    *****************************************************************************/
@@ -173,15 +183,26 @@ class Framework {
   /**
    * @brief Initialize the domain from each instruction.
    */
-  virtual void initializeDomainFromInstruction(const Instruction& Inst) = 0;
+  virtual void initializeDomain(const Function& F) {
+    for (const auto& Inst : instructions(F)) {
+      try {
+        Domain.emplace(Inst);
+      } catch (const std::invalid_argument& ia) {}
+    }
+    for (const auto& Arg : F.args()) {
+      try {
+        Domain.emplace(Arg);
+      } catch (const std::invalid_argument& ia) {}
+    }
+  }
  public:
   virtual bool runOnFunction(Function& F) {
-    for (const auto& Inst : instructions(F)) {
-      initializeDomainFromInstruction(Inst);
-    }
+    // initialize the domain
+    initializeDomain(F);
+    // apply the initial conditions
     TMeetOp MeetOp;
     for (const auto& Inst : instructions(F)) {
-      InstBVMap.emplace(&Inst, MeetOp.IC());
+      InstBVMap.emplace(&Inst, MeetOp.top());
     }
     // keep traversing until changes have been made to the instruction-bitvector mapping
     while (traverseCFG(F)) {}
