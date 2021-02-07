@@ -183,7 +183,7 @@ private:
    * @brief Return the traversal order of the instructions.
    *
    * @todo(cscd70) Please modify the definition (and the above typedef
-   * accordingly) for the optimal traversal order.
+   *               accordingly) for the optimal traversal order.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, InstTraversalConstRange)
   getInstTraversalOrder(const BasicBlock &BB) const {
@@ -195,7 +195,7 @@ protected:
    * @brief  Traverse through the CFG and update @c inst_bv_map .
    * @return true if changes are made to @c inst_bv_map , false otherwise
    *
-   * @todo(cscd70) Please implement this method for every child class.
+   * @todo(cscd70) Please implement this method.
    */
   bool traverseCFG(const Function &F) { return false; }
 
@@ -204,20 +204,15 @@ public:
 
 protected:
   /**
+   * @todo(cscd70) Please implement this method for every child class.
+   */
+  virtual void initializeDomainFromInst(const Instruction &Inst) = 0;
+  /**
    * @brief Initialize the domain from each instruction and/or argument.
    */
-  virtual void initializeDomain(const Function &F) {
+  void initializeDomain(const Function &F) {
     for (const auto &Inst : instructions(F)) {
-      try {
-        Domain.emplace(Inst);
-      } catch (const std::invalid_argument &IA) {
-      }
-    }
-    for (const auto &Arg : F.args()) {
-      try {
-        Domain.emplace(Arg);
-      } catch (const std::invalid_argument &IA) {
-      }
+      initializeDomainFromInst(Inst);
     }
   }
 

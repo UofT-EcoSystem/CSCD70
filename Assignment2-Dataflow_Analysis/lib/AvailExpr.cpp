@@ -33,6 +33,12 @@ public:
   AvailExpr() : AvailExprFrameworkBase(), FunctionPass(ID) {}
   virtual ~AvailExpr() override {}
 
+  virtual void initializeDomainFromInst(const Instruction &Inst) override {
+    if (auto *const BinaryOp = dyn_cast<BinaryOperator>(&Inst)) {
+
+    }
+  }
+
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();
   }

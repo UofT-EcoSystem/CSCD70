@@ -3,6 +3,7 @@
 #include <functional>
 
 #include <llvm/IR/Instruction.h>
+#include <llvm/IR/Instructions.h>
 #include <llvm/IR/Value.h>
 #include <llvm/Support/raw_ostream.h>
 
@@ -11,29 +12,27 @@ using namespace llvm;
 namespace {
 
 /**
- * @brief A wrapper for expressions.
+ * @brief A wrapper for binary expressions.
  */
-class Expression {
-private:
-  unsigned Opcode;
-  const Value *LHS = nullptr, *RHS = nullptr;
+struct Expression {
+  const unsigned Opcode;
+  const Value *const LHS = nullptr, *const RHS = nullptr;
+  Expression(const BinaryOperator &BinaryOp)
+      : Opcode(BinaryOp.getOpcode()),
+        LHS(BinaryOp.getOperand(0)), RHS(BinaryOp.getOperand(1)) {
 
-public:
+  }
   /**
-   * @todo(cscd70) Please complete the constructor and the comparator.
+   * @todo(cscd70) Please complete the comparator.
    */
-  Expression(const Value &V) {}
   bool operator==(const Expression &Expr) const { return false; }
-  unsigned getOpcode() const { return Opcode; }
-  const Value *getLHSOperand() const { return LHS; }
-  const Value *getRHSOperand() const { return RHS; }
 };
 
 inline raw_ostream &operator<<(raw_ostream &Outs, const Expression &Expr) {
-  Outs << "[" << Instruction::getOpcodeName(Expr.getOpcode()) << " ";
-  Expr.getLHSOperand()->printAsOperand(Outs, false);
+  Outs << "[" << Instruction::getOpcodeName(Expr.Opcode) << " ";
+  Expr.LHS->printAsOperand(Outs, false);
   Outs << ", ";
-  Expr.getRHSOperand()->printAsOperand(Outs, false);
+  Expr.RHS->printAsOperand(Outs, false);
   Outs << "]";
   return Outs;
 }
@@ -49,9 +48,9 @@ template <> struct hash<Expression> {
   size_t operator()(const Expression &Expr) const {
     hash<unsigned> UnsignedHasher;
     hash<const Value *> PValueHasher;
-    size_t OpcodeHashVal = UnsignedHasher(Expr.getOpcode());
-    size_t LHSOperandHashVal = PValueHasher((Expr.getLHSOperand()));
-    size_t RHSOperandHashVal = PValueHasher((Expr.getRHSOperand()));
+    size_t OpcodeHashVal = UnsignedHasher(Expr.Opcode);
+    size_t LHSOperandHashVal = PValueHasher(Expr.LHS);
+    size_t RHSOperandHashVal = PValueHasher(Expr.RHS);
     return OpcodeHashVal ^ (LHSOperandHashVal << 1) ^ (RHSOperandHashVal << 1);
   }
 };
