@@ -35,7 +35,6 @@ public:
 
   virtual void initializeDomainFromInst(const Instruction &Inst) override {
     if (auto *const BinaryOp = dyn_cast<BinaryOperator>(&Inst)) {
-
     }
   }
 

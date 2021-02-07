@@ -18,10 +18,8 @@ struct Expression {
   const unsigned Opcode;
   const Value *const LHS = nullptr, *const RHS = nullptr;
   Expression(const BinaryOperator &BinaryOp)
-      : Opcode(BinaryOp.getOpcode()),
-        LHS(BinaryOp.getOperand(0)), RHS(BinaryOp.getOperand(1)) {
-
-  }
+      : Opcode(BinaryOp.getOpcode()), LHS(BinaryOp.getOperand(0)),
+        RHS(BinaryOp.getOperand(1)) {}
   /**
    * @todo(cscd70) Please complete the comparator.
    */
