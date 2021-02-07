@@ -101,11 +101,11 @@ class Framework {
       // If the list of meet operands is empty, then we are at the boundary,
       // hence print the BC.
       if (MeetOperands.begin() == MeetOperands.end()) {
-        outs() << "\tBC:";
+        outs() << "\tBC: ";
         printDomainWithMask(bc());
         outs() << "\n";
       } else {
-        outs() << "\tMeetOp:";
+        outs() << "\tMeetOp: ";
         printDomainWithMask(merge(MeetOperands));
         outs() << "\n";
       }
