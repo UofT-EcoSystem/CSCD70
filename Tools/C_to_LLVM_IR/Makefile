@@ -4,12 +4,10 @@ LLs := $(subst .c,.ll,$(wildcard *.c))
 all: $(LLs)
 
 %.ll: %.bc
-	llvm-dis $< -o=$@
+	opt -S -mem2reg $< -o $@
 
 %.bc: %.c
-	clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c $< -o $@
-	opt -mem2reg $@
-	
+	clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c $< -o $*.bc
 
 .PHONY: clean
 clean:
