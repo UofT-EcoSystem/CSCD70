@@ -23,12 +23,16 @@ enum class Direction { kForward, kBackward };
 template <Direction TDirection> //
 struct FrameworkTypeSupport {};
 
+/**
+ * @todo(cscd70) Modify the typedefs if necessary.
+ */
 template <> //
 struct FrameworkTypeSupport<Direction::kForward> {
   typedef const_pred_range MeetOpConstRange;
   typedef iterator_range<Function::const_iterator> BBTraversalConstRange;
   typedef iterator_range<BasicBlock::const_iterator> InstTraversalConstRange;
 };
+
 /**
  * @todo(cscd70) Please provide an instantiation for the backward pass.
  */
@@ -36,12 +40,12 @@ struct FrameworkTypeSupport<Direction::kForward> {
 /**
  * @brief  Dataflow Analysis Framework
  *
- * @tparam TDomainElement   Domain Element
- * @tparam TDomainElemRepr  Domain Element Representation (bool by Default)
+ * @tparam TDomainElem      Domain Element
+ * @tparam TDomainElemRepr  Domain Element Representation
  * @tparam TDirection       Direction of Analysis
  * @tparam TMeetOp          Meet Operator
  */
-template <typename TDomainElement, typename TDomainElemRepr,
+template <typename TDomainElem, typename TDomainElemRepr,
           Direction TDirection, typename TMeetOp>
 class Framework {
 
@@ -64,11 +68,11 @@ private:
 
 protected:
   /// Domain
-  std::unordered_set<TDomainElement> Domain;
-  // Instruction-BitVector Mapping
+  std::unordered_set<TDomainElem> Domain;
+  // Instruction-Domain Mapping
   std::unordered_map<const Instruction *, //
                      std::vector<TDomainElemRepr>>
-      InstBVMap;
+      InstDomainMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
@@ -106,24 +110,24 @@ private:
         outs() << "\n";
       } else {
         outs() << "\tMeetOp: ";
-        printDomainWithMask(merge(MeetOperands));
+        printDomainWithMask(meet(MeetOperands));
         outs() << "\n";
       }
     } // if (&inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
     outs() << "\t";
-    printDomainWithMask(InstBVMap.at(&Inst));
+    printDomainWithMask(InstDomainMap.at(&Inst));
     outs() << "\n";
   }
   /**
-   * @brief Dump, ∀inst ∈ @c F , the associated bitvector.
+   * @brief Dump, ∀inst ∈ @c F , the associated domain.
    */
-  void printInstBVMap(const Function &F) const {
-    outs() << "********************************************"
+  void printInstDomainMap(const Function &F) const {
+    outs() << "**************************************************"
            << "\n"
-           << "* Instruction-BitVector Mapping             "
+           << "* Instruction-Domain Mapping"
            << "\n"
-           << "********************************************"
+           << "**************************************************"
            << "\n";
     for (const auto &Inst : instructions(F)) {
       printInstBV(Inst);
@@ -138,7 +142,7 @@ private:
    * @brief Apply the meet operator to the operands.
    */
   std::vector<TDomainElemRepr>
-  merge(const MeetOpConstRange &MeetOperands) const {
+  meet(const MeetOpConstRange &MeetOperands) const {
     TMeetOp MeetOp;
     /**
      * @todo(cscd70) Please complete the defintion of this method.
@@ -151,7 +155,7 @@ private:
    *****************************************************************************/
   /**
    * @brief  Apply the transfer function at instruction @c Inst to the input
-   *         bitvector to get the output bitvector.
+   *         domain values to get the output.
    * @return true if @c OBV has been changed, false otherwise
    *
    * @todo(cscd70) Please implement this method for every child class.
@@ -198,11 +202,6 @@ protected:
 public:
   virtual ~Framework() {}
 
-  // We don't modify the program, so we preserve all analysis.
-  virtual void getAnalysisUsage(AnalysisUsage &AU) const {
-    AU.setPreservesAll();
-  }
-
 protected:
   /**
    * @brief Initialize the domain from each instruction and/or argument.
@@ -229,13 +228,13 @@ public:
     // apply the initial conditions
     TMeetOp MeetOp;
     for (const auto &Inst : instructions(F)) {
-      InstBVMap.emplace(&Inst, MeetOp.top(Domain.size()));
+      InstDomainMap.emplace(&Inst, MeetOp.top(Domain.size()));
     }
-    // keep traversing until changes have been made to the instruction-bitvector
-    // mapping
+    // keep traversing until no changes have been made to the 
+    // instruction-domain mapping
     while (traverseCFG(F)) {
     }
-    printInstBVMap(F);
+    printInstDomainMap(F);
     return false;
   }
 };

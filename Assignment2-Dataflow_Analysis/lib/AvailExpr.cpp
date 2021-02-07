@@ -33,12 +33,15 @@ public:
   AvailExpr() : AvailExprFrameworkBase(), FunctionPass(ID) {}
   virtual ~AvailExpr() override {}
 
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
+    AU.setPreservesAll();
+  }
   bool runOnFunction(Function &F) override {
     return AvailExprFrameworkBase::runOnFunction(F);
   }
 };
 
 char AvailExpr::ID = 1;
-RegisterPass<AvailExpr> Y("avail-expr", "Available Expression");
+RegisterPass<AvailExpr> X("avail-expr", "Available Expression");
 
 } // anonymous namespace

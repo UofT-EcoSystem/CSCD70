@@ -19,9 +19,12 @@
 ;   d = b + f;
 ;   return 0;
 ; }
-define i32 @main(i32 %0, i8** %1) #0 {
-; CHECK-LABEL: BC: {}
+; CHECK-LABEL: **************************************************
+; CHECK-NEXT:  * Instruction-Domain Mapping
+; CHECK-NEXT:  **************************************************
 ; @todo(cscd70) Please complete the CHECK directives.
+define i32 @main(i32 %0, i8** %1) #0 {
+
   %3 = add nsw i32 %0, 50
   %4 = add nsw i32 %3, 96
   %5 = icmp slt i32 50, %3
