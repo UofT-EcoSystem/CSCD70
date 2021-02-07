@@ -2,8 +2,8 @@
 // RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
 // RUN: opt -load %dylibdir/libFunctionInfo%dylibext -function-info -disable-output 2>&1 %basename_t.bc | \
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
-/*! @todo(cscd70) Remove the `--check-prefix=SAMPLE` option and add the CHECK
- *                directives similar to those in Loop.c.
+/*! @todo(cscd70) Please Remove the `--check-prefix=SAMPLE` option and add the
+ *                CHECK directives similar to those in Loop.c.
  */
 // SAMPLE: CSCD70 Function Information Pass
 #include <stdio.h>
