@@ -16,7 +16,7 @@ namespace {
 using AvailExprFrameworkBase
     = Framework<Expression, bool, Direction::kForward, Intersect>;
 
-class AvailableExpression final
+class AvailExpr final
     : public AvailExprFrameworkBase,
       public FunctionPass
 {
@@ -33,16 +33,16 @@ class AvailableExpression final
 public:
   static char ID;
 
-  AvailableExpression() : AvailExprFrameworkBase(), FunctionPass(ID) {}
-  virtual ~AvailableExpression() override {}
+  AvailExpr() : AvailExprFrameworkBase(), FunctionPass(ID) {}
+  virtual ~AvailExpr() override {}
 
   bool runOnFunction(Function& F) override {
     return AvailExprFrameworkBase::runOnFunction(F);
   }
 };
 
-char AvailableExpression::ID = 1; 
-RegisterPass<AvailableExpression> Y(
+char AvailExpr::ID = 1; 
+RegisterPass<AvailExpr> Y(
     "avail-expr",
     "Available Expression");
 
