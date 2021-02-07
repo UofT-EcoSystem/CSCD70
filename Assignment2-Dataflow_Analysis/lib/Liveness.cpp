@@ -11,14 +11,13 @@ namespace {
 /**
  * @todo(cscd70) Implement @c Liveness using the @c dfa::Framework interface.
  */
-class Liveness final : public FunctionPass
-{
+class Liveness final : public FunctionPass {
 public:
   static char ID;
 
   Liveness() : FunctionPass(ID) {}
   virtual ~Liveness() override {}
-        
+
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();
   }
@@ -31,12 +30,11 @@ public:
            << "**************************************************"
            << "\n";
 
-
     return false;
   }
 };
 
-char Liveness::ID = 2; 
+char Liveness::ID = 2;
 RegisterPass<Liveness> X("liveness", "Liveness");
 
 } // anonymous namespace

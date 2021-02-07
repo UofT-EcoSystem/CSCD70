@@ -45,8 +45,8 @@ struct FrameworkTypeSupport<Direction::kForward> {
  * @tparam TDirection       Direction of Analysis
  * @tparam TMeetOp          Meet Operator
  */
-template <typename TDomainElem, typename TDomainElemRepr,
-          Direction TDirection, typename TMeetOp>
+template <typename TDomainElem, typename TDomainElemRepr, Direction TDirection,
+          typename TMeetOp>
 class Framework {
 
 /**
@@ -230,7 +230,7 @@ public:
     for (const auto &Inst : instructions(F)) {
       InstDomainMap.emplace(&Inst, MeetOp.top(Domain.size()));
     }
-    // keep traversing until no changes have been made to the 
+    // keep traversing until no changes have been made to the
     // instruction-domain mapping
     while (traverseCFG(F)) {
     }
