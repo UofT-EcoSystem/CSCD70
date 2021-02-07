@@ -50,9 +50,9 @@ template<typename TDomainElement, typename TDomainElemRepr,
 class Framework {
 
 /**
- * @brief  Selectively enables methods depending on the analysis direction.
- * @param  dir  Direction of Analysis
- * @param  ret_type  Return Type
+ * @brief Selectively enables methods depending on the analysis direction.
+ * @param dir  Direction of Analysis
+ * @param ret_type  Return Type
  */
 #define METHOD_ENABLE_IF_DIRECTION(dir, ret_type)                               \
   template<Direction _TDirection = TDirection>                                  \
@@ -75,8 +75,8 @@ class Framework {
    *****************************************************************************/
  private:
   /**
-   * @brief  Print the domain with mask. E.g., If domian = {%1, %2, %3,},
-   *         dumping it with mask = 001 will give {%3,}.
+   * @brief Print the domain with mask. E.g., If domian = {%1, %2, %3,},
+   *        dumping it with mask = 001 will give {%3,}.
    */
   void printDomainWithMask(const std::vector<TDomainElemRepr>& Mask) const {
     outs() << "{";
@@ -135,7 +135,7 @@ class Framework {
     return predecessors(&BB);
   }
   /**
-   * @brief  Apply the meet operator to the operands.
+   * @brief Apply the meet operator to the operands.
    * 
    * @todo(cscd70) Please complete the defintion of this method.
    */
@@ -161,7 +161,7 @@ class Framework {
    * CFG Traversal
    *****************************************************************************/
   /**
-   * @brief  Boundary Condition
+   * @brief Boundary Condition
    */
   std::vector<TDomainElemRepr> bc() const {
     return std::vector<TDomainElemRepr>(Domain.size(), false);
@@ -174,7 +174,7 @@ class Framework {
     return make_range(F.begin(), F.end());
   }
   /**
-   * @brief  Return the traversal order of the instructions.
+   * @brief Return the traversal order of the instructions.
    * 
    * @todo(cscd70) Please modify the definition (and the above typedef accordingly)
    *               for the optimal traversal order.
@@ -202,7 +202,7 @@ class Framework {
   }
  protected:
   /**
-   * @brief Initialize the domain from each instruction.
+   * @brief Initialize the domain from each instruction and/or argument.
    */
   virtual void initializeDomain(const Function& F) {
     for (const auto& Inst : instructions(F)) {

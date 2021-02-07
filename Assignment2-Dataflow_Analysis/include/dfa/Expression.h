@@ -20,7 +20,9 @@ class Expression {
   unsigned Opcode;
   const Value* LHS = nullptr, * RHS = nullptr;
  public:
-  /// @todo(cscd70) Please complete the constructor and the comparator.
+  /**
+   * @todo(cscd70) Please complete the constructor and the comparator.
+   */
   Expression(const Value& V) {
 
 

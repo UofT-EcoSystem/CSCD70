@@ -12,16 +12,24 @@ class MeetOp {
   virtual std::vector<TDomainElemRepr> operator()(
       const std::vector<TDomainElemRepr>& LHS,
       const std::vector<TDomainElemRepr>& RHS) const = 0;
-  virtual std::vector<TDomainElemRepr> top() const = 0;
+  virtual std::vector<TDomainElemRepr> top(const size_t DomainSize) const = 0;
 };
 
+/**
+ * @brief Intersection Meet Operation
+ * @todo(cscd70) Please complete the definition of the intersection meet operation.
+ */
 class Intersect final : public MeetOp<bool> {
  public:
   virtual std::vector<bool> operator()(
       const std::vector<bool>& LHS, const std::vector<bool>& RHS) const override {
+
+
     return std::vector<bool>();
   }
-  virtual std::vector<bool> top() const override {
+  virtual std::vector<bool> top(const size_t DomainSize) const override {
+
+
     return std::vector<bool>();
   }
 };
