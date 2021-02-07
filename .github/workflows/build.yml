@@ -35,3 +35,5 @@ jobs:
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example2-Pass_Manager \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest"
+            - name: C to LLVM IR
+              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR cscd70-dev make
