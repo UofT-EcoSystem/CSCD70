@@ -2,7 +2,7 @@
 ; RUN:     -avail-expr %s -o %basename_t | \
 ; RUN: FileCheck --match-full-lines %s
 
-; int main(int argc, char* argv[]) {
+; int main(int argc, char *argv[]) {
 ;   int a, b, c, d, e, f;
 ;   a = 50;
 ;   b = argc + a;
