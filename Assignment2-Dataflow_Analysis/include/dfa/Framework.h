@@ -117,7 +117,7 @@ class Framework {
     outs() << "\n";
   }
   /**
-   * @brief Dump, ∀inst ∈ @p 'F', the associated bitvector.
+   * @brief Dump, ∀inst ∈ @c F , the associated bitvector.
    */
   void printInstBVMap(const Function& F) const {
     outs() << "********************************************" << "\n"
