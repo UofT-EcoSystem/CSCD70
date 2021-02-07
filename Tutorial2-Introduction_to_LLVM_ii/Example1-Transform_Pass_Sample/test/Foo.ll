@@ -1,6 +1,5 @@
-; RUN: opt -load %dylibdir/libTransformPassSample%dylibext \
-; RUN:     -transform %s -o %basename_t.bc
-; RUN: llvm-dis %basename_t.bc -o=%basename_t
+; RUN: opt -S -load %dylibdir/libTransformPassSample%dylibext \
+; RUN:     -transform %s -o %basename_t
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t
 
 ; int foo(int e, int a) {
