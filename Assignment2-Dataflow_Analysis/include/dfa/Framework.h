@@ -148,7 +148,7 @@ private:
      * @todo(cscd70) Please complete the defintion of this method.
      */
 
-    return std::vector<TDomainElemRepr>(Domain.size(), false);
+    return std::vector<TDomainElemRepr>(Domain.size());
   }
   /*****************************************************************************
    * Transfer Function
@@ -170,7 +170,7 @@ private:
    * @brief Boundary Condition
    */
   std::vector<TDomainElemRepr> bc() const {
-    return std::vector<TDomainElemRepr>(Domain.size(), false);
+    return std::vector<TDomainElemRepr>(Domain.size());
   }
   /**
    * @brief  Return the traversal order of the basic blocks.
