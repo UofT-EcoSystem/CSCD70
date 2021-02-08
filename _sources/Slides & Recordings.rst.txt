@@ -17,6 +17,7 @@ Lec 3.   Dataflow ii and Loops   [|PPTX Lec3|][|PDF Lec3|] [|UofT MyMedia Lec3|_
 Tut 3.   Dataflow Analysis       [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
 Lec 4.   SSA                     [|PPTX Lec4|][|PDF Lec4|] [|UofT MyMedia Lec4|_][|YouTube Lec4|_]
 Tut 4.   Dataflow Analysis ii    [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_][|YouTube Tut4|_]
+Tut 5.   Dataflow Analysis iii   [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
 ======== ======================= ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
@@ -74,3 +75,6 @@ Tut 4.   Dataflow Analysis ii    [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_
 .. _UofT MyMedia Tut4: https://play.library.utoronto.ca/d2ee293a8cff369359dad5f851761b6c
 .. |YouTube Tut4| replace:: YouTube
 .. _YouTube Tut4: https://youtu.be/0A4edFKB-kI
+
+.. |Overleaf Tut5| replace:: Overleaf 
+.. _Overleaf Tut5: https://www.overleaf.com/read/ptfcckrwdpvn
