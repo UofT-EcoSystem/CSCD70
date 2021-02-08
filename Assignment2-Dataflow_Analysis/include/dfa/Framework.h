@@ -70,13 +70,13 @@ protected:
   /// Domain
   std::unordered_set<TDomainElem> Domain;
   // Instruction-Domain Mapping
+private:
   std::unordered_map<const Instruction *, //
                      std::vector<TDomainElemRepr>>
       InstDomainMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
-private:
   /**
    * @brief Print the domain with mask. E.g., If domian = {%1, %2, %3,},
    *        dumping it with mask = 001 will give {%3,}.
@@ -173,7 +173,7 @@ private:
     return std::vector<TDomainElemRepr>(Domain.size());
   }
   /**
-   * @brief  Return the traversal order of the basic blocks.
+   * @brief Return the traversal order of the basic blocks.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, BBTraversalConstRange)
   getBBTraversalOrder(const Function &F) const {
@@ -189,8 +189,6 @@ private:
   getInstTraversalOrder(const BasicBlock &BB) const {
     return make_range(BB.begin(), BB.end());
   }
-
-protected:
   /**
    * @brief  Traverse through the CFG and update @c inst_bv_map .
    * @return true if changes are made to @c inst_bv_map , false otherwise
@@ -202,7 +200,7 @@ protected:
 public:
   virtual ~Framework() {}
 
-protected:
+private:
   /**
    * @todo(cscd70) Please implement this method for every child class.
    */

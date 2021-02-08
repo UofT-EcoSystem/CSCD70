@@ -16,7 +16,7 @@ using AvailExprFrameworkBase =
     Framework<Expression, bool, Direction::kForward, Intersect>;
 
 class AvailExpr final : public AvailExprFrameworkBase, public FunctionPass {
-protected:
+private:
   virtual bool transferFunc(const Instruction &Inst,
                             const std::vector<bool> &IBV,
                             std::vector<bool> &OBV) override {
@@ -33,6 +33,7 @@ public:
   AvailExpr() : AvailExprFrameworkBase(), FunctionPass(ID) {}
   virtual ~AvailExpr() override {}
 
+private:
   virtual void initializeDomainFromInst(const Instruction &Inst) override {
     if (auto *const BinaryOp = dyn_cast<BinaryOperator>(&Inst)) {
       /**
@@ -41,6 +42,7 @@ public:
     }
   }
 
+public:
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();
   }
