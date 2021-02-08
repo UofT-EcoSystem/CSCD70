@@ -121,12 +121,11 @@ private:
    * @brief Dump, ∀inst ∈ F, the associated domain.
    */
   void printInstDomainMap(const Function &F) const {
-    outs() << "**************************************************"
-           << "\n"
-           << "* Instruction-Domain Mapping"
-           << "\n"
-           << "**************************************************"
-           << "\n";
+    // clang-format off
+    outs() << "**************************************************" << "\n"
+           << "* Instruction-Domain Mapping" << "\n"
+           << "**************************************************" << "\n";
+    // clang-format on
     for (const auto &Inst : instructions(F)) {
       printInstDomainMap(Inst);
     }
@@ -149,8 +148,7 @@ private:
   /**
    * @brief Apply the meet operator to the operands.
    */
-  std::vector<TDomainElemRepr>
-  meet(const MeetOperands_t &MeetOperands) const {
+  std::vector<TDomainElemRepr> meet(const MeetOperands_t &MeetOperands) const {
     /**
      * @todo(cscd70) Please complete the defintion of this method.
      */
@@ -206,11 +204,9 @@ private:
    * @todo(cscd70) Please implement this method.
    */
   bool traverseCFG(const Function &F) { return false; }
-
-public:
-  virtual ~Framework() {}
-
-private:
+  /*****************************************************************************
+   * Domain Initialization
+   *****************************************************************************/
   /**
    * @todo(cscd70) Please implement this method for every child class.
    */
@@ -225,6 +221,8 @@ private:
   }
 
 public:
+  virtual ~Framework() {}
+
   virtual bool runOnFunction(Function &F) {
     // initialize the domain
     initializeDomain(F);
