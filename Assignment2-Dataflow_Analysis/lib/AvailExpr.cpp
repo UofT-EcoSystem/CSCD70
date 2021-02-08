@@ -48,7 +48,7 @@ public:
   }
 };
 
-char AvailExpr::ID = 1;
+char AvailExpr::ID = 0;
 RegisterPass<AvailExpr> X("avail-expr", "Available Expression");
 
 } // anonymous namespace
