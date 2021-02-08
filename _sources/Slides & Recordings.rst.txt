@@ -76,9 +76,16 @@ Tut 5.   Dataflow Analysis iii   [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_
 .. |YouTube Tut4| replace:: YouTube
 .. _YouTube Tut4: https://youtu.be/0A4edFKB-kI
 
+.. |PDF Lec5| replace:: :download:`pdf <Slides/Lecture 5 [LICM and Strength Reduction] 02.08.2021.pdf>`
+.. |PPTX Lec5| replace:: :download:`pptx <Slides/Lecture 5 [LICM and Strength Reduction] 02.08.2021.pptx>`
+.. |UofT MyMedia Lec5| replace:: UofT MyMedia
+.. _UofT MyMedia Lec5: https://play.library.utoronto.ca/95a114c711cee0f084bc67b54557fcf1
+.. |YouTube Lec5| replace:: YouTube
+.. _YouTube Lec5: https://youtu.be/Zj3s9pdCGvs
+
 .. |Overleaf Tut5| replace:: Overleaf 
 .. _Overleaf Tut5: https://www.overleaf.com/read/ptfcckrwdpvn
 .. |UofT MyMedia Tut5| replace:: UofT MyMedia
-.. _UofT MyMedia Tut5: https://play.library.utoronto.ca/d2ee293a8cff369359dad5f851761b6c
+.. _UofT MyMedia Tut5: https://play.library.utoronto.ca/3697a5b79241d85b38197d98d78bbc8b
 .. |YouTube Tut5| replace:: YouTube
 .. _YouTube Tut5: https://youtu.be/8UPkj7s2wNs
