@@ -224,10 +224,10 @@ private:
     }
   }
 
-public:
+protected:
   virtual ~Framework() {}
 
-  virtual bool runOnFunction(Function &F) {
+  virtual bool runOnFunction(const Function &F) {
     // initialize the domain
     initializeDomain(F);
     // apply the initial conditions
