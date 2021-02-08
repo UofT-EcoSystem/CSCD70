@@ -98,7 +98,7 @@ private:
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, void)
-  printInstBV(const Instruction &Inst) const {
+  printInstDomainMap(const Instruction &Inst) const {
     const BasicBlock *const InstParent = Inst.getParent();
     if (&Inst == &(*InstParent->begin())) {
       MeetOpConstRange MeetOperands = getMeetOperands(*InstParent);
@@ -120,7 +120,7 @@ private:
     outs() << "\n";
   }
   /**
-   * @brief Dump, ∀inst ∈ @c F , the associated domain.
+   * @brief Dump, ∀inst ∈ F, the associated domain.
    */
   void printInstDomainMap(const Function &F) const {
     outs() << "**************************************************"
@@ -130,12 +130,15 @@ private:
            << "**************************************************"
            << "\n";
     for (const auto &Inst : instructions(F)) {
-      printInstBV(Inst);
+      printInstDomainMap(Inst);
     }
   }
   /*****************************************************************************
    * Meet Operator
    *****************************************************************************/
+  /**
+   * @todo(cscd70) Please provide an instantiation for the backward pass.
+   */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOpConstRange)
   getMeetOperands(const BasicBlock &BB) const { return predecessors(&BB); }
   /**
@@ -156,13 +159,13 @@ private:
   /**
    * @brief  Apply the transfer function at instruction @c Inst to the input
    *         domain values to get the output.
-   * @return true if @c OBV has been changed, false otherwise
+   * @return true if @c OV has been changed, false otherwise
    *
    * @todo(cscd70) Please implement this method for every child class.
    */
   virtual bool transferFunc(const Instruction &Inst,
-                            const std::vector<TDomainElemRepr> &IBV,
-                            std::vector<TDomainElemRepr> &OBV) = 0;
+                            const std::vector<TDomainElemRepr> &IV,
+                            std::vector<TDomainElemRepr> &OV) = 0;
   /*****************************************************************************
    * CFG Traversal
    *****************************************************************************/
@@ -174,6 +177,8 @@ private:
   }
   /**
    * @brief Return the traversal order of the basic blocks.
+   *
+   * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, BBTraversalConstRange)
   getBBTraversalOrder(const Function &F) const {
@@ -184,14 +189,15 @@ private:
    *
    * @todo(cscd70) Please modify the definition (and the above typedef
    *               accordingly) for the optimal traversal order.
+   * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, InstTraversalConstRange)
   getInstTraversalOrder(const BasicBlock &BB) const {
     return make_range(BB.begin(), BB.end());
   }
   /**
-   * @brief  Traverse through the CFG and update @c inst_bv_map .
-   * @return true if changes are made to @c inst_bv_map , false otherwise
+   * @brief  Traverse through the CFG and update instruction-domain mapping.
+   * @return true if changes are made to the mapping, false otherwise
    *
    * @todo(cscd70) Please implement this method.
    */
