@@ -13,7 +13,7 @@
 ; CHECK-NEXT:  * Instruction-Domain Mapping
 ; CHECK-NEXT:  **************************************************
 ; @todo(cscd70) Please complete the CHECK directives.
-define i32 @sum(i32 %0, i32 %1) #0 {
+define i32 @sum(i32 %0, i32 %1) {
   br label %3
 
 3:                                                ; preds = %7, %2

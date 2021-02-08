@@ -23,7 +23,7 @@
 ; CHECK-NEXT:  * Instruction-Domain Mapping
 ; CHECK-NEXT:  **************************************************
 ; @todo(cscd70) Please complete the CHECK directives.
-define i32 @main(i32 %0, i8** %1) #0 {
+define i32 @main(i32 %0, i8** %1) {
 
   %3 = add nsw i32 %0, 50
   %4 = add nsw i32 %3, 96
