@@ -1,6 +1,7 @@
 #pragma once // NOLINT(llvm-header-guard)
 
 #include <exception>
+#include <functional>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -58,7 +59,8 @@ class Framework {
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
 private:
-  using MeetOperands_t = std::vector<const std::vector<TDomainElemRepr> *>;
+  using MeetOperands_t =
+      std::vector<std::reference_wrapper<const std::vector<TDomainElemRepr>>>;
   using BBTraversalConstRange =
       typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
   using InstTraversalConstRange =
@@ -139,7 +141,7 @@ private:
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOperands_t)
   getMeetOperands(const BasicBlock &BB) const {
-    std::vector<const std::vector<TDomainElemRepr> *> Operands;
+    MeetOperands_t Operands;
     /**
      * @todo(cscd70) Please complete the definition of this method.
      */
