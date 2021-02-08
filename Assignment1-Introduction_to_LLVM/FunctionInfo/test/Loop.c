@@ -8,7 +8,8 @@
 // RUN: opt -load %dylibdir/libFunctionInfo%dylibext -function-info -disable-output 2>&1 %basename_t.bc | \
 //      Check the output "CSCD70 Function Information Pass".
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
-/*! @todo(cscd70) Please remove the `--check-prefix=SAMPLE` option.
+/**
+ * @todo(cscd70) Please remove the `--check-prefix=SAMPLE` option.
  */
 // SAMPLE: CSCD70 Function Information Pass
 

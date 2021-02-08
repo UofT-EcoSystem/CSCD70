@@ -1,19 +1,19 @@
-/*!
+// clang-format off
+/**
  * @file C++ Standard-Template-Library (STL) Data Structure and Variable Reference
- * 
+ *
  *       Please refer to the following websites for more detailed documentations regarding:
- * 	   - std::vector        : http://www.cplusplus.com/reference/vector/vector/
- * 	   - std::unordered_map : http://www.cplusplus.com/reference/unordered_map/unordered_map/
+ * 	   - std::vector:         http://www.cplusplus.com/reference/vector/vector/
+ * 	   - std::unordered_map:  http://www.cplusplus.com/reference/unordered_map/unordered_map/
  * 	   - More C++ Containers: http://www.cplusplus.com/reference/stl/
  */
-#include <iostream>       // Print
-#include <string>         // String
-#include <vector>         // List
-#include <unordered_map>  // Dictionary
+// clang-format on
+#include <iostream>      // Print
+#include <string>        // String
+#include <unordered_map> // Dictionary
+#include <vector>        // List
 
-
-int main()
-{
+int main() {
   /**
    * 'std' is the standard namespace. It is used to avoid name clashes of
    * classes, variables, and functions. Classes/Variables/Functions that are
@@ -29,8 +29,7 @@ int main()
    */
   std::vector<unsigned> a = {1, 2, 3, 4, 5};
   std::unordered_map<std::string, unsigned> b = {
-        {"Red", 0}, {"Green", 1}, {"Blue", 2}
-      };
+      {"Red", 0}, {"Green", 1}, {"Blue", 2}};
   /**
    * Traverse through 'a' using *iterators*. 'std::vector<unsigned>::iterator'
    * is the typename for the iterators. If you find it tedious, you can let the
@@ -38,12 +37,12 @@ int main()
    *
    *     for (auto iter = a.begin(); ...)
    */
-  for (std::vector<unsigned>::iterator iter = a.begin();
-       iter != a.end(); ++iter) {
+  for (std::vector<unsigned>::iterator iter = a.begin(); iter != a.end();
+       ++iter) {
     // dereference the iterator the obtain the array value
     std::cout << *iter << ", ";
   }
-  std::cout << std::endl;  // newline character
+  std::cout << std::endl; // newline character
 
   for (std::unordered_map<std::string, unsigned>::iterator iter = b.begin();
        iter != b.end(); ++iter) {
@@ -54,12 +53,12 @@ int main()
      */
     std::pair<const std::string, unsigned> &key_value_pair = *iter;
 
-    std::cout << "(" << key_value_pair.first << ", "
-              << key_value_pair.second << "), ";
+    std::cout << "(" << key_value_pair.first << ", " << key_value_pair.second
+              << "), ";
     // Alternatively, we can also write:
     //
     //     std::cout << ... iter->first ... iter->second ...
   }
-  std::cout << std::endl;  // newline character
+  std::cout << std::endl; // newline character
   return 0;
 }

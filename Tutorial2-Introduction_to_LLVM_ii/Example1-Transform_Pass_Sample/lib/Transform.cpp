@@ -7,16 +7,13 @@
 
 using namespace llvm;
 
-
 namespace {
 
-class Transform final : public ModulePass
-{
- private:
+class Transform final : public ModulePass {
+private:
   bool runOnBasicBlock(BasicBlock &B) {
     // get the first and second instruction
-    Instruction &Inst1st = *B.begin(),
-                &Inst2nd = *(++B.begin());
+    Instruction &Inst1st = *B.begin(), &Inst2nd = *(++B.begin());
 
     // The address of the 1st instruction is equal to that of the 1st operand of
     // the 2nd instruction
@@ -25,38 +22,34 @@ class Transform final : public ModulePass
     // print the 1st instruction
     outs() << Inst1st << "\n";
     // print the 1st instruction as an operand
-    Inst1st.printAsOperand(outs(), false); outs() << "\n";
+    Inst1st.printAsOperand(outs(), false);
+    outs() << "\n";
 
     // User-Use-Value
-    for (auto *Iter  = Inst1st.op_begin();
-               Iter != Inst1st.op_end(); ++Iter) {
+    for (auto *Iter = Inst1st.op_begin(); Iter != Inst1st.op_end(); ++Iter) {
       Value *Operand = *Iter;
 
       if (Argument *Arg = dyn_cast<Argument>(Operand)) {
-        outs() << "I am function " << Arg->getParent()->getName()
-               << "\'s #" << Arg->getArgNo() << " argument" << "\n";
+        outs() << "I am function " << Arg->getParent()->getName() << "\'s #"
+               << Arg->getArgNo() << " argument"
+               << "\n";
       }
       if (ConstantInt *C = dyn_cast<ConstantInt>(Operand)) {
-        outs() << "I am a constant integer of value "
-               << C->getValue() << "\n";
+        outs() << "I am a constant integer of value " << C->getValue() << "\n";
       }
     }
 
-    for (auto Iter  = Inst1st.user_begin(); 
-              Iter != Inst1st.user_end(); ++Iter) {
+    for (auto Iter = Inst1st.user_begin(); Iter != Inst1st.user_end(); ++Iter) {
       outs() << *(dyn_cast<Instruction>(*Iter)) << "\n";
     }
-    
-    for (auto Iter  = Inst1st. use_begin();
-              Iter != Inst1st. use_end(); ++Iter) {
+
+    for (auto Iter = Inst1st.use_begin(); Iter != Inst1st.use_end(); ++Iter) {
       outs() << *(dyn_cast<Instruction>(Iter->getUser())) << "\n";
     }
 
     // Instruction Manipulation
     Instruction *NewInst = BinaryOperator::Create(
-        Instruction::Add,
-        Inst1st.getOperand(0),
-        Inst1st.getOperand(0));
+        Instruction::Add, Inst1st.getOperand(0), Inst1st.getOperand(0));
 
     NewInst->insertAfter(&Inst1st);
     // Q: Is there any alternative to updating each reference separately?
@@ -66,10 +59,10 @@ class Transform final : public ModulePass
 
     return true;
   }
-  
+
   bool runOnFunction(Function &F) {
     bool Transformed = false;
-    
+
     for (auto Iter = F.begin(); Iter != F.end(); ++Iter) {
       if (runOnBasicBlock(*Iter)) {
         Transformed = true;
@@ -78,8 +71,8 @@ class Transform final : public ModulePass
 
     return Transformed;
   }
-  
- public:
+
+public:
   static char ID;
 
   Transform() : ModulePass(ID) {}
@@ -88,7 +81,7 @@ class Transform final : public ModulePass
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesCFG();
   }
-  
+
   virtual bool runOnModule(Module &M) override {
     bool Transformed = false;
 
@@ -102,8 +95,6 @@ class Transform final : public ModulePass
 };
 
 char Transform::ID = 0;
-RegisterPass < Transform > X(
-    "transform",
-    "Example Transform Pass"); 
+RegisterPass<Transform> X("transform", "Example Transform Pass");
 
-}  // anonymous namespace
+} // anonymous namespace

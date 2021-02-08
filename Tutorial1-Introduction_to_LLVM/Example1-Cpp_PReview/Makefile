@@ -7,6 +7,10 @@ all: $(EXEs)
 
 %: %.cpp
 
+.PHONY: format
+format: *.cpp
+	clang-format -i $^
+
 .PHONY: clean
 clean:
 	$(RM) main

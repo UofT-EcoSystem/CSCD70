@@ -12,7 +12,8 @@ public:
   AlgebraicIdentity() : FunctionPass(ID) {}
   virtual ~AlgebraicIdentity() override {}
 
-  /*! @todo(cscd70) Please complete the methods below.
+  /**
+   * @todo(cscd70) Please complete the methods below.
    */
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {}
 
