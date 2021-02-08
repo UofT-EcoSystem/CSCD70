@@ -28,7 +28,6 @@ struct FrameworkTypeSupport {};
  */
 template <> //
 struct FrameworkTypeSupport<Direction::kForward> {
-  typedef const_pred_range MeetOpConstRange;
   typedef iterator_range<Function::const_iterator> BBTraversalConstRange;
   typedef iterator_range<BasicBlock::const_iterator> InstTraversalConstRange;
 };
@@ -59,8 +58,7 @@ class Framework {
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
 private:
-  using MeetOpConstRange =
-      typename FrameworkTypeSupport<TDirection>::MeetOpConstRange;
+  using MeetOperands_t = std::vector<const std::vector<TDomainElemRepr> *>;
   using BBTraversalConstRange =
       typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
   using InstTraversalConstRange =
@@ -101,7 +99,7 @@ private:
   printInstDomainMap(const Instruction &Inst) const {
     const BasicBlock *const InstParent = Inst.getParent();
     if (&Inst == &(*InstParent->begin())) {
-      MeetOpConstRange MeetOperands = getMeetOperands(*InstParent);
+      MeetOperands_t MeetOperands = getMeetOperands(*InstParent);
       // If the list of meet operands is empty, then we are at the boundary,
       // hence print the BC.
       if (MeetOperands.begin() == MeetOperands.end()) {
@@ -139,14 +137,20 @@ private:
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
-  METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOpConstRange)
-  getMeetOperands(const BasicBlock &BB) const { return predecessors(&BB); }
+  METHOD_ENABLE_IF_DIRECTION(Direction::kForward, MeetOperands_t)
+  getMeetOperands(const BasicBlock &BB) const {
+    std::vector<const std::vector<TDomainElemRepr> *> Operands;
+    /**
+     * @todo(cscd70) Please complete the definition of this method.
+     */
+
+    return Operands;
+  }
   /**
    * @brief Apply the meet operator to the operands.
    */
   std::vector<TDomainElemRepr>
-  meet(const MeetOpConstRange &MeetOperands) const {
-    TMeetOp MeetOp;
+  meet(const MeetOperands_t &MeetOperands) const {
     /**
      * @todo(cscd70) Please complete the defintion of this method.
      */
