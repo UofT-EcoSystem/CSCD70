@@ -14,10 +14,10 @@ public:
 };
 
 /**
- * @brief Intersection Meet Operation
+ * @brief Intersection Meet Operator
  *
  * @todo(cscd70) Please complete the definition of the intersection meet
- *               operation.
+ *               operator.
  */
 class Intersect final : public MeetOp<bool> {
 public:
