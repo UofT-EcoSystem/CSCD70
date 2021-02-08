@@ -20,7 +20,7 @@
 ;   return 0;
 ; }
 ; CHECK-LABEL: **************************************************
-; CHECK-NEXT:  * Instruction-Domain Mapping
+; CHECK-NEXT:  * Instruction-Domain Value Mapping
 ; CHECK-NEXT:  **************************************************
 ; @todo(cscd70) Please complete the CHECK directives.
 define i32 @main(i32 %0, i8** %1) {

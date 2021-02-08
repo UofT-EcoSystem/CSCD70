@@ -23,12 +23,11 @@ public:
   }
 
   virtual bool runOnFunction(Function &F) override {
-    outs() << "**************************************************"
-           << "\n"
-           << "* Instruction-Domain Mapping"
-           << "\n"
-           << "**************************************************"
-           << "\n";
+    // clang-format off
+    outs() << "**************************************************" << "\n"
+           << "* Instruction-Domain Value Mapping" << "\n"
+           << "**************************************************" << "\n";
+    // clang-format on
 
     return false;
   }

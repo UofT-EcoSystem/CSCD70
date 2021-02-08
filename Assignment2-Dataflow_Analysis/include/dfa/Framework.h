@@ -67,11 +67,12 @@ private:
 protected:
   /// Domain
   std::unordered_set<TDomainElem> Domain;
-  // Instruction-Domain Mapping
+
 private:
+  // Instruction-Domain Value Mapping
   std::unordered_map<const Instruction *, //
                      std::vector<TDomainElemRepr>>
-      InstDomainMap;
+      InstDomainValMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
@@ -96,43 +97,43 @@ private:
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, void)
-  printInstDomainMap(const Instruction &Inst) const {
+  printInstDomainValMap(const Instruction &Inst) const {
     const BasicBlock *const InstParent = Inst.getParent();
-    if (&Inst == &(*InstParent->begin())) {
-      MeetOperands_t MeetOperands = getMeetOperands(*InstParent);
-      // If the list of meet operands is empty, then we are at the boundary,
-      // hence print the BC.
-      if (MeetOperands.begin() == MeetOperands.end()) {
-        outs() << "\tBC: ";
-        printDomainWithMask(bc());
-        outs() << "\n";
-      } else {
-        outs() << "\tMeetOp: ";
-        printDomainWithMask(meet(MeetOperands));
-        outs() << "\n";
-      }
+    if (&Inst == &(InstParent->front())) {
+      outs() << "\t";
+      printDomainWithMask(getBoundaryVal(*InstParent));
+      outs() << "\n";
     } // if (&Inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
     outs() << "\t";
-    printDomainWithMask(InstDomainMap.at(&Inst));
+    printDomainWithMask(InstDomainValMap.at(&Inst));
     outs() << "\n";
   }
   /**
-   * @brief Dump, ∀inst ∈ F, the associated domain.
+   * @brief Dump, ∀inst ∈ F, the associated domain value.
    */
-  void printInstDomainMap(const Function &F) const {
+  void printInstDomainValMap(const Function &F) const {
     // clang-format off
     outs() << "**************************************************" << "\n"
-           << "* Instruction-Domain Mapping" << "\n"
+           << "* Instruction-Domain Value Mapping" << "\n"
            << "**************************************************" << "\n";
     // clang-format on
     for (const auto &Inst : instructions(F)) {
-      printInstDomainMap(Inst);
+      printInstDomainValMap(Inst);
     }
   }
   /*****************************************************************************
-   * Meet Operator
+   * BasicBlock Boundary
    *****************************************************************************/
+  std::vector<TDomainElemRepr> getBoundaryVal(const BasicBlock &BB) const {
+    MeetOperands_t MeetOperands = getMeetOperands(BB);
+    if (MeetOperands.begin() == MeetOperands.end()) {
+      // If the list of meet operands is empty, then we are at the boundary,
+      // hence obtain the BC.
+      return bc();
+    }
+    return meet(MeetOperands);
+  }
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
@@ -144,6 +145,12 @@ private:
      */
 
     return Operands;
+  }
+  /**
+   * @brief Boundary Condition
+   */
+  std::vector<TDomainElemRepr> bc() const {
+    return std::vector<TDomainElemRepr>(Domain.size());
   }
   /**
    * @brief Apply the meet operator to the operands.
@@ -172,12 +179,6 @@ private:
    * CFG Traversal
    *****************************************************************************/
   /**
-   * @brief Boundary Condition
-   */
-  std::vector<TDomainElemRepr> bc() const {
-    return std::vector<TDomainElemRepr>(Domain.size());
-  }
-  /**
    * @brief Return the traversal order of the basic blocks.
    *
    * @todo(cscd70) Please provide an instantiation for the backward pass.
@@ -198,7 +199,8 @@ private:
     return make_range(BB.begin(), BB.end());
   }
   /**
-   * @brief  Traverse through the CFG and update instruction-domain mapping.
+   * @brief  Traverse through the CFG and update instruction-domain value
+   *         mapping.
    * @return true if changes are made to the mapping, false otherwise
    *
    * @todo(cscd70) Please implement this method.
@@ -229,13 +231,13 @@ public:
     // apply the initial conditions
     TMeetOp MeetOp;
     for (const auto &Inst : instructions(F)) {
-      InstDomainMap.emplace(&Inst, MeetOp.top(Domain.size()));
+      InstDomainValMap.emplace(&Inst, MeetOp.top(Domain.size()));
     }
     // keep traversing until no changes have been made to the
-    // instruction-domain mapping
+    // instruction-domain value mapping
     while (traverseCFG(F)) {
     }
-    printInstDomainMap(F);
+    printInstDomainValMap(F);
     return false;
   }
 };
