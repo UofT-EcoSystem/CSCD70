@@ -113,7 +113,7 @@ private:
         printDomainWithMask(meet(MeetOperands));
         outs() << "\n";
       }
-    } // if (&inst == &(*InstParent->begin()))
+    } // if (&Inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
     outs() << "\t";
     printDomainWithMask(InstDomainMap.at(&Inst));
