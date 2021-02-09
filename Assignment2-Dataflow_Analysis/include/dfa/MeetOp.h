@@ -17,7 +17,7 @@ public:
  * @brief Intersection Meet Operator
  *
  * @todo(cscd70) Please complete the definition of the intersection meet
- *               operator.
+ *               operator, and modify the existing definition if necessary.
  */
 class Intersect final : public MeetOp<bool> {
 public:
