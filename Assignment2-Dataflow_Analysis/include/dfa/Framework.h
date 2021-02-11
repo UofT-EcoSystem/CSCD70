@@ -69,8 +69,8 @@ private:
       typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
 
 protected:
-  /// Domain
-  std::unordered_set<TDomainElem> Domain;
+  // Domain
+  std::vector<TDomainElem> Domain;
 
 private:
   // Instruction-Domain Value Mapping

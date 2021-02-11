@@ -36,21 +36,3 @@ inline raw_ostream &operator<<(raw_ostream &Outs, const Expression &Expr) {
 }
 
 } // anonymous namespace
-
-namespace std {
-
-/**
- * @brief  Construct a hash code for @c Expression .
- */
-template <> struct hash<Expression> {
-  size_t operator()(const Expression &Expr) const {
-    hash<unsigned> UnsignedHasher;
-    hash<const Value *> PValueHasher;
-    size_t OpcodeHashVal = UnsignedHasher(Expr.Opcode);
-    size_t LHSOperandHashVal = PValueHasher(Expr.LHS);
-    size_t RHSOperandHashVal = PValueHasher(Expr.RHS);
-    return OpcodeHashVal ^ (LHSOperandHashVal << 1) ^ (RHSOperandHashVal << 1);
-  }
-};
-
-} // namespace std
