@@ -27,7 +27,7 @@ public:
 
   virtual bool runOnFunction(Function &F) override {
     // clang-format off
-    outs() << "**************************************************" << "\n"
+    errs() << "**************************************************" << "\n"
            << "* Instruction-Domain Value Mapping" << "\n"
            << "**************************************************" << "\n";
     // clang-format on

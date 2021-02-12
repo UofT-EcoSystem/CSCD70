@@ -1,6 +1,6 @@
 ; RUN: opt -S -load %dylibdir/libDFA%dylibext \
-; RUN:     -avail-expr %s -o %basename_t | \
-; RUN: FileCheck --match-full-lines %s
+; RUN:     -avail-expr %s -o %basename_t 2>%basename_t.log
+; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.log
 
 ; int main(int argc, char *argv[]) {
 ;   int a, b, c, d, e, f;

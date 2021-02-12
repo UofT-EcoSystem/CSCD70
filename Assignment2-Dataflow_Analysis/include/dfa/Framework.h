@@ -84,7 +84,7 @@ private:
    *        dumping it with mask = 001 will give {%3,}.
    */
   void printDomainWithMask(const DomainVal_t &Mask) const {
-    outs() << "{";
+    errs() << "{";
     assert(Mask.size() == Domain.size() &&
            "The size of mask must be equal to the size of domain.");
     unsigned MaskIdx = 0;
@@ -92,9 +92,9 @@ private:
       if (!Mask[MaskIdx++]) {
         continue;
       }
-      outs() << Elem << ", ";
+      errs() << Elem << ", ";
     } // for (MaskIdx ∈ [0, Mask.size()))
-    outs() << "}";
+    errs() << "}";
   }
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
@@ -103,21 +103,21 @@ private:
   printInstDomainValMap(const Instruction &Inst) const {
     const BasicBlock *const InstParent = Inst.getParent();
     if (&Inst == &(InstParent->front())) {
-      outs() << "\t";
+      errs() << "\t";
       printDomainWithMask(getBoundaryVal(*InstParent));
-      outs() << "\n";
+      errs() << "\n";
     } // if (&Inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
-    outs() << "\t";
+    errs() << "\t";
     printDomainWithMask(InstDomainValMap.at(&Inst));
-    outs() << "\n";
+    errs() << "\n";
   }
   /**
    * @brief Dump, ∀inst ∈ F, the associated domain value.
    */
   void printInstDomainValMap(const Function &F) const {
     // clang-format off
-    outs() << "**************************************************" << "\n"
+    errs() << "**************************************************" << "\n"
            << "* Instruction-Domain Value Mapping" << "\n"
            << "**************************************************" << "\n";
     // clang-format on

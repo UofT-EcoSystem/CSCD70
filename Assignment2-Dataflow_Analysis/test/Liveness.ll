@@ -1,6 +1,6 @@
 ; RUN: opt -S -load %dylibdir/libDFA%dylibext \
-; RUN:     -liveness %s -o %basename_t | \
-; RUN: FileCheck --match-full-lines %s
+; RUN:     -liveness %s -o %basename_t 2>%basename_t.log
+; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.log
 
 ; int sum(int a, int b) {
 ;   int res = 1;
