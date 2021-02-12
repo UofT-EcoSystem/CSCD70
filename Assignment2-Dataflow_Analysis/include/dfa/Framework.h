@@ -129,6 +129,7 @@ private:
   /*****************************************************************************
    * BasicBlock Boundary
    *****************************************************************************/
+protected:
   virtual DomainVal_t getBoundaryVal(const BasicBlock &BB) const {
     MeetOperands_t MeetOperands = getMeetOperands(BB);
     if (MeetOperands.begin() == MeetOperands.end()) {
@@ -138,6 +139,8 @@ private:
     }
     return meet(MeetOperands);
   }
+
+private:
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
