@@ -33,6 +33,6 @@ public:
 };
 
 char AnotherTransform::ID = 2;
-RegisterPass<AnotherTransform> Z("another-transform", "Another Transform");
+RegisterPass<AnotherTransform> X("another-transform", "Another Transform");
 
 } // anonymous namespace
