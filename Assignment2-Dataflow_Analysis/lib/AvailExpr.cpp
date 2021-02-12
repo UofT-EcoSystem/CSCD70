@@ -5,6 +5,7 @@
 #include <llvm/Pass.h>
 
 #include <dfa/Framework.h>
+#include <dfa/MeetOp.h>
 
 #include "Expression.h"
 

@@ -1,10 +1,7 @@
 #pragma once // NOLINT(llvm-header-guard)
 
-#include <exception>
-#include <functional>
 #include <type_traits>
 #include <unordered_map>
-#include <unordered_set>
 
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/CFG.h>
@@ -14,9 +11,10 @@
 
 using namespace llvm;
 
-#include "MeetOp.h"
-
 namespace dfa {
+
+template <typename TDomainElemRepr> //
+class MeetOp;
 
 /// Analysis Direction, used as Template Parameter
 enum class Direction { kForward, kBackward };
@@ -48,6 +46,9 @@ struct FrameworkTypeSupport<Direction::kForward> {
 template <typename TDomainElem, typename TDomainElemRepr, Direction TDirection,
           typename TMeetOp>
 class Framework {
+
+  static_assert(std::is_base_of<MeetOp<TDomainElemRepr>, TMeetOp>::value,
+                "TMeetOp has to inherit from MeetOp");
 
 /**
  * @brief Selectively enables methods depending on the analysis direction.
