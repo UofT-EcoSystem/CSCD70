@@ -1,15 +1,11 @@
 #pragma once // NOLINT(llvm-header-guard)
 
-#include <functional>
-
 #include <llvm/IR/Instruction.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Value.h>
 #include <llvm/Support/raw_ostream.h>
 
 using namespace llvm;
-
-namespace {
 
 /**
  * @brief A wrapper for binary expressions.
@@ -34,5 +30,3 @@ inline raw_ostream &operator<<(raw_ostream &Outs, const Expression &Expr) {
   Outs << "]";
   return Outs;
 }
-
-} // anonymous namespace

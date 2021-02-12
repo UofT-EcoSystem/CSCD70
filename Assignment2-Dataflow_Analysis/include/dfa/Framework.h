@@ -2,9 +2,11 @@
 
 #include <type_traits>
 #include <unordered_map>
+#include <vector>
 
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/CFG.h>
+#include <llvm/IR/Function.h>
 #include <llvm/IR/InstIterator.h>
 #include <llvm/IR/Instruction.h>
 #include <llvm/Support/raw_ostream.h>
