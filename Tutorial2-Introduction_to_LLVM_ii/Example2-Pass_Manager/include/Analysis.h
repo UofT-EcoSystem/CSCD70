@@ -4,13 +4,13 @@
 
 using namespace llvm;
 
-
 class Analysis final : public ModulePass {
- private:
+private:
   std::vector<unsigned> Stats_;
- public:
+
+public:
   static char ID;
-  
+
   Analysis() : ModulePass(ID) {}
   virtual ~Analysis() override {}
 
@@ -18,7 +18,5 @@ class Analysis final : public ModulePass {
   virtual bool runOnModule(Module &M) override;
 
   // Return the gathered statstics.
-  std::vector<unsigned> getStats() const {
-    return Stats_;
-  }
+  std::vector<unsigned> getStats() const { return Stats_; }
 };
