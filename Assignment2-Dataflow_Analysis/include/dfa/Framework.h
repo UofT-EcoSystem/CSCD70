@@ -245,7 +245,7 @@ private:
 protected:
   virtual ~Framework() {}
 
-  virtual bool runOnFunction(const Function &F) {
+  bool runOnFunction(const Function &F) {
     // initialize the domain
     initializeDomain(F);
     // apply the initial conditions
