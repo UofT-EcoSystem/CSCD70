@@ -2,14 +2,14 @@
 
 #include "Analysis.h"
 
-
 void Analysis::getAnalysisUsage(AnalysisUsage &AU) const {
   // preserves all previous passes
   AU.setPreservesAll();
 }
 
 bool Analysis::runOnModule(Module &M) {
-  outs() << "Analysis" << "\n";
+  outs() << "Analysis"
+         << "\n";
 
   // pretend as if we have gathered some information here
   Stats_.push_back(1);
@@ -20,6 +20,4 @@ bool Analysis::runOnModule(Module &M) {
 }
 
 char Analysis::ID = 0;
-static RegisterPass<Analysis> X(
-    "analysis",
-    "Analysis");
+static RegisterPass<Analysis> X("analysis", "Analysis");

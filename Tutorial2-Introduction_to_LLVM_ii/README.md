@@ -1,6 +1,4 @@
-# Tutorial 2 Introduction to LLVM ii <br /> [![handout](https://img.shields.io/badge/handout--lightgreen)](https://www.overleaf.com/read/vdwnnwdcshyx)
-
-*Please click on the badge above for the slides.*
+# Tutorial 2 Introduction to LLVM ii [![handout](https://img.shields.io/badge/-handout-blue)](https://www.overleaf.com/read/vdwnnwdcshyx)
 
 ## Abstract
 

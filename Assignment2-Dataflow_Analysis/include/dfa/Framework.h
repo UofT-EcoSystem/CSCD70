@@ -1,22 +1,22 @@
 #pragma once // NOLINT(llvm-header-guard)
 
-#include <exception>
-#include <functional>
 #include <type_traits>
 #include <unordered_map>
-#include <unordered_set>
+#include <vector>
 
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/CFG.h>
+#include <llvm/IR/Function.h>
 #include <llvm/IR/InstIterator.h>
 #include <llvm/IR/Instruction.h>
 #include <llvm/Support/raw_ostream.h>
 
 using namespace llvm;
 
-#include "MeetOp.h"
-
 namespace dfa {
+
+template <typename TDomainElemRepr> //
+class MeetOp;
 
 /// Analysis Direction, used as Template Parameter
 enum class Direction { kForward, kBackward };
@@ -49,6 +49,9 @@ template <typename TDomainElem, typename TDomainElemRepr, Direction TDirection,
           typename TMeetOp>
 class Framework {
 
+  static_assert(std::is_base_of<MeetOp<TDomainElemRepr>, TMeetOp>::value,
+                "TMeetOp has to inherit from MeetOp");
+
 /**
  * @brief Selectively enables methods depending on the analysis direction.
  * @param dir  Direction of Analysis
@@ -58,32 +61,33 @@ class Framework {
   template <Direction _TDirection = TDirection>                                \
   typename std::enable_if_t<_TDirection == dir, ret_type>
 
+protected:
+  using DomainVal_t = std::vector<TDomainElemRepr>;
+
 private:
-  using MeetOperands_t =
-      std::vector<std::reference_wrapper<const std::vector<TDomainElemRepr>>>;
+  using MeetOperands_t = std::vector<std::reference_wrapper<const DomainVal_t>>;
   using BBTraversalConstRange =
       typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
   using InstTraversalConstRange =
       typename FrameworkTypeSupport<TDirection>::InstTraversalConstRange;
 
 protected:
-  /// Domain
-  std::unordered_set<TDomainElem> Domain;
+  // Domain
+  std::vector<TDomainElem> Domain;
 
 private:
   // Instruction-Domain Value Mapping
-  std::unordered_map<const Instruction *, //
-                     std::vector<TDomainElemRepr>>
-      InstDomainValMap;
+  std::unordered_map<const Instruction *, DomainVal_t> InstDomainValMap;
   /*****************************************************************************
    * Auxiliary Print Subroutines
    *****************************************************************************/
+private:
   /**
    * @brief Print the domain with mask. E.g., If domian = {%1, %2, %3,},
    *        dumping it with mask = 001 will give {%3,}.
    */
-  void printDomainWithMask(const std::vector<TDomainElemRepr> &Mask) const {
-    outs() << "{";
+  void printDomainWithMask(const DomainVal_t &Mask) const {
+    errs() << "{";
     assert(Mask.size() == Domain.size() &&
            "The size of mask must be equal to the size of domain.");
     unsigned MaskIdx = 0;
@@ -91,9 +95,9 @@ private:
       if (!Mask[MaskIdx++]) {
         continue;
       }
-      outs() << Elem << ", ";
+      errs() << Elem << ", ";
     } // for (MaskIdx ∈ [0, Mask.size()))
-    outs() << "}";
+    errs() << "}";
   }
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
@@ -102,21 +106,21 @@ private:
   printInstDomainValMap(const Instruction &Inst) const {
     const BasicBlock *const InstParent = Inst.getParent();
     if (&Inst == &(InstParent->front())) {
-      outs() << "\t";
+      errs() << "\t";
       printDomainWithMask(getBoundaryVal(*InstParent));
-      outs() << "\n";
+      errs() << "\n";
     } // if (&Inst == &(*InstParent->begin()))
     outs() << Inst << "\n";
-    outs() << "\t";
+    errs() << "\t";
     printDomainWithMask(InstDomainValMap.at(&Inst));
-    outs() << "\n";
+    errs() << "\n";
   }
   /**
    * @brief Dump, ∀inst ∈ F, the associated domain value.
    */
   void printInstDomainValMap(const Function &F) const {
     // clang-format off
-    outs() << "**************************************************" << "\n"
+    errs() << "**************************************************" << "\n"
            << "* Instruction-Domain Value Mapping" << "\n"
            << "**************************************************" << "\n";
     // clang-format on
@@ -127,7 +131,8 @@ private:
   /*****************************************************************************
    * BasicBlock Boundary
    *****************************************************************************/
-  std::vector<TDomainElemRepr> getBoundaryVal(const BasicBlock &BB) const {
+protected:
+  virtual DomainVal_t getBoundaryVal(const BasicBlock &BB) const {
     MeetOperands_t MeetOperands = getMeetOperands(BB);
     if (MeetOperands.begin() == MeetOperands.end()) {
       // If the list of meet operands is empty, then we are at the boundary,
@@ -136,6 +141,8 @@ private:
     }
     return meet(MeetOperands);
   }
+
+private:
   /**
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
@@ -151,22 +158,34 @@ private:
   /**
    * @brief Boundary Condition
    */
-  std::vector<TDomainElemRepr> bc() const {
-    return std::vector<TDomainElemRepr>(Domain.size());
-  }
+  DomainVal_t bc() const { return DomainVal_t(Domain.size()); }
   /**
    * @brief Apply the meet operator to the operands.
    */
-  std::vector<TDomainElemRepr> meet(const MeetOperands_t &MeetOperands) const {
+  DomainVal_t meet(const MeetOperands_t &MeetOperands) const {
     /**
      * @todo(cscd70) Please complete the defintion of this method.
      */
 
-    return std::vector<TDomainElemRepr>(Domain.size());
+    return DomainVal_t(Domain.size());
   }
   /*****************************************************************************
    * Transfer Function
    *****************************************************************************/
+protected:
+  static bool diff(const DomainVal_t &LHS, const DomainVal_t &RHS) {
+    if (LHS.size() != RHS.size()) {
+      assert(false && "Size of domain values has to be the same");
+    }
+    for (size_t Idx = 0; Idx < LHS.size(); ++Idx) {
+      if (LHS[Idx] != RHS[Idx]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+private:
   /**
    * @brief  Apply the transfer function at instruction @c Inst to the input
    *         domain values to get the output.
@@ -174,9 +193,8 @@ private:
    *
    * @todo(cscd70) Please implement this method for every child class.
    */
-  virtual bool transferFunc(const Instruction &Inst,
-                            const std::vector<TDomainElemRepr> &IV,
-                            std::vector<TDomainElemRepr> &OV) = 0;
+  virtual bool transferFunc(const Instruction &Inst, const DomainVal_t &IV,
+                            DomainVal_t &OV) = 0;
   /*****************************************************************************
    * CFG Traversal
    *****************************************************************************/

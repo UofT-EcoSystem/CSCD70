@@ -1,6 +1,4 @@
-# Tutorial 3 Dataflow Analysis <br /> [![handout](https://img.shields.io/badge/handout--lightgreen)](https://www.overleaf.com/read/bbkbmgnqqffw)
-
-*Please click on the badge above for the slides.*
+# Tutorial 3 Dataflow Analysis [![handout](https://img.shields.io/badge/-handout-blue)](https://www.overleaf.com/read/bbkbmgnqqffw)
 
 ## Abstract
 

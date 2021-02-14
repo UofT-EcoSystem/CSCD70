@@ -6,30 +6,31 @@ namespace dfa {
 
 template <typename TDomainElemRepr> //
 class MeetOp {
+protected:
+  using DomainVal_t = std::vector<TDomainElemRepr>;
+
 public:
-  virtual std::vector<TDomainElemRepr>
-  operator()(const std::vector<TDomainElemRepr> &LHS,
-             const std::vector<TDomainElemRepr> &RHS) const = 0;
-  virtual std::vector<TDomainElemRepr> top(const size_t DomainSize) const = 0;
+  virtual DomainVal_t operator()(const DomainVal_t &LHS,
+                                 const DomainVal_t &RHS) const = 0;
+  virtual DomainVal_t top(const size_t DomainSize) const = 0;
 };
 
 /**
  * @brief Intersection Meet Operator
  *
  * @todo(cscd70) Please complete the definition of the intersection meet
- *               operator.
+ *               operator, and modify the existing definition if necessary.
  */
 class Intersect final : public MeetOp<bool> {
 public:
-  virtual std::vector<bool>
-  operator()(const std::vector<bool> &LHS,
-             const std::vector<bool> &RHS) const override {
+  virtual DomainVal_t operator()(const DomainVal_t &LHS,
+                                 const DomainVal_t &RHS) const override {
 
-    return std::vector<bool>();
+    return DomainVal_t();
   }
-  virtual std::vector<bool> top(const size_t DomainSize) const override {
+  virtual DomainVal_t top(const size_t DomainSize) const override {
 
-    return std::vector<bool>(DomainSize, false);
+    return DomainVal_t(DomainSize, false);
   }
 };
 

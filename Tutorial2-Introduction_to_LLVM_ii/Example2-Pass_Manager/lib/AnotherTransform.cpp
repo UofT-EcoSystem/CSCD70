@@ -4,27 +4,26 @@
 
 using namespace llvm;
 
-
 namespace {
 
-class AnotherTransform final : public ModulePass {	
- public:
+class AnotherTransform final : public ModulePass {
+public:
   static char ID;
 
   AnotherTransform() : ModulePass(ID) {}
   virtual ~AnotherTransform() override {}
 
-  virtual void getAnalysisUsage(AnalysisUsage & AU) const override {
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.addRequired<Analysis>();
     AU.addPreserved<Analysis>();
-  }  
+  }
   virtual bool runOnModule(Module &M) override {
-    outs() << "Another Transform" << "\n";
+    outs() << "Another Transform"
+           << "\n";
 
     std::vector<unsigned> Stats = getAnalysis<Analysis>().getStats();
 
-    for (auto Iter  = Stats.begin();
-              Iter != Stats.end(); ++Iter) {
+    for (auto Iter = Stats.begin(); Iter != Stats.end(); ++Iter) {
       outs() << *Iter << ", ";
     }
     outs() << "\n";
@@ -34,8 +33,6 @@ class AnotherTransform final : public ModulePass {
 };
 
 char AnotherTransform::ID = 2;
-RegisterPass<AnotherTransform> Z(
-    "another-transform",
-    "Another Transform");
+RegisterPass<AnotherTransform> X("another-transform", "Another Transform");
 
-}  // anonymous namespace
+} // anonymous namespace
