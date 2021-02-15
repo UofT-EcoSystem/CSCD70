@@ -32,7 +32,7 @@ public:
   }
 };
 
-char AnotherTransform::ID = 2;
+char AnotherTransform::ID = 0;
 RegisterPass<AnotherTransform> X("another-transform", "Another Transform");
 
 } // anonymous namespace

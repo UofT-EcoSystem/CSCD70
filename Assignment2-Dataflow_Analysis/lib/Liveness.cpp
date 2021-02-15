@@ -34,7 +34,7 @@ public:
   }
 };
 
-char Liveness::ID = 1;
+char Liveness::ID = 0;
 RegisterPass<Liveness> X("liveness", "Liveness");
 
 } // anonymous namespace

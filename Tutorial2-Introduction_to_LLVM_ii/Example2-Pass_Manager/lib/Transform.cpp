@@ -41,7 +41,7 @@ public:
   }
 };
 
-char Transform::ID = 1;
+char Transform::ID = 0;
 RegisterPass<Transform> X("transform", "Transform");
 
 } // anonymous namespace
