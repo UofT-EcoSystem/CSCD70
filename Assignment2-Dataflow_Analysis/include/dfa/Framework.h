@@ -74,8 +74,6 @@ private:
 protected:
   // Domain
   std::vector<TDomainElem> Domain;
-
-private:
   // Instruction-Domain Value Mapping
   std::unordered_map<const Instruction *, DomainVal_t> InstDomainValMap;
   /*****************************************************************************
