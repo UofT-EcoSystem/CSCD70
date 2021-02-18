@@ -69,8 +69,8 @@ Docker
      cd Assignment1-Introduction_to_LLVM/FunctionInfo
      docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2021S
   
-  -t      Allocate a pseudo TTY.
-  -i      Connect to STDIN.
+  -t      Allocate a pseudo terminal.
+  -i      Connect to STDIN (i.e., keyboard).
   -v      Mount the current working directory (i.e., :code:`FunctionInfo`) to :code:`/mnt` in the container.
   --rm    (Optional) Cleanup the container when we exit.
   --name  (Optional) Name of the Container
