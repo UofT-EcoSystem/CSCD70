@@ -12,9 +12,9 @@ bool Analysis::runOnModule(Module &M) {
          << "\n";
 
   // pretend as if we have gathered some information here
-  Stats_.push_back(1);
-  Stats_.push_back(2);
-  Stats_.push_back(3);
+  Stats.push_back(1);
+  Stats.push_back(2);
+  Stats.push_back(3);
 
   return false;
 }

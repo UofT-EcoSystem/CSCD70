@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // NOLINT(llvm-header-guard)
 
 #include <llvm/Pass.h>
 
@@ -6,7 +6,7 @@ using namespace llvm;
 
 class Analysis final : public ModulePass {
 private:
-  std::vector<unsigned> Stats_;
+  std::vector<unsigned> Stats;
 
 public:
   static char ID;
@@ -17,6 +17,8 @@ public:
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override;
   virtual bool runOnModule(Module &M) override;
 
-  // Return the gathered statstics.
-  std::vector<unsigned> getStats() const { return Stats_; }
+  /**
+   * @brief Return the gathered statstics.
+   */
+  std::vector<unsigned> getStats() const { return Stats; }
 };
