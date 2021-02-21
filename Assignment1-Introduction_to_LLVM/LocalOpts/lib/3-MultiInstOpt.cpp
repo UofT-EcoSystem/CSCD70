@@ -10,7 +10,6 @@ public:
   static char ID;
 
   MultiInstOpt() : FunctionPass(ID) {}
-  virtual ~MultiInstOpt() override {}
 
   /**
    * @todo(cscd70) Please complete the methods below.

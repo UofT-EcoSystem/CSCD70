@@ -10,7 +10,6 @@ public:
   static char ID;
 
   StrengthReduction() : FunctionPass(ID) {}
-  virtual ~StrengthReduction() override {}
 
   /**
    * @todo(cscd70) Please complete the methods below.

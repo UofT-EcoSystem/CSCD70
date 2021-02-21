@@ -10,7 +10,6 @@ public:
   static char ID;
 
   AlgebraicIdentity() : FunctionPass(ID) {}
-  virtual ~AlgebraicIdentity() override {}
 
   /**
    * @todo(cscd70) Please complete the methods below.
