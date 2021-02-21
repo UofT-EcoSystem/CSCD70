@@ -11,7 +11,6 @@ public:
   static char ID;
 
   AnotherTransform() : ModulePass(ID) {}
-  virtual ~AnotherTransform() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.addRequired<Analysis>();

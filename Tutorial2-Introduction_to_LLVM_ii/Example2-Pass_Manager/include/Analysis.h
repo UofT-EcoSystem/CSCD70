@@ -12,7 +12,6 @@ public:
   static char ID;
 
   Analysis() : ModulePass(ID) {}
-  virtual ~Analysis() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override;
   virtual bool runOnModule(Module &M) override;

@@ -11,7 +11,6 @@ public:
   static char ID;
 
   Transform() : ModulePass(ID) {}
-  virtual ~Transform() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     // If you comment this line out, the 'Analysis' pass will not be run. LLVM
