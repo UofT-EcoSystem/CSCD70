@@ -17,7 +17,6 @@ public:
   static char ID;
 
   Liveness() : FunctionPass(ID) {}
-  virtual ~Liveness() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();
