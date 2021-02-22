@@ -7,7 +7,7 @@ execute_process(COMMAND llvm-config --cxxflags
 execute_process(COMMAND llvm-config --includedir
                 OUTPUT_VARIABLE LLVM_INCLUDEDIR
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
-set(CMAKE_CXX_FLAGS "${LLVM_CXXFLAGS} -isystem ${LLVM_INCLUDEDIR}")
+set(CMAKE_CXX_FLAGS "${LLVM_CXXFLAGS} -isystem ${LLVM_INCLUDEDIR} -Wall -Werror")
 set(CMAKE_CXX_CLANG_TIDY clang-tidy -header-filter=.*)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)

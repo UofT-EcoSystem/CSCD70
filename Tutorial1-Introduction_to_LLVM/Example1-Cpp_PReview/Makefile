@@ -1,6 +1,6 @@
 CC := g++
 
-CXXFLAGS := -std=c++11
+CXXFLAGS := -std=c++11 -Wall -Werror
 
 EXEs := $(basename $(wildcard *.cpp))
 all: $(EXEs)
@@ -10,6 +10,10 @@ all: $(EXEs)
 .PHONY: format
 format: *.cpp
 	clang-format -i $^
+
+.PHONY: tidy
+tidy: *.cpp
+	clang-tidy --header-filter=.* $^ --
 
 .PHONY: clean
 clean:

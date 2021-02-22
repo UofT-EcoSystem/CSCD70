@@ -42,7 +42,6 @@ public:
   static char ID;
 
   AvailExpr() : AvailExprFrameworkBase(), FunctionPass(ID) {}
-  virtual ~AvailExpr() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();

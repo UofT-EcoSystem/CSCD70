@@ -17,7 +17,6 @@ public:
   static char ID;
 
   Liveness() : FunctionPass(ID) {}
-  virtual ~Liveness() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesAll();
@@ -34,7 +33,7 @@ public:
   }
 };
 
-char Liveness::ID = 1;
+char Liveness::ID = 0;
 RegisterPass<Liveness> X("liveness", "Liveness");
 
 } // anonymous namespace

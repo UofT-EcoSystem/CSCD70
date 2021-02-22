@@ -76,7 +76,6 @@ public:
   static char ID;
 
   Transform() : ModulePass(ID) {}
-  virtual ~Transform() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.setPreservesCFG();

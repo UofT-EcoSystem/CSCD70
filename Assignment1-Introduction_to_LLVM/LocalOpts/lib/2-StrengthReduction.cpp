@@ -5,12 +5,11 @@ using namespace llvm;
 
 namespace {
 
-class AlgebraicIdentity final : public FunctionPass {
+class StrengthReduction final : public FunctionPass {
 public:
   static char ID;
 
-  AlgebraicIdentity() : FunctionPass(ID) {}
-  virtual ~AlgebraicIdentity() override {}
+  StrengthReduction() : FunctionPass(ID) {}
 
   /**
    * @todo(cscd70) Please complete the methods below.
@@ -18,10 +17,10 @@ public:
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {}
 
   virtual bool runOnFunction(Function &F) override { return false; }
-}; // class AlgebraicIdentity
+}; // class StrengthReduction
 
-char AlgebraicIdentity::ID = 0;
-RegisterPass<AlgebraicIdentity> X("algebraic-identity",
-                                  "CSCD70: Algebraic Identity");
+char StrengthReduction::ID = 0;
+RegisterPass<StrengthReduction> X("strength-reduction",
+                                  "CSCD70: Strength Reduction");
 
 } // anonymous namespace

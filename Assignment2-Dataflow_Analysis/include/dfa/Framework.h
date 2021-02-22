@@ -65,7 +65,7 @@ protected:
   using DomainVal_t = std::vector<TDomainElemRepr>;
 
 private:
-  using MeetOperands_t = std::vector<std::reference_wrapper<const DomainVal_t>>;
+  using MeetOperands_t = std::vector<DomainVal_t>;
   using BBTraversalConstRange =
       typename FrameworkTypeSupport<TDirection>::BBTraversalConstRange;
   using InstTraversalConstRange =
@@ -74,8 +74,6 @@ private:
 protected:
   // Domain
   std::vector<TDomainElem> Domain;
-
-private:
   // Instruction-Domain Value Mapping
   std::unordered_map<const Instruction *, DomainVal_t> InstDomainValMap;
   /*****************************************************************************
@@ -245,7 +243,7 @@ private:
 protected:
   virtual ~Framework() {}
 
-  virtual bool runOnFunction(const Function &F) {
+  bool runOnFunction(const Function &F) {
     // initialize the domain
     initializeDomain(F);
     // apply the initial conditions

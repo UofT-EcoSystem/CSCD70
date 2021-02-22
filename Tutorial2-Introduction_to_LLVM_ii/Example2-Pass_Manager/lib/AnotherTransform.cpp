@@ -11,7 +11,6 @@ public:
   static char ID;
 
   AnotherTransform() : ModulePass(ID) {}
-  virtual ~AnotherTransform() override {}
 
   virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     AU.addRequired<Analysis>();
@@ -32,7 +31,7 @@ public:
   }
 };
 
-char AnotherTransform::ID = 2;
+char AnotherTransform::ID = 0;
 RegisterPass<AnotherTransform> X("another-transform", "Another Transform");
 
 } // anonymous namespace

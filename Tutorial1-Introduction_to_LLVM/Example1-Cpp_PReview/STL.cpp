@@ -27,8 +27,8 @@ int main() {
    *
    *     std::vector<float> b = {1.0, 2.0, 3.0};
    */
-  std::vector<unsigned> a = {1, 2, 3, 4, 5};
-  std::unordered_map<std::string, unsigned> b = {
+  std::vector<unsigned> A{1, 2, 3, 4, 5};
+  std::unordered_map<std::string, unsigned> B{
       {"Red", 0}, {"Green", 1}, {"Blue", 2}};
   /**
    * Traverse through 'a' using *iterators*. 'std::vector<unsigned>::iterator'
@@ -37,27 +37,27 @@ int main() {
    *
    *     for (auto iter = a.begin(); ...)
    */
-  for (std::vector<unsigned>::iterator iter = a.begin(); iter != a.end();
-       ++iter) {
+  for (std::vector<unsigned>::iterator Iter = A.begin(); Iter != A.end();
+       ++Iter) {
     // dereference the iterator the obtain the array value
-    std::cout << *iter << ", ";
+    std::cout << *Iter << ", ";
   }
   std::cout << std::endl; // newline character
 
-  for (std::unordered_map<std::string, unsigned>::iterator iter = b.begin();
-       iter != b.end(); ++iter) {
+  for (std::unordered_map<std::string, unsigned>::iterator Iter = B.begin();
+       Iter != B.end(); ++Iter) {
     /**
      * When we dereference the iterator, what we get is a *reference* to a
      * *pair* object. The first element of the pair reference is the *constant*
      * key, and the second element is the value corresponding to the key.
      */
-    std::pair<const std::string, unsigned> &key_value_pair = *iter;
+    std::pair<const std::string, unsigned> &KeyValuePair = *Iter;
 
-    std::cout << "(" << key_value_pair.first << ", " << key_value_pair.second
+    std::cout << "(" << KeyValuePair.first << ", " << KeyValuePair.second
               << "), ";
     // Alternatively, we can also write:
     //
-    //     std::cout << ... iter->first ... iter->second ...
+    //     std::cout << ... Iter->first ... Iter->second ...
   }
   std::cout << std::endl; // newline character
   return 0;
