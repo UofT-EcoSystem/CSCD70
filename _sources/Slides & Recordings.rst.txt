@@ -19,6 +19,7 @@ Lec 4.   SSA                         [|PPTX Lec4|][|PDF Lec4|] [|UofT MyMedia Le
 Tut 4.   Dataflow Analysis ii        [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_][|YouTube Tut4|_]
 Lec 5.   LICM and Strength Reduction [|PPTX Lec5|][|PDF Lec5|] [|UofT MyMedia Lec5|_][|YouTube Lec5|_]
 Tut 5.   Dataflow Analysis iii       [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
+Lec 6.   Register Allocation         [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec6|_][|YouTube Lec6|_]
 Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
 ======== =========================== ========================= =======================================
 
@@ -91,6 +92,13 @@ Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tu
 .. _UofT MyMedia Tut5: https://play.library.utoronto.ca/3697a5b79241d85b38197d98d78bbc8b
 .. |YouTube Tut5| replace:: YouTube
 .. _YouTube Tut5: https://youtu.be/8UPkj7s2wNs
+
+.. |PDF Lec6| replace:: :download:`pdf <Slides/Lecture 6 [Register Allocation] 02.22.2021.pdf>`
+.. |PPTX Lec6| replace:: :download:`pptx <Slides/Lecture 6 [Register Allocation] 02.22.2021.pptx>`
+.. |UofT MyMedia Lec6| replace:: UofT MyMedia
+.. _UofT MyMedia Lec6: https://play.library.utoronto.ca/505d63907430f1644b33dae3048769ec
+.. |YouTube Lec6| replace:: YouTube
+.. _YouTube Lec6: https://youtu.be/xvaaHJYUMn4
 
 .. |Overleaf Tut6| replace:: Overleaf 
 .. _Overleaf Tut6: https://www.overleaf.com/read/dyjffnjmznyn
