@@ -19,7 +19,7 @@ Lec 4.   SSA                         [|PPTX Lec4|][|PDF Lec4|] [|UofT MyMedia Le
 Tut 4.   Dataflow Analysis ii        [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_][|YouTube Tut4|_]
 Lec 5.   LICM and Strength Reduction [|PPTX Lec5|][|PDF Lec5|] [|UofT MyMedia Lec5|_][|YouTube Lec5|_]
 Tut 5.   Dataflow Analysis iii       [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
-Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]
+Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
 ======== =========================== ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
@@ -94,3 +94,7 @@ Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]
 
 .. |Overleaf Tut6| replace:: Overleaf 
 .. _Overleaf Tut6: https://www.overleaf.com/read/dyjffnjmznyn
+.. |UofT MyMedia Tut6| replace:: UofT MyMedia
+.. _UofT MyMedia Tut6: https://play.library.utoronto.ca/f70c37a6641f0ce83abae7246c99619f
+.. |YouTube Tut6| replace:: YouTube
+.. _YouTube Tut6: https://youtu.be/3s4oST3oZzQ
