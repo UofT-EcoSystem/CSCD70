@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    add-apt-repository "deb http://apt.llvm.org/focal/     llvm-toolchain-focal-${LLVM_VERSION}    main" && \
+    add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-${LLVM_VERSION} main" && \
     apt-get update && \
     apt-get install -y llvm-${LLVM_VERSION} llvm-${LLVM_VERSION}-dev \
                        clang-${LLVM_VERSION} \
