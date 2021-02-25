@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.12.0)
 project(PassManager)
 
-execute_process(COMMAND llvm-config --cxxflags
+set(LLVM_VERSION "12" CACHE STRING "LLVM Version")
+set(LLVM_VERSION_SUFFIX "-${LLVM_VERSION}")
+
+execute_process(COMMAND llvm-config${LLVM_VERSION_SUFFIX} --cxxflags
                 OUTPUT_VARIABLE LLVM_CXXFLAGS
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
-execute_process(COMMAND llvm-config --includedir
+execute_process(COMMAND llvm-config${LLVM_VERSION_SUFFIX} --includedir
                 OUTPUT_VARIABLE LLVM_INCLUDEDIR
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(CMAKE_CXX_FLAGS "${LLVM_CXXFLAGS} -isystem ${LLVM_INCLUDEDIR} -Wall -Werror")

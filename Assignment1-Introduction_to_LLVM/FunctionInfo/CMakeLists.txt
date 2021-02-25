@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.12.0)
 project(FunctionInfo)
 
+set(LLVM_VERSION "12" CACHE STRING "LLVM Version")
+set(LLVM_VERSION_SUFFIX "-${LLVM_VERSION}")
+
 # Obtain the build flags from `llvm-config --cxxflags` and forward them to
 # variable CMAKE_CXX_FLAGS.
-execute_process(COMMAND llvm-config --cxxflags
+execute_process(COMMAND llvm-config${LLVM_VERSION_SUFFIX} --cxxflags
                 OUTPUT_VARIABLE LLVM_CXXFLAGS
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(CMAKE_CXX_FLAGS "${LLVM_CXXFLAGS} -Wall -Werror")

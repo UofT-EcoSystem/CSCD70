@@ -19,8 +19,6 @@ RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
                        clang-tidy-${LLVM_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
-ENV PATH=${PATH}:/usr/lib/llvm-${LLVM_VERSION}/bin
-
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && rm -f get-pip.py
 
