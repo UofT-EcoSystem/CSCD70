@@ -1,7 +1,10 @@
 OPTIMIZER := FunctionInfo.so
 OBJs := $(subst .cpp,.o,$(wildcard lib/*.cpp))
 
-CXXFLAGS := $(shell llvm-config --cxxflags) -fPIC
+LLVM_VERSION ?= 12
+LLVM_VERSION_SUFFIX := -$(LLVM_VERSION)
+
+CXXFLAGS := $(shell llvm-config$(LLVM_VERSION_SUFFIX) --cxxflags) -fPIC
 
 all: $(OPTIMIZER) 
 

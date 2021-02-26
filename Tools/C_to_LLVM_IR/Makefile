@@ -1,7 +1,7 @@
 LLs := $(subst .c,.ll,$(wildcard *.c))
 
 LLVM_VERSION ?= 12
-LLVM_VERSION_SUFFIX = -$(LLVM_VERSION)
+LLVM_VERSION_SUFFIX := -$(LLVM_VERSION)
 
 .PHONY: all
 all: $(LLs)
