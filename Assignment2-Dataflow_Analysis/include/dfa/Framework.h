@@ -199,6 +199,8 @@ private:
   /**
    * @brief Return the traversal order of the basic blocks.
    *
+   * @todo(cscd70) Please modify the definition (and the above typedef
+   *               accordingly) for the optimal traversal order.
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, BBTraversalConstRange)
@@ -208,8 +210,6 @@ private:
   /**
    * @brief Return the traversal order of the instructions.
    *
-   * @todo(cscd70) Please modify the definition (and the above typedef
-   *               accordingly) for the optimal traversal order.
    * @todo(cscd70) Please provide an instantiation for the backward pass.
    */
   METHOD_ENABLE_IF_DIRECTION(Direction::kForward, InstTraversalConstRange)
