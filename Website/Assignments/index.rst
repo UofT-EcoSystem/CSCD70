@@ -6,13 +6,14 @@ Assignments
 
    0
    1
+   2
 
 ======================== ============ ============ ====================
 |                        Release      Due          GitHub Classroom
 ======================== ============ ============ ====================
 :doc:`0`                 Jan. 11      N/A          \-
 :doc:`1`                 Jan. 11      Feb. 1       [|GH Classroom A1|_]
-:doc:`2`                 Feb. 7       Mar. 5       [|GH Classroom A2|_]
+:doc:`2`                 Feb. 7       Mar. 8       [|GH Classroom A2|_]
 ======================== ============ ============ ====================
 
 .. |GH Classroom A1| replace:: Invitation
