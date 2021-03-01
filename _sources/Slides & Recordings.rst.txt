@@ -21,8 +21,8 @@ Lec 5.   LICM and Strength Reduction [|PPTX Lec5|][|PDF Lec5|] [|UofT MyMedia Le
 Tut 5.   Dataflow Analysis iii       [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
 Lec 6.   Register Allocation         [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec6|_][|YouTube Lec6|_]
 Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
-         Midterm
-         Q & A for Midterm and A2
+|        Midterm                                                                                      
+|        Q & A for Midterm and A2                                                                     
 ======== =========================== ========================= =======================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
