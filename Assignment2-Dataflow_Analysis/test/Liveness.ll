@@ -5,7 +5,7 @@
 ; int sum(int a, int b) {
 ;   int res = 1;
 ;   for (int i = a; i < b; i++) {
-;     res *= i;
+;     res += i;
 ;   }
 ;   return res;
 ; }
@@ -23,7 +23,7 @@ define i32 @sum(i32 %0, i32 %1) {
   br i1 %4, label %5, label %9
 
 5:                                                ; preds = %3
-  %6 = mul nsw i32 %.01, %.0
+  %6 = add nsw i32 %.01, %.0
   br label %7
 
 7:                                                ; preds = %5
