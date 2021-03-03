@@ -11,9 +11,15 @@
 
 using namespace llvm;
 
+namespace llvm {
+
+void initializeRACSCD70Pass(PassRegistry &Registry);
+
+} // namespace llvm
+
 namespace {
 
-class RegAllocCSCD70 final : public MachineFunctionPass {
+class RACSCD70 final : public MachineFunctionPass {
 private:
   MachineFunction *MF;
 
@@ -30,8 +36,10 @@ private:
     outs() << "Pushing {Reg=" << *LI << "}\n";
     LIQ.push(LI);
   }
-  LiveInterval * dequeueLI() {
-    if (LIQ.empty()) { return nullptr; }
+  LiveInterval *dequeueLI() {
+    if (LIQ.empty()) {
+      return nullptr;
+    }
     LiveInterval *LI = LIQ.front();
     outs() << "Popping {Reg=" << *LI << "}\n";
     LIQ.pop();
@@ -42,26 +50,43 @@ private:
   // Register Class Information
   RegisterClassInfo RCI;
 
-  MCRegister selectOrSplit(LiveInterval *const VirtReg,
+  MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
     ArrayRef<MCPhysReg> Order =
-        RCI.getOrder(MF->getRegInfo().getRegClass(VirtReg->reg()));
+        RCI.getOrder(MF->getRegInfo().getRegClass(LI->reg()));
     SmallVector<MCPhysReg, 16> Hints;
     bool IsHardHint =
-        TRI->getRegAllocationHints(VirtReg->reg(), Order, Hints, *MF, VRM, LRM);
+        TRI->getRegAllocationHints(LI->reg(), Order, Hints, *MF, VRM, LRM);
     if (!IsHardHint) {
-      for (const MCRegister &PhysReg : Order) {
+      for (const MCPhysReg &PhysReg : Order) {
         Hints.push_back(PhysReg);
       }
     }
     outs() << "Hint Registers: [";
     for (const MCPhysReg &PhysReg : Order) {
-      outs() << PhysReg << ", ";
+      outs() << TRI->getRegAsmName(PhysReg) << ", ";
     }
-    outs() << "\n";
+    outs() << "]\n";
 
+    for (MCRegister PhysReg : Hints) {
 
+      // 2.2. Check for interference on physical registers.
+      switch (LRM->checkInterference(*LI, PhysReg)) {
+      case LiveRegMatrix::IK_Free:
+        // Here we directly (and naively) return the first physical register
+        // that is available.
+        outs() << "Allocating physical register " << TRI->getRegAsmName(PhysReg)
+               << "\n";
+        return PhysReg;
+      case LiveRegMatrix::IK_VirtReg:
+        continue;
+      default:
+        continue;
+      }
+    }
+    // Inform the caller that the virtual register has been spilled.
+    return 0;
   }
 
 public:
@@ -69,19 +94,7 @@ public:
 
   StringRef getPassName() const override { return "CSCD70 Register Allocator"; }
 
-  RegAllocCSCD70() : MachineFunctionPass(ID) {
-#define REGALLOC_CSCD70_INITIALIZE_PASS(PassName)                              \
-  initialize##PassName##Pass(*PassRegistry::getPassRegistry())
-
-    // Slot Indices
-    REGALLOC_CSCD70_INITIALIZE_PASS(SlotIndexes);
-    // Virtual Register Mapping
-    REGALLOC_CSCD70_INITIALIZE_PASS(VirtRegMap);
-    // Live Intervals
-    REGALLOC_CSCD70_INITIALIZE_PASS(LiveIntervals);
-    // Live Register Matrix
-    REGALLOC_CSCD70_INITIALIZE_PASS(LiveRegMatrix);
-  }
+  RACSCD70() : MachineFunctionPass(ID) {}
 
   void getAnalysisUsage(AnalysisUsage &AU) const override {
     MachineFunctionPass::getAnalysisUsage(AU);
@@ -155,10 +168,10 @@ public:
     }
 
     // keep traversing until the LIQ is nonempty
-    while (LiveInterval *const VirtReg = dequeueLI()) {
+    while (LiveInterval *const LI = dequeueLI()) {
       // again, skip all unused registers
-      if (MRI->reg_nodbg_empty(VirtReg->reg())) {
-        LIS->removeInterval(VirtReg->reg());
+      if (MRI->reg_nodbg_empty(LI->reg())) {
+        LIS->removeInterval(LI->reg());
         continue;
       }
 
@@ -168,7 +181,11 @@ public:
       // 2. Allocate to a physical register (if available) or split to a list of
       //    virtual registers.
       SmallVector<Register, 4> SplitVirtRegs;
-      MCRegister PhysReg = selectOrSplit(VirtReg, &SplitVirtRegs);
+      MCRegister PhysReg = selectOrSplit(LI, &SplitVirtRegs);
+
+      if (PhysReg) {
+        LRM->assign(*LI, PhysReg);
+      }
 
     } // while (dequeueLI())
 
@@ -176,11 +193,22 @@ public:
   }
 };
 
-char RegAllocCSCD70::ID = 0;
+char RACSCD70::ID = 0;
 
 static RegisterRegAlloc X("cscd70", "CSCD70 Register Allocator",
-                          []() -> FunctionPass * {
-                            return new RegAllocCSCD70();
-                          });
+                          []() -> FunctionPass * { return new RACSCD70(); });
 
 } // anonymous namespace
+
+INITIALIZE_PASS_BEGIN(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
+                      false, false)
+// Slot Indices
+INITIALIZE_PASS_DEPENDENCY(SlotIndexes)
+// Virtual Register Mapping
+INITIALIZE_PASS_DEPENDENCY(VirtRegMap)
+// Live Intervals
+INITIALIZE_PASS_DEPENDENCY(LiveIntervals)
+// Live Register Matrix
+INITIALIZE_PASS_DEPENDENCY(LiveRegMatrix)
+INITIALIZE_PASS_END(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
+                    false, false)
