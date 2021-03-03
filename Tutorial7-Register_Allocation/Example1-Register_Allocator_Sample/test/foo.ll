@@ -1,5 +1,5 @@
 ; RUN: llc -load %dylibdir/libRegAlloc%dylibext \
-; RUN:     -regalloc=cscd70 -march=mips %s -o %basename_t.s
+; RUN:     -regalloc=cscd70 -march=x86-64 %s -o %basename_t.s
 
 ; int g;
 
