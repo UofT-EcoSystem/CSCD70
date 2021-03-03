@@ -1,6 +1,5 @@
 ; RUN: llc -load %dylibdir/libRegAlloc%dylibext \
 ; RUN:     -regalloc=cscd70 -march=mips %s -o %basename_t.s
-; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.s
 
 ; int g;
 

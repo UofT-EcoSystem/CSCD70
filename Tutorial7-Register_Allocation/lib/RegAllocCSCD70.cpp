@@ -31,12 +31,12 @@ private:
   MachineRegisterInfo *MRI;
   // Live Intervals
   LiveIntervals *LIS;
-  std::queue<LiveInterval *> LIQ;
-  void enqueueLI(LiveInterval *const LI) {
+  std::queue<LiveInterval *> LIQ; // FIFO Queue
+  void enqueue(LiveInterval *const LI) {
     outs() << "Pushing {Reg=" << *LI << "}\n";
     LIQ.push(LI);
   }
-  LiveInterval *dequeueLI() {
+  LiveInterval *dequeue() {
     if (LIQ.empty()) {
       return nullptr;
     }
@@ -164,11 +164,11 @@ public:
       if (MRI->reg_nodbg_empty(Reg)) {
         continue;
       }
-      enqueueLI(&LIS->getInterval(Reg));
+      enqueue(&LIS->getInterval(Reg));
     }
 
     // keep traversing until the LIQ is nonempty
-    while (LiveInterval *const LI = dequeueLI()) {
+    while (LiveInterval *const LI = dequeue()) {
       // again, skip all unused registers
       if (MRI->reg_nodbg_empty(LI->reg())) {
         LIS->removeInterval(LI->reg());
@@ -187,7 +187,7 @@ public:
         LRM->assign(*LI, PhysReg);
       }
 
-    } // while (dequeueLI())
+    } // while (dequeue())
 
     return true;
   }
