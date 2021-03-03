@@ -2,19 +2,14 @@
 ; RUN:     -regalloc=cscd70 -march=mips %s -o %basename_t.s
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.s
 
-; #include <stdio.h>
-; #include <stdlib.h>
-
 ; int g;
 
 ; int def() {
-;   return rand();
+;   return g++;
 ; }
+
 ; void use(int i) {
-;   printf("%d", i);
-; }
-; int copy(int i) {
-;   return i * i;
+;   g = i;
 ; }
 
 ; int foo() {
@@ -23,21 +18,18 @@
 ;   if (A) {
 ;     B = def();
 ;     use(A);
-;     D = copy(B);
+;     D = B + 1;
 ;   } else {
 ;     C = def();
 ;     use(A);
-;     D = def();
+;     D = C + 1;
 ;   }
 ;   A = def();
 ;   use(A);
 ;   return D;
 ; }
 
-@.str = private constant [3 x i8] c"%d\00", align 1
-
-declare i32 @printf(i8*, ...)
-declare i32 @rand()
+@g = global i32 0, align 4
 
 define i32 @foo() {
   %1 = call i32 @def()
@@ -47,13 +39,13 @@ define i32 @foo() {
 3:                                                ; preds = %0
   %4 = call i32 @def()
   call void @use(i32 %1)
-  %5 = call i32 @copy(i32 %4)
+  %5 = add nsw i32 %4, 1
   br label %9
 
 6:                                                ; preds = %0
   %7 = call i32 @def()
   call void @use(i32 %1)
-  %8 = call i32 @def()
+  %8 = add nsw i32 %7, 1
   br label %9
 
 9:                                                ; preds = %6, %3
@@ -64,16 +56,13 @@ define i32 @foo() {
 }
 
 define i32 @def() {
-  %1 = call i32 @rand() #3
+  %1 = load i32, i32* @g, align 4
+  %2 = add nsw i32 %1, 1
+  store i32 %2, i32* @g, align 4
   ret i32 %1
 }
 
 define void @use(i32 %0) {
-  %2 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i64 0, i64 0), i32 %0)
+  store i32 %0, i32* @g, align 4
   ret void
-}
-
-define i32 @copy(i32 %0) {
-  %2 = mul nsw i32 %0, %0
-  ret i32 %2
 }
