@@ -13,13 +13,13 @@ using namespace llvm;
 
 namespace llvm {
 
-void initializeRACSCD70Pass(PassRegistry &Registry);
+void initializeRAMinimalPass(PassRegistry &Registry);
 
 } // namespace llvm
 
 namespace {
 
-class RACSCD70 final : public MachineFunctionPass {
+class RAMinimal final : public MachineFunctionPass {
 private:
   MachineFunction *MF;
 
@@ -92,9 +92,11 @@ private:
 public:
   static char ID;
 
-  StringRef getPassName() const override { return "CSCD70 Register Allocator"; }
+  StringRef getPassName() const override {
+    return "Minimal Register Allocator";
+  }
 
-  RACSCD70() : MachineFunctionPass(ID) {}
+  RAMinimal() : MachineFunctionPass(ID) {}
 
   void getAnalysisUsage(AnalysisUsage &AU) const override {
     MachineFunctionPass::getAnalysisUsage(AU);
@@ -193,22 +195,18 @@ public:
   }
 };
 
-char RACSCD70::ID = 0;
+char RAMinimal::ID = 0;
 
-static RegisterRegAlloc X("cscd70", "CSCD70 Register Allocator",
-                          []() -> FunctionPass * { return new RACSCD70(); });
+static RegisterRegAlloc X("minimal", "Minimal Register Allocator",
+                          []() -> FunctionPass * { return new RAMinimal(); });
 
 } // anonymous namespace
 
-INITIALIZE_PASS_BEGIN(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
+INITIALIZE_PASS_BEGIN(RAMinimal, "regallominimal", "Minimal Register Allocator",
                       false, false)
-// Slot Indices
 INITIALIZE_PASS_DEPENDENCY(SlotIndexes)
-// Virtual Register Mapping
 INITIALIZE_PASS_DEPENDENCY(VirtRegMap)
-// Live Intervals
 INITIALIZE_PASS_DEPENDENCY(LiveIntervals)
-// Live Register Matrix
 INITIALIZE_PASS_DEPENDENCY(LiveRegMatrix)
-INITIALIZE_PASS_END(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
+INITIALIZE_PASS_END(RAMinimal, "regallominimal", "Minimal Register Allocator",
                     false, false)

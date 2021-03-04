@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12.0)
-project(RegAlloc)
+project(RegAllocMinimal)
 
 set(LLVM_VERSION "12" CACHE STRING "LLVM Version")
 set(LLVM_VERSION_SUFFIX "-${LLVM_VERSION}")
