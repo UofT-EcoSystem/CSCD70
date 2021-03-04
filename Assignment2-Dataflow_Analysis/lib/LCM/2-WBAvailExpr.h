@@ -41,7 +41,7 @@ public:
     /**
      * @todo(cscd70) Obtain the domain and analysis results from the anticipated
      *               expressions, and then invoke the method @c runOnFunction
-     *               from @c AntiExprImpl .
+     *               from @c WBAvailExprImpl .
      */
     return false;
   }
