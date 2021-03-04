@@ -6,7 +6,7 @@
 //      Compile the generated assembly into executable.
 // RUN: clang %basename_t.s -o %basename_t.exe
 // RUN: ./%basename_t.exe | FileCheck %s
-// CHECK: 022
+// CHECK: 023
 #include <stdio.h>
 
 int g = 0;
@@ -29,7 +29,7 @@ int main() {
   } else {
     C = def();
     use(A);
-    D = C + 1;
+    D = C + 2;
   }
   A = def();
   use(A);
