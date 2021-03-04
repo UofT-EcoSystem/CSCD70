@@ -17,5 +17,5 @@ config.substitutions.append((r'%dylibdir', "@CMAKE_LIBRARY_OUTPUT_DIR@"))
 
 config.llvm_config_bindir = "@LLVM_BINDIR@"
 llvm_config.add_tool_substitutions(
-        ["clang", "llc", "FileCheck"],
+        ["clang", "opt", "llc", "FileCheck"],
         config.llvm_config_bindir)
