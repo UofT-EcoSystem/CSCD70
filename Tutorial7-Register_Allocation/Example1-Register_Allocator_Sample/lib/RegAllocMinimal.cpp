@@ -211,7 +211,14 @@ public:
       if (PhysReg) {
         LRM->assign(*LI, PhysReg);
       }
-
+      for (Register Reg : SplitVirtRegs) {
+        LiveInterval *LI = &LIS->getInterval(Reg);
+        if (MRI->reg_nodbg_empty(LI->reg())) {
+          LIS->removeInterval(LI->reg());
+          continue;
+        }
+        enqueue(LI);
+      }
     } // while (dequeue())
 
     // cleanup
