@@ -1,8 +1,15 @@
+#include <llvm/Analysis/AliasAnalysis.h>
 #include <llvm/CodeGen/LiveIntervals.h>
+#include <llvm/CodeGen/LiveRangeEdit.h>
 #include <llvm/CodeGen/LiveRegMatrix.h>
+#include <llvm/CodeGen/LiveStacks.h>
+#include <llvm/CodeGen/MachineBlockFrequencyInfo.h>
+#include <llvm/CodeGen/MachineDominators.h>
 #include <llvm/CodeGen/MachineFunctionPass.h>
+#include <llvm/CodeGen/MachineLoopInfo.h>
 #include <llvm/CodeGen/RegAllocRegistry.h>
 #include <llvm/CodeGen/RegisterClassInfo.h>
+#include <llvm/CodeGen/Spiller.h>
 #include <llvm/CodeGen/VirtRegMap.h>
 #include <llvm/InitializePasses.h>
 #include <llvm/Support/raw_ostream.h>
@@ -19,7 +26,8 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 namespace {
 
-class RAMinimal final : public MachineFunctionPass {
+class RAMinimal final : public MachineFunctionPass,
+                        private LiveRangeEdit::Delegate {
 private:
   MachineFunction *MF;
 
@@ -50,6 +58,10 @@ private:
   // Register Class Information
   RegisterClassInfo RCI;
 
+  // Spiller
+  std::unique_ptr<Spiller> SpillerInst;
+  SmallPtrSet<MachineInstr *, 32> DeadRemats;
+
   MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
@@ -70,7 +82,6 @@ private:
     outs() << "]\n";
 
     for (MCRegister PhysReg : Hints) {
-
       // 2.2. Check for interference on physical registers.
       switch (LRM->checkInterference(*LI, PhysReg)) {
       case LiveRegMatrix::IK_Free:
@@ -86,6 +97,8 @@ private:
       }
     }
     // Inform the caller that the virtual register has been spilled.
+    LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
+    SpillerInst->spill(LRE);
     return 0;
   }
 
@@ -109,6 +122,13 @@ public:
     REQUIRE_AND_PRESERVE_PASS(VirtRegMap);
     REQUIRE_AND_PRESERVE_PASS(LiveIntervals);
     REQUIRE_AND_PRESERVE_PASS(LiveRegMatrix);
+
+    // implicitly requested by the spiller
+    REQUIRE_AND_PRESERVE_PASS(LiveStacks);
+    REQUIRE_AND_PRESERVE_PASS(AAResultsWrapperPass);
+    REQUIRE_AND_PRESERVE_PASS(MachineDominatorTree);
+    REQUIRE_AND_PRESERVE_PASS(MachineLoopInfo);
+    REQUIRE_AND_PRESERVE_PASS(MachineBlockFrequencyInfo);
   }
 
   // Request that PHINode's are removed before doing the register allocation.
@@ -155,8 +175,12 @@ public:
     // assigned to overlapping physical registers.
     LRM = &getAnalysis<LiveRegMatrix>();
     // The *RegisterClassInfo* provides dynamic information about target
-    // register classes. Note that it is NOT a pass, hence cannot be requested.
+    // register classes. We will be leveraging it to obtain a plausible
+    // allocation order of physical registers.
     RCI.runOnMachineFunction(MF);
+
+    // The *Spiller* is, of course, responsible for spilling.
+    SpillerInst.reset(createInlineSpiller(*this, MF, *VRM));
 
     // 1. Obtain the virtual registers and push them on top of the stack.
     for (unsigned VirtualRegIdx = 0; VirtualRegIdx < MRI->getNumVirtRegs();
@@ -176,7 +200,6 @@ public:
         LIS->removeInterval(LI->reg());
         continue;
       }
-
       // invalidate all previous interference queries.
       LRM->invalidateVirtRegs();
 
@@ -190,6 +213,9 @@ public:
       }
 
     } // while (dequeue())
+
+    // cleanup
+    SpillerInst->postOptimization();
 
     return true;
   }
@@ -208,5 +234,11 @@ INITIALIZE_PASS_DEPENDENCY(SlotIndexes)
 INITIALIZE_PASS_DEPENDENCY(VirtRegMap)
 INITIALIZE_PASS_DEPENDENCY(LiveIntervals)
 INITIALIZE_PASS_DEPENDENCY(LiveRegMatrix)
+
+INITIALIZE_PASS_DEPENDENCY(LiveStacks);
+INITIALIZE_PASS_DEPENDENCY(AAResultsWrapperPass);
+INITIALIZE_PASS_DEPENDENCY(MachineDominatorTree);
+INITIALIZE_PASS_DEPENDENCY(MachineLoopInfo);
+INITIALIZE_PASS_DEPENDENCY(MachineBlockFrequencyInfo);
 INITIALIZE_PASS_END(RAMinimal, "regallominimal", "Minimal Register Allocator",
                     false, false)
