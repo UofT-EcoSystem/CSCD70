@@ -159,6 +159,8 @@ public:
     //    - VirtRegMap
     //    - LiveIntervals
     //    - LiveRegMatrix
+    //    and setup the spiller.
+
     // The *VirtRegMap* maps virtual registers to physical registers and
     // virtual registers to stack slots.
     VRM = &getAnalysis<VirtRegMap>();
@@ -211,6 +213,7 @@ public:
       if (PhysReg) {
         LRM->assign(*LI, PhysReg);
       }
+      // enqueue the splitted live ranges
       for (Register Reg : SplitVirtRegs) {
         LiveInterval *LI = &LIS->getInterval(Reg);
         if (MRI->reg_nodbg_empty(LI->reg())) {
