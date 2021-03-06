@@ -26,6 +26,11 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 namespace {
 
+/**
+ * @brief A minimal register allocator that goes through the list of live
+ *        intervals and materialize them whenever there are physical registers
+ *        available. If none is available then the interval is spilled.
+ */
 class RAMinimal final : public MachineFunctionPass,
                         private LiveRangeEdit::Delegate {
 private:
@@ -223,10 +228,13 @@ public:
         enqueue(LI);
       }
     } // while (dequeue())
-
     // cleanup
     SpillerInst->postOptimization();
-
+    for (MachineInstr *const DeadInst : DeadRemats) {
+      LIS->RemoveMachineInstrFromMaps(*DeadInst);
+      DeadInst->eraseFromParent();
+    }
+    DeadRemats.clear();
     return true;
   }
 };
