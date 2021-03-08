@@ -67,6 +67,37 @@ private:
   std::unique_ptr<Spiller> SpillerInst;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
+  bool spillInterferences(LiveInterval *const LI, MCRegister PhysReg,
+                          SmallVectorImpl<Register> *const SplitVirtRegs) {
+    SmallVector<LiveInterval *, 8> IntfLIs;
+
+    for (MCRegUnitIterator Units(PhysReg, TRI); Units.isValid(); ++Units) {
+      LiveIntervalUnion::Query &Q = LRM->query(*LI, *Units);
+      Q.collectInterferingVRegs();
+      for (int QIdx = Q.interferingVRegs().size() - 1; QIdx >= 0; --QIdx) {
+        LiveInterval *IntfLI = Q.interferingVRegs()[QIdx];
+        if (!IntfLI->isSpillable() || IntfLI->weight() > LI->weight()) {
+          return false;
+        }
+        IntfLIs.push_back(IntfLI);
+      }
+    }
+    // Spill each interfering vreg allocated to PhysRegs.
+    for (unsigned IntfIdx = 0; IntfIdx < IntfLIs.size(); ++IntfIdx) {
+      LiveInterval *const LIToSpill = IntfLIs[IntfIdx];
+      // avoid duplicates
+      if (!VRM->hasPhys(LIToSpill->reg())) {
+        continue;
+      }
+      // Deallocate the interfering virtual registers.
+      LRM->unassign(*LIToSpill);
+      LiveRangeEdit LRE(LIToSpill, *SplitVirtRegs, *MF, *LIS, VRM, this,
+                        &DeadRemats);
+      SpillerInst->spill(LRE);
+    }
+    return true;
+  }
+
   MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
@@ -86,6 +117,7 @@ private:
     }
     outs() << "]\n";
 
+    SmallVector<MCRegister, 8> PhysRegSpillCandidates;
     for (MCRegister PhysReg : Hints) {
       // 2.2. Check for interference on physical registers.
       switch (LRM->checkInterference(*LI, PhysReg)) {
@@ -96,12 +128,21 @@ private:
                << "\n";
         return PhysReg;
       case LiveRegMatrix::IK_VirtReg:
+        PhysRegSpillCandidates.push_back(PhysReg);
         continue;
       default:
         continue;
       }
     }
-    // Inform the caller that the virtual register has been spilled.
+    // 2.3. Attempt to spill another interfering reg with less spill weight.
+    ///     @sa spillInterferences
+    for (MCRegister PhysReg : PhysRegSpillCandidates) {
+      if (!spillInterferences(LI, PhysReg, SplitVirtRegs)) {
+        continue;
+      }
+      return PhysReg;
+    }
+    // 2.4. Inform the caller that the virtual register has been spilled.
     LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
     SpillerInst->spill(LRE);
     return 0;
