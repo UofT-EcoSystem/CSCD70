@@ -22,6 +22,7 @@ Tut 5.   Dataflow Analysis iii       [|Overleaf Tut5|_]        [|UofT MyMedia Tu
 Lec 6.   Register Allocation         [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec6|_][|YouTube Lec6|_]
 Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
 |        Midterm
+Lec 7.   Pointer Analysis            [|PPTX Lec7|][|PDF Lec7|] [|UofT MyMedia Lec7|_][|YouTube Lec7|_]
 Tut 7.   Midterm                                               [|UofT MyMedia Tut7|_][|YouTube Tut7|_]
 ======== =========================== ========================= =======================================
 
@@ -108,6 +109,13 @@ Tut 7.   Midterm                                               [|UofT MyMedia Tu
 .. _UofT MyMedia Tut6: https://play.library.utoronto.ca/f70c37a6641f0ce83abae7246c99619f
 .. |YouTube Tut6| replace:: YouTube
 .. _YouTube Tut6: https://youtu.be/3s4oST3oZzQ
+
+.. |PDF Lec7| replace:: :download:`pdf <Slides/Lecture 7 [Pointer Analysis] 03.08.2021.pdf>`
+.. |PPTX Lec7| replace:: :download:`pptx <Slides/Lecture 7 [Pointer Analysis] 03.08.2021.pptx>`
+.. |UofT MyMedia Lec7| replace:: UofT MyMedia
+.. _UofT MyMedia Lec7: https://play.library.utoronto.ca/6473331e84875fa1c9e3dfa32e8e93f0
+.. |YouTube Lec7| replace:: YouTube
+.. _YouTube Lec7: https://youtu.be/eeP76YoTMkc
 
 .. |UofT MyMedia Tut7| replace:: UofT MyMedia
 .. _UofT MyMedia Tut7: https://play.library.utoronto.ca/98b0cb9c78a1dc79872cccbc430b8da6
