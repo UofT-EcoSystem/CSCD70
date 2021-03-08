@@ -144,7 +144,8 @@ private:
       }
     }
     // 2.3. Attempt to spill another interfering reg with less spill weight.
-    ///     @sa spillInterferences
+    //
+    // @sa spillInterferences
     for (MCRegister PhysReg : PhysRegSpillCandidates) {
       if (!spillInterferences(LI, PhysReg, SplitVirtRegs)) {
         continue;
