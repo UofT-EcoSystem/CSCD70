@@ -67,6 +67,12 @@ private:
   std::unique_ptr<Spiller> SpillerInst;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
+  /**
+   * @brief Attempt to split all live intervals that interfere with @c LI
+   *        but have less spill weights.
+   *
+   * @sa selectOrSplit 2.3.
+   */
   bool spillInterferences(LiveInterval *const LI, MCRegister PhysReg,
                           SmallVectorImpl<Register> *const SplitVirtRegs) {
     SmallVector<LiveInterval *, 8> IntfLIs;
@@ -74,8 +80,7 @@ private:
     for (MCRegUnitIterator Units(PhysReg, TRI); Units.isValid(); ++Units) {
       LiveIntervalUnion::Query &Q = LRM->query(*LI, *Units);
       Q.collectInterferingVRegs();
-      for (int QIdx = Q.interferingVRegs().size() - 1; QIdx >= 0; --QIdx) {
-        LiveInterval *IntfLI = Q.interferingVRegs()[QIdx];
+      for (LiveInterval *const IntfLI : Q.interferingVRegs()) {
         if (!IntfLI->isSpillable() || IntfLI->weight() > LI->weight()) {
           return false;
         }
@@ -98,6 +103,10 @@ private:
     return true;
   }
 
+  /**
+   * @brief Allocate a physical register for @c LI , or have the spiller splits
+   *        it into a list of virtual registers.
+   */
   MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
