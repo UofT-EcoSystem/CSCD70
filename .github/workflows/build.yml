@@ -43,9 +43,9 @@ jobs:
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example2-Pass_Manager \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest -V"
-            - name: Tutorial 7 Register Allocation
+            - name: Tutorial 8 Register Allocation
               run: |
                    docker-compose run --rm \
-                       -w /mnt/Tutorial7-Register_Allocation/Example1-Register_Allocator_Sample \
+                       -w /mnt/Tutorial8-Register_Allocation/Example1-Register_Allocator_Sample \
                        cscd70-dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest -V"
