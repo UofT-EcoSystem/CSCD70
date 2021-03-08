@@ -44,17 +44,20 @@ private:
   MachineRegisterInfo *MRI;
   // Live Intervals
   LiveIntervals *LIS;
-  std::queue<LiveInterval *> LIQ; // FIFO Queue
-  void enqueue(LiveInterval *const LI) {
+
+  using LiveIntervalWrapper = std::pair<LiveInterval *, bool>;
+
+  std::queue<LiveIntervalWrapper> LIQ; // FIFO Queue
+  void enqueue(LiveInterval *const LI, const bool IsSpilled) {
     outs() << "Pushing {Reg=" << *LI << "}\n";
-    LIQ.push(LI);
+    LIQ.emplace(LI, IsSpilled);
   }
-  LiveInterval *dequeue() {
+  LiveIntervalWrapper dequeue() {
     if (LIQ.empty()) {
-      return nullptr;
+      return std::make_pair(nullptr, false);
     }
-    LiveInterval *LI = LIQ.front();
-    outs() << "Popping {Reg=" << *LI << "}\n";
+    LiveIntervalWrapper LI = LIQ.front();
+    outs() << "Popping {Reg=" << *(LI.first) << "}\n";
     LIQ.pop();
     return LI;
   }
@@ -67,14 +70,14 @@ private:
   std::unique_ptr<Spiller> SpillerInst;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
-  MCRegister selectOrSplit(LiveInterval *const LI,
+  MCRegister selectOrSplit(LiveIntervalWrapper LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
     ArrayRef<MCPhysReg> Order =
-        RCI.getOrder(MF->getRegInfo().getRegClass(LI->reg()));
+        RCI.getOrder(MF->getRegInfo().getRegClass(LI.first->reg()));
     SmallVector<MCPhysReg, 16> Hints;
     bool IsHardHint =
-        TRI->getRegAllocationHints(LI->reg(), Order, Hints, *MF, VRM, LRM);
+        TRI->getRegAllocationHints(LI.first->reg(), Order, Hints, *MF, VRM, LRM);
     if (!IsHardHint) {
       for (const MCPhysReg &PhysReg : Order) {
         Hints.push_back(PhysReg);
@@ -86,9 +89,15 @@ private:
     }
     outs() << "]\n";
 
+    if (!LI.second) {
+      LiveRangeEdit LRE(LI.first, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
+      SpillerInst->spill(LRE);
+      return 0;
+    }
+
     for (MCRegister PhysReg : Hints) {
       // 2.2. Check for interference on physical registers.
-      switch (LRM->checkInterference(*LI, PhysReg)) {
+      switch (LRM->checkInterference(*(LI.first), PhysReg)) {
       case LiveRegMatrix::IK_Free:
         // Here we directly (and naively) return the first physical register
         // that is available.
@@ -102,7 +111,8 @@ private:
       }
     }
     // Inform the caller that the virtual register has been spilled.
-    LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
+    LiveRangeEdit LRE(LI.first, *SplitVirtRegs, *MF, *LIS, VRM, this,
+                      &DeadRemats);
     SpillerInst->spill(LRE);
     return 0;
   }
@@ -197,14 +207,16 @@ public:
       if (MRI->reg_nodbg_empty(Reg)) {
         continue;
       }
-      enqueue(&LIS->getInterval(Reg));
+      enqueue(&LIS->getInterval(Reg), false);
     }
 
+    LiveIntervalWrapper LIW = dequeue();
+
     // keep traversing until the LIQ is nonempty
-    while (LiveInterval *const LI = dequeue()) {
+    while (LIW.first) {
       // again, skip all unused registers
-      if (MRI->reg_nodbg_empty(LI->reg())) {
-        LIS->removeInterval(LI->reg());
+      if (MRI->reg_nodbg_empty(LIW.first->reg())) {
+        LIS->removeInterval(LIW.first->reg());
         continue;
       }
       // invalidate all previous interference queries.
@@ -213,10 +225,10 @@ public:
       // 2. Allocate to a physical register (if available) or split to a list of
       //    virtual registers.
       SmallVector<Register, 4> SplitVirtRegs;
-      MCRegister PhysReg = selectOrSplit(LI, &SplitVirtRegs);
+      MCRegister PhysReg = selectOrSplit(LIW, &SplitVirtRegs);
 
       if (PhysReg) {
-        LRM->assign(*LI, PhysReg);
+        LRM->assign(*(LIW.first), PhysReg);
       }
       // enqueue the splitted live ranges
       for (Register Reg : SplitVirtRegs) {
@@ -225,8 +237,10 @@ public:
           LIS->removeInterval(LI->reg());
           continue;
         }
-        enqueue(LI);
+        enqueue(LI, true);
       }
+
+      LIW = dequeue();
     } // while (dequeue())
     // cleanup
     SpillerInst->postOptimization();
