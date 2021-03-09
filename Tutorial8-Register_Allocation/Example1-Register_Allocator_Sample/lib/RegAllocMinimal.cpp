@@ -1,11 +1,13 @@
-// RUN: clang++ -S -emit-llvm %s -o %basename_t.ll
-// RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=minimal \
-// RUN:     %basename_t.ll -o %basename_t.s
-// RUN: clang++ $(llvm-config --cxxflags) -fPIC -c %basename_t.s -o %basename_t.o
+// RUN: clang++ -fPIC -S -emit-llvm %s -o %basename_t.ll
+// RUN: llc -load %dylibdir/libRegAlloc.so \
+// RUN:     -regalloc=minimal %basename_t.ll \
+// RUN:     -relocation-model=pic -o %basename_t.s
+// RUN: clang++ -c %basename_t.s -o %basename_t.o
 // RUN: clang++ -shared %basename_t.o -o %basename_t.so
-// RUN: llc -load test/%basename_t.so -regalloc=minimal \
-// RUN:     %basename_t.ll -o %basename_t.Matryoshka.s
-// RUN: FileCheck %basename_t.Matryoshka.s --input-file %basename_t.s
+// RUN: llc -load %testdir/%basename_t.so \
+// RUN:     -regalloc=minimal %basename_t.ll \
+// RUN:     -relocation-model=pic -o %basename_t.m.s
+// RUN: cmp %basename_t.m.s %basename_t.s
 #include <llvm/Analysis/AliasAnalysis.h>
 #include <llvm/CodeGen/LiveIntervals.h>
 #include <llvm/CodeGen/LiveRangeEdit.h>
