@@ -1,4 +1,4 @@
-; RUN: opt -S -load %dylibdir/libLocalOpts%dylibext \
+; RUN: opt -S -load %dylibdir/libLocalOpts.so \
 ; RUN:     -algebraic-identity -strength-reduction -multi-inst-opt \
 ; RUN:     %s -o %basename_t
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t

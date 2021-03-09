@@ -5,7 +5,7 @@
 // RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
 //      Run the FunctionInfo pass. The `-disable-output` option disables
 //      outputing the bytecode because we are only checking the pass outputs here.
-// RUN: opt -load %dylibdir/libFunctionInfo%dylibext -function-info -disable-output 2>&1 %basename_t.bc | \
+// RUN: opt -load %dylibdir/libFunctionInfo.so -function-info -disable-output 2>&1 %basename_t.bc | \
 //      Check the output "CSCD70 Function Information Pass".
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 /**
