@@ -18,5 +18,5 @@ config.substitutions.append((r'%llvm_cxxflags', "@LLVM_CXXFLAGS@"))
 
 config.llvm_config_bindir = "@LLVM_BINDIR@"
 llvm_config.add_tool_substitutions(
-        ["clang", "clang++", "llvm-config", "opt", "llc", "FileCheck"],
+        ["clang", "clang++", "opt", "llc", "FileCheck"],
         config.llvm_config_bindir)

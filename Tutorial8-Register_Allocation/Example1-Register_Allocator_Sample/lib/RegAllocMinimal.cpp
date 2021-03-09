@@ -1,4 +1,4 @@
-// RUN: clang++ -fPIC -S -emit-llvm %s -o %basename_t.ll
+// RUN: clang++ %llvm_cxxflags -fPIC -S -emit-llvm %s -o %basename_t.ll
 // RUN: llc -load %dylibdir/libRegAlloc.so \
 // RUN:     -regalloc=minimal %basename_t.ll \
 // RUN:     -relocation-model=pic -o %basename_t.s
