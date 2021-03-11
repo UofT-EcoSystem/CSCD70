@@ -1,5 +1,4 @@
-// RUN: clang -O2 -emit-llvm -c %s -o %basename_t.bc
-// RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
+// RUN: clang -O2 -S -emit-llvm -c %s -o %basename_t.bc
 // RUN: opt -load %dylibdir/libPassManager.so \
 // RUN:     -transform -another-transform -disable-output 2>&1 %basename_t.bc | \
 // RUN: FileCheck --match-full-lines %s

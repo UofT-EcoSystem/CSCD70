@@ -26,5 +26,5 @@ config.substitutions.append((r'%dylibdir', "@CMAKE_LIBRARY_OUTPUT_DIR@"))
 # FileCheck is not in the default executable path, therefore we need to add it manually.
 config.llvm_config_bindir = "@LLVM_BINDIR@"
 llvm_config.add_tool_substitutions(
-        ["clang", "llvm-dis", "opt", "FileCheck"],
+        ["clang", "opt", "FileCheck"],
         config.llvm_config_bindir)
