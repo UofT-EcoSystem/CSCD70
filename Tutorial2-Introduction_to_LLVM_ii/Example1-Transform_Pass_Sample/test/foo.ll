@@ -1,4 +1,4 @@
-; RUN: opt -S -load %dylibdir/libTransformPassSample%dylibext \
+; RUN: opt -S -load %dylibdir/libTransformPassSample.so \
 ; RUN:     -transform %s -o %basename_t
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t
 

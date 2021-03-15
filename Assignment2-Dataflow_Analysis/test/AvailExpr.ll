@@ -1,4 +1,4 @@
-; RUN: opt -S -load %dylibdir/libDFA%dylibext \
+; RUN: opt -S -load %dylibdir/libDFA.so \
 ; RUN:     -avail-expr %s -o %basename_t 2>%basename_t.log
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.log
 

@@ -1,6 +1,5 @@
-// RUN: clang -O2 -emit-llvm -c %s -o %basename_t.bc
-// RUN: llvm-dis %basename_t.bc -o=%basename_t.ll
-// RUN: opt -load %dylibdir/libFunctionInfo%dylibext -function-info -disable-output 2>&1 %basename_t.bc | \
+// RUN: clang -O2 -S -emit-llvm -c %s -o %basename_t.ll
+// RUN: opt -load %dylibdir/libFunctionInfo.so -function-info -disable-output 2>&1 %basename_t.ll | \
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 /**
  * @todo(cscd70) Please Remove the `--check-prefix=SAMPLE` option and add the

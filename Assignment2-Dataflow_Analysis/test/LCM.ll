@@ -1,14 +1,14 @@
-; RUN: opt -S -load %dylibdir/libDFA%dylibext -anti-expr \
+; RUN: opt -S -load %dylibdir/libDFA.so -anti-expr \
 ; RUN:     %s -o %basename_t 2>%basename_t.antiexpr.log
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.antiexpr.log \
 ; RUN:     --check-prefix=ANTIEXPR
 
-; RUN: opt -S -load %dylibdir/libDFA%dylibext -wb-avail-expr \
+; RUN: opt -S -load %dylibdir/libDFA.so -wb-avail-expr \
 ; RUN:     %s -o %basename_t 2>%basename_t.wbavailexpr.log
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.wbavailexpr.log \
 ; RUN:     --check-prefix=WBAVAILEXPR
 
-; RUN: opt -S -load %dylibdir/libDFA%dylibext -eplace \
+; RUN: opt -S -load %dylibdir/libDFA.so -eplace \
 ; RUN:     %s -o %basename_t 2>%basename_t.eplace.log
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t.eplace.log \
 ; RUN:     --check-prefix=EPLACE
