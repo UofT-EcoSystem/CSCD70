@@ -24,6 +24,7 @@ Tut 6.   Lazy Code Motion            [|Overleaf Tut6|_]        [|UofT MyMedia Tu
 |        Midterm
 Lec 7.   Pointer Analysis            [|PPTX Lec7|][|PDF Lec7|] [|UofT MyMedia Lec7|_][|YouTube Lec7|_]
 Tut 7.   Midterm                                               [|UofT MyMedia Tut7|_][|YouTube Tut7|_]
+Lec 8.   Memory Optimizations        [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec8|_][|YouTube Lec8|_]
 Tut 8.   Register Allocation                                   [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
 ======== =========================== ========================= =======================================
 
@@ -122,6 +123,13 @@ Tut 8.   Register Allocation                                   [|UofT MyMedia Tu
 .. _UofT MyMedia Tut7: https://play.library.utoronto.ca/98b0cb9c78a1dc79872cccbc430b8da6
 .. |YouTube Tut7| replace:: YouTube
 .. _YouTube Tut7: https://youtu.be/qrn46XTtcYs
+
+.. |PDF Lec8| replace:: :download:`pdf <Slides/Lecture 8 [Memory Optimizations] 03.15.2021.pdf>`
+.. |PPTX Lec8| replace:: :download:`pptx <Slides/Lecture 8 [Memory Optimizations] 03.15.2021.pptx>`
+.. |UofT MyMedia Lec8| replace:: UofT MyMedia
+.. _UofT MyMedia Lec8: https://play.library.utoronto.ca/1029421167d5974645885ae877c9a28d
+.. |YouTube Lec8| replace:: YouTube
+.. _YouTube Lec8: https://youtu.be/xyctDzIpGKs
 
 .. |UofT MyMedia Tut8| replace:: UofT MyMedia
 .. _UofT MyMedia Tut8: https://play.library.utoronto.ca/d2d53db68c631e278bee29d668eeca1c
