@@ -1,3 +1,5 @@
+
+
 @.str = private constant [25 x i8] c"%d,%d,%d,%d,%d,%d,%d,%d\0A\00", align 1
 
 define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7) {
@@ -17,7 +19,7 @@ define void @foo() {
   %.02 = phi i32 [ undef, %0 ], [ %12, %11 ]
   %.0 = phi i32 [ 9, %0 ], [ %.1, %11 ]
   %2 = add nsw i32 %.04, 1
-  %3 = icmp slt i32 %2, 50
+  %3 = icmp slt i32 %2, 5
   br i1 %3, label %4, label %6
 
 4:                                                ; preds = %1
@@ -26,7 +28,7 @@ define void @foo() {
 
 6:                                                ; preds = %1
   %7 = sub nsw i32 %.0, 1
-  %8 = icmp sge i32 %2, 100
+  %8 = icmp sge i32 %2, 10
   br i1 %8, label %15, label %11
 
 11:                                               ; preds = %6, %4
