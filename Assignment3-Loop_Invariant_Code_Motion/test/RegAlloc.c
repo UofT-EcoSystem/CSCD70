@@ -2,8 +2,8 @@
 // RUN: opt -S -mem2reg %basename_t.bc -o %basename_t.ll
 // RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=basic %basename_t.ll -o %basename_t.s
 
-// @todo(cscd70) Please replace the register allocator with 'cscd70' after you
-//               have completed the CSCD70 register allocator.
+// @todo(cscd70) Please replace the register allocator with 'intfgraph' after
+//               you have completed the interference graph register allocator.
 
 // RUN: clang %basename_t.s -o %basename_t.exe
 // RUN: ./%basename_t.exe | FileCheck %s

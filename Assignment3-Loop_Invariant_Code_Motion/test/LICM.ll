@@ -3,8 +3,8 @@
 ; RUN: FileCheck --match-full-lines --check-prefix=CODEGEN %s --input-file=%basename_t
 ; RUN: llc -load %dylibdir/libLICM.so -regalloc=basic %basename_t -o %basename_t.s
 
-; @todo(cscd70) Please replace the register allocator with 'cscd70' after you
-;               have completed the CSCD70 register allocator.
+; @todo(cscd70) Please replace the register allocator with 'intfgraph' after you
+;               have completed the interference graph register allocator.
 
 ; RUN: clang %basename_t.s -o %basename_t.exe
 ; RUN: ./%basename_t.exe | FileCheck --match-full-lines --check-prefix=CORRECTNESS %s

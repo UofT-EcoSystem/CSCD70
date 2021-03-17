@@ -1,5 +1,5 @@
 /**
- * @file CSCD70 Register Allocator
+ * @file Interference Graph Register Allocator
  */
 #include <llvm/Analysis/AliasAnalysis.h>
 #include <llvm/CodeGen/LiveIntervals.h>
@@ -29,7 +29,7 @@ using namespace llvm;
 
 namespace llvm {
 
-void initializeRACSCD70Pass(PassRegistry &Registry);
+void initializeRAIntfGraphPass(PassRegistry &Registry);
 
 } // namespace llvm
 
@@ -58,19 +58,19 @@ struct greater<LiveInterval *> {
 
 namespace {
 
-class RACSCD70;
+class RAIntfGraph;
 
 class AllocationHints {
 private:
   SmallVector<MCPhysReg, 16> Hints;
 
 public:
-  AllocationHints(RACSCD70 *const RA, const LiveInterval *const LI);
+  AllocationHints(RAIntfGraph *const RA, const LiveInterval *const LI);
   SmallVectorImpl<MCPhysReg>::iterator begin() { return Hints.begin(); }
   SmallVectorImpl<MCPhysReg>::iterator end() { return Hints.end(); }
 };
 
-class RACSCD70 final : public MachineFunctionPass,
+class RAIntfGraph final : public MachineFunctionPass,
                        private LiveRangeEdit::Delegate {
 private:
   MachineFunction *MF;
@@ -91,7 +91,7 @@ private:
    */
   class IntfGraph {
   private:
-    RACSCD70 *RA;
+    RAIntfGraph *RA;
 
     /// Interference Relations
     std::map<LiveInterval *, std::unordered_set<Register>,
@@ -113,7 +113,7 @@ private:
     MaterializeResult_t tryMaterializeAllInternal();
 
   public:
-    explicit IntfGraph(RACSCD70 *const RA) : RA(RA) {}
+    explicit IntfGraph(RAIntfGraph *const RA) : RA(RA) {}
     /**
      * @brief Insert a virtual register @c Reg into the interference graph.
      */
@@ -121,7 +121,7 @@ private:
     /**
      * @brief Erase a virtual register @c Reg from the interference graph.
      *
-     * @sa RACSCD70::LRE_CanEraseVirtReg
+     * @sa RAIntfGraph::LRE_CanEraseVirtReg
      */
     void erase(const Register &Reg);
     /**
@@ -178,9 +178,11 @@ private:
 public:
   static char ID;
 
-  StringRef getPassName() const override { return "CSCD70 Register Allocator"; }
+  StringRef getPassName() const override {
+    return "Interference Graph Register Allocator";
+  }
 
-  RACSCD70() : MachineFunctionPass(ID), G(this) {}
+  RAIntfGraph() : MachineFunctionPass(ID), G(this) {}
 
   void getAnalysisUsage(AnalysisUsage &AU) const override {
     MachineFunctionPass::getAnalysisUsage(AU);
@@ -210,9 +212,9 @@ public:
   }
 
   bool runOnMachineFunction(MachineFunction &MF) override;
-}; // class RACSCD70
+}; // class RAIntfGraph
 
-AllocationHints::AllocationHints(RACSCD70 *const RA,
+AllocationHints::AllocationHints(RAIntfGraph *const RA,
                                  const LiveInterval *const LI) {
   const TargetRegisterClass *const RC = RA->MRI->getRegClass(LI->reg());
 
@@ -229,7 +231,7 @@ AllocationHints::AllocationHints(RACSCD70 *const RA,
   outs() << "]\n";
 }
 
-bool RACSCD70::runOnMachineFunction(MachineFunction &MF) {
+bool RAIntfGraph::runOnMachineFunction(MachineFunction &MF) {
   outs() << "************************************************\n"
          << "* Machine Function\n"
          << "************************************************\n";
@@ -263,7 +265,7 @@ bool RACSCD70::runOnMachineFunction(MachineFunction &MF) {
   return true;
 }
 
-void RACSCD70::IntfGraph::insert(const Register &Reg) {
+void RAIntfGraph::IntfGraph::insert(const Register &Reg) {
   /**
    * @todo(cscd70) Please implement this method.
    */
@@ -274,7 +276,7 @@ void RACSCD70::IntfGraph::insert(const Register &Reg) {
   // 4. Insert Reg into the graph.
 }
 
-void RACSCD70::IntfGraph::erase(const Register &Reg) {
+void RAIntfGraph::IntfGraph::erase(const Register &Reg) {
   /**
    * @todo(cscd70) Please implement this method.
    */
@@ -283,14 +285,14 @@ void RACSCD70::IntfGraph::erase(const Register &Reg) {
   // 2. Erase Reg from the interference graph.
 }
 
-void RACSCD70::IntfGraph::build() {
+void RAIntfGraph::IntfGraph::build() {
   /**
    * @todo(cscd70) Please implement this method.
    */
 }
 
-RACSCD70::IntfGraph::MaterializeResult_t
-RACSCD70::IntfGraph::tryMaterializeAllInternal() {
+RAIntfGraph::IntfGraph::MaterializeResult_t
+RAIntfGraph::IntfGraph::tryMaterializeAllInternal() {
   std::unordered_map<LiveInterval *, MCPhysReg> PhysRegAssignment;
 
   /**
@@ -304,7 +306,7 @@ RACSCD70::IntfGraph::tryMaterializeAllInternal() {
   return std::make_tuple(nullptr, PhysRegAssignment);
 }
 
-void RACSCD70::IntfGraph::tryMaterializeAll() {
+void RAIntfGraph::IntfGraph::tryMaterializeAll() {
   std::unordered_map<LiveInterval *, MCPhysReg> PhysRegAssignment;
 
   /**
@@ -318,21 +320,21 @@ void RACSCD70::IntfGraph::tryMaterializeAll() {
   }
 }
 
-void RACSCD70::preserveCallerSavedRegisters() {
+void RAIntfGraph::preserveCallerSavedRegisters() {
   /**
    * @todo(cscd70) Please implement this method.
    */
 }
 
-char RACSCD70::ID = 0;
+char RAIntfGraph::ID = 0;
 
-static RegisterRegAlloc X("cscd70", "CSCD70 Register Allocator",
-                          []() -> FunctionPass * { return new RACSCD70(); });
+static RegisterRegAlloc X("intfgraph", "Interference Graph Register Allocator",
+                          []() -> FunctionPass * { return new RAIntfGraph(); });
 
 } // anonymous namespace
 
-INITIALIZE_PASS_BEGIN(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
-                      false, false)
+INITIALIZE_PASS_BEGIN(RAIntfGraph, "regallointfgraph",
+                      "Interference Graph Register Allocator", false, false)
 INITIALIZE_PASS_DEPENDENCY(SlotIndexes)
 INITIALIZE_PASS_DEPENDENCY(VirtRegMap)
 INITIALIZE_PASS_DEPENDENCY(LiveIntervals)
@@ -342,5 +344,5 @@ INITIALIZE_PASS_DEPENDENCY(AAResultsWrapperPass);
 INITIALIZE_PASS_DEPENDENCY(MachineDominatorTree);
 INITIALIZE_PASS_DEPENDENCY(MachineLoopInfo);
 INITIALIZE_PASS_DEPENDENCY(MachineBlockFrequencyInfo);
-INITIALIZE_PASS_END(RACSCD70, "regallocscd70", "CSCD70 Register Allocator",
-                    false, false)
+INITIALIZE_PASS_END(RAIntfGraph, "regallointfgraph",
+                    "Interference Graph Register Allocator", false, false)
