@@ -27,15 +27,9 @@ define void @foo() {
 6:                                                ; preds = %1
   %7 = sub nsw i32 %.0, 1
   %8 = icmp sge i32 %2, 100
-  br i1 %8, label %9, label %10
+  br i1 %8, label %15, label %11
 
-9:                                                ; preds = %6
-  br label %15
-
-10:                                               ; preds = %6
-  br label %11
-
-11:                                               ; preds = %10, %4
+11:                                               ; preds = %6, %4
   %.01 = phi i32 [ 3, %4 ], [ 4, %10 ]
   %.1 = phi i32 [ %5, %4 ], [ %7, %10 ]
   %12 = add nsw i32 5, 7
@@ -43,7 +37,7 @@ define void @foo() {
   %14 = add nsw i32 7, 5
   br label %1
 
-15:                                               ; preds = %9
+15:                                               ; preds = %6
   call void @print(i32 %7, i32 4, i32 %.02, i32 %.03, i32 7, i32 %.05, i32 5, i32 %2)
   ret void
 }
