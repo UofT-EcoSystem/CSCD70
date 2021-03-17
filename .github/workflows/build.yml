@@ -14,17 +14,23 @@ jobs:
                    docker-compose run --rm \
                        -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest"
+                       "mkdir build && cd build; cmake .. && make && ctest"
                    docker-compose run --rm \
                        -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest -V"
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
             - name: Assignment 2 Dataflow Analysis
               run: |
                    docker-compose run --rm \
                        -w /mnt/Assignment2-Dataflow_Analysis \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest -V"
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
+            - name: Assignment 3 Loop Invariant Code Motion
+              run: |
+                   docker-compose run --rm \
+                       -w /mnt/Assignment3-Loop_Invariant_Code_Motion \
+                       cscd70-dev bash -ce \
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
             - name: C to LLVM IR
               run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR cscd70-dev make
             - name: Tutorial 1 Introduction to LLVM
@@ -32,20 +38,20 @@ jobs:
                    docker-compose run --rm \
                        -w /mnt/Tutorial1-Introduction_to_LLVM/Example1-Cpp_PReview \
                        cscd70-dev bash -ce \
-                      "make && ./VarReference && ./PublicInheritance && ./STL"
+                       "make && ./VarReference && ./PublicInheritance && ./STL"
             - name: Tutorial 2 Introduction to LLVM ii
               run: |
                    docker-compose run --rm \
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example1-Transform_Pass_Sample \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest -V"
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
                    docker-compose run --rm \
                        -w /mnt/Tutorial2-Introduction_to_LLVM_ii/Example2-Pass_Manager \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest -V"
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
             - name: Tutorial 8 Register Allocation
               run: |
                    docker-compose run --rm \
                        -w /mnt/Tutorial8-Register_Allocation/Example1-Register_Allocator_Sample \
                        cscd70-dev bash -ce \
-                      "mkdir build && cd build; cmake .. && make && ctest -V"
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
