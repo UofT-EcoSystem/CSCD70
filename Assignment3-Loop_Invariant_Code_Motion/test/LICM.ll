@@ -1,6 +1,15 @@
 ; RUN: opt -S -load %dylibdir/libLICM.so \
 ; RUN:     -loop-invariant-code-motion %s -o %basename_t
-; RUN: FileCheck --match-full-lines %s
+; RUN: FileCheck --match-full-lines --check-prefix=CODEGEN %s --input-file=%basename_t
+; RUN: llc -load %dylibdir/libLICM.so -regalloc=basic %basename_t -o %basename_t.s
+
+; @todo(cscd70) Please replace the register allocator with 'cscd70' after you
+;               have completed the CSCD70 register allocator.
+
+; RUN: clang %basename_t.s -o %basename_t.exe
+; RUN: ./%basename_t.exe | FileCheck --match-full-lines --check-prefix=CORRECTNESS %s
+; CORRECTNESS: 3,4,10,6,7,12,3,10
+; CORRECTNESS-NEXT: 8,4,0,0,7,0,3,13
 
 ; #include <stdio.h>
 
@@ -34,6 +43,12 @@
 ; EXIT:
 ;   print(a, h, m, n, q, r, y, z);
 ; }
+;
+; int main() {
+;   foo(0, 4);
+;   foo(0, 12);
+;   return 0;
+; }
 @.str = private constant [25 x i8] c"%d,%d,%d,%d,%d,%d,%d,%d\0A\00", align 1
 
 define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7) {
@@ -44,6 +59,8 @@ define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %
 declare i32 @printf(i8*, ...)
 
 define void @foo(i32 %0, i32 %1) {
+; CODEGEN-LABEL: define void @foo(i32 %0, i32 %1) {
+; @todo(cscd70) Please complete the CHECK directives on the optimized code.
   br label %3
 
 3:                                                ; preds = %15, %2
@@ -81,4 +98,10 @@ define void @foo(i32 %0, i32 %1) {
 20:                                               ; preds = %11
   call void @print(i32 %12, i32 %13, i32 %.03, i32 %.04, i32 %6, i32 %.05, i32 %5, i32 %4)
   ret void
+}
+
+define i32 @main() {
+  call void @foo(i32 0, i32 4)
+  call void @foo(i32 0, i32 12)
+  ret i32 0
 }

@@ -1,6 +1,10 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
 // RUN: opt -S -mem2reg %basename_t.bc -o %basename_t.ll
-// RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=cscd70 %basename_t.ll -o %basename_t.s
+// RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=basic %basename_t.ll -o %basename_t.s
+
+// @todo(cscd70) Please replace the register allocator with 'cscd70' after you
+//               have completed the CSCD70 register allocator.
+
 // RUN: clang %basename_t.s -o %basename_t.exe
 // RUN: ./%basename_t.exe | FileCheck %s
 // CHECK: 023
