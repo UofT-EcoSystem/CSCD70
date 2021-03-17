@@ -14,7 +14,7 @@ public:
 
   LoopInvariantCodeMotion() : LoopPass(ID) {}
 
-  virtual void getAnalysisUsage(AnalysisUsage& AU) const override {
+  virtual void getAnalysisUsage(AnalysisUsage &AU) const override {
     /**
      * @todo(cscd70) Request the dominator tree and the loop simplify pass.
      */
@@ -24,9 +24,7 @@ public:
   /**
    * @todo(cscd70) Please finish the implementation of this method.
    */
-  virtual bool runOnLoop(Loop* L, LPPassManager& LPM) override {
-    return false;
-  }
+  virtual bool runOnLoop(Loop *L, LPPassManager &LPM) override { return false; }
 };
 
 char LoopInvariantCodeMotion::ID = 0;

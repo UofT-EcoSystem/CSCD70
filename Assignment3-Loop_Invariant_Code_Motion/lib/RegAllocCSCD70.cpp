@@ -25,7 +25,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
 using namespace llvm;
 
 namespace llvm {
@@ -96,7 +95,8 @@ private:
 
     /// Interference Relations
     std::map<LiveInterval *, std::unordered_set<Register>,
-             std::greater<LiveInterval *>> IntfRels;
+             std::greater<LiveInterval *>>
+        IntfRels;
 
     /**
      * @brief  Try to materialize all the virtual registers (internal).
@@ -109,7 +109,7 @@ private:
      */
     using MaterializeResult_t =
         std::tuple<LiveInterval *,
-        std::unordered_map<LiveInterval *, MCPhysReg>>;
+                   std::unordered_map<LiveInterval *, MCPhysReg>>;
     MaterializeResult_t tryMaterializeAllInternal();
 
   public:
@@ -256,7 +256,7 @@ bool RACSCD70::runOnMachineFunction(MachineFunction &MF) {
 
   G.build();
   G.tryMaterializeAll();
-  
+
   preserveCallerSavedRegisters();
 
   postOptimization();
@@ -306,7 +306,7 @@ RACSCD70::IntfGraph::tryMaterializeAllInternal() {
 
 void RACSCD70::IntfGraph::tryMaterializeAll() {
   std::unordered_map<LiveInterval *, MCPhysReg> PhysRegAssignment;
-  
+
   /**
    * @todo(cscd70) Please implement this method.
    */
