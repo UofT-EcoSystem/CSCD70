@@ -1,3 +1,3 @@
-# Assignment 3 Miscellaneous
+# Assignment 3 Loop Invariant Code Motion
 
-Under construction ... will publicly announce when it is available.
+

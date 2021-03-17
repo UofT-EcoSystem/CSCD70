@@ -1,4 +1,8 @@
+/**
+ * @file Loop Invariant Code Motion
+ */
 #include <llvm/Analysis/LoopPass.h>
+#include <llvm/Analysis/ValueTracking.h>
 
 using namespace llvm;
 
