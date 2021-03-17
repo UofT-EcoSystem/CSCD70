@@ -9,26 +9,26 @@
 ;   printf("%d,%d,%d,%d,%d,%d,%d,%d\n", a, h, m, n, q, r, y, z);
 ; }
 
-; void foo() {
-;   int a = 9, h, m, n, q, r, y = 0, z = 4;
+; void foo(int c, int z) {
+;   int a = 9, h, m = 0, n = 0, q, r = 0, y = 0;
 
 ; LOOP:
 ;   z = z + 1;
-;   y = 5;
-;   q = 7;
-;   if (z < 50) {
+;   y = c + 3;
+;   q = c + 7;
+;   if (z < 5) {
 ;     a = a + 2;
-;     h = 3;
+;     h = c + 3;
 ;   } else {
 ;     a = a - 1;
-;     h = 4;
-;     if (z >= 100) {
+;     h = c + 4;
+;     if (z >= 10) {
 ;       goto EXIT;
 ;     }
 ;   }
 ;   m = y + 7;
 ;   n = h + 2;
-;   y = 7;
+;   y = c + 7;
 ;   r = q + 5;
 ;   goto LOOP;
 ; EXIT:
@@ -43,37 +43,42 @@ define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %
 
 declare i32 @printf(i8*, ...)
 
-define void @foo() {
-  br label %1
+define void @foo(i32 %0, i32 %1) {
+  br label %3
 
-1:                                                ; preds = %9, %0
-  %.05 = phi i32 [ undef, %0 ], [ %12, %9 ]
-  %.04 = phi i32 [ 4, %0 ], [ %2, %9 ]
-  %.03 = phi i32 [ undef, %0 ], [ %11, %9 ]
-  %.02 = phi i32 [ undef, %0 ], [ %10, %9 ]
-  %.0 = phi i32 [ 9, %0 ], [ %.1, %9 ]
-  %2 = add nsw i32 %.04, 1
-  %3 = icmp slt i32 %2, 50
-  br i1 %3, label %4, label %6
+3:                                                ; preds = %15, %2
+  %.05 = phi i32 [ 0, %2 ], [ %19, %15 ]
+  %.04 = phi i32 [ 0, %2 ], [ %17, %15 ]
+  %.03 = phi i32 [ 0, %2 ], [ %16, %15 ]
+  %.01 = phi i32 [ 9, %2 ], [ %.1, %15 ]
+  %.0 = phi i32 [ %1, %2 ], [ %4, %15 ]
+  %4 = add nsw i32 %.0, 1
+  %5 = add nsw i32 %0, 3
+  %6 = add nsw i32 %0, 7
+  %7 = icmp slt i32 %4, 5
+  br i1 %7, label %8, label %11
 
-4:                                                ; preds = %1
-  %5 = add nsw i32 %.0, 2
-  br label %9
+8:                                                ; preds = %3
+  %9 = add nsw i32 %.01, 2
+  %10 = add nsw i32 %0, 3
+  br label %15
 
-6:                                                ; preds = %1
-  %7 = sub nsw i32 %.0, 1
-  %8 = icmp sge i32 %2, 100
-  br i1 %8, label %13, label %9
+11:                                               ; preds = %3
+  %12 = sub nsw i32 %.01, 1
+  %13 = add nsw i32 %0, 4
+  %14 = icmp sge i32 %4, 10
+  br i1 %14, label %20, label %15
 
-9:                                                ; preds = %6, %4
-  %.01 = phi i32 [ 3, %4 ], [ 4, %6 ]
-  %.1 = phi i32 [ %5, %4 ], [ %7, %6 ]
-  %10 = add nsw i32 5, 7
-  %11 = add nsw i32 %.01, 2
-  %12 = add nsw i32 7, 5
-  br label %1
+15:                                               ; preds = %11, %8
+  %.02 = phi i32 [ %10, %8 ], [ %13, %11 ]
+  %.1 = phi i32 [ %9, %8 ], [ %12, %11 ]
+  %16 = add nsw i32 %5, 7
+  %17 = add nsw i32 %.02, 2
+  %18 = add nsw i32 %0, 7
+  %19 = add nsw i32 %6, 5
+  br label %3
 
-13:                                               ; preds = %6
-  call void @print(i32 %7, i32 4, i32 %.02, i32 %.03, i32 7, i32 %.05, i32 5, i32 %2)
+20:                                               ; preds = %11
+  call void @print(i32 %12, i32 %13, i32 %.03, i32 %.04, i32 %6, i32 %.05, i32 %5, i32 %4)
   ret void
 }
