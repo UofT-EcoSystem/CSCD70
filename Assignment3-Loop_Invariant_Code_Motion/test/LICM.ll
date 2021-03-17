@@ -1,5 +1,39 @@
+; RUN: opt -S -load %dylibdir/libLICM.so \
+; RUN:     -loop-invariant-code-motion %s -o %basename_t
+; RUN: FileCheck --match-full-lines %s
 
+; #include <stdio.h>
 
+; void print(int a, int h, int m, int n,
+;            int q, int r, int y, int z) {
+;   printf("%d,%d,%d,%d,%d,%d,%d,%d\n", a, h, m, n, q, r, y, z);
+; }
+
+; void foo() {
+;   int a = 9, h, m, n, q, r, y = 0, z = 4;
+
+; LOOP:
+;   z = z + 1;
+;   y = 5;
+;   q = 7;
+;   if (z < 50) {
+;     a = a + 2;
+;     h = 3;
+;   } else {
+;     a = a - 1;
+;     h = 4;
+;     if (z >= 100) {
+;       goto EXIT;
+;     }
+;   }
+;   m = y + 7;
+;   n = h + 2;
+;   y = 7;
+;   r = q + 5;
+;   goto LOOP;
+; EXIT:
+;   print(a, h, m, n, q, r, y, z);
+; }
 @.str = private constant [25 x i8] c"%d,%d,%d,%d,%d,%d,%d,%d\0A\00", align 1
 
 define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7) {
