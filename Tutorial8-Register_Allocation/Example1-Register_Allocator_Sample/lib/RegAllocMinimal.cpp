@@ -131,7 +131,7 @@ private:
       }
     }
     outs() << "Hint Registers: [";
-    for (const MCPhysReg &PhysReg : Order) {
+    for (const MCPhysReg &PhysReg : Hints) {
       outs() << TRI->getRegAsmName(PhysReg) << ", ";
     }
     outs() << "]\n";
