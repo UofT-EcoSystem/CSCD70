@@ -71,15 +71,13 @@ public:
 };
 
 class RAIntfGraph final : public MachineFunctionPass,
-                       private LiveRangeEdit::Delegate {
+                          private LiveRangeEdit::Delegate {
 private:
   MachineFunction *MF;
 
   SlotIndexes *SI;
   VirtRegMap *VRM;
   const TargetRegisterInfo *TRI;
-  // TargetInstrInfo is used for storing registers onto the stack.
-  const TargetInstrInfo *TII;
   MachineRegisterInfo *MRI;
   RegisterClassInfo RCI;
   LiveRegMatrix *LRM;
@@ -166,14 +164,8 @@ private:
      * @todo(cscd70) Please implement this method.
      */
     // If the virtual register has been materialized, undo its physical
-    // assignment and recompute its interference relationship with its
-    // neighbors.
+    // assignment and re-insert it into the interference graph.
   }
-
-  /**
-   * @brief Inject stack operations to preserve caller-saved registers.
-   */
-  void preserveCallerSavedRegisters();
 
 public:
   static char ID;
@@ -245,8 +237,7 @@ bool RAIntfGraph::runOnMachineFunction(MachineFunction &MF) {
   this->MF = &MF;
 
   VRM = &getAnalysis<VirtRegMap>();
-  TRI = MF.getSubtarget().getRegisterInfo();
-  TII = MF.getSubtarget().getInstrInfo();
+  TRI = &VRM->getTargetRegInfo();
   MRI = &VRM->getRegInfo();
   MRI->freezeReservedRegs(MF);
   LIS = &getAnalysis<LiveIntervals>();
@@ -259,8 +250,6 @@ bool RAIntfGraph::runOnMachineFunction(MachineFunction &MF) {
   G.build();
   G.tryMaterializeAll();
 
-  preserveCallerSavedRegisters();
-
   postOptimization();
   return true;
 }
@@ -269,20 +258,20 @@ void RAIntfGraph::IntfGraph::insert(const Register &Reg) {
   /**
    * @todo(cscd70) Please implement this method.
    */
-  // 1. Collect all VIRTUAL registers that interfere with Reg.
-  // 2. Collect all PHYSICAL registers that RegUnit-interfere with Reg.
+  // 1. Collect all VIRTUAL registers that interfere with 'Reg'.
+  // 2. Collect all PHYSICAL registers that interfere with 'Reg'.
   // 3. Update the weights of Reg and all its interfering neighbors, using the
-  //    formula on Lecture 6 Register Allocation Page 23.
-  // 4. Insert Reg into the graph.
+  //    formula on "Lecture 6 Register Allocation Page 23".
+  // 4. Insert 'Reg' into the graph.
 }
 
 void RAIntfGraph::IntfGraph::erase(const Register &Reg) {
   /**
    * @todo(cscd70) Please implement this method.
    */
-  // 1. ∀n ∈ neighbors(Reg), erase Reg from n's interfering set and update its
+  // 1. ∀n ∈ neighbors(Reg), erase 'Reg' from n's interfering set and update its
   //    weights accordingly.
-  // 2. Erase Reg from the interference graph.
+  // 2. Erase 'Reg' from the interference graph.
 }
 
 void RAIntfGraph::IntfGraph::build() {
@@ -299,9 +288,7 @@ RAIntfGraph::IntfGraph::tryMaterializeAllInternal() {
    * @todo(cscd70) Please implement this method.
    */
   // ∀r ∈ IntfRels.keys, try to materialize it. If successful, cache it in
-  // PhysRegAssignment, else mark its neighbor that has the minimum spill weight
-  // as to be spilled. If the virtual register has live interval across function
-  // call, prioritize callee-saved registers.
+  // PhysRegAssignment, else mark it as to be spilled.
 
   return std::make_tuple(nullptr, PhysRegAssignment);
 }
@@ -318,12 +305,6 @@ void RAIntfGraph::IntfGraph::tryMaterializeAll() {
   for (auto &PhysRegAssignPair : PhysRegAssignment) {
     RA->LRM->assign(*PhysRegAssignPair.first, PhysRegAssignPair.second);
   }
-}
-
-void RAIntfGraph::preserveCallerSavedRegisters() {
-  /**
-   * @todo(cscd70) Please implement this method.
-   */
 }
 
 char RAIntfGraph::ID = 0;
