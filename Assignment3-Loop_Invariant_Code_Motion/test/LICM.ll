@@ -13,11 +13,6 @@
 
 ; #include <stdio.h>
 
-; void print(int a, int h, int m, int n,
-;            int q, int r, int y, int z) {
-;   printf("%d,%d,%d,%d,%d,%d,%d,%d\n", a, h, m, n, q, r, y, z);
-; }
-
 ; void foo(int c, int z) {
 ;   int a = 9, h, m = 0, n = 0, q, r = 0, y = 0;
 
@@ -41,22 +36,15 @@
 ;   r = q + 5;
 ;   goto LOOP;
 ; EXIT:
-;   print(a, h, m, n, q, r, y, z);
+;   printf("%d,%d,%d,%d,%d,%d,%d,%d\n", a, h, m, n, q, r, y, z);
 ; }
-;
+
 ; int main() {
 ;   foo(0, 4);
 ;   foo(0, 12);
 ;   return 0;
 ; }
 @.str = private constant [25 x i8] c"%d,%d,%d,%d,%d,%d,%d,%d\0A\00", align 1
-
-define void @print(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7) {
-  %9 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str, i64 0, i64 0), i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7)
-  ret void
-}
-
-declare i32 @printf(i8*, ...)
 
 define void @foo(i32 %0, i32 %1) {
 ; CODEGEN-LABEL: define void @foo(i32 %0, i32 %1) {
@@ -96,9 +84,11 @@ define void @foo(i32 %0, i32 %1) {
   br label %3
 
 20:                                               ; preds = %11
-  call void @print(i32 %12, i32 %13, i32 %.03, i32 %.04, i32 %6, i32 %.05, i32 %5, i32 %4)
+  %21 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str, i64 0, i64 0), i32 %12, i32 %13, i32 %.03, i32 %.04, i32 %6, i32 %.05, i32 %5, i32 %4)
   ret void
 }
+
+declare i32 @printf(i8*, ...)
 
 define i32 @main() {
   call void @foo(i32 0, i32 4)
