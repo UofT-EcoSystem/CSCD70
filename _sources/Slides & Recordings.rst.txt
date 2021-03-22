@@ -137,6 +137,9 @@ Tut 9.   LCM & LICM                                          [|UofT MyMedia Tut9
 .. |YouTube Tut8| replace:: YouTube
 .. _YouTube Tut8: https://youtu.be/5FnGDHpU7xs
 
+.. |PDF Lec9| replace:: :download:`pdf <Slides/Lecture 9 [Prefetching] 03.22.2021.pdf>`
+.. |PPTX Lec9| replace:: :download:`pptx <Slides/Lecture 9 [Prefetching] 03.22.2021.pptx>`
+
 .. |UofT MyMedia Tut9| replace:: UofT MyMedia
 .. _UofT MyMedia Tut9: https://play.library.utoronto.ca/21a5f4eedc0553edf7f9ed67432c0a52
 .. |YouTube Tut9| replace:: YouTube
