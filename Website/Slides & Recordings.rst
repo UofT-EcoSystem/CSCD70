@@ -6,9 +6,9 @@ code samples will be posted at the `GitHub repository`_.
 
 .. _GitHub repository: https://github.com/UofT-EcoSystem/CSCD70
 
-======== ========================= ========================= =======================================
+======== ========================= ========================= =========================================
 #        Topic                     Slides                    Recordings
-======== ========================= ========================= =======================================
+======== ========================= ========================= =========================================
 Lec 1.   Introduction              [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_][|YouTube Lec1|_]
 Tut 1.   Introduction to LLVM      [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
 Lec 2.   Dataflow                  [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
@@ -28,7 +28,8 @@ Lec 8.   Memory Optimizations      [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec8
 Tut 8.   Register Allocation                                 [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
 Lec 9.   Prefetching               [|PPTX Lec9|][|PDF Lec9|] [|UofT MyMedia Lec9|_][|YouTube Lec9|_]
 Tut 9.   LCM & LICM                                          [|UofT MyMedia Tut9|_][|YouTube Tut9|_]
-======== ========================= ========================= =======================================
+Tut 10.  Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut10|_][|YouTube Tut10|_]
+======== ========================= ========================= =========================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
 .. |PPTX Lec1| replace:: :download:`pptx <Slides/Lecture 1 [Intro] 01.11.2021.pptx>`
@@ -149,3 +150,10 @@ Tut 9.   LCM & LICM                                          [|UofT MyMedia Tut9
 .. _UofT MyMedia Tut9: https://play.library.utoronto.ca/21a5f4eedc0553edf7f9ed67432c0a52
 .. |YouTube Tut9| replace:: YouTube
 .. _YouTube Tut9: https://youtu.be/2EvPF77iayQ
+
+.. |Overleaf Tut10| replace:: Overleaf 
+.. _Overleaf Tut10: https://www.overleaf.com/read/bxpswysvhqtq
+.. |UofT MyMedia Tut10| replace:: UofT MyMedia
+.. _UofT MyMedia Tut10: https://play.library.utoronto.ca/868a7b446f2e1819d46af5577c887b01
+.. |YouTube Tut10| replace:: YouTube
+.. _YouTube Tut10: https://youtu.be/xrnZN455n6c
