@@ -6,30 +6,30 @@ code samples will be posted at the `GitHub repository`_.
 
 .. _GitHub repository: https://github.com/UofT-EcoSystem/CSCD70
 
-======== ========================= ========================= =========================================
-#        Topic                     Slides                    Recordings
-======== ========================= ========================= =========================================
-Lec 1.   Introduction              [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_][|YouTube Lec1|_]
-Tut 1.   Introduction to LLVM      [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
-Lec 2.   Dataflow                  [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
-Tut 2.   Introduction to LLVM ii   [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
-Lec 3.   Dataflow ii & Loops       [|PPTX Lec3|][|PDF Lec3|] [|UofT MyMedia Lec3|_][|YouTube Lec3|_]
-Tut 3.   Dataflow Analysis         [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
-Lec 4.   SSA                       [|PPTX Lec4|][|PDF Lec4|] [|UofT MyMedia Lec4|_][|YouTube Lec4|_]
-Tut 4.   Dataflow Analysis ii      [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_][|YouTube Tut4|_]
-Lec 5.   LICM & Strength Reduction [|PPTX Lec5|][|PDF Lec5|] [|UofT MyMedia Lec5|_][|YouTube Lec5|_]
-Tut 5.   Dataflow Analysis iii     [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
-Lec 6.   Register Allocation       [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec6|_][|YouTube Lec6|_]
-Tut 6.   Lazy Code Motion          [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
-|        Midterm
-Lec 7.   Pointer Analysis          [|PPTX Lec7|][|PDF Lec7|] [|UofT MyMedia Lec7|_][|YouTube Lec7|_]
-Tut 7.   Midterm                                             [|UofT MyMedia Tut7|_][|YouTube Tut7|_]
-Lec 8.   Memory Optimizations      [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec8|_][|YouTube Lec8|_]
-Tut 8.   Register Allocation                                 [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
-Lec 9.   Prefetching               [|PPTX Lec9|][|PDF Lec9|] [|UofT MyMedia Lec9|_][|YouTube Lec9|_]
-Tut 9.   LCM & LICM                                          [|UofT MyMedia Tut9|_][|YouTube Tut9|_]
-Tut 10.  Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut10|_][|YouTube Tut10|_]
-======== ========================= ========================= =========================================
+========= ========================= ========================= =========================================
+#         Topic                     Slides                    Recordings
+========= ========================= ========================= =========================================
+Lec 1.    Introduction              [|PPTX Lec1|][|PDF Lec1|] [|UofT MyMedia Lec1|_][|YouTube Lec1|_]
+Tut 1.    Introduction to LLVM      [|Overleaf Tut1|_]        [|UofT MyMedia Tut1|_][|YouTube Tut1|_]
+Lec 2.    Dataflow                  [|PPTX Lec2|][|PDF Lec2|] [|UofT MyMedia Lec2|_][|YouTube Lec2|_]
+Tut 2.    Introduction to LLVM ii   [|Overleaf Tut2|_]        [|UofT MyMedia Tut2|_][|YouTube Tut2|_]
+Lec 3.    Dataflow ii & Loops       [|PPTX Lec3|][|PDF Lec3|] [|UofT MyMedia Lec3|_][|YouTube Lec3|_]
+Tut 3.    Dataflow Analysis         [|Overleaf Tut3|_]        [|UofT MyMedia Tut3|_][|YouTube Tut3|_]
+Lec 4.    SSA                       [|PPTX Lec4|][|PDF Lec4|] [|UofT MyMedia Lec4|_][|YouTube Lec4|_]
+Tut 4.    Dataflow Analysis ii      [|Overleaf Tut4|_]        [|UofT MyMedia Tut4|_][|YouTube Tut4|_]
+Lec 5.    LICM & Strength Reduction [|PPTX Lec5|][|PDF Lec5|] [|UofT MyMedia Lec5|_][|YouTube Lec5|_]
+Tut 5.    Dataflow Analysis iii     [|Overleaf Tut5|_]        [|UofT MyMedia Tut5|_][|YouTube Tut5|_]
+Lec 6.    Register Allocation       [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec6|_][|YouTube Lec6|_]
+Tut 6.    Lazy Code Motion          [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
+|         Midterm
+Lec 7.    Pointer Analysis          [|PPTX Lec7|][|PDF Lec7|] [|UofT MyMedia Lec7|_][|YouTube Lec7|_]
+Tut 7.    Midterm                                             [|UofT MyMedia Tut7|_][|YouTube Tut7|_]
+Lec 8.    Memory Optimizations      [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec8|_][|YouTube Lec8|_]
+Tut 8.    Register Allocation                                 [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
+Lec 9.    Prefetching               [|PPTX Lec9|][|PDF Lec9|] [|UofT MyMedia Lec9|_][|YouTube Lec9|_]
+Tut 9.    LCM & LICM                                          [|UofT MyMedia Tut9|_][|YouTube Tut9|_]
+Tut 10.   Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut10|_][|YouTube Tut10|_]
+========= ========================= ========================= =========================================
 
 .. |PDF Lec1| replace:: :download:`pdf <Slides/Lecture 1 [Intro] 01.11.2021.pdf>`
 .. |PPTX Lec1| replace:: :download:`pptx <Slides/Lecture 1 [Intro] 01.11.2021.pptx>`
