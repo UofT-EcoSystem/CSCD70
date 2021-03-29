@@ -28,6 +28,10 @@ Lec 8.    Memory Optimizations      [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec
 Tut 8.    Register Allocation                                 [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
 Lec 9.    Prefetching               [|PPTX Lec9|][|PDF Lec9|] [|UofT MyMedia Lec9|_][|YouTube Lec9|_]
 Tut 9.    LCM & LICM                                          [|UofT MyMedia Tut9|_][|YouTube Tut9|_]
+Lec 10.   Compiler Research &       | [|PPTX Echo|_]          [|UofT MyMedia Lec10|_][|YouTube Lec10|_]
+          Parallelization             [|PDF Echo|] 
+                                    | [|PPTX Lec10|]
+                                      [|PDF Lec10|]
 Tut 10.   Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut10|_][|YouTube Tut10|_]
 ========= ========================= ========================= =========================================
 
@@ -150,6 +154,16 @@ Tut 10.   Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut
 .. _UofT MyMedia Tut9: https://play.library.utoronto.ca/21a5f4eedc0553edf7f9ed67432c0a52
 .. |YouTube Tut9| replace:: YouTube
 .. _YouTube Tut9: https://youtu.be/2EvPF77iayQ
+
+.. |PDF Echo| replace:: pdf
+.. _PDF Echo: https://www.cs.toronto.edu/~bojian/Downloads/Echo/Echo-ISCA_20-Presentation.pptx
+.. |PPTX Echo| replace:: :download:`pptx <Slides/Lecture 10 [Echo] 03.29.2021.pptx>`
+.. |PDF Lec10| replace:: :download:`pdf <Slides/Lecture 10 [Parallelization] 03.29.2021.pdf>`
+.. |PPTX Lec10| replace:: :download:`pptx <Slides/Lecture 10 [Parallelization] 03.29.2021.pptx>`
+.. |UofT MyMedia Lec10| replace:: UofT MyMedia
+.. _UofT MyMedia Lec10: https://play.library.utoronto.ca/615699a02539647c717e2f8b4375ea36
+.. |YouTube Lec10| replace:: YouTube
+.. _YouTube Lec10: https://youtu.be/LMSEA2p3YRo
 
 .. |Overleaf Tut10| replace:: Overleaf 
 .. _Overleaf Tut10: https://www.overleaf.com/read/bxpswysvhqtq
