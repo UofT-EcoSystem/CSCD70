@@ -155,9 +155,9 @@ Tut 10.   Data Dependency Analysis  [|Overleaf Tut10|_]       [|UofT MyMedia Tut
 .. |YouTube Tut9| replace:: YouTube
 .. _YouTube Tut9: https://youtu.be/2EvPF77iayQ
 
-.. |PDF Echo| replace:: pdf
-.. _PDF Echo: https://www.cs.toronto.edu/~bojian/Downloads/Echo/Echo-ISCA_20-Presentation.pptx
-.. |PPTX Echo| replace:: :download:`pptx <Slides/Lecture 10 [Echo] 03.29.2021.pptx>`
+.. |PPTX Echo| replace:: pptx
+.. _PPTX Echo: https://www.cs.toronto.edu/~bojian/Downloads/Echo/Echo-ISCA_20-Presentation.pptx
+.. |PDF Echo| replace:: :download:`pdf <Slides/Lecture 10 [Echo] 03.29.2021.pdf>`
 .. |PDF Lec10| replace:: :download:`pdf <Slides/Lecture 10 [Parallelization] 03.29.2021.pdf>`
 .. |PPTX Lec10| replace:: :download:`pptx <Slides/Lecture 10 [Parallelization] 03.29.2021.pptx>`
 .. |UofT MyMedia Lec10| replace:: UofT MyMedia
