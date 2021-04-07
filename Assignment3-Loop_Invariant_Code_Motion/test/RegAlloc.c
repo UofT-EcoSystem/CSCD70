@@ -1,6 +1,6 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
 // RUN: opt -S -mem2reg %basename_t.bc -o %basename_t.ll
-// RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=basic %basename_t.ll -o %basename_t.s
+// RUN: llc -load %dylibdir/libLICM.so -regalloc=intfgraph %basename_t.ll -o %basename_t.s
 
 // @todo(cscd70) Please replace the register allocator with 'intfgraph' after
 //               you have completed the interference graph register allocator.

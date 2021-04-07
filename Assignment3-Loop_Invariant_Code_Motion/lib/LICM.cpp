@@ -1,6 +1,8 @@
 /**
  * @file Loop Invariant Code Motion
  */
+#include <llvm/ADT/DepthFirstIterator.h>
+#include <llvm/Analysis/LoopInfo.h>
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/Analysis/ValueTracking.h>
 
