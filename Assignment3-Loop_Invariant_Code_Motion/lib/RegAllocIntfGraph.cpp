@@ -92,8 +92,8 @@ private:
     RAIntfGraph *RA;
 
     /// Interference Relations
-    std::map<LiveInterval *, std::unordered_set<Register>,
-             std::greater<LiveInterval *>>
+    std::multimap<LiveInterval *, std::unordered_set<Register>,
+                  std::greater<LiveInterval *>>
         IntfRels;
 
     /**
