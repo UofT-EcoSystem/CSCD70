@@ -260,8 +260,8 @@ void RAIntfGraph::IntfGraph::insert(const Register &Reg) {
    */
   // 1. Collect all VIRTUAL registers that interfere with 'Reg'.
   // 2. Collect all PHYSICAL registers that interfere with 'Reg'.
-  // 3. Update the weights of Reg, using the formula on
-  //    "Lecture 6 Register Allocation Page 23".
+  // 3. Update the weights of Reg (and its interfering neighbors), using the
+  //    formula on "Lecture 6 Register Allocation Page 23".
   // 4. Insert 'Reg' into the graph.
 }
 
