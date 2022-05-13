@@ -9,4 +9,5 @@
 - How to write an LLVM Analysis pass?
   - Intermediate Representation (IR) and Optimization Passes
   - Analysis vs. Transform
-  - LLVM Module, Iterators, Downcasting, <br />LLVM Pass Interfaces
+  - LLVM Module, Iterators, Downcasting
+  - LLVM Pass Interfaces
