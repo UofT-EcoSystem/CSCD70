@@ -10,12 +10,12 @@
 class Animal {
 public:
   /**
-   * @note If a base class method is marked as *virtual*, then all the
-   *       inherited methods will also be virtual. Furthermore, when invoking a
-   *       virtual method from a base class pointer/reference, the decision on
-   *       which to call is made based on the type that the pointer/reference
-   *       is pointing to, rather than the pointer/reference itself. Clearly,
-   *       an abstract method should always be virtual.
+   * @note If a base class method is marked as *virtual*, then all the inherited
+   *       methods will also be virtual. Furthermore, when invoking a virtual
+   *       method from a base class pointer/reference, the decision on which to
+   *       call is made based on the type that the pointer/reference is pointing
+   *       to, rather than the pointer/reference itself. Clearly, an abstract
+   *       method should always be virtual.
    */
   virtual void run() = 0;
 };
