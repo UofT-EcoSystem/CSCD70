@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Assignment 0 Introduction to Docker &#8212; CSCD70 2021S documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,7 +12,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Assignment 1 Introduction to LLVM" href="1.html" />
@@ -50,14 +52,14 @@
           <div class="body" role="main">
             
   <section id="assignment-0-introduction-to-docker">
-<h1>Assignment 0 Introduction to Docker<a class="headerlink" href="#assignment-0-introduction-to-docker" title="Permalink to this headline">¶</a></h1>
+<h1>Assignment 0 Introduction to Docker<a class="headerlink" href="#assignment-0-introduction-to-docker" title="Permalink to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Please feel free to skip this section if you are working on the MathLab
 machines &#64;<a class="reference external" href="mathlab.utsc.utoronto.ca">mathlab.utsc.utoronto.ca</a> as they already have all the necessary software
 components installed.</p>
 </div>
-<div class="contents local topic" id="contents">
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#instructions" id="id6">Instructions</a></p>
@@ -68,36 +70,36 @@ components installed.</p>
 </li>
 <li><p><a class="reference internal" href="#references" id="id9">References</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id5">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>Docker runs our applications in a <strong>lightweight</strong> <em>container</em> by using the
 <em>image</em> that has all the necessary software components installed. Think of it as
 <cite>conda</cite> or <cite>virtualenv</cite> (both are used to as an containerized Python
 environment), but at a broader scope for almost all software libraries. Compared
-with the virtual machines, Docker has negligible performance overhead <a class="footnote-reference brackets" href="#id3" id="id1">1</a>,
+with the virtual machines, Docker has negligible performance overhead <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>,
 making itself an ideal solution for software development.</p>
 <embed>
   <p align="middle">
     <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
     <img width="32.9%" src="https://docs.docker.com/images/VM%402x.png">
   </p>
-</embed><p><a class="footnote-reference brackets" href="#id4" id="id2">2</a></p>
+</embed><p><a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
 </section>
 <section id="instructions">
-<h2><a class="toc-backref" href="#id6">Instructions</a><a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Instructions</a><a class="headerlink" href="#instructions" title="Permalink to this heading">¶</a></h2>
 <section id="docker">
-<h3><a class="toc-backref" href="#id7">Docker</a><a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Docker</a><a class="headerlink" href="#docker" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p><strong>Download and Install Docker</strong>:</p>
 <dl class="field-list simple">
-<dt class="field-odd">Windows</dt>
+<dt class="field-odd">Windows<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-windows">https://hub.docker.com/editions/community/docker-ce-desktop-windows</a></p>
 </dd>
-<dt class="field-even">Mac</dt>
+<dt class="field-even">Mac<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a></p>
 </dd>
-<dt class="field-odd">Ubuntu</dt>
+<dt class="field-odd">Ubuntu<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p>
 </dd>
 </dl>
@@ -161,7 +163,7 @@ cmake .. <span class="o">&amp;&amp;</span> make
 </ul>
 </section>
 <section id="docker-compose">
-<h3><a class="toc-backref" href="#id8">Docker-Compose</a><a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Docker-Compose</a><a class="headerlink" href="#docker-compose" title="Permalink to this heading">¶</a></h3>
 <p>Docker-Compose is a simple wrapper on top of the docker commands. There is a
 docker-compose file provided in the root folder of the <a class="reference external" href="https://github.com/UofT-EcoSystem/CSCD70">GitHub repo</a>. We can do
 the same things as we have previously described, but much simpler:</p>
@@ -175,15 +177,17 @@ docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span
 </section>
 </section>
 <section id="references">
-<h2><a class="toc-backref" href="#id9">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://stackoverflow.com/a/26149994/6320608">https://stackoverflow.com/a/26149994/6320608</a></p>
-</dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p><a class="reference external" href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></p>
-</dd>
-</dl>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">References</a><a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://stackoverflow.com/a/26149994/6320608">https://stackoverflow.com/a/26149994/6320608</a></p>
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -231,7 +235,7 @@ docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -257,7 +261,7 @@ docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, University of Toronto.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

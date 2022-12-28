@@ -23,7 +23,6 @@ Lec 6.    Register Allocation       [|PPTX Lec6|][|PDF Lec6|] [|UofT MyMedia Lec
 Tut 6.    Lazy Code Motion          [|Overleaf Tut6|_]        [|UofT MyMedia Tut6|_][|YouTube Tut6|_]
 |         Midterm
 Lec 7.    Pointer Analysis          [|PPTX Lec7|][|PDF Lec7|] [|UofT MyMedia Lec7|_][|YouTube Lec7|_]
-Tut 7.    Midterm                                             [|UofT MyMedia Tut7|_][|YouTube Tut7|_]
 Lec 8.    Memory Optimizations      [|PPTX Lec8|][|PDF Lec8|] [|UofT MyMedia Lec8|_][|YouTube Lec8|_]
 Tut 8.    Register Allocation                                 [|UofT MyMedia Tut8|_][|YouTube Tut8|_]
 Lec 9.    Prefetching               [|PPTX Lec9|][|PDF Lec9|] [|UofT MyMedia Lec9|_][|YouTube Lec9|_]
