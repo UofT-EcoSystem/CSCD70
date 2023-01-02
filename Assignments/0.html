@@ -10,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -110,8 +107,8 @@ making itself an ideal solution for software development.</p>
 components.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.</span>
-<span class="nb">cd</span> Assignment0-Introduction_to_Docker
-docker build . -t cscd70:2021S
+<span class="nb">cd</span><span class="w"> </span>Assignment0-Introduction_to_Docker
+docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>cscd70:2021S
 </pre></div>
 </div>
 </li>
@@ -121,8 +118,8 @@ docker build . -t cscd70:2021S
 containers can be created out of the same image.</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
-<span class="nb">cd</span> Assignment1-Introduction_to_LLVM/FunctionInfo
-docker run -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt --rm --name cscd70_a1 cscd70:2021S
+<span class="nb">cd</span><span class="w"> </span>Assignment1-Introduction_to_LLVM/FunctionInfo
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt<span class="w"> </span>--rm<span class="w"> </span>--name<span class="w"> </span>cscd70_a1<span class="w"> </span>cscd70:2021S
 </pre></div>
 </div>
 <dl class="option-list">
@@ -154,9 +151,9 @@ The mounted directory must be in <strong>absolute path</strong>.</p></li>
 </ul>
 </li>
 <li><p><strong>Run the experiments</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /mnt
-mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
-cmake .. <span class="o">&amp;&amp;</span> make
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/mnt
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
 </pre></div>
 </div>
 </li>
@@ -168,10 +165,10 @@ cmake .. <span class="o">&amp;&amp;</span> make
 docker-compose file provided in the root folder of the <a class="reference external" href="https://github.com/UofT-EcoSystem/CSCD70">GitHub repo</a>. We can do
 the same things as we have previously described, but much simpler:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install docker-compose via python-pip.</span>
-pip3 install docker-compose
+pip3<span class="w"> </span>install<span class="w"> </span>docker-compose
 
-docker-compose build cscd70-dev     <span class="c1"># Build the image.</span>
-docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span>
+docker-compose<span class="w"> </span>build<span class="w"> </span>cscd70-dev<span class="w">     </span><span class="c1"># Build the image.</span>
+docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>cscd70-dev<span class="w">  </span><span class="c1"># Create a container.</span>
 </pre></div>
 </div>
 </section>
@@ -261,7 +258,7 @@ docker-compose run --rm cscd70-dev  <span class="c1"># Create a container.</span
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, University of Toronto.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.0.0.
     </div>
   </body>
 </html>
