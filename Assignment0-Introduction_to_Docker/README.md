@@ -21,9 +21,9 @@ itself an ideal solution for software development.
   - An **image** is an isolated environment that includes all necessary software
     components.
   ```Bash
-  # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.
+  # Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2023S`.
   cd Assignment0-Introduction_to_Docker
-  docker build . -t cscd70:2021S
+  docker build . -t cscd70:2023S
   ```
 - **Create a Docker container**:
   - A **container** is an instantiation of an image. Multiple containers can be
@@ -31,7 +31,7 @@ itself an ideal solution for software development.
   ```Bash
   # Create a container for the first assignment.
   cd Assignment1-Introduction_to_LLVM/FunctionInfo
-  docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2021S
+  docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2023S
   ```
   - `-t`: Allocate a pseudo terminal; `-i`: Connect to STDIN (i.e., keyboard).
     `-it` must be used jointly for an interactive bash shell.
@@ -41,7 +41,7 @@ itself an ideal solution for software development.
       must be in **absolute path**.
   - `--rm`: \[Optional\] Automatically clean the container when we exit.
   - `--name`: \[Optional\] Name of the container
-  - The image name (i.e., `cscd70:2021S`) should always come last.
+  - The image name (i.e., `cscd70:2023S`) should always come last.
 
 - **Run the experiments**:
   ```Bash
