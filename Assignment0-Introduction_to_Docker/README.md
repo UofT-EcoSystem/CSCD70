@@ -14,9 +14,9 @@ itself an ideal solution for software development.
 ### Docker
 
 - **Download and Install Docker**:
-  - Windows: https://hub.docker.com/editions/community/docker-ce-desktop-windows
-  - Mac: https://hub.docker.com/editions/community/docker-ce-desktop-mac
-  - Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+  [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows),
+  [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac),
+  [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 - **Build the Docker image**:
   - An **image** is an isolated environment that includes all necessary software
     components.
@@ -37,14 +37,14 @@ itself an ideal solution for software development.
   - `-i`: Connect to STDIN (i.e., keyboard).
   - `-v`: Mount the current working directory (i.e., `FunctionInfo`) to `/mnt`
     in the container.
-  - `--rm`: (Optional) Automatically clean the container when we exit.
-  - `--name`: (Optional) Name of the container
+  - `--rm`: \[Optional\] Automatically clean the container when we exit.
+  - `--name`: \[Optional\] Name of the container
   - Note that:
     - `-it` must be used jointly for an interactive bash shell,
     - Any changes made natively in the mounted directory will be reflected in
       the container as well (and vice versa). The mounted directory must be in
       **absolute path**.
-    - The image name (i.e., :code:`cscd70:2021S`) should always come last.
+    - The image name (i.e., `cscd70:2021S`) should always come last.
 
 - **Run the experiments**:
   ```Bash
