@@ -33,18 +33,15 @@ itself an ideal solution for software development.
   cd Assignment1-Introduction_to_LLVM/FunctionInfo
   docker run -it -v $(pwd):/mnt --rm --name cscd70_a1 cscd70:2021S
   ```
-  - `-t`: Allocate a pseudo terminal.
-  - `-i`: Connect to STDIN (i.e., keyboard).
+  - `-t`: Allocate a pseudo terminal; `-i`: Connect to STDIN (i.e., keyboard).
+    `-it` must be used jointly for an interactive bash shell.
   - `-v`: Mount the current working directory (i.e., `FunctionInfo`) to `/mnt`
-    in the container.
+    in the container. Any changes made natively in the mounted directory will be
+      reflected in the container as well (and vice versa). The mounted directory
+      must be in **absolute path**.
   - `--rm`: \[Optional\] Automatically clean the container when we exit.
   - `--name`: \[Optional\] Name of the container
-  - Note that:
-    - `-it` must be used jointly for an interactive bash shell,
-    - Any changes made natively in the mounted directory will be reflected in
-      the container as well (and vice versa). The mounted directory must be in
-      **absolute path**.
-    - The image name (i.e., `cscd70:2021S`) should always come last.
+  - The image name (i.e., `cscd70:2021S`) should always come last.
 
 - **Run the experiments**:
   ```Bash
