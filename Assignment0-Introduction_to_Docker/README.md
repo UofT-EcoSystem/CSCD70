@@ -1,5 +1,9 @@
 # Assignment 0 Introduction to Docker
 
+Please feel free to skip this section if you are working on the MathLab machines
+@`mathlab.utsc.utoronto.ca` as they already have all the necessary software
+components installed.
+
 ## Introduction
 
 Docker runs our applications in a *lightweight* **container** by using the
@@ -60,6 +64,6 @@ the same things as we have previously described, but much simpler:
 # Install docker-compose via python-pip.
 pip3 install docker-compose
 
-docker-compose build cscd70-dev     # Build the image.
-docker-compose run --rm cscd70-dev  # Create a container.
+docker-compose build dev     # Build the image.
+docker-compose run --rm dev  # Create a container.
 ```

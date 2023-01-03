@@ -1,0 +1,10 @@
+version: '2.3'
+
+services:
+    dev:
+        image: cscd70:2023S
+        build:
+            context: Assignment0-Introduction_to_Docker
+        volumes:
+            - .:/mnt
+        working_dir: /mnt
