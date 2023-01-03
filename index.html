@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>CSCD70 Compiler Optimization &#8212; CSCD70 2021S documentation</title>
+    <title>CSCD70 Compiler Optimization &#8212; CSCD70 2023S documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -14,7 +14,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Syllabus" href="Syllabus.html" />
+    <link rel="next" title="Slides &amp; Recordings" href="Slides.html" />
 <style type="text/css">
   div.footer a {text-decoration: none;}
   div.body   a {text-decoration: none;}
@@ -29,9 +29,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Syllabus.html" title="Syllabus"
+          <a href="Slides.html" title="Slides &amp; Recordings"
              accesskey="N">next</a> |</li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2023S Home</a>&nbsp;|&nbsp;</li>
   <li><a href="#"></a>&raquo;</li>
 
         <li class="nav-item nav-item-this"><a href="">CSCD70 Compiler Optimization</a></li> 
@@ -47,11 +47,70 @@
 <h1>CSCD70 Compiler Optimization<a class="headerlink" href="#cscd70-compiler-optimization" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>Welcome everyone to CSCD70. The first lecture AND tutorial will be on Jan. 11.
-We will be using Quercus and Piazza for important announcements and this webpage
-for uploading course materials, so please make sure that you check them
-regularly for any updates.</p>
-<p>👉 Please checkout the right hand side for important course materials.</p>
+<p>Welcome everyone to CSCD70. The first lecture and tutorial will be on <strong>Jan.
+9</strong>. We will be using Quercus and Piazza for important announcements and this
+webpage for uploading course materials (👉 the right sidebar), so
+please make sure that you check them regularly for any updates.</p>
+<section id="syllabus">
+<h2>Syllabus<a class="headerlink" href="#syllabus" title="Permalink to this heading">¶</a></h2>
+<section id="general-course-information">
+<h3>General Course Information<a class="headerlink" href="#general-course-information" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Instructor<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Professor Gennady Pekhimenko</p>
+</dd>
+<dt class="field-even">Teaching Assistant<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bojian Zheng</p>
+</dd>
+<dt class="field-odd">Lectures<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mon. 1:00-3:00 p.m. AA 206</p>
+</dd>
+<dt class="field-even">Tutorials<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mon. 11:00-12:00 a.m. HW 402</p>
+</dd>
+<dt class="field-odd">Discussion Board<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://piazza.com/utoronto.ca/winter2023/cscd70/home">https://piazza.com/utoronto.ca/winter2023/cscd70/home</a></p>
+</dd>
+</dl>
+</section>
+<section id="course-description">
+<h3>Course Description<a class="headerlink" href="#course-description" title="Permalink to this heading">¶</a></h3>
+<p>The goal of this course is introduce students to the theoretical and practical
+aspects of building optimizing compilers that effectively exploit modern
+architectures. The course will begin with the fundamentals of compiler
+optimization, and will build upon these fundamentals to address issues in
+state-of-the-art commercial and research machines. Topics include the
+followings: intermediate representations, basic blocks and control flow graphs,
+dataflow analysis, partial redundancy elimination, loop optimizations, register
+allocation, instruction scheduling, inter-procedural analysis, memory hierarchy
+optimizations, extracting parallelism, and dynamic optimizations. Students will
+implement significant optimizations within LLVM, a modern research compiler
+framework.</p>
+</section>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<p><strong>This course is not supposed to be your first C/C++ course. Previous knowledge
+on compiler frontend is recommended but not required.</strong> If you feel uncertain
+about whether you are adequately prepared to take this class, please discuss
+this with the instructor.</p>
+</section>
+<section id="course-work-and-grading">
+<h3>Course Work and Grading<a class="headerlink" href="#course-work-and-grading" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>Assignments (45%)</strong></p>
+<p>A major focus of this course is the assignments. We prefer that you work in
+<strong>groups of two</strong> on the assignments. The assignments will contain both
+programming and theoretical questions. There will be three assignments, each
+worth 15% of your final grade. The first assignment will be distributed on
+Jan. 11 and it will introduce you to the LLVM compiler framework.</p>
+</li>
+<li><p><strong>Midterm (20%)</strong> and <strong>Final Exam (35%)</strong></p>
+<p>There will be a midterm exam covering the first half of the course material
+and a final covering the whole. Both exams will be closed book, closed notes.</p>
+</li>
+</ul>
+</section>
+</section>
 </section>
 
 
@@ -65,8 +124,7 @@ regularly for any updates.</p>
 <h3>Course Materials</h3>
      
 <ul class="want-points">
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Syllabus.html">Syllabus</a></li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Slides%20%26%20Recordings.html">Slides & Recordings</a></li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Slides.html">Slides</a></li>
   <li><a href="https://uoft-ecosystem.github.io/CSCD70/Assignments/index.html">Assignments</a></li>
   <li><a href="https://github.com/UofT-EcoSystem/CSCD70">GitHub Repository</a></li>
 </ul>
@@ -74,12 +132,7 @@ regularly for any updates.</p>
 <h3>Additional Links</h3>
 
 <ul class="want-points">
-  <li><a href="https://vectorinstitute.zoom.us/j/99214420711">Lecture</a><br />
-      (Passcode 487511)</li>
-  <li><a href="https://utoronto.zoom.us/j/85194477652">Tutorial</a><br />
-      (Passcode 040333)</li>
-  <li><a href="https://piazza.com/utoronto.ca/winter2021/cscd70/home">Piazza</a></li>
-  <li><a href="https://markus.utsc.utoronto.ca/cscd70w21">MarkUs</a></li>
+  <li><a href="https://piazza.com/utoronto.ca/winter2023/cscd70/home">Piazza</a></li>
 </ul>
 
 <h3>Documentations</h3>
@@ -110,16 +163,16 @@ regularly for any updates.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Syllabus.html" title="Syllabus"
+          <a href="Slides.html" title="Slides &amp; Recordings"
              >next</a> |</li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2023S Home</a>&nbsp;|&nbsp;</li>
   <li><a href="#"></a>&raquo;</li>
 
         <li class="nav-item nav-item-this"><a href="">CSCD70 Compiler Optimization</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, University of Toronto.
+        &#169; Copyright 2023, University of Toronto.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.0.0.
     </div>
   </body>

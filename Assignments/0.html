@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Assignment 0 Introduction to Docker &#8212; CSCD70 2021S documentation</title>
+    <title>Assignment 0 Introduction to Docker &#8212; CSCD70 2023S documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,7 +14,6 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Assignment 1 Introduction to LLVM" href="1.html" />
     <link rel="prev" title="Assignments" href="index.html" />
 <style type="text/css">
   div.footer a {text-decoration: none;}
@@ -30,12 +29,9 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="1.html" title="Assignment 1 Introduction to LLVM"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
           <a href="index.html" title="Assignments"
              accesskey="P">previous</a> |</li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2023S Home</a>&nbsp;|&nbsp;</li>
   <li><a href="../index.html"></a>&raquo;</li>
 
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Assignments</a> &#187;</li>
@@ -50,108 +46,62 @@
             
   <section id="assignment-0-introduction-to-docker">
 <h1>Assignment 0 Introduction to Docker<a class="headerlink" href="#assignment-0-introduction-to-docker" title="Permalink to this heading">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please feel free to skip this section if you are working on the MathLab
-machines &#64;<a class="reference external" href="mathlab.utsc.utoronto.ca">mathlab.utsc.utoronto.ca</a> as they already have all the necessary software
+<p>Please feel free to skip this section if you are working on the MathLab machines
+&#64;<code class="docutils literal notranslate"><span class="pre">mathlab.utsc.utoronto.ca</span></code> as they already have all the necessary software
 components installed.</p>
-</div>
-<nav class="contents local" id="contents">
-<ul class="simple">
-<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#instructions" id="id6">Instructions</a></p>
-<ul>
-<li><p><a class="reference internal" href="#docker" id="id7">Docker</a></p></li>
-<li><p><a class="reference internal" href="#docker-compose" id="id8">Docker-Compose</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#references" id="id9">References</a></p></li>
-</ul>
-</nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
-<p>Docker runs our applications in a <strong>lightweight</strong> <em>container</em> by using the
-<em>image</em> that has all the necessary software components installed. Think of it as
-<cite>conda</cite> or <cite>virtualenv</cite> (both are used to as an containerized Python
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Docker runs our applications in a <em>lightweight</em> <strong>container</strong> by using the
+<strong>image</strong> that has all the necessary software components installed. Think of it
+as <code class="docutils literal notranslate"><span class="pre">conda</span></code> or <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> (both are used to as an containerized Python
 environment), but at a broader scope for almost all software libraries. Compared
-with the virtual machines, Docker has negligible performance overhead <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>,
-making itself an ideal solution for software development.</p>
-<embed>
-  <p align="middle">
-    <img width="32.9%" src="https://docs.docker.com/images/Container%402x.png">
-    <img width="32.9%" src="https://docs.docker.com/images/VM%402x.png">
-  </p>
-</embed><p><a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+with the virtual machines, Docker has negligible performance overhead, making
+itself an ideal solution for software development.</p>
 </section>
 <section id="instructions">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">Instructions</a><a class="headerlink" href="#instructions" title="Permalink to this heading">¶</a></h2>
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading">¶</a></h2>
 <section id="docker">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">Docker</a><a class="headerlink" href="#docker" title="Permalink to this heading">¶</a></h3>
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this heading">¶</a></h3>
 <ul>
-<li><p><strong>Download and Install Docker</strong>:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Windows<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-windows">https://hub.docker.com/editions/community/docker-ce-desktop-windows</a></p>
-</dd>
-<dt class="field-even">Mac<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a></p>
-</dd>
-<dt class="field-odd">Ubuntu<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p>
-</dd>
-</dl>
-</li>
+<li><p><strong>Download and Install Docker</strong>:
+<a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-windows">Windows</a>,
+<a class="reference external" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">Mac</a>,
+<a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">Ubuntu</a></p></li>
 <li><p><strong>Build the Docker image</strong>:</p>
 <ul class="simple">
-<li><p>An <em>image</em> is an isolated environment that includes all necessary software
+<li><p>An <strong>image</strong> is an isolated environment that includes all necessary software
 components.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2021S`.</span>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the docker image from file Dockerfile and tag (-t) it with name `cscd70:2023S`.</span>
 <span class="nb">cd</span><span class="w"> </span>Assignment0-Introduction_to_Docker
-docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>cscd70:2021S
+docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>cscd70:2023S
 </pre></div>
 </div>
 </li>
 <li><p><strong>Create a Docker container</strong>:</p>
 <ul class="simple">
-<li><p>A <em>container</em> is an instantiation of an image. Multiple
-containers can be created out of the same image.</p></li>
+<li><p>A <strong>container</strong> is an instantiation of an image. Multiple containers can be
+created out of the same image.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a container for the first assignment.</span>
 <span class="nb">cd</span><span class="w"> </span>Assignment1-Introduction_to_LLVM/FunctionInfo
-docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt<span class="w"> </span>--rm<span class="w"> </span>--name<span class="w"> </span>cscd70_a1<span class="w"> </span>cscd70:2021S
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/mnt<span class="w"> </span>--rm<span class="w"> </span>--name<span class="w"> </span>cscd70_a1<span class="w"> </span>cscd70:2023S
 </pre></div>
 </div>
-<dl class="option-list">
-<dt><kbd><span class="option">-t</span></kbd></dt>
-<dd><p>Allocate a pseudo terminal.</p>
-</dd>
-<dt><kbd><span class="option">-i</span></kbd></dt>
-<dd><p>Connect to STDIN (i.e., keyboard).</p>
-</dd>
-<dt><kbd><span class="option">-v</span></kbd></dt>
-<dd><p>Mount the current working directory (i.e., <code class="code docutils literal notranslate"><span class="pre">FunctionInfo</span></code>) to <code class="code docutils literal notranslate"><span class="pre">/mnt</span></code> in the container.</p>
-</dd>
-<dt><kbd><span class="option">--rm</span></kbd></dt>
-<dd><p>(Optional) Cleanup the container when we exit.</p>
-</dd>
-<dt><kbd><span class="option">--name</span></kbd></dt>
-<dd><p>(Optional) Name of the Container</p>
-</dd>
-</dl>
 <ul class="simple">
-<li><p>Note that:</p>
-<ol class="arabic simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">-it</span></code> must be used jointly for an interactive bash shell,</p></li>
-<li><p>Any changes made natively in the mounted directory will be reflected in the container as well (and vice versa).
-The mounted directory must be in <strong>absolute path</strong>.</p></li>
-<li><p>The image name (i.e., <code class="code docutils literal notranslate"><span class="pre">cscd70:2021S</span></code>) should always come last.</p></li>
-</ol>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code>: Allocate a pseudo terminal; <code class="docutils literal notranslate"><span class="pre">-i</span></code>: Connect to STDIN (i.e., keyboard).
+<code class="docutils literal notranslate"><span class="pre">-it</span></code> must be used jointly for an interactive bash shell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code>: Mount the current working directory (i.e., <code class="docutils literal notranslate"><span class="pre">FunctionInfo</span></code>) to <code class="docutils literal notranslate"><span class="pre">/mnt</span></code>
+in the container. Any changes made to the mounted directory outside the
+container will be reflected in the container as well (and vice versa). The
+mounted directory must be in <strong>absolute path</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--rm</span></code>: [Optional] Automatically clean the container when we exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--name</span></code>: [Optional] Name of the container</p></li>
+<li><p>The image name (i.e., <code class="docutils literal notranslate"><span class="pre">cscd70:2023S</span></code>) should always come last.</p></li>
 </ul>
 </li>
 <li><p><strong>Run the experiments</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/mnt
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/mnt
 mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
 cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
 </pre></div>
@@ -160,31 +110,18 @@ cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp
 </ul>
 </section>
 <section id="docker-compose">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink">Docker-Compose</a><a class="headerlink" href="#docker-compose" title="Permalink to this heading">¶</a></h3>
+<h3>Docker-Compose<a class="headerlink" href="#docker-compose" title="Permalink to this heading">¶</a></h3>
 <p>Docker-Compose is a simple wrapper on top of the docker commands. There is a
-docker-compose file provided in the root folder of the <a class="reference external" href="https://github.com/UofT-EcoSystem/CSCD70">GitHub repo</a>. We can do
+docker-compose file provided in the root folder of this repository. We can do
 the same things as we have previously described, but much simpler:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install docker-compose via python-pip.</span>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install docker-compose via python-pip.</span>
 pip3<span class="w"> </span>install<span class="w"> </span>docker-compose
 
-docker-compose<span class="w"> </span>build<span class="w"> </span>cscd70-dev<span class="w">     </span><span class="c1"># Build the image.</span>
-docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>cscd70-dev<span class="w">  </span><span class="c1"># Create a container.</span>
+docker-compose<span class="w"> </span>build<span class="w"> </span>dev<span class="w">     </span><span class="c1"># Build the image.</span>
+docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>dev<span class="w">  </span><span class="c1"># Create a container.</span>
 </pre></div>
 </div>
 </section>
-</section>
-<section id="references">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink">References</a><a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://stackoverflow.com/a/26149994/6320608">https://stackoverflow.com/a/26149994/6320608</a></p>
-</aside>
-<aside class="footnote brackets" id="id4" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></p>
-</aside>
-</aside>
 </section>
 </section>
 
@@ -199,8 +136,7 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
 <h3>Course Materials</h3>
      
 <ul class="want-points">
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Syllabus.html">Syllabus</a></li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Slides%20%26%20Recordings.html">Slides & Recordings</a></li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/Slides.html">Slides</a></li>
   <li><a href="https://uoft-ecosystem.github.io/CSCD70/Assignments/index.html">Assignments</a></li>
   <li><a href="https://github.com/UofT-EcoSystem/CSCD70">GitHub Repository</a></li>
 </ul>
@@ -208,12 +144,7 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
 <h3>Additional Links</h3>
 
 <ul class="want-points">
-  <li><a href="https://vectorinstitute.zoom.us/j/99214420711">Lecture</a><br />
-      (Passcode 487511)</li>
-  <li><a href="https://utoronto.zoom.us/j/85194477652">Tutorial</a><br />
-      (Passcode 040333)</li>
-  <li><a href="https://piazza.com/utoronto.ca/winter2021/cscd70/home">Piazza</a></li>
-  <li><a href="https://markus.utsc.utoronto.ca/cscd70w21">MarkUs</a></li>
+  <li><a href="https://piazza.com/utoronto.ca/winter2023/cscd70/home">Piazza</a></li>
 </ul>
 
 <h3>Documentations</h3>
@@ -244,12 +175,9 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="1.html" title="Assignment 1 Introduction to LLVM"
-             >next</a> |</li>
-        <li class="right" >
           <a href="index.html" title="Assignments"
              >previous</a> |</li>
-  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2021S Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="https://uoft-ecosystem.github.io/CSCD70/index.html">CSCD70 2023S Home</a>&nbsp;|&nbsp;</li>
   <li><a href="../index.html"></a>&raquo;</li>
 
           <li class="nav-item nav-item-1"><a href="index.html" >Assignments</a> &#187;</li>
@@ -257,7 +185,7 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, University of Toronto.
+        &#169; Copyright 2023, University of Toronto.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.0.0.
     </div>
   </body>
