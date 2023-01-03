@@ -36,9 +36,9 @@ itself an ideal solution for software development.
   - `-t`: Allocate a pseudo terminal; `-i`: Connect to STDIN (i.e., keyboard).
     `-it` must be used jointly for an interactive bash shell.
   - `-v`: Mount the current working directory (i.e., `FunctionInfo`) to `/mnt`
-    in the container. Any changes made natively in the mounted directory will be
-      reflected in the container as well (and vice versa). The mounted directory
-      must be in **absolute path**.
+    in the container. Any changes made to the mounted directory outside the
+    container will be reflected in the container as well (and vice versa). The
+    mounted directory must be in **absolute path**.
   - `--rm`: \[Optional\] Automatically clean the container when we exit.
   - `--name`: \[Optional\] Name of the container
   - The image name (i.e., `cscd70:2023S`) should always come last.
