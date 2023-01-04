@@ -33,9 +33,9 @@ General Course Information
 Course Description
 ^^^^^^^^^^^^^^^^^^
 
-The goal of this course is introduce students to the theoretical and practical
-aspects of building optimizing compilers that effectively exploit modern
-architectures. The course will begin with the fundamentals of compiler
+The goal of this course is to introduce students to the theoretical and
+practical aspects of building optimizing compilers that effectively exploit
+modern architectures. The course will begin with the fundamentals of compiler
 optimization, and will build upon these fundamentals to address issues in
 state-of-the-art commercial and research machines. Topics include the
 followings: intermediate representations, basic blocks and control flow graphs,
@@ -53,8 +53,8 @@ on compiler frontend is recommended but not required.** If you feel uncertain
 about whether you are adequately prepared to take this class, please discuss
 this with the instructor.
 
-Course Work and Grading
-^^^^^^^^^^^^^^^^^^^^^^^
+Course Works and Grading
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 * **Assignments (45%)**
   
@@ -62,7 +62,7 @@ Course Work and Grading
   **groups of two** on the assignments. The assignments will contain both
   programming and theoretical questions. There will be three assignments, each
   worth 15% of your final grade. The first assignment will be distributed on
-  Jan. 11 and it will introduce you to the LLVM compiler framework.
+  Jan. 9 and it will introduce you to the LLVM compiler framework.
 
 * **Midterm (20%)** and **Final Exam (35%)**
 
