@@ -11,4 +11,4 @@ GitHub Classroom. Note that
   in this folder into your own repository.
 - TODO items have been marked using `todo(cscd70)` in the source code. **These
   include both the optimization passes and the test cases.** Please make sure
-  that you have completed both parts before the submission.
+  that you have completed both parts before submitting.
