@@ -21,12 +21,12 @@ do
                         OPTIMIZATION_LEVEL=${1#*O}
                         shift
                         ;;
-                --passes)
+                -p|-passes)
                         EXTRA_PASSES=$2
                         shift
                         shift
                         ;;
-                --passes=*)
+                -p=*|-passes=*)
                         EXTRA_PASSES=${1#*=}
                         shift
                         ;;
@@ -45,8 +45,15 @@ done
 
 if [ -z ${CSRC_FILE} ]
 then
-        print_usage
-        exit -1
+        CSRC_FILE=$(realpath ${BASH_SOURCE[0]})
+        CSRC_FILE=${CSRC_FILE/C_to_LLVM_IR.sh/main.c}
+fi
+
+EXTRA_OPT_PASSES=""
+
+if [ ! -z ${EXTRA_PASSES} ]
+then
+        EXTRA_OPT_PASSES="-p=${EXTRA_PASSES}"
 fi
 
 CLANG_FLAGS="-O${OPTIMIZATION_LEVEL}"
@@ -73,5 +80,5 @@ function print_and_exec()
 }
 
 print_and_exec clang-${LLVM_VERSION} ${CLANG_FLAGS} -emit-llvm -c ${CSRC_FILE} -o ${BC_FILE}
-print_and_exec opt-${LLVM_VERSION} -S -p=${EXTRA_OPT_PASSES} ${BC_FILE} -o ${LL_FILE}
+print_and_exec opt-${LLVM_VERSION} -S ${EXTRA_OPT_PASSES} ${BC_FILE} -o ${LL_FILE}
 rm -f ${BC_FILE}
