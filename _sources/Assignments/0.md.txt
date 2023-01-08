@@ -1,8 +1,8 @@
 # Assignment 0 Introduction to Docker
 
 Please feel free to skip this section if you are working on the MathLab machines
-@`mathlab.utsc.utoronto.ca` as they <del>already</del> will have all the
-necessary software components installed.
+@`mathlab.utsc.utoronto.ca` as they already will have all the necessary software
+components installed.
 
 ## Introduction
 
