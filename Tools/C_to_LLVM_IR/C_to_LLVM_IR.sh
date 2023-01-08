@@ -10,7 +10,7 @@ function print_usage()
 {
         echo -e \
 "Usage: ./C_to_LLVM_IR.sh [${BOLD_PREFIX}-O${BOLD_SUFFIX}x]" \
-"[${BOLD_PREFIX}--passes${BOLD_SUFFIX} \"xxx\" (semi-colon separated)]" \
+"[${BOLD_PREFIX}--passes${BOLD_SUFFIX} \"xxx\" (comma separated)]" \
 "${BOLD_PREFIX}-c${BOLD_SUFFIX} file"
 }
 
