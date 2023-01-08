@@ -22,17 +22,13 @@ RUN git config --global user.name  "ubuntu" && \
     git config --global user.email "ubuntu@cs.toronto.edu" && \
     git config --global --add safe.directory "*"
 
-RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main" && \
-    apt-get update && \
-    apt-get install -y llvm-${LLVM_VERSION} \
-                       llvm-${LLVM_VERSION}-dev \
-                       clang-${LLVM_VERSION} \
-                       clang-format-${LLVM_VERSION} \
-                       clang-tidy-${LLVM_VERSION} && \
+RUN wget https://apt.llvm.org/llvm.sh && \
+    chmod +x llvm.sh && \
+    ./llvm.sh ${LLVM_VERSION} && \
+    rm llvm.sh && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && rm -f get-pip.py
 
-RUN pip3 install lit==0.11.1 cmake
+RUN pip3 install lit==15.0.6 cmake
