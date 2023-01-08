@@ -2,7 +2,7 @@
 
 using namespace llvm;
 
-PreservedAnalyses AlgebraicIdentityPass::run(Function &M,
+PreservedAnalyses AlgebraicIdentityPass::run(Function &F,
                                              FunctionAnalysisManager &) {
 
   /**

@@ -1,7 +1,5 @@
 ; RUN: opt -load-pass-plugin=%dylibdir/libLocalOpts.so \
-; RUN:     -p=algebraic-identity \
-; RUN:     -p=strength-reduction \
-; RUN:     -p=multi-inst-opt \
+; RUN:     -p=algebraic-identity;strength-reduction;multi-inst-opt \
 ; RUN:     -S %s -o %basename_t
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t
 

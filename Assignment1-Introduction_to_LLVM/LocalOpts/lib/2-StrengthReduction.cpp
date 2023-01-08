@@ -2,7 +2,7 @@
 
 using namespace llvm;
 
-PreservedAnalyses StrengthReductionPass::run(Function &M,
+PreservedAnalyses StrengthReductionPass::run(Function &F,
                                              FunctionAnalysisManager &) {
 
   /**

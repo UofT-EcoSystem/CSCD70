@@ -2,7 +2,7 @@
 
 using namespace llvm;
 
-PreservedAnalyses MultiInstOptPass::run(Function &M,
+PreservedAnalyses MultiInstOptPass::run(Function &F,
                                         FunctionAnalysisManager &) {
 
   /**
