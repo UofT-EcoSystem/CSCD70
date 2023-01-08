@@ -9,6 +9,10 @@ execute_process(COMMAND llvm-config-${LLVM_VERSION} --cxxflags
                 OUTPUT_VARIABLE LLVM_CXXFLAGS
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(CMAKE_CXX_FLAGS "${LLVM_CXXFLAGS} -Wall")
+if(NOT ${CMAKE_BUILD_TYPE} OR ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+        set(CMAKE_CXX_CLANG_TIDY "clang-tidy-${LLVM_VERSION};--extra-arg-before=-stdlib=libc++")
+        message(STATUS "Enabling clang-tidy")
+endif()
 set(CMAKE_CXX_CLANG_TIDY clang-tidy-${LLVM_VERSION};--extra-arg-before=-stdlib=libc++)
 
 add_subdirectory(lib)  # Build the shared library libFunctionInfo.so.
