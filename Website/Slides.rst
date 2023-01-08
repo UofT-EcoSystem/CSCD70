@@ -9,5 +9,8 @@ posted at the `GitHub repository`_.
 ========= ========================= =========================
 #         Topic                     Slides
 ========= ========================= =========================
-
+Tut 1     Introduction to LLVM      [|Overleaf Tut1|_]    
 ========= ========================= =========================
+
+.. |Overleaf Tut1| replace:: Overleaf 
+.. _Overleaf Tut1: https://www.overleaf.com/read/ntrxhjmhkkrt
