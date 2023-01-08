@@ -10,7 +10,7 @@ function print_usage()
 {
         echo -e \
 "Usage: ./C_to_LLVM_IR.sh [${BOLD_PREFIX}-O${BOLD_SUFFIX}x]" \
-"[${BOLD_PREFIX}--passes${BOLD_SUFFIX} \"xxx\" (comma separated)]" \
+"[${BOLD_PREFIX}--passes${BOLD_SUFFIX} \"xxx\" (semi-colon separated)]" \
 "${BOLD_PREFIX}-c${BOLD_SUFFIX} file"
 }
 
@@ -36,7 +36,7 @@ do
                         shift
                         ;;
                 *)
-                        echo "Unrecognized argument: ${BOLD_PREFIX}$1${BOLD_SUFFIX}"
+                        echo -e "Unrecognized argument: ${BOLD_PREFIX}$1${BOLD_SUFFIX}"
                         print_usage
                         exit -1
                         ;;
@@ -56,17 +56,6 @@ then
         CLANG_FLAGS+=" -Xclang -disable-O0-optnone"
 fi
 
-EXTRA_OPT_PASSES=""
-OLD_IFS=${IFS}
-IFS=","
-
-for pass in ${EXTRA_PASSES}
-do
-        EXTRA_OPT_PASSES+=" -p=${pass}"
-done
-
-IFS=${OLD_IFS}
-
 LLVM_VERSION=${LLVM_VERSION:-16}
 
 if [ -x "$(command -v clang-${LLVM_VERSION})" ]
@@ -84,5 +73,5 @@ function print_and_exec()
 }
 
 print_and_exec clang-${LLVM_VERSION} ${CLANG_FLAGS} -emit-llvm -c ${CSRC_FILE} -o ${BC_FILE}
-print_and_exec opt-${LLVM_VERSION} -S ${EXTRA_OPT_PASSES} ${BC_FILE} -o ${LL_FILE}
+print_and_exec opt-${LLVM_VERSION} -S -p=${EXTRA_OPT_PASSES} ${BC_FILE} -o ${LL_FILE}
 rm -f ${BC_FILE}
