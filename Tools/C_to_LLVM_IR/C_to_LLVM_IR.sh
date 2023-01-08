@@ -83,7 +83,6 @@ function print_and_exec()
         $@
 }
 
-
 print_and_exec clang-${LLVM_VERSION} ${CLANG_FLAGS} -emit-llvm -c ${CSRC_FILE} -o ${BC_FILE}
 print_and_exec opt-${LLVM_VERSION} -S ${EXTRA_OPT_PASSES} ${BC_FILE} -o ${LL_FILE}
 rm -f ${BC_FILE}
