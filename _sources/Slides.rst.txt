@@ -1,5 +1,5 @@
-Slides & Recordings
-===================
+Slides
+======
 
 Slides be posted here every week after class. Tutorial code samples will be
 posted at the `GitHub repository`_.
