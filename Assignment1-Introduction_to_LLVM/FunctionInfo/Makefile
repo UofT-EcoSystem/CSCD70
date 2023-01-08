@@ -3,7 +3,7 @@ OBJs := $(subst .cpp,.o,$(wildcard lib/*.cpp))
 
 LLVM_VERSION ?= 16
 
-CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION_SUFFIX) --cxxflags) -fPIC
+CXXFLAGS := $(shell llvm-config-$(LLVM_VERSION) --cxxflags) -fPIC
 
 all: $(OPTIMIZER) 
 
