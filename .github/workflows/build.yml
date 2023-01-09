@@ -1,0 +1,29 @@
+name: build
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Assignment 0 Introduction to Docker
+              run: docker-compose build dev
+            - name: Assignment 1 Introduction to LLVM
+              run: |
+                   docker-compose run --rm \
+                       -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo \
+                       dev bash -ce \
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
+                   docker-compose run --rm \
+                       -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
+                       dev bash -ce \
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
+            - name: C to LLVM IR
+              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR dev "./C_to_LLVM_IR.sh -p=mem2reg"
+            - name: Tutorial 1 Introduction to LLVM
+              run: |
+                   docker-compose run --rm \
+                       -w /mnt/Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals \
+                       dev bash -ce \
+                       "make && ./1-VarReference && ./2-PublicInheritance && ./3-STL"
