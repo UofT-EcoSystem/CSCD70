@@ -24,7 +24,7 @@ RUN git config --global user.name  "ubuntu" && \
 
 RUN wget https://apt.llvm.org/llvm.sh && \
     chmod +x llvm.sh && \
-    ./llvm.sh ${LLVM_VERSION} && \
+    ./llvm.sh ${LLVM_VERSION} all && \
     rm llvm.sh && \
     rm -rf /var/lib/apt/lists/*
 
