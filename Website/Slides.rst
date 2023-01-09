@@ -9,7 +9,7 @@ posted at the `GitHub repository`_.
 ========= ========================= =========================
 #         Topic                     Slides
 ========= ========================= =========================
-Lec 1     Introduction              [|PPTX Lec1|_]
+Lec 1     Introduction              [|PPTX Lec1|]
 Tut 1     Introduction to LLVM      [|Overleaf Tut1|_]
 ========= ========================= =========================
 
