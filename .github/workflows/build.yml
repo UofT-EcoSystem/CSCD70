@@ -20,7 +20,7 @@ jobs:
                        dev bash -ce \
                        "mkdir build && cd build; cmake .. && make && ctest -V"
             - name: C to LLVM IR
-              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR dev "./C_to_LLVM_IR.sh -p=mem2reg"
+              run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR dev bash -ce "./C_to_LLVM_IR.sh -p=mem2reg"
             - name: Tutorial 1 Introduction to LLVM
               run: |
                    docker-compose run --rm \
