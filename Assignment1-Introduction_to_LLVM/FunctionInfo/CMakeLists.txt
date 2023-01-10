@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20.0)
+cmake_minimum_required(VERSION 3.18.4)
 project(FunctionInfo)
 
 set(LLVM_VERSION "16" CACHE STRING "LLVM Version")
