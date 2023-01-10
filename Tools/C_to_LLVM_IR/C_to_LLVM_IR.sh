@@ -65,11 +65,6 @@ fi
 
 LLVM_VERSION=${LLVM_VERSION:-16}
 
-if [ -x "$(command -v clang-${LLVM_VERSION})" ]
-then
-        export PATH=${PATH}:/usr/lib/llvm-${LLVM_VERSION}/bin
-fi
-
 BC_FILE=${CSRC_FILE/.c/.bc}
 LL_FILE=${CSRC_FILE/.c/.ll}
 
