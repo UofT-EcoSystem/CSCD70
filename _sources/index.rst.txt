@@ -27,8 +27,15 @@ General Course Information
 :Instructor: Professor Gennady Pekhimenko
 :Teaching Assistant: Bojian Zheng
 :Lectures: Mon. 1:00-3:00 p.m. AA 206
-:Tutorials: Mon. 11:00-12:00 a.m. HW 402 
+:Tutorials: Mon. 11:00-12:00 a.m. HW 402 [#]_
 :Discussion Board: https://piazza.com/utoronto.ca/winter2023/cscd70/home
+
+.. [#] Please make sure that you are enrolled in the tutorials. If, after Jan.
+    22 (the add/drop deadline) you are still not in a tutorial, please send an
+    email to Jenn Chaskavich (`jenn.chaskavich@utoronto.ca`_) and she will
+    enroll you.
+
+.. _jenn.chaskavich@utoronto.ca: mailto:jenn.chaskavich@utoronto.ca
 
 Course Description
 ^^^^^^^^^^^^^^^^^^
