@@ -27,3 +27,9 @@ jobs:
                        -w /mnt/Tutorial01-Introduction_to_LLVM/Example1-Cpp_Fundamentals \
                        dev bash -ce \
                        "make && ./1-VarReference && ./2-PublicInheritance && ./3-STL"
+            - name: Tutorial 2 Introduction to LLVM ii
+              run: |
+                   docker-compose run --rm \
+                       -w /mnt/Tutorial02-Introduction_to_LLVM_ii/Example1-Transform_Pass_Example \
+                       dev bash -ce \
+                       "mkdir build && cd build; cmake .. && make && ctest -V"
