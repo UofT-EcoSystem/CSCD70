@@ -9,8 +9,8 @@
 ;   int d = b / 4;
 ;   return c * d;
 ; }
-; CHECK-LABEL: define i32 @foo(i32 %0, i32 %1) {
-define i32 @foo(i32 %0, i32 %1) {
+; CHECK-LABEL: define dso_local i32 @foo(i32 noundef %0, i32 noundef %1) {
+define dso_local i32 @foo(i32 noundef %0, i32 noundef %1) #0 {
   ; CHECK-NEXT: %3 = add nsw i32 %1, 1
   ; CHECK-NEXT: %4 = add i32 %1, %1
   %3 = add nsw i32 %1, 1

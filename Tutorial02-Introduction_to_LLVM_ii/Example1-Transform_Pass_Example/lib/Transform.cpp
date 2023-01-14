@@ -22,31 +22,36 @@ private:
     assert(&Inst1st == Inst2nd.getOperand(0));
 
     // print the 1st instruction
-    outs() << Inst1st << "\n";
+    outs() << "I am the first instruction: " << Inst1st << "\n";
     // print the 1st instruction as an operand
+    outs() << "Me as an operand: ";
     Inst1st.printAsOperand(outs(), false);
     outs() << "\n";
 
     // User-Use-Value
+    outs() << "My operands:\n";
     for (auto *Iter = Inst1st.op_begin(); Iter != Inst1st.op_end(); ++Iter) {
       Value *Operand = *Iter;
 
       if (Argument *Arg = dyn_cast<Argument>(Operand)) {
-        outs() << "I am function " << Arg->getParent()->getName() << "\'s #"
+        outs() << "\tI am function " << Arg->getParent()->getName() << "\'s #"
                << Arg->getArgNo() << " argument"
                << "\n";
       }
       if (ConstantInt *C = dyn_cast<ConstantInt>(Operand)) {
-        outs() << "I am a constant integer of value " << C->getValue() << "\n";
+        outs() << "\tI am a constant integer of value " << C->getValue()
+               << "\n";
       }
     }
 
+    outs() << "My users:\n";
     for (auto Iter = Inst1st.user_begin(); Iter != Inst1st.user_end(); ++Iter) {
-      outs() << *(dyn_cast<Instruction>(*Iter)) << "\n";
+      outs() << "\t" << *(dyn_cast<Instruction>(*Iter)) << "\n";
     }
 
+    outs() << "My uses (same with users):\n";
     for (auto Iter = Inst1st.use_begin(); Iter != Inst1st.use_end(); ++Iter) {
-      outs() << *(dyn_cast<Instruction>(Iter->getUser())) << "\n";
+      outs() << "\t" << *(dyn_cast<Instruction>(Iter->getUser())) << "\n";
     }
 
     // Instruction Manipulation
