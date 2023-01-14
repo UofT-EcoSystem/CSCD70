@@ -17,7 +17,8 @@
 
 ## Examples
 
-1. `Cpp_Fundamentals` shows you some basic concepts and usage of C++.
+1. `Cpp_Fundamentals` shows you some basic concepts and usage of C++, including
+   variable references, public inheritance, standard template libraries.
    ```Bash
    /Example1-Cpp_Fundamentals$ make
    /Example1-Cpp_Fundamentals$ ./1-VarReference
