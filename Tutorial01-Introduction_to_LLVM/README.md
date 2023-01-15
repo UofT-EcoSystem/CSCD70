@@ -1,4 +1,4 @@
-# Tutorial 1 Introduction to LLVM handout
+# Tutorial 1 Introduction to LLVM
 
 **Handout**: [\[Overleaf\]](https://www.overleaf.com/read/ntrxhjmhkkrt)
 
@@ -18,7 +18,7 @@
 ## Examples
 
 1. `Cpp_Fundamentals` shows you some basic concepts and usage of C++, including
-   variable references, public inheritance, standard template libraries.
+   variable references, public inheritance, and standard template libraries.
    ```Bash
    /Example1-Cpp_Fundamentals$ make
    /Example1-Cpp_Fundamentals$ ./1-VarReference
