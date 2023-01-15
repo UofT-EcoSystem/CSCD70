@@ -21,8 +21,8 @@
 1. `Pass_Manager` shows you how to require and preserve/abandon other analysis
    passes.
    ```Bash
-   /Example1-Pass_Manager$ mkdir build && cd build
-   /Example1-Pass_Manager/build$ cmake -DCMAKE_BUILD_TYPE=Release ..
-   /Example1-Pass_Manager/build$ make
-   /Example1-Pass_Manager/build$ ctest -V
+   /Example2-Pass_Manager$ mkdir build && cd build
+   /Example2-Pass_Manager/build$ cmake -DCMAKE_BUILD_TYPE=Release ..
+   /Example2-Pass_Manager/build$ make
+   /Example2-Pass_Manager/build$ ctest -V
    ```
