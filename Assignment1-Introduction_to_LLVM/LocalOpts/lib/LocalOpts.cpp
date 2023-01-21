@@ -1,5 +1,8 @@
 #include "LocalOpts.h"
 
+#include <llvm/Passes/PassBuilder.h>
+#include <llvm/Passes/PassPlugin.h>
+
 using namespace llvm;
 
 extern "C" PassPluginLibraryInfo llvmGetPassPluginInfo() {
