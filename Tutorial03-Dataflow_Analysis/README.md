@@ -8,5 +8,4 @@
   - Available Expressions
   - Dominators
   - Constant Propagation
-- Dataflow Analysis Solutions:
-  $$\mathrm{FP}\le\mathrm{MFP}\le\mathrm{MOP}\le\mathrm{Perfect}$$
+- Dataflow Analysis Solutions: $\mathrm{FP}\le\mathrm{MFP}\le\mathrm{MOP}\le\mathrm{Perfect}$
