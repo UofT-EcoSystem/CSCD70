@@ -1,5 +1,6 @@
 ; RUN: opt -S -load-pass-plugin %dylibdir/libTransformPassSample.so \
-; RUN:     -p=transform %s -o %basename_t
+; RUN:     -p=transform %s -o %basename_t | \
+; RUN: FileCheck --match-full-lines %s --check-prefix=LOG
 ; RUN: FileCheck --match-full-lines %s --input-file=%basename_t
 
 ; int foo(int e, int a) {
@@ -11,6 +12,15 @@
 ; }
 ; CHECK-LABEL: define dso_local i32 @foo(i32 noundef %0, i32 noundef %1) {
 define dso_local i32 @foo(i32 noundef %0, i32 noundef %1) #0 {
+  ; LOG-LABEL: I am the first instruction:   %3 = add nsw i32 %1, 1
+  ; LOG-NEXT: Me as an operand: %3
+  ; LOG-NEXT: My operands:
+  ; LOG-NEXT: 	I am function foo's #1 argument
+  ; LOG-NEXT: 	I am a constant integer of value 1
+  ; LOG-NEXT: My users:
+  ; LOG-NEXT: 	  %4 = mul nsw i32 %3, 2
+  ; LOG-NEXT: My uses (same with users):
+  ; LOG-NEXT: 	  %4 = mul nsw i32 %3, 2
   ; CHECK-NEXT: %3 = add nsw i32 %1, 1
   ; CHECK-NEXT: %4 = add i32 %1, %1
   %3 = add nsw i32 %1, 1
