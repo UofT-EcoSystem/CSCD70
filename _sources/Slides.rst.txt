@@ -13,6 +13,8 @@ Lec 1     Introduction              [|PPTX Lec1|]
 Tut 1     Introduction to LLVM      [|Overleaf Tut1|_]
 Lec 2     Dataflow                  [|PPTX Lec2|]
 Tut 2     Introduction to LLVM ii   [|Overleaf Tut2|_]
+Lec 3     Dataflow-2 and Loops      [|PPTX Lec3|]
+Tut 3     Dataflow Analysis         [|Overleaf Tut3|_]
 ========= ========================= =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
@@ -22,3 +24,7 @@ Tut 2     Introduction to LLVM ii   [|Overleaf Tut2|_]
 .. |PPTX Lec2| replace:: :download:`pptx <Lecture_Slides/Lecture 2 [Dataflow] 01.16.2023.pptx>`
 .. |Overleaf Tut2| replace:: Overleaf
 .. _Overleaf Tut2: https://www.overleaf.com/read/vdwnnwdcshyx
+
+.. |PPTX Lec3| replace:: :download:`pptx <Lecture_Slides/Lecture 3 [Dataflow-2 and Loops] 01.23.2023.pptx>`
+.. |Overleaf Tut3| replace:: Overleaf
+.. _Overleaf Tut3: https://www.overleaf.com/read/bbkbmgnqqffw
