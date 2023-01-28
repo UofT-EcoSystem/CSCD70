@@ -5,4 +5,8 @@
 ## TL'DR
 
 - Iterative Framework
-- Available Expressions = ForwardAnalysis(Expression, bool, Intersect)
+- Available Expressions:
+  - Forward Analysis
+  - Expression: `InstVisitor`
+  - Expression
+  - Intersect
