@@ -16,7 +16,7 @@ Tut 2     Introduction to LLVM ii   [|Overleaf Tut2|_]
 Lec 3     Dataflow-2 and Loops      [|PPTX Lec3|]
 Tut 3     Dataflow Analysis         [|Overleaf Tut3|_]
 Lec 4     SSA                       [|PPTX Lec4|]
-Tut 4     Dataflow Analysis (ii)    [|Overleaf Tut4|_]
+Tut 4     Dataflow Analysis ii      [|Overleaf Tut4|_]
 ========= ========================= =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
