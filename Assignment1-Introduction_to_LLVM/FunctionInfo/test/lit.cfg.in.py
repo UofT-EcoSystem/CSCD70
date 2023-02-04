@@ -11,7 +11,7 @@ lit.llvm.initialize(lit_config, config)
 from lit.llvm import llvm_config
 
 
-config.name = "FunctionInfo"
+config.name = "@CMAKE_PROJECT_NAME@"
 # The ShTest files contain some number of shell-like command pipelines, along
 # with assertions about what should be in the output.
 config.test_format = lit.formats.ShTest()

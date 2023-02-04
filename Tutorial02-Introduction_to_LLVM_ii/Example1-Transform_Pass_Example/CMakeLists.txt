@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.18.4)
 project(TransformPassSample)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(LLVM_VERSION "16" CACHE STRING "LLVM Version")
 
