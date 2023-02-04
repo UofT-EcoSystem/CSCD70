@@ -25,7 +25,7 @@
 ; Function Attrs: noinline nounwind uwtable
 define dso_local void @foo(i32 noundef %0) #0 {
 ; CHECK-LABEL: define dso_local void @foo(i32 noundef %0) {
-; @todo(cscd70) Please complete the CHECK directives.
+; @todo(CSCD70) Please complete the CHECK directives.
   %2 = add nsw i32 %0, 0
   %3 = mul nsw i32 %2, 16
   %4 = mul nsw i32 %3, %2

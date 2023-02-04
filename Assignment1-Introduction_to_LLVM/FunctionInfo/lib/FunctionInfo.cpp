@@ -12,9 +12,7 @@ public:
     outs() << "CSCD70 Function Information Pass"
            << "\n";
 
-    /**
-     * @todo(cscd70) Please complete this method.
-     */
+    /// @todo(CSCD70) Please complete this method.
 
     return PreservedAnalyses::all();
   }

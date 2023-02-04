@@ -4,7 +4,7 @@
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on
 /**
- * @todo(cscd70) Please Remove the `--check-prefix=SAMPLE` option and add the
+ * @todo(CSCD70) Please Remove the `--check-prefix=SAMPLE` option and add the
  *               CHECK directives similar to those in Loop.c.
  */
 // SAMPLE: CSCD70 Function Information Pass

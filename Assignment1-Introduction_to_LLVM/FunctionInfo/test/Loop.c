@@ -9,7 +9,7 @@
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on
 /**
- * @todo(cscd70) Please remove the `--check-prefix=SAMPLE` option.
+ * @todo(CSCD70) Please remove the `--check-prefix=SAMPLE` option.
  */
 // SAMPLE: CSCD70 Function Information Pass
 

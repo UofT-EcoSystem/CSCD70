@@ -9,6 +9,6 @@ GitHub Classroom. Note that
 
 - The repository is initialized to be empty, so you will have to copy the files
   in this folder into your own repository.
-- TODO items have been marked using `todo(cscd70)` in the source code. **These
+- TODO items have been marked using `todo(CSCD70)` in the source code. **These
   include both the optimization passes and the test cases.** Please make sure
   that you have completed both parts before submitting.
