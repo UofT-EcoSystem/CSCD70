@@ -8,9 +8,7 @@
 //      Check the output "CSCD70 Function Information Pass".
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on
-/**
- * @todo(CSCD70) Please remove the `--check-prefix=SAMPLE` option.
- */
+/// @todo(CSCD70) Please remove the `--check-prefix=SAMPLE` option.
 // SAMPLE: CSCD70 Function Information Pass
 
 int g;

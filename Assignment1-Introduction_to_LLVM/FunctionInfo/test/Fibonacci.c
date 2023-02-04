@@ -3,10 +3,8 @@
 // RUN: opt -load-pass-plugin=%dylibdir/libFunctionInfo.so -passes=function-info -disable-output 2>&1 %basename_t.ll | \
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on
-/**
- * @todo(CSCD70) Please Remove the `--check-prefix=SAMPLE` option and add the
- *               CHECK directives similar to those in Loop.c.
- */
+/// @todo(CSCD70) Please Remove the `--check-prefix=SAMPLE` option and add the
+///               CHECK directives similar to those in Loop.c.
 // SAMPLE: CSCD70 Function Information Pass
 #include <stdarg.h>
 #include <stdio.h>
