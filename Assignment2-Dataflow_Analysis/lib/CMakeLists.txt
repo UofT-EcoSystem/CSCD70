@@ -5,7 +5,7 @@ add_library(DFA SHARED DFA.cpp
                        4-LCM/1-AnticipatedExprs.cpp
                        4-LCM/2-WBAvailExprs.cpp
                        4-LCM/3-EarliestPlacement.cpp
-                       4-LCM/4-PostponeableExprs.cpp
+                       4-LCM/4-PostponableExprs.cpp
                        4-LCM/5-UsedExprs.cpp
                        4-LCM/6-LatestPlacement.cpp
                        DFA/Domain/Expression.cpp
