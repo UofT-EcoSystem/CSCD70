@@ -19,6 +19,12 @@ jobs:
                       -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
                       dev bash -ce \
                       "mkdir build && cd build; cmake .. && make && ctest -V"
+            - name: Assignment 2 Dataflow Analysis
+              run: |
+                  docker-compose run --rm \
+                      -w /mnt/Assignment2-Dataflow_Analysis \
+                      dev bash -ce \
+                      "mkdir build && cd build; cmake .. && make && ctest -V"
             - name: C to LLVM IR
               run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR dev bash -ce "./C_to_LLVM_IR.sh -p=mem2reg"
             - name: Tutorial 1 Introduction to LLVM
