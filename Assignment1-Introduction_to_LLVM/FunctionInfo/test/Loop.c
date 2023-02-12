@@ -4,7 +4,7 @@
 //      Run the FunctionInfo pass. The `-disable-output` option disables
 //      outputting the bytecode because we are only checking the pass outputs
 //      here.
-// RUN: opt -load-pass-plugin=%dylibdir/libFunctionInfo.so -passes=function-info -disable-output 2>&1 %basename_t.ll | \
+// RUN: opt -load-pass-plugin=%dylibdir/libFunctionInfo.so -passes=function-info -disable-output %basename_t.ll 2>&1 | \
 //      Check the output "CSCD70 Function Information Pass".
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on

@@ -1,6 +1,6 @@
 // clang-format off
 // RUN: clang -O2 -S -emit-llvm -c %s -o %basename_t.ll
-// RUN: opt -load-pass-plugin=%dylibdir/libFunctionInfo.so -passes=function-info -disable-output 2>&1 %basename_t.ll | \
+// RUN: opt -load-pass-plugin=%dylibdir/libFunctionInfo.so -passes=function-info -disable-output %basename_t.ll 2>&1 | \
 // RUN: FileCheck --match-full-lines --check-prefix=SAMPLE %s
 // clang-format on
 /// @todo(CSCD70) Please Remove the `--check-prefix=SAMPLE` option and add the
