@@ -14,10 +14,12 @@
 void foo() {
   for (int i = 0; i < 100; ++i) {
     // SCEV: Instruction=  %11 = add nsw i32 %10, 7 : {7,+,6,+,10,+,6}<%1>
-    // SCEVPRINT:   -->  {7,+,6,+,10,+,6}<%1> U: full-set S: full-set          Exits: 1020307          LoopDispositions: { %1: Computable }
+    // SCEVPRINT-LABEL:   %11 = add nsw i32 %10, 7
+    // SCEVPRINT-NEXT:   -->  {7,+,6,+,10,+,6}<%1> U: full-set S: full-set          Exits: 1020307          LoopDispositions: { %1: Computable }
     int j = i * i * i + 2 * i * i + 3 * i + 7;
     // SCEV: Instruction=  %18 = sub nsw i32 %16, %17 : 1
-    // SCEVPRINT:   -->  1 U: [1,2) S: [1,2)           Exits: 1                LoopDispositions: { %1: Invariant }
+    // SCEVPRINT-LABEL:   %18 = sub nsw i32 %16, %17
+    // SCEVPRINT-NEXT:   -->  1 U: [1,2) S: [1,2)           Exits: 1                LoopDispositions: { %1: Invariant }
     int k = (i + 1) * (i + 1) - i * i - 2 * i;
   }
 }
