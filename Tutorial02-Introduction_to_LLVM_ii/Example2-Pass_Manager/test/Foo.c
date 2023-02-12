@@ -1,8 +1,8 @@
 // clang-format off
-// RUN: clang -O2 -S -emit-llvm -c %s -o %basename_t.bc
+// RUN: clang -O2 -S -emit-llvm -c %s -o %basename_t.ll
 // RUN: opt -load-pass-plugin=%dylibdir/libPassManager.so \
 // RUN:     -p=some-transform-that-preserves,another-transform,some-transform-that-does-NOT-preserve,another-transform \
-// RUN:     -disable-output 2>&1 %basename_t.bc | \
+// RUN:     -disable-output 2>&1 %basename_t.ll | \
 // RUN: FileCheck --match-full-lines %s
 // clang-format on
 
