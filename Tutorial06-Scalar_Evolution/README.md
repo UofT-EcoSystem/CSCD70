@@ -1,4 +1,4 @@
-# Tutorial 5 Lazy Code Motion
+# Tutorial 6 Scalar Evolution
 
 **Handout**: [\[Overleaf\]](https://www.overleaf.com/read/qyzvpfzxkrns)
 
@@ -8,3 +8,4 @@
   - Chain of Recurrences
   - Strength Reduction
   - Folding Chains of Recurrences
+  - SCEV in LLVM
