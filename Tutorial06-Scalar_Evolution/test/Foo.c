@@ -7,7 +7,6 @@
 // RUN: opt -p="print<scalar-evolution>" \
 // RUN:     -disable-output %basename_t.M2R.ll 2>&1 | \
 // RUN: FileCheck --match-full-lines --check-prefix=SCEVPRINT %s
-
 // clang-format on
 #include <stdio.h>
 
