@@ -15,15 +15,15 @@ jobs:
               run: |
                   docker-compose run --rm \
                       -w /mnt/Assignment1-Introduction_to_LLVM/FunctionInfo \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
                   docker-compose run --rm \
                       -w /mnt/Assignment1-Introduction_to_LLVM/LocalOpts \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
             - name: Assignment 2 Dataflow Analysis
               run: |
                   docker-compose run --rm \
                       -w /mnt/Assignment2-Dataflow_Analysis \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
             - name: C to LLVM IR
               run: docker-compose run --rm -w /mnt/Tools/C_to_LLVM_IR dev bash -ce "./C_to_LLVM_IR.sh -p=mem2reg"
             - name: Tutorial 1 Introduction to LLVM
@@ -35,12 +35,12 @@ jobs:
               run: |
                   docker-compose run --rm \
                       -w /mnt/Tutorial02-Introduction_to_LLVM_ii/Example1-Transform_Pass_Example \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
                   docker-compose run --rm \
                       -w /mnt/Tutorial02-Introduction_to_LLVM_ii/Example2-Pass_Manager \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
             - name: Tutorial 6 Scalar Evolution
               run: |
                   docker-compose run --rm \
                       -w /mnt/Tutorial06-Scalar_Evolution \
-                      dev bash -ce ${CMAKE_BUILD_AND_TEST}
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
