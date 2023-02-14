@@ -44,5 +44,5 @@ Tut 6     Scalar Evolution            [|Overleaf Tut6|_]
 .. _Overleaf Tut5: https://www.overleaf.com/read/dyjffnjmznyn
 
 .. |PPTX Lec6| replace:: :download:`pptx <Lecture_Slides/Lecture 6 [Register Allocation] 02.13.2023.pptx>`
-.. |Overleaf Tut5| replace:: Overleaf
-.. _Overleaf Tut5: https://www.overleaf.com/read/qyzvpfzxkrns
+.. |Overleaf Tut6| replace:: Overleaf
+.. _Overleaf Tut6: https://www.overleaf.com/read/qyzvpfzxkrns
