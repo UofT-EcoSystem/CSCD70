@@ -19,6 +19,8 @@ Lec 4     SSA                         [|PPTX Lec4|]
 Tut 4     Dataflow Analysis ii        [|Overleaf Tut4|_]
 Lec 5     LICM and Strength Reduction [|PPTX Lec5|]
 Tut 5     Lazy Code Motion            [|Overleaf Tut5|_]
+Lec 6     Register Allocation         [|PPTX Lec6|]
+Tut 6     Scalar Evolution            [|Overleaf Tut6|_]
 ========= =========================== =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
@@ -40,3 +42,7 @@ Tut 5     Lazy Code Motion            [|Overleaf Tut5|_]
 .. |PPTX Lec5| replace:: :download:`pptx <Lecture_Slides/Lecture 5 [LICM and Strength Reduction] 02.06.2023.pptx>`
 .. |Overleaf Tut5| replace:: Overleaf
 .. _Overleaf Tut5: https://www.overleaf.com/read/dyjffnjmznyn
+
+.. |PPTX Lec6| replace:: :download:`pptx <Lecture_Slides/Lecture 6 [Register Allocation] 02.13.2023.pptx>`
+.. |Overleaf Tut5| replace:: Overleaf
+.. _Overleaf Tut5: https://www.overleaf.com/read/qyzvpfzxkrns
