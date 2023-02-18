@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = LLVM
+PROJECT_NAME           = CSCD70
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -744,7 +744,10 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = @abs_top_srcdir@
+INPUT                  = @abs_top_srcdir@/Assignment2-Dataflow_Analysis/include \
+                         @abs_top_srcdir@/Assignment2-Dataflow_Analysis/lib \
+                         @abs_top_srcdir@/Tutorial07-Register_Allocation/include \
+                         @abs_top_srcdir@/Tutorial07-Register_Allocation/lib
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
