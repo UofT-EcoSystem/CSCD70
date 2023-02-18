@@ -25,8 +25,6 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 } // namespace llvm
 
-namespace {
-
 /**
  * @brief A minimal register allocator that goes through the list of live
  *        intervals and materialize them whenever there are physical registers
@@ -295,13 +293,18 @@ public:
 
 char RAMinimal::ID = 0;
 
-static RegisterRegAlloc X("minimal", "Minimal Register Allocator",
-                          []() -> FunctionPass * { return new RAMinimal(); });
+namespace {
+
+RegisterRegAlloc MinimalRegAllocator("minimal", "Minimal Register Allocator",
+                                     []() -> FunctionPass * {
+                                       return new RAMinimal();
+                                     });
 
 } // anonymous namespace
 
-INITIALIZE_PASS_BEGIN(RAMinimal, "regallominimal", "Minimal Register Allocator",
-                      false, false)
+INITIALIZE_PASS_BEGIN(RAMinimal, // NOLINT(misc-use-anonymous-namespace)
+                      "regallominimal", "Minimal Register Allocator", false,
+                      false)
 INITIALIZE_PASS_DEPENDENCY(SlotIndexes)
 INITIALIZE_PASS_DEPENDENCY(VirtRegMap)
 INITIALIZE_PASS_DEPENDENCY(LiveIntervals)
@@ -311,5 +314,6 @@ INITIALIZE_PASS_DEPENDENCY(AAResultsWrapperPass);
 INITIALIZE_PASS_DEPENDENCY(MachineDominatorTree);
 INITIALIZE_PASS_DEPENDENCY(MachineLoopInfo);
 INITIALIZE_PASS_DEPENDENCY(MachineBlockFrequencyInfo);
-INITIALIZE_PASS_END(RAMinimal, "regallominimal", "Minimal Register Allocator",
-                    false, false)
+INITIALIZE_PASS_END(RAMinimal, // NOLINT(misc-use-anonymous-namespace)
+                    "regallominimal", "Minimal Register Allocator", false,
+                    false)

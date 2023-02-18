@@ -23,6 +23,6 @@ if (DOXYGEN_FOUND)
         configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxygen.cfg.in
                        ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg @ONLY)
 
-        add_custom_target(doxygen COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg
-                                  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+        add_custom_target(Name ALL COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg
+                                   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 endif()
