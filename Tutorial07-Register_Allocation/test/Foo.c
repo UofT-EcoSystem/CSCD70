@@ -1,5 +1,5 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
-// RUN: opt -S -mem2reg %basename_t.bc -o %basename_t.ll
+// RUN: opt -S -p=mem2reg %basename_t.bc -o %basename_t.ll
 //      Run the minimal register allocator on the LLVM IR.
 // RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=minimal \
 // RUN:     --relocation-model=pic \

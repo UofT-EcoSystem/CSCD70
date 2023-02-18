@@ -1,4 +1,5 @@
 #include <llvm/Analysis/AliasAnalysis.h>
+#include <llvm/CodeGen/CalcSpillWeights.h>
 #include <llvm/CodeGen/LiveIntervals.h>
 #include <llvm/CodeGen/LiveRangeEdit.h>
 #include <llvm/CodeGen/LiveRegMatrix.h>
@@ -75,12 +76,11 @@ private:
    */
   bool spillInterferences(LiveInterval *const LI, MCRegister PhysReg,
                           SmallVectorImpl<Register> *const SplitVirtRegs) {
-    SmallVector<LiveInterval *, 8> IntfLIs;
+    SmallVector<const LiveInterval *, 8> IntfLIs;
 
     for (MCRegUnitIterator Units(PhysReg, TRI); Units.isValid(); ++Units) {
       LiveIntervalUnion::Query &Q = LRM->query(*LI, *Units);
-      Q.collectInterferingVRegs();
-      for (LiveInterval *const IntfLI : Q.interferingVRegs()) {
+      for (const LiveInterval *const IntfLI : reverse(Q.interferingVRegs())) {
         if (!IntfLI->isSpillable() || IntfLI->weight() > LI->weight()) {
           return false;
         }
@@ -89,7 +89,7 @@ private:
     }
     // Spill each interfering vreg allocated to PhysRegs.
     for (unsigned IntfIdx = 0; IntfIdx < IntfLIs.size(); ++IntfIdx) {
-      LiveInterval *const LIToSpill = IntfLIs[IntfIdx];
+      const LiveInterval *const LIToSpill = IntfLIs[IntfIdx];
       // avoid duplicates
       if (!VRM->hasPhys(LIToSpill->reg())) {
         continue;
@@ -237,8 +237,11 @@ public:
     // allocation order of physical registers.
     RCI.runOnMachineFunction(MF);
 
+    VirtRegAuxInfo VRAI(MF, *LIS, *VRM, getAnalysis<MachineLoopInfo>(),
+                        getAnalysis<MachineBlockFrequencyInfo>());
+    VRAI.calculateSpillWeightsAndHints();
     // The *Spiller* is, of course, responsible for spilling.
-    SpillerInst.reset(createInlineSpiller(*this, MF, *VRM));
+    SpillerInst.reset(createInlineSpiller(*this, MF, *VRM, VRAI));
 
     // 1. Obtain the virtual registers and push them on top of the stack.
     for (unsigned VirtualRegIdx = 0; VirtualRegIdx < MRI->getNumVirtRegs();
