@@ -1,8 +1,8 @@
 # Assignment 1 Introduction to LLVM
 
-**Due Date**: Jan. 27th, **Handout**:
-[\[Overleaf\]](https://www.overleaf.com/read/nvmnmbntgwqn), **GitHub
-Classroom**: [\[Invitation\]](https://classroom.github.com/a/ETVBNLfy)
+<del>**Due Date**: Jan. 27th</del>, **Handout**:
+[\[Overleaf\]](https://www.overleaf.com/read/nvmnmbntgwqn), <del>**GitHub
+Classroom**: \[Invitation\]</del>
 
 Please click on the links above for the assignment handout and the invitation to
 GitHub Classroom. Note that
