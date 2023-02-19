@@ -746,7 +746,6 @@ WARN_LOGFILE           =
 
 INPUT                  = @abs_top_srcdir@/Assignment2-Dataflow_Analysis/include \
                          @abs_top_srcdir@/Assignment2-Dataflow_Analysis/lib \
-                         @abs_top_srcdir@/Tutorial07-Register_Allocation/include \
                          @abs_top_srcdir@/Tutorial07-Register_Allocation/lib
 
 # This tag can be used to specify the character encoding of the source files

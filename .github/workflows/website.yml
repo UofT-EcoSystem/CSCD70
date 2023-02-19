@@ -11,12 +11,18 @@ jobs:
                 persist-credentials: false
             - name: Sphinx
               run: |
-                sudo apt-get install -y python3-setuptools 
+                sudo apt-get install -y python3-setuptools \
+                                        doxygen graphviz
                 sudo -H pip3 install sphinx sphinxemoji recommonmark
             - name: Build
               run: | 
-                cd Website && make html
-                touch .nojekyll && mv .nojekyll build/html
+                cd Website
+                make html
+                cd build/html
+                mkdir -p Doxygen_build && cd Doxygen_build
+                cmake ../../../Doxygen && make && mv html ../Doxygen
+                cd ..
+                touch .nojekyll
             - name: Publish
               uses: JamesIves/github-pages-deploy-action@v4.4.1
               with:
