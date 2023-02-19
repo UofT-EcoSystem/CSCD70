@@ -22,8 +22,7 @@
 
 @.str = private unnamed_addr constant [31 x i8] c"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\0A\00", align 1
 
-; Function Attrs: noinline nounwind uwtable
-define dso_local void @foo(i32 noundef %0) #0 {
+define dso_local void @foo(i32 noundef %0) {
 ; CHECK-LABEL: define dso_local void @foo(i32 noundef %0) {
 ; @todo(CSCD70) Please complete the CHECK directives.
   %2 = add nsw i32 %0, 0
