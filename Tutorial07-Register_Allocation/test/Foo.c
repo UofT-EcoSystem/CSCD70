@@ -12,24 +12,23 @@
 
 int g = 0;
 
-int def() { return g++; }
-
-void use(int i) { printf("%d", i); }
+#define DEF() g++
+#define USE(v) printf("%d", v)
 
 int main() {
-  int A = def(), B, C, D;
+  int A = DEF(), B, C, D;
 
   if (A) {
-    B = def();
-    use(A);
+    B = DEF();
+    USE(A);
     D = B + 1;
   } else {
-    C = def();
-    use(A);
+    C = DEF();
+    USE(A);
     D = C + 2;
   }
-  A = def();
-  use(A);
-  use(D);
+  A = DEF();
+  USE(A);
+  USE(D);
   return 0;
 }

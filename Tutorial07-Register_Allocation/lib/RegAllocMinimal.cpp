@@ -17,6 +17,8 @@
 
 #include <queue>
 
+#include "Logging.h"
+
 using namespace llvm;
 
 namespace llvm {
@@ -156,16 +158,12 @@ private:
     return 0;
   }
 
-public:
   static char ID;
 
-  StringRef getPassName() const override {
-    return "Minimal Register Allocator";
-  }
-
+  StringRef getPassName() const final { return "Minimal Register Allocator"; }
   RAMinimal() : MachineFunctionPass(ID) {}
 
-  void getAnalysisUsage(AnalysisUsage &AU) const override {
+  void getAnalysisUsage(AnalysisUsage &AU) const final {
     MachineFunctionPass::getAnalysisUsage(AU);
     AU.setPreservesCFG();
 #define REQUIRE_AND_PRESERVE_PASS(PassName)                                    \
@@ -185,31 +183,32 @@ public:
     REQUIRE_AND_PRESERVE_PASS(MachineBlockFrequencyInfo);
   }
 
-  // Request that PHINode's are removed before doing the register allocation.
-  MachineFunctionProperties getRequiredProperties() const override {
+  /// @brief Request the all PHINode's are removed before doing the register
+  ///        allocation.
+  /// @return
+  MachineFunctionProperties getRequiredProperties() const final {
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::NoPHIs);
   }
-  MachineFunctionProperties getClearedProperties() const override {
+  MachineFunctionProperties getClearedProperties() const final {
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::IsSSA);
   }
 
-  bool runOnMachineFunction(MachineFunction &MF) override {
+  bool runOnMachineFunction(MachineFunction &MF) final {
     this->MF = &MF;
 
-    outs() << "************************************************\n"
-           << "* Machine Function\n"
-           << "************************************************\n";
+    LOG_INFO << "************************************************";
+    LOG_INFO << "* Machine Function";
+    LOG_INFO << "************************************************";
     // THe *SlotIndexes* maps each machine instruction to a unique ID.
     SI = &getAnalysis<SlotIndexes>();
     for (const MachineBasicBlock &MBB : MF) {
       MBB.print(outs(), SI);
       outs() << "\n";
     }
-    outs() << "\n\n";
 
-    // 0. Get the requested analysis requests from the following passes:
+    // 1. Get the requested analysis results from the following passes:
     //    - VirtRegMap
     //    - LiveIntervals
     //    - LiveRegMatrix
