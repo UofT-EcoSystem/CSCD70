@@ -46,6 +46,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classRAMinimal-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">RAMinimal Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -69,23 +71,246 @@ Collaboration diagram for RAMinimal:</div>
 <div class="dyncontent">
 <div class="center"><img src="classRAMinimal__coll__graph.png" border="0" usemap="#aRAMinimal_coll__map" alt="Collaboration graph"/></div>
 <map name="aRAMinimal_coll__map" id="aRAMinimal_coll__map">
-<area shape="rect" title="A minimal register allocator that goes through the list of live intervals and materialize them whenev..." alt="" coords="137,80,230,107"/>
+<area shape="rect" title="A minimal register allocator that goes through the list of live intervals and materialize them whenev..." alt="" coords="235,95,329,121"/>
 <area shape="rect" href="classMachineFunctionPass.html" title=" " alt="" coords="5,5,167,32"/>
 <area shape="rect" title=" " alt="" coords="191,5,373,32"/>
+<area shape="rect" title=" " alt="" coords="398,5,489,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af721bc601c8d23c3991a1bf6df3e8c6d"><td class="memItemLeft" align="right" valign="top">StringRef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">getPassName</a> () const final</td></tr>
+<tr class="separator:af721bc601c8d23c3991a1bf6df3e8c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130203056e6217e2596933e825afdcdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">RAMinimal</a> ()</td></tr>
+<tr class="separator:a130203056e6217e2596933e825afdcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36b15f36feaf938c32d24f94f264264b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">getAnalysisUsage</a> (AnalysisUsage &amp;AU) const final</td></tr>
+<tr class="separator:a36b15f36feaf938c32d24f94f264264b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8624d71c81292430851e096065cd6cec"><td class="memItemLeft" align="right" valign="top">MachineFunctionProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">getRequiredProperties</a> () const final</td></tr>
+<tr class="memdesc:a8624d71c81292430851e096065cd6cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the all PHINode's are removed before doing the register allocation.  <a href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">More...</a><br /></td></tr>
+<tr class="separator:a8624d71c81292430851e096065cd6cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a219a8e8114dd3cc4b2db7e5285c7d447"><td class="memItemLeft" align="right" valign="top">MachineFunctionProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">getClearedProperties</a> () const final</td></tr>
+<tr class="memdesc:a219a8e8114dd3cc4b2db7e5285c7d447"><td class="mdescLeft">&#160;</td><td class="mdescRight">After the register allocation, each virtual register no longer has a single definition.  <a href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">More...</a><br /></td></tr>
+<tr class="separator:a219a8e8114dd3cc4b2db7e5285c7d447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91d75e9e023d908d1a3836deb91271d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">runOnMachineFunction</a> (MachineFunction &amp;MF) final</td></tr>
+<tr class="separator:a91d75e9e023d908d1a3836deb91271d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a2f9789308231ce537b0a4c821b38ef48"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">ID</a> = 0</td></tr>
+<tr class="separator:a2f9789308231ce537b0a4c821b38ef48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A minimal register allocator that goes through the list of live intervals and materialize them whenever there are physical registers available. </p>
 <p>If none is available then the interval is spilled. </p>
 
-<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00035">35</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00033">33</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a130203056e6217e2596933e825afdcdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130203056e6217e2596933e825afdcdd">&#9670;&nbsp;</a></span>RAMinimal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">RAMinimal::RAMinimal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00163">163</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a36b15f36feaf938c32d24f94f264264b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36b15f36feaf938c32d24f94f264264b">&#9670;&nbsp;</a></span>getAnalysisUsage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RAMinimal::getAnalysisUsage </td>
+          <td>(</td>
+          <td class="paramtype">AnalysisUsage &amp;&#160;</td>
+          <td class="paramname"><em>AU</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00165">165</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>.</p>
+
+</div>
+</div>
+<a id="a219a8e8114dd3cc4b2db7e5285c7d447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a219a8e8114dd3cc4b2db7e5285c7d447">&#9670;&nbsp;</a></span>getClearedProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MachineFunctionProperties RAMinimal::getClearedProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>After the register allocation, each virtual register no longer has a single definition. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00195">195</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af721bc601c8d23c3991a1bf6df3e8c6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af721bc601c8d23c3991a1bf6df3e8c6d">&#9670;&nbsp;</a></span>getPassName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StringRef RAMinimal::getPassName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00162">162</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8624d71c81292430851e096065cd6cec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8624d71c81292430851e096065cd6cec">&#9670;&nbsp;</a></span>getRequiredProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MachineFunctionProperties RAMinimal::getRequiredProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Request the all PHINode's are removed before doing the register allocation. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00188">188</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a91d75e9e023d908d1a3836deb91271d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d75e9e023d908d1a3836deb91271d7">&#9670;&nbsp;</a></span>runOnMachineFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RAMinimal::runOnMachineFunction </td>
+          <td>(</td>
+          <td class="paramtype">MachineFunction &amp;&#160;</td>
+          <td class="paramname"><em>MF</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00200">200</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2f9789308231ce537b0a4c821b38ef48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f9789308231ce537b0a4c821b38ef48">&#9670;&nbsp;</a></span>ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char RAMinimal::ID = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RegAllocMinimal_8cpp_source.html#l00160">160</a> of file <a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>Tutorial07-Register_Allocation/lib/<a class="el" href="RegAllocMinimal_8cpp_source.html">RegAllocMinimal.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 19 2023 22:33:49 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 19 2023 23:42:39 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
