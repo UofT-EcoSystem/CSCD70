@@ -15,7 +15,9 @@ RUN apt-get update && \
                        ca-certificates \
                        lsb-release \
                        software-properties-common \
-                       gpg-agent && \
+                       gpg-agent \
+                       doxygen \
+                       graphviz && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git config --global user.name  "ubuntu" && \
