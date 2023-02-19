@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structstd_1_1hash_3_1_1dfa_1_1Expression_01_4.html" title=" " alt="" coords="5,5,220,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node2" href="$classRAMinimal.html" title="A minimal register allocator that goes through the list of live intervals and materialize them whenev..." alt="" coords="236,31,329,57"/>
+<area shape="rect" id="node3" href="$classMachineFunctionPass.html" title=" " alt="" coords="16,56,177,83"/>
 </map>

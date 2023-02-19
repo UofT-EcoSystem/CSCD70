@@ -1,5 +1,5 @@
 <map id="Tutorial07&#45;Register_Allocation/lib/RegAllocMinimal.cpp" name="Tutorial07&#45;Register_Allocation/lib/RegAllocMinimal.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1970,5,2225,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2090,5,2345,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,102,219,129"/>
 <area shape="rect" id="node3" title=" " alt="" coords="243,102,482,129"/>
 <area shape="rect" id="node4" title=" " alt="" coords="506,102,721,129"/>
@@ -15,6 +15,7 @@
 <area shape="rect" id="node14" title=" " alt="" coords="2957,102,3128,129"/>
 <area shape="rect" id="node15" title=" " alt="" coords="3153,102,3359,129"/>
 <area shape="rect" id="node16" title=" " alt="" coords="3383,102,3550,129"/>
-<area shape="rect" id="node17" title=" " alt="" coords="3574,102,3781,129"/>
-<area shape="rect" id="node18" title=" " alt="" coords="3805,102,3867,129"/>
+<area shape="rect" id="node17" title=" " alt="" coords="3569,184,3775,211"/>
+<area shape="rect" id="node18" title=" " alt="" coords="3626,102,3689,129"/>
+<area shape="rect" id="node19" href="$Logging_8h.html" title=" " alt="" coords="3713,102,3799,129"/>
 </map>
