@@ -27,11 +27,9 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 } // namespace llvm
 
-/**
- * @brief A minimal register allocator that goes through the list of live
- *        intervals and materialize them whenever there are physical registers
- *        available. If none is available then the interval is spilled.
- */
+/// @brief A minimal register allocator that goes through the list of live
+///        intervals and materialize them whenever there are physical registers
+///        available. If none is available then the interval is spilled.
 class RAMinimal final : public MachineFunctionPass,
                         private LiveRangeEdit::Delegate {
 private:
@@ -47,7 +45,7 @@ private:
   LiveIntervals *LIS;
   std::queue<LiveInterval *> LIQ; // FIFO Queue
   void enqueue(LiveInterval *const LI) {
-    outs() << "Pushing {Reg=" << *LI << "}\n";
+    LOG_INFO << "Pushing {Reg=" << *LI << "}";
     LIQ.push(LI);
   }
   LiveInterval *dequeue() {
@@ -55,7 +53,7 @@ private:
       return nullptr;
     }
     LiveInterval *LI = LIQ.front();
-    outs() << "Popping {Reg=" << *LI << "}\n";
+    LOG_INFO << "Popping {Reg=" << *LI << "}";
     LIQ.pop();
     return LI;
   }
@@ -65,7 +63,7 @@ private:
   RegisterClassInfo RCI;
 
   // Spiller
-  std::unique_ptr<Spiller> SpillerInst;
+  std::unique_ptr<Spiller> SpillerInstance;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
   /**
@@ -98,7 +96,7 @@ private:
       LRM->unassign(*LIToSpill);
       LiveRangeEdit LRE(LIToSpill, *SplitVirtRegs, *MF, *LIS, VRM, this,
                         &DeadRemats);
-      SpillerInst->spill(LRE);
+      SpillerInstance->spill(LRE);
     }
     return true;
   }
@@ -154,10 +152,11 @@ private:
     }
     // 2.4. Inform the caller that the virtual register has been spilled.
     LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
-    SpillerInst->spill(LRE);
+    SpillerInstance->spill(LRE);
     return 0;
   }
 
+public:
   static char ID;
 
   StringRef getPassName() const final { return "Minimal Register Allocator"; }
@@ -175,7 +174,7 @@ private:
     REQUIRE_AND_PRESERVE_PASS(LiveIntervals);
     REQUIRE_AND_PRESERVE_PASS(LiveRegMatrix);
 
-    // implicitly requested by the spiller
+    // The following passes are implicitly requested by the spiller.
     REQUIRE_AND_PRESERVE_PASS(LiveStacks);
     REQUIRE_AND_PRESERVE_PASS(AAResultsWrapperPass);
     REQUIRE_AND_PRESERVE_PASS(MachineDominatorTree);
@@ -190,6 +189,9 @@ private:
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::NoPHIs);
   }
+  /// @brief After the register allocation, each virtual register no longer has
+  ///        a single definition.
+  /// @return
   MachineFunctionProperties getClearedProperties() const final {
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::IsSSA);
@@ -198,15 +200,16 @@ private:
   bool runOnMachineFunction(MachineFunction &MF) final {
     this->MF = &MF;
 
-    LOG_INFO << "************************************************";
-    LOG_INFO << "* Machine Function";
-    LOG_INFO << "************************************************";
-    // THe *SlotIndexes* maps each machine instruction to a unique ID.
-    SI = &getAnalysis<SlotIndexes>();
+    outs() << "************************************************\n"
+           << "* Machine Function\n"
+           << "************************************************\n";
+    // The *SlotIndexes* maps each machine instruction to a unique ID.
+    SI = &getAnalysis<SlotIndexes>(); 
     for (const MachineBasicBlock &MBB : MF) {
       MBB.print(outs(), SI);
       outs() << "\n";
     }
+    outs() << "************************************************\n\n";
 
     // 1. Get the requested analysis results from the following passes:
     //    - VirtRegMap
@@ -214,8 +217,8 @@ private:
     //    - LiveRegMatrix
     //    and setup the spiller.
 
-    // The *VirtRegMap* maps virtual registers to physical registers and
-    // virtual registers to stack slots.
+    // The *VirtRegMap* maps virtual registers to physical registers and virtual
+    // registers to stack slots.
     VRM = &getAnalysis<VirtRegMap>();
     TRI = &VRM->getTargetRegInfo(); // immutable descriptions of the target
                                     // machine register
@@ -237,8 +240,7 @@ private:
     VirtRegAuxInfo VRAI(MF, *LIS, *VRM, getAnalysis<MachineLoopInfo>(),
                         getAnalysis<MachineBlockFrequencyInfo>());
     VRAI.calculateSpillWeightsAndHints();
-    // The *Spiller* is, of course, responsible for spilling.
-    SpillerInst.reset(createInlineSpiller(*this, MF, *VRM, VRAI));
+    SpillerInstance.reset(createInlineSpiller(*this, MF, *VRM, VRAI));
 
     // 1. Obtain the virtual registers and push them on top of the stack.
     for (unsigned VirtualRegIdx = 0; VirtualRegIdx < MRI->getNumVirtRegs();
@@ -280,7 +282,7 @@ private:
       }
     } // while (dequeue())
     // cleanup
-    SpillerInst->postOptimization();
+    SpillerInstance->postOptimization();
     for (MachineInstr *const DeadInst : DeadRemats) {
       LIS->RemoveMachineInstrFromMaps(*DeadInst);
       DeadInst->eraseFromParent();
