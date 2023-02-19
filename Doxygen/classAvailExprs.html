@@ -47,6 +47,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classAvailExprs-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AvailExprs Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -72,7 +75,7 @@ Collaboration diagram for AvailExprs:</div>
 <div class="dyncontent">
 <div class="center"><img src="classAvailExprs__coll__graph.png" border="0" usemap="#aAvailExprs_coll__map" alt="Collaboration graph"/></div>
 <map name="aAvailExprs_coll__map" id="aAvailExprs_coll__map">
-<area shape="rect" title=" " alt="" coords="1852,189,1943,216"/>
+<area shape="rect" title=" " alt="" coords="1880,205,1971,232"/>
 <area shape="rect" href="classdfa_1_1ForwardAnalysis.html" title=" " alt="" coords="1632,103,1799,174"/>
 <area shape="rect" href="classdfa_1_1Framework.html" title=" " alt="" coords="356,119,643,175"/>
 <area shape="rect" href="classdfa_1_1Framework.html" title=" " alt="" coords="903,147,1188,218"/>
@@ -82,6 +85,7 @@ Collaboration diagram for AvailExprs:</div>
 <area shape="rect" title=" " alt="" coords="29,216,156,243"/>
 <area shape="rect" href="classdfa_1_1ForwardAnalysis.html" title=" " alt="" coords="1237,145,1423,201"/>
 <area shape="rect" title=" " alt="" coords="1628,198,1803,239"/>
+<area shape="rect" title=" " alt="" coords="1665,264,1766,291"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -89,6 +93,24 @@ Collaboration diagram for AvailExprs:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a3c241ea90dcc0c38df957a7bad49a153"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAvailExprs.html#a3c241ea90dcc0c38df957a7bad49a153">Result</a> = typename <a class="el" href="classdfa_1_1Framework.html#ac30442fd7805a23386d43769f6aef3bd">ForwardAnalysis_t::AnalysisResult_t</a></td></tr>
 <tr class="separator:a3c241ea90dcc0c38df957a7bad49a153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:acf19d4f2d3e2cc98c0c496e3f2549b63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAvailExprs.html#acf19d4f2d3e2cc98c0c496e3f2549b63">ForwardAnalysis_t</a> = <a class="el" href="classdfa_1_1ForwardAnalysis.html">dfa::ForwardAnalysis</a>&lt; <a class="el" href="structdfa_1_1Expression.html">dfa::Expression</a>, <a class="el" href="structdfa_1_1Bool.html">dfa::Bool</a>, <a class="el" href="structdfa_1_1Intersect.html">dfa::Intersect</a>&lt; <a class="el" href="structdfa_1_1Bool.html">dfa::Bool</a> &gt; &gt;</td></tr>
+<tr class="separator:acf19d4f2d3e2cc98c0c496e3f2549b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a3f1977719c7df79707ef10c5dd206a0a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAvailExprs.html#a3f1977719c7df79707ef10c5dd206a0a">getName</a> () const final</td></tr>
+<tr class="separator:a3f1977719c7df79707ef10c5dd206a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeea75ad2509651e57386fe4f3bbb3f1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAvailExprs.html#aeea75ad2509651e57386fe4f3bbb3f1b">transferFunc</a> (const llvm::Instruction &amp;, const <a class="el" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;, <a class="el" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;) final</td></tr>
+<tr class="memdesc:aeea75ad2509651e57386fe4f3bbb3f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the transfer function to the input domain value at instruction <code>inst</code> .  <a href="classAvailExprs.html#aeea75ad2509651e57386fe4f3bbb3f1b">More...</a><br /></td></tr>
+<tr class="separator:aeea75ad2509651e57386fe4f3bbb3f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a4b3dc7044e698847ae296c77f4438c2f"><td class="memItemLeft" align="right" valign="top">static llvm::AnalysisKey&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAvailExprs.html#a4b3dc7044e698847ae296c77f4438c2f">Key</a></td></tr>
+<tr class="separator:a4b3dc7044e698847ae296c77f4438c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -159,6 +181,30 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="DFA_8h_source.html#l00011">11</a> of file <a class="el" href="DFA_8h_source.html">DFA.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="acf19d4f2d3e2cc98c0c496e3f2549b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf19d4f2d3e2cc98c0c496e3f2549b63">&#9670;&nbsp;</a></span>ForwardAnalysis_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classAvailExprs.html#acf19d4f2d3e2cc98c0c496e3f2549b63">AvailExprs::ForwardAnalysis_t</a> =  <a class="el" href="classdfa_1_1ForwardAnalysis.html">dfa::ForwardAnalysis</a>&lt;<a class="el" href="structdfa_1_1Expression.html">dfa::Expression</a>, <a class="el" href="structdfa_1_1Bool.html">dfa::Bool</a>, <a class="el" href="structdfa_1_1Intersect.html">dfa::Intersect</a>&lt;<a class="el" href="structdfa_1_1Bool.html">dfa::Bool</a>&gt; &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DFA_8h_source.html#l00015">15</a> of file <a class="el" href="DFA_8h_source.html">DFA.h</a>.</p>
+
+</div>
+</div>
 <a id="a3c241ea90dcc0c38df957a7bad49a153"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c241ea90dcc0c38df957a7bad49a153">&#9670;&nbsp;</a></span>Result</h2>
 
@@ -175,6 +221,119 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3f1977719c7df79707ef10c5dd206a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f1977719c7df79707ef10c5dd206a0a">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string AvailExprs::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classdfa_1_1Framework.html#afcde6b1ff44bf59341a9ac7564368747">dfa::Framework&lt; TDomainElem, TValue, TMeetOp, TMeetBBConstRange, TBBConstRange, TInstConstRange &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="DFA_8h_source.html#l00021">21</a> of file <a class="el" href="DFA_8h_source.html">DFA.h</a>.</p>
+
+</div>
+</div>
+<a id="aeea75ad2509651e57386fe4f3bbb3f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea75ad2509651e57386fe4f3bbb3f1b">&#9670;&nbsp;</a></span>transferFunc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AvailExprs::transferFunc </td>
+          <td>(</td>
+          <td class="paramtype">const llvm::Instruction &amp;&#160;</td>
+          <td class="paramname"><em>Inst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>IDV</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>ODV</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply the transfer function to the input domain value at instruction <code>inst</code> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Inst</td><td></td></tr>
+    <tr><td class="paramname">IDV</td><td></td></tr>
+    <tr><td class="paramname">ODV</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the output domain value is to be changed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>(CSCD70) Please complete this method. </dd></dl>
+
+<p>Implements <a class="el" href="classdfa_1_1Framework.html#a863f099db7f2c04bca37251146c26db2">dfa::Framework&lt; TDomainElem, TValue, TMeetOp, TMeetBBConstRange, TBBConstRange, TInstConstRange &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="1-AvailExprs_8cpp_source.html#l00007">7</a> of file <a class="el" href="1-AvailExprs_8cpp_source.html">1-AvailExprs.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4b3dc7044e698847ae296c77f4438c2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b3dc7044e698847ae296c77f4438c2f">&#9670;&nbsp;</a></span>Key</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AnalysisKey AvailExprs::Key</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DFA_8h_source.html#l00019">19</a> of file <a class="el" href="DFA_8h_source.html">DFA.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Assignment2-Dataflow_Analysis/lib/<a class="el" href="DFA_8h_source.html">DFA.h</a></li>
 <li>Assignment2-Dataflow_Analysis/lib/<a class="el" href="1-AvailExprs_8cpp_source.html">1-AvailExprs.cpp</a></li>
@@ -182,7 +341,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 19 2023 22:22:09 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 19 2023 22:22:18 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -57,21 +57,24 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacellvm.html">llvm</a>;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;AnalysisKey AvailExprs::Key;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;AnalysisKey <a class="code" href="classAvailExprs.html#a4b3dc7044e698847ae296c77f4438c2f">AvailExprs::Key</a>;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">bool</span> AvailExprs::transferFunc(<span class="keyword">const</span> Instruction &amp;Inst, <span class="keyword">const</span> DomainVal_t &amp;IDV,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                             DomainVal_t &amp;ODV) {</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classAvailExprs.html#aeea75ad2509651e57386fe4f3bbb3f1b">    7</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classAvailExprs.html#aeea75ad2509651e57386fe4f3bbb3f1b">AvailExprs::transferFunc</a>(<span class="keyword">const</span> Instruction &amp;Inst, <span class="keyword">const</span> <a class="code" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;IDV,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                             <a class="code" href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">DomainVal_t</a> &amp;ODV) {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">  /// @todo(CSCD70) Please complete this method.</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="ttc" id="aDFA_8h_html"><div class="ttname"><a href="DFA_8h.html">DFA.h</a></div></div>
+<div class="ttc" id="aclassAvailExprs_html_a4b3dc7044e698847ae296c77f4438c2f"><div class="ttname"><a href="classAvailExprs.html#a4b3dc7044e698847ae296c77f4438c2f">AvailExprs::Key</a></div><div class="ttdeci">static llvm::AnalysisKey Key</div><div class="ttdef"><b>Definition:</b> <a href="DFA_8h_source.html#l00019">DFA.h:19</a></div></div>
+<div class="ttc" id="aclassAvailExprs_html_aeea75ad2509651e57386fe4f3bbb3f1b"><div class="ttname"><a href="classAvailExprs.html#aeea75ad2509651e57386fe4f3bbb3f1b">AvailExprs::transferFunc</a></div><div class="ttdeci">bool transferFunc(const llvm::Instruction &amp;, const DomainVal_t &amp;, DomainVal_t &amp;) final</div><div class="ttdoc">Apply the transfer function to the input domain value at instruction inst .</div><div class="ttdef"><b>Definition:</b> <a href="1-AvailExprs_8cpp_source.html#l00007">1-AvailExprs.cpp:7</a></div></div>
+<div class="ttc" id="aclassdfa_1_1Framework_html_a8e94a99bae07cfcf796bf9994a9c74f1"><div class="ttname"><a href="classdfa_1_1Framework.html#a8e94a99bae07cfcf796bf9994a9c74f1">dfa::Framework::DomainVal_t</a></div><div class="ttdeci">typename TMeetOp::DomainVal_t DomainVal_t</div><div class="ttdef"><b>Definition:</b> <a href="Framework_8h_source.html#l00022">Framework.h:22</a></div></div>
 <div class="ttc" id="anamespacellvm_html"><div class="ttname"><a href="namespacellvm.html">llvm</a></div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00024">RegAllocMinimal.cpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 19 2023 22:22:09 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 19 2023 22:22:18 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

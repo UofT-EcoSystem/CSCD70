@@ -79,17 +79,17 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classInternalRuntimeChecker.html">InternalRuntimeChecker</a> {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">bool</span> Cond;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">   27</a></span>&#160;  <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#a3f6ee40ad799e80273e5dd2ad2c5238c">   30</a></span>&#160;  <a class="code" href="classInternalRuntimeChecker.html#a3f6ee40ad799e80273e5dd2ad2c5238c">InternalRuntimeChecker</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> Cond) : Cond(Cond) {}</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#a3f6ee40ad799e80273e5dd2ad2c5238c">   30</a></span>&#160;  <a class="code" href="classInternalRuntimeChecker.html#a3f6ee40ad799e80273e5dd2ad2c5238c">InternalRuntimeChecker</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>) : <a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>(<a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>) {}</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#a6a3169c6004f0dfaeab646bc40d4cca8">   31</a></span>&#160;  <a class="code" href="classInternalRuntimeChecker.html#a6a3169c6004f0dfaeab646bc40d4cca8">~InternalRuntimeChecker</a>() {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!Cond) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>) {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      llvm::errs() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      abort();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  }</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#aacaa53c5f9ef62376b141d645b378d87">   37</a></span>&#160;  <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !Cond; }</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classInternalRuntimeChecker.html#aacaa53c5f9ef62376b141d645b378d87">   37</a></span>&#160;  <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !<a class="code" href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">Cond</a>; }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structInternalInfoLogger.html">   40</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structInternalInfoLogger.html">InternalInfoLogger</a> {</div>
@@ -126,6 +126,7 @@ $(function() {
 <div class="ttc" id="aUtility_8h_html_aeaa2eb01d2537f9127b1c28f2b5ea33e"><div class="ttname"><a href="Utility_8h.html#aeaa2eb01d2537f9127b1c28f2b5ea33e">operator!=</a></div><div class="ttdeci">bool operator!=(const std::vector&lt; T &gt; &amp;LHS, const std::vector&lt; T &gt; &amp;RHS)</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00060">Utility.h:60</a></div></div>
 <div class="ttc" id="aclassInternalRuntimeChecker_html"><div class="ttname"><a href="classInternalRuntimeChecker.html">InternalRuntimeChecker</a></div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00025">Utility.h:25</a></div></div>
 <div class="ttc" id="aclassInternalRuntimeChecker_html_a3f6ee40ad799e80273e5dd2ad2c5238c"><div class="ttname"><a href="classInternalRuntimeChecker.html#a3f6ee40ad799e80273e5dd2ad2c5238c">InternalRuntimeChecker::InternalRuntimeChecker</a></div><div class="ttdeci">InternalRuntimeChecker(const bool Cond)</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00030">Utility.h:30</a></div></div>
+<div class="ttc" id="aclassInternalRuntimeChecker_html_a577b46e3e145780102baf0e60babec64"><div class="ttname"><a href="classInternalRuntimeChecker.html#a577b46e3e145780102baf0e60babec64">InternalRuntimeChecker::Cond</a></div><div class="ttdeci">const bool Cond</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00027">Utility.h:27</a></div></div>
 <div class="ttc" id="aclassInternalRuntimeChecker_html_a6a3169c6004f0dfaeab646bc40d4cca8"><div class="ttname"><a href="classInternalRuntimeChecker.html#a6a3169c6004f0dfaeab646bc40d4cca8">InternalRuntimeChecker::~InternalRuntimeChecker</a></div><div class="ttdeci">~InternalRuntimeChecker()</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00031">Utility.h:31</a></div></div>
 <div class="ttc" id="astructInternalInfoLogger_html"><div class="ttname"><a href="structInternalInfoLogger.html">InternalInfoLogger</a></div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00040">Utility.h:40</a></div></div>
 <div class="ttc" id="astructInternalInfoLogger_html_a5b483195781c0caa8bb1ab8f229fe4ca"><div class="ttname"><a href="structInternalInfoLogger.html#a5b483195781c0caa8bb1ab8f229fe4ca">InternalInfoLogger::~InternalInfoLogger</a></div><div class="ttdeci">~InternalInfoLogger()</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00043">Utility.h:43</a></div></div>
@@ -134,7 +135,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 19 2023 22:22:09 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 19 2023 22:22:18 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
