@@ -1,8 +1,8 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
 // RUN: opt -S -p=mem2reg %basename_t.bc -o %basename_t.ll
 //      Run the minimal register allocator on the LLVM IR.
-// RUN: llc -load %dylibdir/libRegAlloc.so -regalloc=minimal \
-// RUN:     --relocation-model=pic \
+// RUN: llc -load %dylibdir/libRegAlloc.so \
+// RUN:     -regalloc=minimal --relocation-model=pic \
 // RUN:     %basename_t.ll -o %basename_t.s
 //      Compile the generated assembly into executable.
 // RUN: clang %basename_t.s -o %basename_t.exe
