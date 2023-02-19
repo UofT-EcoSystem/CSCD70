@@ -1,0 +1,5 @@
+<map id="RAMinimal" name="RAMinimal">
+<area shape="rect" id="node1" title="A minimal register allocator that goes through the list of live intervals and materialize them whenev..." alt="" coords="137,80,230,107"/>
+<area shape="rect" id="node2" href="$classMachineFunctionPass.html" title=" " alt="" coords="5,5,167,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="191,5,373,32"/>
+</map>
