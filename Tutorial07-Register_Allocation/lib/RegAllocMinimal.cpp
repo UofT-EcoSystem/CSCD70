@@ -204,7 +204,7 @@ public:
            << "* Machine Function\n"
            << "************************************************\n";
     // The *SlotIndexes* maps each machine instruction to a unique ID.
-    SI = &getAnalysis<SlotIndexes>(); 
+    SI = &getAnalysis<SlotIndexes>();
     for (const MachineBasicBlock &MBB : MF) {
       MBB.print(outs(), SI);
       outs() << "\n";
@@ -217,14 +217,17 @@ public:
     //    - LiveRegMatrix
     //    and setup the spiller.
 
-    // The *VirtRegMap* maps virtual registers to physical registers and virtual
-    // registers to stack slots.
+    // The *VirtRegMap* maps virtual registers to physical registers and stack
+    // slots.
     VRM = &getAnalysis<VirtRegMap>();
-    TRI = &VRM->getTargetRegInfo(); // immutable descriptions of the target
-                                    // machine register
-    MRI = &VRM->getRegInfo();       // physical and virtual registers
-    // freeze the reserved registers before the actual allocations begin
-    MRI->freezeReservedRegs(MF);
+    // The *TargetRegisterInfo* is an immutable description of all the machine
+    // registers the target has.
+    TRI = &VRM->getTargetRegInfo();
+    // The *MachineRegisterInfo* has information of both the physical and the
+    // virtual registers.
+    MRI = &VRM->getRegInfo();
+    MRI->freezeReservedRegs(MF); // freeze the reserved registers before the
+                                 // actual allocations begin
     // The *LiveIntervals* describe the live range of each virtual register.
     LIS = &getAnalysis<LiveIntervals>();
     // The *LiveRegMatrix* keeps track of virtual register interference along
@@ -233,8 +236,8 @@ public:
     // assigned to overlapping physical registers.
     LRM = &getAnalysis<LiveRegMatrix>();
     // The *RegisterClassInfo* provides dynamic information about target
-    // register classes. We will be leveraging it to obtain a plausible
-    // allocation order of physical registers.
+    // register classes. We will be using it to obtain a plausible allocation
+    // order of physical registers.
     RCI.runOnMachineFunction(MF);
 
     VirtRegAuxInfo VRAI(MF, *LIS, *VRM, getAnalysis<MachineLoopInfo>(),
