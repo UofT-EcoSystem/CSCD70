@@ -2,7 +2,7 @@
 
 using namespace llvm;
 
-PreservedAnalyses StrengthReductionPass::run(Function &F,
+PreservedAnalyses StrengthReductionPass::run([[maybe_unused]] Function &F,
                                              FunctionAnalysisManager &) {
 
   /// @todo(CSCD70) Please complete this method.
