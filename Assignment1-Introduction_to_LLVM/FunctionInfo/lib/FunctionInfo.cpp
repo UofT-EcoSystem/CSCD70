@@ -8,7 +8,7 @@ namespace {
 
 class FunctionInfoPass final : public PassInfoMixin<FunctionInfoPass> {
 public:
-  PreservedAnalyses run(Module &M, ModuleAnalysisManager &) {
+  PreservedAnalyses run([[maybe_unused]] Module &M, ModuleAnalysisManager &) {
     outs() << "CSCD70 Function Information Pass"
            << "\n";
 
