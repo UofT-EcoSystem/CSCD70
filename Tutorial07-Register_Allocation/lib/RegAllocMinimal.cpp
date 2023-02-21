@@ -245,7 +245,7 @@ public:
     VRAI.calculateSpillWeightsAndHints();
     SpillerInstance.reset(createInlineSpiller(*this, MF, *VRM, VRAI));
 
-    // 1. Obtain the virtual registers and push them on top of the stack.
+    // 2. Obtain the virtual registers and push them on top of the stack.
     for (unsigned VirtualRegIdx = 0; VirtualRegIdx < MRI->getNumVirtRegs();
          ++VirtualRegIdx) {
       Register Reg = Register::index2VirtReg(VirtualRegIdx);
@@ -256,7 +256,7 @@ public:
       enqueue(&LIS->getInterval(Reg));
     }
 
-    // keep traversing until the LIQ is nonempty
+    // 3. Keep traversing until the LIQ becomes empty.
     while (LiveInterval *const LI = dequeue()) {
       // again, skip all unused registers
       if (MRI->reg_nodbg_empty(LI->reg())) {
@@ -266,8 +266,8 @@ public:
       // invalidate all previous interference queries.
       LRM->invalidateVirtRegs();
 
-      // 2. Allocate to a physical register (if available) or split to a list of
-      //    virtual registers.
+      // For each virtual register, Allocate to a physical register (if
+      // available) or split to a list of virtual registers.
       SmallVector<Register, 4> SplitVirtRegs;
       MCRegister PhysReg = selectOrSplit(LI, &SplitVirtRegs);
 
