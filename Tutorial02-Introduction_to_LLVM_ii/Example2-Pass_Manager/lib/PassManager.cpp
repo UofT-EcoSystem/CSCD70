@@ -6,21 +6,15 @@
 
 using namespace llvm;
 
-/**
- * @brief An analysis pass that hypothetically gathers some information from the
- *        module.
- */
+/// @brief An analysis pass that hypothetically gathers some information from
+///        the module.
 class SomeAnalysis final : public AnalysisInfoMixin<SomeAnalysis> {
 public:
-  /**
-   * @brief The information that is collected by `SomeAnalysis`. In this
-   *        specific example we are assuming it to be of type vector.
-   */
+  /// @brief The information that is collected by @c SomeAnalysis . In this
+  ///        specific example we are assuming it to be of type vector.
   struct Result : std::vector<unsigned> {
-    /**
-     * @brief Verify the validity of the analysis results. This method is
-     *        implicitly invoked by the pass manager.
-     */
+    /// @brief Verify the validity of the analysis results. This method is
+    ///        implicitly invoked by the pass manager.
     bool invalidate(Module &, const PreservedAnalyses &PA,
                     ModuleAnalysisManager::Invalidator &) {
       PreservedAnalyses::PreservedAnalysisChecker PAC =

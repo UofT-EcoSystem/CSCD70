@@ -1,6 +1,7 @@
-/**
- * @file Variable Reference
- */
+/// @file Variable Reference
+/// @note We do NOT need to "take the address of" and/or "dereference" when
+///       dealing when references, which make them a cleaner solution compared
+///       with pointers.
 #include <iostream> // Print
 
 int main() {
@@ -17,9 +18,5 @@ int main() {
             << "XRef: " << XRef << ", "
             << "XCopy: " << XCopy
             << std::endl; // 'endl' is the newline character
-  /**
-   * @note We do NOT need to "take the address of" and/or "dereference" when
-   *       dealing when references, which make them a cleaner solution compared
-   *       with pointers.
-   */
+  return 0;
 }
