@@ -2,7 +2,7 @@
 #include <iostream>
 #include <typeinfo> // std::bad_cast
 
-/// @brief Abstract Base Class @c Animal
+/// Abstract Base Class @c Animal
 class Animal {
 public:
   /// @note If a base class method is marked as *virtual*, then all the

@@ -27,9 +27,9 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 } // namespace llvm
 
-/// @brief A minimal register allocator that goes through the list of live
-///        intervals and materialize them whenever there are physical registers
-///        available. If none is available then the interval is spilled.
+/// A minimal register allocator that goes through the list of live intervals
+/// and materialize them whenever there are physical registers available. If
+/// none is available then the interval is split and spilled.
 class RAMinimal final : public MachineFunctionPass,
                         private LiveRangeEdit::Delegate {
 private:
@@ -66,12 +66,9 @@ private:
   std::unique_ptr<Spiller> SpillerInstance;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
-  /**
-   * @brief Attempt to split all live intervals that interfere with @c LI
-   *        but have less spill weights.
-   *
-   * @sa selectOrSplit 2.3.
-   */
+  /// @brief Attempt to split all live intervals that interfere with @c LI but
+  /// have less spill weights.
+  /// @sa selectOrSplit 2.3.
   bool spillInterferences(LiveInterval *const LI, MCRegister PhysReg,
                           SmallVectorImpl<Register> *const SplitVirtRegs) {
     SmallVector<const LiveInterval *, 8> IntfLIs;
@@ -101,10 +98,8 @@ private:
     return true;
   }
 
-  /**
-   * @brief Allocate a physical register for @c LI , or have the spiller splits
-   *        it into a list of virtual registers.
-   */
+  /// Allocate a physical register for @c LI , or have the spiller splits it
+  /// into a list of virtual registers.
   MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
     // 2.1. Obtain a plausible allocation order.
@@ -182,16 +177,14 @@ public:
     REQUIRE_AND_PRESERVE_PASS(MachineBlockFrequencyInfo);
   }
 
-  /// @brief Request the all PHINode's are removed before doing the register
-  ///        allocation.
-  /// @return
+  /// Request the all PHINode's are removed before doing the register
+  /// allocation.
   MachineFunctionProperties getRequiredProperties() const final {
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::NoPHIs);
   }
-  /// @brief After the register allocation, each virtual register no longer has
-  ///        a single definition.
-  /// @return
+  /// After the register allocation, each virtual register no longer has a
+  /// single definition.
   MachineFunctionProperties getClearedProperties() const final {
     return MachineFunctionProperties().set(
         MachineFunctionProperties::Property::IsSSA);
@@ -245,7 +238,7 @@ public:
     VRAI.calculateSpillWeightsAndHints();
     SpillerInstance.reset(createInlineSpiller(*this, MF, *VRM, VRAI));
 
-    // 2. Obtain the virtual registers and push them on top of the stack.
+    // 2. Obtain the virtual registers and push them to the worklist.
     for (unsigned VirtualRegIdx = 0; VirtualRegIdx < MRI->getNumVirtRegs();
          ++VirtualRegIdx) {
       Register Reg = Register::index2VirtReg(VirtualRegIdx);
