@@ -71,6 +71,8 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="Logging_8h.html#aeb4f36db01bd128c7afeac5889dac311">   16</a></span>&#160;<span class="preprocessor">#define LOG_INFO                                                               \</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">  if (auto Logger = internal::InfoLogger())                                    \</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">  llvm::outs() &lt;&lt; &quot;[&quot;</span> &lt;&lt; __FILE__ &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt; &quot;, I] &quot;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="Logging_8h.html#a0bfcc58b82cd6616652b8fca7e8cf8d9">   20</a></span>&#160;<span class="preprocessor">#define BOLD(str) &quot;\033[1m&quot;</span> &lt;&lt; str &lt;&lt; &quot;\033[0m&quot;</div>
 <div class="ttc" id="anamespaceinternal_html"><div class="ttname"><a href="namespaceinternal.html">internal</a></div><div class="ttdef"><b>Definition:</b> <a href="Logging_8h_source.html#l00005">Logging.h:5</a></div></div>
 <div class="ttc" id="astructinternal_1_1InfoLogger_html"><div class="ttname"><a href="structinternal_1_1InfoLogger.html">internal::InfoLogger</a></div><div class="ttdef"><b>Definition:</b> <a href="Logging_8h_source.html#l00007">Logging.h:7</a></div></div>
 <div class="ttc" id="astructinternal_1_1InfoLogger_html_aba8e53e012fa689b374c8a526ba927ec"><div class="ttname"><a href="structinternal_1_1InfoLogger.html#aba8e53e012fa689b374c8a526ba927ec">internal::InfoLogger::Outs</a></div><div class="ttdeci">llvm::raw_ostream &amp; Outs</div><div class="ttdef"><b>Definition:</b> <a href="Logging_8h_source.html#l00008">Logging.h:8</a></div></div>
@@ -79,7 +81,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 25 2023 21:35:22 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 26 2023 04:46:30 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

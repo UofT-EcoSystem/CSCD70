@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  LiveIntervals *LIS;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  std::queue&lt;LiveInterval *&gt; LIQ; <span class="comment">// FIFO Queue</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> enqueue(LiveInterval *<span class="keyword">const</span> LI) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="Utility_8h.html#aeb4f36db01bd128c7afeac5889dac311">LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Pushing {Reg=&quot;</span> &lt;&lt; *LI &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="Utility_8h.html#aeb4f36db01bd128c7afeac5889dac311">LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Pushing {Reg=&quot;</span> &lt;&lt; <a class="code" href="Logging_8h.html#a0bfcc58b82cd6616652b8fca7e8cf8d9">BOLD</a>(*LI) &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    LIQ.push(LI);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  LiveInterval *dequeue() {</div>
@@ -108,7 +108,7 @@ $(function() {
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    LiveInterval *LI = LIQ.front();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="Utility_8h.html#aeb4f36db01bd128c7afeac5889dac311">LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Popping {Reg=&quot;</span> &lt;&lt; *LI &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="Utility_8h.html#aeb4f36db01bd128c7afeac5889dac311">LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Popping {Reg=&quot;</span> &lt;&lt; <a class="code" href="Logging_8h.html#a0bfcc58b82cd6616652b8fca7e8cf8d9">BOLD</a>(*LI) &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    LIQ.pop();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> LI;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
@@ -121,276 +121,279 @@ $(function() {
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  std::unique_ptr&lt;Spiller&gt; SpillerInstance;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  SmallPtrSet&lt;MachineInstr *, 32&gt; DeadRemats;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">  /// @brief Attempt to split all live intervals that interfere with @c LI but</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">  /// @brief Attempt to spill all live intervals that interfere with @c LI but</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">  /// have less spill weights.</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">  /// @sa selectOrSplit 2.3.</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"></span>  <span class="keywordtype">bool</span> spillInterferences(LiveInterval *<span class="keyword">const</span> LI, MCRegister PhysReg,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                          SmallVectorImpl&lt;Register&gt; *<span class="keyword">const</span> SplitVirtRegs) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    SmallVector&lt;const LiveInterval *, 8&gt; IntfLIs;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> (MCRegUnitIterator Units(PhysReg, TRI); Units.isValid(); ++Units) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      LiveIntervalUnion::Query &amp;Q = LRM-&gt;query(*LI, *Units);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> LiveInterval *<span class="keyword">const</span> IntfLI : reverse(Q.interferingVRegs())) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">if</span> (!IntfLI-&gt;isSpillable() || IntfLI-&gt;weight() &gt; LI-&gt;weight()) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        IntfLIs.push_back(IntfLI);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">// Spill each interfering vreg allocated to PhysRegs.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> IntfIdx = 0; IntfIdx &lt; IntfLIs.size(); ++IntfIdx) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keyword">const</span> LiveInterval *<span class="keyword">const</span> LIToSpill = IntfLIs[IntfIdx];</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="comment">// avoid duplicates</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">if</span> (!VRM-&gt;hasPhys(LIToSpill-&gt;reg())) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="comment">// Deallocate the interfering virtual registers.</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      LRM-&gt;unassign(*LIToSpill);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      LiveRangeEdit LRE(LIToSpill, *SplitVirtRegs, *MF, *LIS, VRM, <span class="keyword">this</span>,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        &amp;DeadRemats);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      SpillerInstance-&gt;spill(LRE);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">  /// Allocate a physical register for @c LI , or have the spiller splits it</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">  /// into a list of virtual registers.</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"></span>  MCRegister selectOrSplit(LiveInterval *<span class="keyword">const</span> LI,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                           SmallVectorImpl&lt;Register&gt; *<span class="keyword">const</span> SplitVirtRegs) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// 2.1. Obtain a plausible allocation order.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    ArrayRef&lt;MCPhysReg&gt; Order =</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        RCI.getOrder(MF-&gt;getRegInfo().getRegClass(LI-&gt;reg()));</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    SmallVector&lt;MCPhysReg, 16&gt; Hints;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> IsHardHint =</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        TRI-&gt;getRegAllocationHints(LI-&gt;reg(), Order, Hints, *MF, VRM, LRM);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">if</span> (!IsHardHint) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> MCPhysReg &amp;PhysReg : Order) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        Hints.push_back(PhysReg);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;Hint Registers: [&quot;</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> MCPhysReg &amp;PhysReg : Hints) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      outs() &lt;&lt; TRI-&gt;getRegAsmName(PhysReg) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;]\n&quot;</span>;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    SmallVector&lt;MCRegister, 8&gt; PhysRegSpillCandidates;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">for</span> (MCRegister PhysReg : Hints) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="comment">// 2.2. Check for interference on physical registers.</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <span class="keywordflow">switch</span> (LRM-&gt;checkInterference(*LI, PhysReg)) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <span class="keywordflow">case</span> LiveRegMatrix::IK_Free:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="comment">// Here we directly (and naively) return the first physical register</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">// that is available.</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        outs() &lt;&lt; <span class="stringliteral">&quot;Allocating physical register &quot;</span> &lt;&lt; TRI-&gt;getRegAsmName(PhysReg)</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;               &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> PhysReg;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      <span class="keywordflow">case</span> LiveRegMatrix::IK_VirtReg:</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        PhysRegSpillCandidates.push_back(PhysReg);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;      <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// 2.3. Attempt to spill another interfering reg with less spill weight.</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment">// @sa spillInterferences</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">for</span> (MCRegister PhysReg : PhysRegSpillCandidates) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <span class="keywordflow">if</span> (!spillInterferences(LI, PhysReg, SplitVirtRegs)) {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      <span class="keywordflow">return</span> PhysReg;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment">// 2.4. Inform the caller that the virtual register has been spilled.</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, <span class="keyword">this</span>, &amp;DeadRemats);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    SpillerInstance-&gt;spill(LRE);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">  155</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">ID</a>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">  157</a></span>&#160;  StringRef <a class="code" href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">getPassName</a>() const final { <span class="keywordflow">return</span> <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>; }</div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">  158</a></span>&#160;  <a class="code" href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">RAMinimal</a>() : <a class="code" href="classMachineFunctionPass.html">MachineFunctionPass</a>(ID) {}</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">  160</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">getAnalysisUsage</a>(AnalysisUsage &amp;AU) <span class="keyword">const</span> <span class="keyword">final</span> {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    MachineFunctionPass::getAnalysisUsage(AU);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    AU.setPreservesCFG();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#define REQUIRE_AND_PRESERVE_PASS(PassName)                                    \</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">  AU.addRequired&lt;PassName&gt;();                                                  \</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">  AU.addPreserved&lt;PassName&gt;()</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(SlotIndexes);</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(VirtRegMap);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveIntervals);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveRegMatrix);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// The following passes are implicitly requested by the spiller.</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveStacks);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(AAResultsWrapperPass);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineDominatorTree);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineLoopInfo);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineBlockFrequencyInfo);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">  /// Request the all PHINode&#39;s are removed before doing the register</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">  /// allocation.</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">  182</a></span>&#160;<span class="comment"></span>  MachineFunctionProperties <a class="code" href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">getRequiredProperties</a>() const final {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> MachineFunctionProperties().set(</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        MachineFunctionProperties::Property::NoPHIs);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  }<span class="comment"></span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">  /// After the register allocation, each virtual register no longer has a</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">  /// single definition.</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">  188</a></span>&#160;<span class="comment"></span>  MachineFunctionProperties <a class="code" href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">getClearedProperties</a>() const final {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> MachineFunctionProperties().set(</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        MachineFunctionProperties::Property::IsSSA);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">  193</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">runOnMachineFunction</a>(MachineFunction &amp;MF) <span class="keyword">final</span> {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    this-&gt;MF = &amp;MF;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;************************************************\n&quot;</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;* Machine Function\n&quot;</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;************************************************\n&quot;</span>;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="comment">// The *SlotIndexes* maps each machine instruction to a unique ID.</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    SI = &amp;getAnalysis&lt;SlotIndexes&gt;();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> MachineBasicBlock &amp;MBB : MF) {</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;      MBB.print(outs(), SI);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;      outs() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    }</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;************************************************\n\n&quot;</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="comment">// 1. Get the requested analysis results from the following passes:</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="comment">//    - VirtRegMap</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="comment">//    - LiveIntervals</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="comment">//    - LiveRegMatrix</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">//    and setup the spiller.</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="comment">// The *VirtRegMap* maps virtual registers to physical registers and stack</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="comment">// slots.</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    VRM = &amp;getAnalysis&lt;VirtRegMap&gt;();</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment">// The *TargetRegisterInfo* is an immutable description of all the machine</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="comment">// registers the target has.</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    TRI = &amp;VRM-&gt;getTargetRegInfo();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">// The *MachineRegisterInfo* has information of both the physical and the</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="comment">// virtual registers.</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    MRI = &amp;VRM-&gt;getRegInfo();</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    MRI-&gt;freezeReservedRegs(MF); <span class="comment">// freeze the reserved registers before the</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                                 <span class="comment">// actual allocations begin</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="comment">// The *LiveIntervals* describe the live range of each virtual register.</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    LIS = &amp;getAnalysis&lt;LiveIntervals&gt;();</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="comment">// The *LiveRegMatrix* keeps track of virtual register interference along</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="comment">// two dimensions: slot indices and register units. The matrix is used by</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="comment">// register allocators to ensure that no interfering virtual registers get</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">// assigned to overlapping physical registers.</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    LRM = &amp;getAnalysis&lt;LiveRegMatrix&gt;();</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="comment">// The *RegisterClassInfo* provides dynamic information about target</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="comment">// register classes. We will be using it to obtain a plausible allocation</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="comment">// order of physical registers.</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    RCI.runOnMachineFunction(MF);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    VirtRegAuxInfo VRAI(MF, *LIS, *VRM, getAnalysis&lt;MachineLoopInfo&gt;(),</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                        getAnalysis&lt;MachineBlockFrequencyInfo&gt;());</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    VRAI.calculateSpillWeightsAndHints();</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    SpillerInstance.reset(createInlineSpiller(*<span class="keyword">this</span>, MF, *VRM, VRAI));</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="comment">// 2. Obtain the virtual registers and push them to the worklist.</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> VirtualRegIdx = 0; VirtualRegIdx &lt; MRI-&gt;getNumVirtRegs();</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;         ++VirtualRegIdx) {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      Register Reg = Register::index2VirtReg(VirtualRegIdx);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;      <span class="comment">// skip all unused registers</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(Reg)) {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;      }</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      enqueue(&amp;LIS-&gt;getInterval(Reg));</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="comment">// 3. Keep traversing until the LIQ becomes empty.</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">while</span> (LiveInterval *<span class="keyword">const</span> LI = dequeue()) {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;      <span class="comment">// again, skip all unused registers</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(LI-&gt;reg())) {</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        LIS-&gt;removeInterval(LI-&gt;reg());</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;      }</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;      <span class="comment">// invalidate all previous interference queries.</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;      LRM-&gt;invalidateVirtRegs();</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      <span class="comment">// For each virtual register, Allocate to a physical register (if</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      <span class="comment">// available) or split to a list of virtual registers.</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;      SmallVector&lt;Register, 4&gt; SplitVirtRegs;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;      MCRegister PhysReg = selectOrSplit(LI, &amp;SplitVirtRegs);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      <span class="keywordflow">if</span> (PhysReg) {</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        LRM-&gt;assign(*LI, PhysReg);</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;      }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;      <span class="comment">// enqueue the splitted live ranges</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      <span class="keywordflow">for</span> (Register Reg : SplitVirtRegs) {</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        LiveInterval *LI = &amp;LIS-&gt;getInterval(Reg);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(LI-&gt;reg())) {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;          LIS-&gt;removeInterval(LI-&gt;reg());</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;          <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        }</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        enqueue(LI);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      }</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    } <span class="comment">// while (dequeue())</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="comment">// cleanup</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    SpillerInstance-&gt;postOptimization();</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">for</span> (MachineInstr *<span class="keyword">const</span> DeadInst : DeadRemats) {</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;      LIS-&gt;RemoveMachineInstrFromMaps(*DeadInst);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      DeadInst-&gt;eraseFromParent();</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    DeadRemats.clear();</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  }</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;};</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keywordtype">char</span> <a class="code" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">RAMinimal::ID</a> = 0;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">  /// @return True if successful, false otherwise</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">  /// @sa selectOrSplit 3.3.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"></span>  <span class="keywordtype">bool</span> spillInterferences(LiveInterval *<span class="keyword">const</span> LI, MCRegister PhysReg,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                          SmallVectorImpl&lt;Register&gt; *<span class="keyword">const</span> SplitVirtRegs) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    SmallVector&lt;const LiveInterval *, 8&gt; IntfLIs;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span> (MCRegUnitIterator Units(PhysReg, TRI); Units.isValid(); ++Units) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      LiveIntervalUnion::Query &amp;Q = LRM-&gt;query(*LI, *Units);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> LiveInterval *<span class="keyword">const</span> IntfLI : reverse(Q.interferingVRegs())) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (!IntfLI-&gt;isSpillable() || IntfLI-&gt;weight() &gt; LI-&gt;weight()) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        IntfLIs.push_back(IntfLI);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// Spill each interfering vreg allocated to PhysRegs.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> IntfIdx = 0; IntfIdx &lt; IntfLIs.size(); ++IntfIdx) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keyword">const</span> LiveInterval *<span class="keyword">const</span> LIToSpill = IntfLIs[IntfIdx];</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="comment">// avoid duplicates</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">if</span> (!VRM-&gt;hasPhys(LIToSpill-&gt;reg())) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="comment">// Deallocate the interfering virtual registers.</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      LRM-&gt;unassign(*LIToSpill);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      LiveRangeEdit LRE(LIToSpill, *SplitVirtRegs, *MF, *LIS, VRM, <span class="keyword">this</span>,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                        &amp;DeadRemats);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      SpillerInstance-&gt;spill(LRE);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">  /// Allocate a physical register for @c LI , or have the spiller splits it</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">  /// into a list of virtual registers.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"></span>  MCRegister selectOrSplit(LiveInterval *<span class="keyword">const</span> LI,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                           SmallVectorImpl&lt;Register&gt; *<span class="keyword">const</span> SplitVirtRegs) {<span class="comment"></span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">    /// 3.1. Obtain a plausible allocation order.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"></span>    ArrayRef&lt;MCPhysReg&gt; Order =</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        RCI.getOrder(MF-&gt;getRegInfo().getRegClass(LI-&gt;reg()));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    SmallVector&lt;MCPhysReg, 16&gt; Hints;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">bool</span> IsHardHint =</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        TRI-&gt;getRegAllocationHints(LI-&gt;reg(), Order, Hints, *MF, VRM, LRM);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span> (!IsHardHint) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> MCPhysReg &amp;PhysReg : Order) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        Hints.push_back(PhysReg);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;Hint Registers: [&quot;</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> MCPhysReg &amp;PhysReg : Hints) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      outs() &lt;&lt; TRI-&gt;getRegAsmName(PhysReg) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;]\n&quot;</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    SmallVector&lt;MCRegister, 8&gt; PhysRegSpillCandidates;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">for</span> (MCRegister PhysReg : Hints) {<span class="comment"></span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">      /// 3.2. Check for interference on physical registers.</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment"></span>      <span class="keywordflow">switch</span> (LRM-&gt;checkInterference(*LI, PhysReg)) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <span class="keywordflow">case</span> LiveRegMatrix::IK_Free:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">// Here we directly (and naively) return the first physical register</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="comment">// that is available.</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        outs() &lt;&lt; <span class="stringliteral">&quot;Allocating physical register &quot;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;               &lt;&lt; <a class="code" href="Logging_8h.html#a0bfcc58b82cd6616652b8fca7e8cf8d9">BOLD</a>(TRI-&gt;getRegAsmName(PhysReg)) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">return</span> PhysReg;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;      <span class="keywordflow">case</span> LiveRegMatrix::IK_VirtReg:</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        PhysRegSpillCandidates.push_back(PhysReg);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;      <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }<span class="comment"></span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">    /// 3.3. Attempt to spill all the interfering registers with less spill</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">    /// weight.</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">    /// @sa spillInterferences</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment"></span>    <span class="keywordflow">for</span> (MCRegister PhysReg : PhysRegSpillCandidates) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      <span class="keywordflow">if</span> (!spillInterferences(LI, PhysReg, SplitVirtRegs)) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;      <span class="keywordflow">return</span> PhysReg;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }<span class="comment"></span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">    /// 3.4. Spill the current virtual register.</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment"></span>    LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, <span class="keyword">this</span>, &amp;DeadRemats);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    SpillerInstance-&gt;spill(LRE);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">  156</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">ID</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">  158</a></span>&#160;  StringRef <a class="code" href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">getPassName</a>() const final { <span class="keywordflow">return</span> <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>; }</div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">  159</a></span>&#160;  <a class="code" href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">RAMinimal</a>() : <a class="code" href="classMachineFunctionPass.html">MachineFunctionPass</a>(ID) {}</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">  161</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">getAnalysisUsage</a>(AnalysisUsage &amp;AU) <span class="keyword">const</span> <span class="keyword">final</span> {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    MachineFunctionPass::getAnalysisUsage(AU);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    AU.setPreservesCFG();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#define REQUIRE_AND_PRESERVE_PASS(PassName)                                    \</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">  AU.addRequired&lt;PassName&gt;();                                                  \</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">  AU.addPreserved&lt;PassName&gt;()</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(SlotIndexes);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(VirtRegMap);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveIntervals);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveRegMatrix);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="comment">// The following passes are implicitly requested by the spiller.</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(LiveStacks);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(AAResultsWrapperPass);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineDominatorTree);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineLoopInfo);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a>(MachineBlockFrequencyInfo);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">  /// Request the all PHINode&#39;s are removed before doing the register</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">  /// allocation.</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">  183</a></span>&#160;<span class="comment"></span>  MachineFunctionProperties <a class="code" href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">getRequiredProperties</a>() const final {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">return</span> MachineFunctionProperties().set(</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        MachineFunctionProperties::Property::NoPHIs);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  }<span class="comment"></span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">  /// After the register allocation, each virtual register no longer has a</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">  /// single definition.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">  189</a></span>&#160;<span class="comment"></span>  MachineFunctionProperties <a class="code" href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">getClearedProperties</a>() const final {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> MachineFunctionProperties().set(</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        MachineFunctionProperties::Property::IsSSA);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">  194</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">runOnMachineFunction</a>(MachineFunction &amp;MF) <span class="keyword">final</span> {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    this-&gt;MF = &amp;MF;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;************************************************\n&quot;</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;* Machine Function\n&quot;</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;************************************************\n&quot;</span>;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="comment">// The *SlotIndexes* maps each machine instruction to a unique ID.</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    SI = &amp;getAnalysis&lt;SlotIndexes&gt;();</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> MachineBasicBlock &amp;MBB : MF) {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;      MBB.print(outs(), SI);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;      outs() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    outs() &lt;&lt; <span class="stringliteral">&quot;************************************************\n\n&quot;</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="comment">// 1. Get the requested analysis results from the following passes:</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="comment">//    - VirtRegMap</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="comment">//    - LiveIntervals</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">//    - LiveRegMatrix</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="comment">//    and setup the spiller.</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="comment">// The *VirtRegMap* maps virtual registers to physical registers and stack</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">// slots.</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    VRM = &amp;getAnalysis&lt;VirtRegMap&gt;();</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="comment">// The *TargetRegisterInfo* is an immutable description of all the machine</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment">// registers the target has.</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    TRI = &amp;VRM-&gt;getTargetRegInfo();</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="comment">// The *MachineRegisterInfo* has information of both the physical and the</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="comment">// virtual registers.</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    MRI = &amp;VRM-&gt;getRegInfo();</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    MRI-&gt;freezeReservedRegs(MF); <span class="comment">// freeze the reserved registers before the</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                                 <span class="comment">// actual allocations begin</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="comment">// The *LiveIntervals* describe the live range of each virtual register.</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    LIS = &amp;getAnalysis&lt;LiveIntervals&gt;();</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="comment">// The *LiveRegMatrix* keeps track of virtual register interference along</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="comment">// two dimensions: slot indices and register units. The matrix is used by</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">// register allocators to ensure that no interfering virtual registers get</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="comment">// assigned to overlapping physical registers.</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    LRM = &amp;getAnalysis&lt;LiveRegMatrix&gt;();</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="comment">// The *RegisterClassInfo* provides dynamic information about target</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="comment">// register classes. We will be using it to obtain a plausible allocation</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="comment">// order of physical registers.</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    RCI.runOnMachineFunction(MF);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    VirtRegAuxInfo VRAI(MF, *LIS, *VRM, getAnalysis&lt;MachineLoopInfo&gt;(),</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                        getAnalysis&lt;MachineBlockFrequencyInfo&gt;());</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    VRAI.calculateSpillWeightsAndHints();</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    SpillerInstance.reset(createInlineSpiller(*<span class="keyword">this</span>, MF, *VRM, VRAI));</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// 2. Obtain the virtual registers and push them to the worklist.</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> VirtualRegIdx = 0; VirtualRegIdx &lt; MRI-&gt;getNumVirtRegs();</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;         ++VirtualRegIdx) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;      Register Reg = Register::index2VirtReg(VirtualRegIdx);</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      <span class="comment">// skip all unused registers</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;      <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(Reg)) {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      }</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      enqueue(&amp;LIS-&gt;getInterval(Reg));</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="comment">// 3. Keep traversing until all the workitems in the list have been</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="comment">//    processed.</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">while</span> (LiveInterval *<span class="keyword">const</span> LI = dequeue()) {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      <span class="comment">// again, skip all unused registers</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(LI-&gt;reg())) {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        LIS-&gt;removeInterval(LI-&gt;reg());</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;      }</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      <span class="comment">// invalidate all previous interference queries.</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      LRM-&gt;invalidateVirtRegs();</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;      <span class="comment">// For each virtual register, Allocate to a physical register (if</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;      <span class="comment">// available) or split to a list of virtual registers.</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;      SmallVector&lt;Register, 4&gt; SplitVirtRegs;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      MCRegister PhysReg = selectOrSplit(LI, &amp;SplitVirtRegs);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;      <span class="keywordflow">if</span> (PhysReg) {</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        LRM-&gt;assign(*LI, PhysReg);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      }</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <span class="comment">// enqueue the splitted live ranges</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;      <span class="keywordflow">for</span> (Register Reg : SplitVirtRegs) {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        LiveInterval *LI = &amp;LIS-&gt;getInterval(Reg);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">if</span> (MRI-&gt;reg_nodbg_empty(LI-&gt;reg())) {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;          LIS-&gt;removeInterval(LI-&gt;reg());</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;          <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        enqueue(LI);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;      }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    } <span class="comment">// while (dequeue())</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// cleanup</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    SpillerInstance-&gt;postOptimization();</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">for</span> (MachineInstr *<span class="keyword">const</span> DeadInst : DeadRemats) {</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      LIS-&gt;RemoveMachineInstrFromMaps(*DeadInst);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      DeadInst-&gt;eraseFromParent();</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    DeadRemats.clear();</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;};</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keyword">namespace </span>{</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keywordtype">char</span> <a class="code" href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">RAMinimal::ID</a> = 0;</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;RegisterRegAlloc MinimalRegAllocator(<span class="stringliteral">&quot;minimal&quot;</span>, <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>,</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                                     []() -&gt; FunctionPass * {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                                       <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classRAMinimal.html">RAMinimal</a>();</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                                     });</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;} <span class="comment">// anonymous namespace</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">namespace </span>{</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;RegisterRegAlloc MinimalRegAllocator(<span class="stringliteral">&quot;minimal&quot;</span>, <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>,</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                                     []() -&gt; FunctionPass * {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                                       <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classRAMinimal.html">RAMinimal</a>();</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                                     });</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;INITIALIZE_PASS_BEGIN(<a class="code" href="classRAMinimal.html">RAMinimal</a>, <span class="comment">// NOLINT(misc-use-anonymous-namespace)</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">  303</a></span>&#160;                      <span class="stringliteral">&quot;regallominimal&quot;</span>, <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>, <span class="keyword">false</span>,</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                      <span class="keyword">false</span>)</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(SlotIndexes)</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(VirtRegMap)</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveIntervals)</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveRegMatrix)</div>
-<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">  309</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveStacks);</div>
-<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ad3414176f11274063fb93bf4a324878e">  310</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(AAResultsWrapperPass);</div>
-<div class="line"><a name="l00311"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#a98c991e8078812a2a3469fc2f811787a">  311</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineDominatorTree);</div>
-<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#aa8fa39ae0066cf970eebc5ff32005c4f">  312</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineLoopInfo);</div>
-<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#a2b682965aba0fdaaf67335a4a8fae2ba">  313</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineBlockFrequencyInfo);</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;INITIALIZE_PASS_END(<a class="code" href="classRAMinimal.html">RAMinimal</a>, <span class="comment">// NOLINT(misc-use-anonymous-namespace)</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                    &quot;<a class="code" href="RegAllocMinimal_8cpp.html#a5c1d6da310326f93e1dccd941da935fe">regallominimal</a>&quot;, &quot;Minimal Register <a class="code" href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">Allocator</a>&quot;, <a class="code" href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a>,</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;                    <a class="code" href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a>)</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;} <span class="comment">// anonymous namespace</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;INITIALIZE_PASS_BEGIN(<a class="code" href="classRAMinimal.html">RAMinimal</a>, <span class="comment">// NOLINT(misc-use-anonymous-namespace)</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">  305</a></span>&#160;                      <span class="stringliteral">&quot;regallominimal&quot;</span>, <span class="stringliteral">&quot;Minimal Register Allocator&quot;</span>, <span class="keyword">false</span>,</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                      <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(SlotIndexes)</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(VirtRegMap)</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveIntervals)</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveRegMatrix)</div>
+<div class="line"><a name="l00311"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">  311</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(LiveStacks);</div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#ad3414176f11274063fb93bf4a324878e">  312</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(AAResultsWrapperPass);</div>
+<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#a98c991e8078812a2a3469fc2f811787a">  313</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineDominatorTree);</div>
+<div class="line"><a name="l00314"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#aa8fa39ae0066cf970eebc5ff32005c4f">  314</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineLoopInfo);</div>
+<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="RegAllocMinimal_8cpp.html#a2b682965aba0fdaaf67335a4a8fae2ba">  315</a></span>&#160;<a class="code" href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a>(MachineBlockFrequencyInfo);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;INITIALIZE_PASS_END(<a class="code" href="classRAMinimal.html">RAMinimal</a>, <span class="comment">// NOLINT(misc-use-anonymous-namespace)</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                    &quot;<a class="code" href="RegAllocMinimal_8cpp.html#a5c1d6da310326f93e1dccd941da935fe">regallominimal</a>&quot;, &quot;Minimal Register <a class="code" href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">Allocator</a>&quot;, <a class="code" href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a>,</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                    <a class="code" href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a>)</div>
 <div class="ttc" id="aLogging_8h_html"><div class="ttname"><a href="Logging_8h.html">Logging.h</a></div></div>
-<div class="ttc" id="aRegAllocMinimal_8cpp_html_a5c1d6da310326f93e1dccd941da935fe"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#a5c1d6da310326f93e1dccd941da935fe">regallominimal</a></div><div class="ttdeci">regallominimal</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00303">RegAllocMinimal.cpp:303</a></div></div>
-<div class="ttc" id="aRegAllocMinimal_8cpp_html_a7101eaadd4f19ff6bd0cc024b3d4678b"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a></div><div class="ttdeci">Minimal Register false</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00303">RegAllocMinimal.cpp:303</a></div></div>
-<div class="ttc" id="aRegAllocMinimal_8cpp_html_ab0c22fa95dd6af4a134450d2898addd8"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">Allocator</a></div><div class="ttdeci">Minimal Register Allocator</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00303">RegAllocMinimal.cpp:303</a></div></div>
+<div class="ttc" id="aLogging_8h_html_a0bfcc58b82cd6616652b8fca7e8cf8d9"><div class="ttname"><a href="Logging_8h.html#a0bfcc58b82cd6616652b8fca7e8cf8d9">BOLD</a></div><div class="ttdeci">#define BOLD(str)</div><div class="ttdef"><b>Definition:</b> <a href="Logging_8h_source.html#l00020">Logging.h:20</a></div></div>
+<div class="ttc" id="aRegAllocMinimal_8cpp_html_a5c1d6da310326f93e1dccd941da935fe"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#a5c1d6da310326f93e1dccd941da935fe">regallominimal</a></div><div class="ttdeci">regallominimal</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00305">RegAllocMinimal.cpp:305</a></div></div>
+<div class="ttc" id="aRegAllocMinimal_8cpp_html_a7101eaadd4f19ff6bd0cc024b3d4678b"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#a7101eaadd4f19ff6bd0cc024b3d4678b">false</a></div><div class="ttdeci">Minimal Register false</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00305">RegAllocMinimal.cpp:305</a></div></div>
+<div class="ttc" id="aRegAllocMinimal_8cpp_html_ab0c22fa95dd6af4a134450d2898addd8"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#ab0c22fa95dd6af4a134450d2898addd8">Allocator</a></div><div class="ttdeci">Minimal Register Allocator</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00305">RegAllocMinimal.cpp:305</a></div></div>
 <div class="ttc" id="aRegAllocMinimal_8cpp_html_acce9e9c1a5ffb2e0f701c14858babdd7"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#acce9e9c1a5ffb2e0f701c14858babdd7">REQUIRE_AND_PRESERVE_PASS</a></div><div class="ttdeci">#define REQUIRE_AND_PRESERVE_PASS(PassName)</div></div>
 <div class="ttc" id="aRegAllocMinimal_8cpp_html_ad2e1918a47d9564dd2edad0e425a8433"><div class="ttname"><a href="RegAllocMinimal_8cpp.html#ad2e1918a47d9564dd2edad0e425a8433">INITIALIZE_PASS_DEPENDENCY</a></div><div class="ttdeci">Minimal Register false INITIALIZE_PASS_DEPENDENCY(LiveStacks)</div></div>
 <div class="ttc" id="aUtility_8h_html_aeb4f36db01bd128c7afeac5889dac311"><div class="ttname"><a href="Utility_8h.html#aeb4f36db01bd128c7afeac5889dac311">LOG_INFO</a></div><div class="ttdeci">#define LOG_INFO</div><div class="ttdef"><b>Definition:</b> <a href="Utility_8h_source.html#l00051">Utility.h:51</a></div></div>
 <div class="ttc" id="aclassMachineFunctionPass_html"><div class="ttname"><a href="classMachineFunctionPass.html">MachineFunctionPass</a></div></div>
 <div class="ttc" id="aclassRAMinimal_html"><div class="ttname"><a href="classRAMinimal.html">RAMinimal</a></div><div class="ttdoc">A minimal register allocator that goes through the list of live intervals and materialize them whenev...</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00033">RegAllocMinimal.cpp:34</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a130203056e6217e2596933e825afdcdd"><div class="ttname"><a href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">RAMinimal::RAMinimal</a></div><div class="ttdeci">RAMinimal()</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00158">RegAllocMinimal.cpp:158</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a219a8e8114dd3cc4b2db7e5285c7d447"><div class="ttname"><a href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">RAMinimal::getClearedProperties</a></div><div class="ttdeci">MachineFunctionProperties getClearedProperties() const final</div><div class="ttdoc">After the register allocation, each virtual register no longer has a single definition.</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00188">RegAllocMinimal.cpp:188</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a2f9789308231ce537b0a4c821b38ef48"><div class="ttname"><a href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">RAMinimal::ID</a></div><div class="ttdeci">static char ID</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00155">RegAllocMinimal.cpp:155</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a36b15f36feaf938c32d24f94f264264b"><div class="ttname"><a href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">RAMinimal::getAnalysisUsage</a></div><div class="ttdeci">void getAnalysisUsage(AnalysisUsage &amp;AU) const final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00160">RegAllocMinimal.cpp:160</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a8624d71c81292430851e096065cd6cec"><div class="ttname"><a href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">RAMinimal::getRequiredProperties</a></div><div class="ttdeci">MachineFunctionProperties getRequiredProperties() const final</div><div class="ttdoc">Request the all PHINode's are removed before doing the register allocation.</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00182">RegAllocMinimal.cpp:182</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_a91d75e9e023d908d1a3836deb91271d7"><div class="ttname"><a href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">RAMinimal::runOnMachineFunction</a></div><div class="ttdeci">bool runOnMachineFunction(MachineFunction &amp;MF) final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00193">RegAllocMinimal.cpp:193</a></div></div>
-<div class="ttc" id="aclassRAMinimal_html_af721bc601c8d23c3991a1bf6df3e8c6d"><div class="ttname"><a href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">RAMinimal::getPassName</a></div><div class="ttdeci">StringRef getPassName() const final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00157">RegAllocMinimal.cpp:157</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a130203056e6217e2596933e825afdcdd"><div class="ttname"><a href="classRAMinimal.html#a130203056e6217e2596933e825afdcdd">RAMinimal::RAMinimal</a></div><div class="ttdeci">RAMinimal()</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00159">RegAllocMinimal.cpp:159</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a219a8e8114dd3cc4b2db7e5285c7d447"><div class="ttname"><a href="classRAMinimal.html#a219a8e8114dd3cc4b2db7e5285c7d447">RAMinimal::getClearedProperties</a></div><div class="ttdeci">MachineFunctionProperties getClearedProperties() const final</div><div class="ttdoc">After the register allocation, each virtual register no longer has a single definition.</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00189">RegAllocMinimal.cpp:189</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a2f9789308231ce537b0a4c821b38ef48"><div class="ttname"><a href="classRAMinimal.html#a2f9789308231ce537b0a4c821b38ef48">RAMinimal::ID</a></div><div class="ttdeci">static char ID</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00156">RegAllocMinimal.cpp:156</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a36b15f36feaf938c32d24f94f264264b"><div class="ttname"><a href="classRAMinimal.html#a36b15f36feaf938c32d24f94f264264b">RAMinimal::getAnalysisUsage</a></div><div class="ttdeci">void getAnalysisUsage(AnalysisUsage &amp;AU) const final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00161">RegAllocMinimal.cpp:161</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a8624d71c81292430851e096065cd6cec"><div class="ttname"><a href="classRAMinimal.html#a8624d71c81292430851e096065cd6cec">RAMinimal::getRequiredProperties</a></div><div class="ttdeci">MachineFunctionProperties getRequiredProperties() const final</div><div class="ttdoc">Request the all PHINode's are removed before doing the register allocation.</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00183">RegAllocMinimal.cpp:183</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_a91d75e9e023d908d1a3836deb91271d7"><div class="ttname"><a href="classRAMinimal.html#a91d75e9e023d908d1a3836deb91271d7">RAMinimal::runOnMachineFunction</a></div><div class="ttdeci">bool runOnMachineFunction(MachineFunction &amp;MF) final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00194">RegAllocMinimal.cpp:194</a></div></div>
+<div class="ttc" id="aclassRAMinimal_html_af721bc601c8d23c3991a1bf6df3e8c6d"><div class="ttname"><a href="classRAMinimal.html#af721bc601c8d23c3991a1bf6df3e8c6d">RAMinimal::getPassName</a></div><div class="ttdeci">StringRef getPassName() const final</div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00158">RegAllocMinimal.cpp:158</a></div></div>
 <div class="ttc" id="anamespacellvm_html"><div class="ttname"><a href="namespacellvm.html">llvm</a></div><div class="ttdef"><b>Definition:</b> <a href="RegAllocMinimal_8cpp_source.html#l00024">RegAllocMinimal.cpp:24</a></div></div>
 <div class="ttc" id="anamespacellvm_html_abbd6bfe568ad0f0a570df9055be5841c"><div class="ttname"><a href="namespacellvm.html#abbd6bfe568ad0f0a570df9055be5841c">llvm::initializeRAMinimalPass</a></div><div class="ttdeci">void initializeRAMinimalPass(PassRegistry &amp;Registry)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 25 2023 21:35:22 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 26 2023 04:46:30 for CSCD70 by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
