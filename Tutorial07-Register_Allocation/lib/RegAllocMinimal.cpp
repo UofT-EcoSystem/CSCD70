@@ -45,7 +45,7 @@ private:
   LiveIntervals *LIS;
   std::queue<LiveInterval *> LIQ; // FIFO Queue
   void enqueue(LiveInterval *const LI) {
-    LOG_INFO << "Pushing {Reg=" << *LI << "}";
+    LOG_INFO << "Pushing {Reg=" << BOLD(*LI) << "}";
     LIQ.push(LI);
   }
   LiveInterval *dequeue() {
@@ -53,7 +53,7 @@ private:
       return nullptr;
     }
     LiveInterval *LI = LIQ.front();
-    LOG_INFO << "Popping {Reg=" << *LI << "}";
+    LOG_INFO << "Popping {Reg=" << BOLD(*LI) << "}";
     LIQ.pop();
     return LI;
   }
@@ -66,9 +66,10 @@ private:
   std::unique_ptr<Spiller> SpillerInstance;
   SmallPtrSet<MachineInstr *, 32> DeadRemats;
 
-  /// @brief Attempt to split all live intervals that interfere with @c LI but
+  /// @brief Attempt to spill all live intervals that interfere with @c LI but
   /// have less spill weights.
-  /// @sa selectOrSplit 2.3.
+  /// @return True if successful, false otherwise
+  /// @sa selectOrSplit 3.3.
   bool spillInterferences(LiveInterval *const LI, MCRegister PhysReg,
                           SmallVectorImpl<Register> *const SplitVirtRegs) {
     SmallVector<const LiveInterval *, 8> IntfLIs;
@@ -102,7 +103,7 @@ private:
   /// into a list of virtual registers.
   MCRegister selectOrSplit(LiveInterval *const LI,
                            SmallVectorImpl<Register> *const SplitVirtRegs) {
-    // 2.1. Obtain a plausible allocation order.
+    /// 3.1. Obtain a plausible allocation order.
     ArrayRef<MCPhysReg> Order =
         RCI.getOrder(MF->getRegInfo().getRegClass(LI->reg()));
     SmallVector<MCPhysReg, 16> Hints;
@@ -121,13 +122,13 @@ private:
 
     SmallVector<MCRegister, 8> PhysRegSpillCandidates;
     for (MCRegister PhysReg : Hints) {
-      // 2.2. Check for interference on physical registers.
+      /// 3.2. Check for interference on physical registers.
       switch (LRM->checkInterference(*LI, PhysReg)) {
       case LiveRegMatrix::IK_Free:
         // Here we directly (and naively) return the first physical register
         // that is available.
-        outs() << "Allocating physical register " << TRI->getRegAsmName(PhysReg)
-               << "\n";
+        outs() << "Allocating physical register "
+               << BOLD(TRI->getRegAsmName(PhysReg)) << "\n";
         return PhysReg;
       case LiveRegMatrix::IK_VirtReg:
         PhysRegSpillCandidates.push_back(PhysReg);
@@ -136,16 +137,16 @@ private:
         continue;
       }
     }
-    // 2.3. Attempt to spill another interfering reg with less spill weight.
-    //
-    // @sa spillInterferences
+    /// 3.3. Attempt to spill all the interfering registers with less spill
+    /// weight.
+    /// @sa spillInterferences
     for (MCRegister PhysReg : PhysRegSpillCandidates) {
       if (!spillInterferences(LI, PhysReg, SplitVirtRegs)) {
         continue;
       }
       return PhysReg;
     }
-    // 2.4. Inform the caller that the virtual register has been spilled.
+    /// 3.4. Spill the current virtual register.
     LiveRangeEdit LRE(LI, *SplitVirtRegs, *MF, *LIS, VRM, this, &DeadRemats);
     SpillerInstance->spill(LRE);
     return 0;
@@ -249,7 +250,8 @@ public:
       enqueue(&LIS->getInterval(Reg));
     }
 
-    // 3. Keep traversing until the LIQ becomes empty.
+    // 3. Keep traversing until all the workitems in the list have been
+    //    processed.
     while (LiveInterval *const LI = dequeue()) {
       // again, skip all unused registers
       if (MRI->reg_nodbg_empty(LI->reg())) {

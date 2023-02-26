@@ -16,3 +16,5 @@ struct InfoLogger {
 #define LOG_INFO                                                               \
   if (auto Logger = internal::InfoLogger())                                    \
   llvm::outs() << "[" << __FILE__ << ":" << __LINE__ << ", I] "
+
+#define BOLD(str) "\033[1m" << str << "\033[0m"
