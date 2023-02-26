@@ -1,0 +1,93 @@
+\usepackage{microtype} % Micro Typography
+
+\usepackage[ruled, noend]{algorithm2e}
+\usepackage{hyperref}
+\usepackage[super]{nth}
+\usepackage{pifont}
+\usepackage{soul}
+\usepackage{transparent}
+% Figures and Tables
+\usepackage{graphicx}
+\usepackage{booktabs, multirow}
+% Monospaced Code Blocks
+\usepackage{listings}
+% Math Packages
+\usepackage{nicefrac}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\ttfamily,            % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  columns=fullflexible,            % reduce the column spacing
+  commentstyle=\color{gray},       % comment style
+  deletekeywords={},               % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=none,                      % adds no frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                    % the language of the code
+  morekeywords={},                 % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\color{black},       % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{red},         % string literal style
+  tabsize=4,                       % sets default tabsize to 4 spaces
+}
+
+\newcommand{\cmark}{{\color{green!80!black}\ding{52}}}
+\newcommand{\xmark}{{\color{red}\ding{56}}}
+\newcommand{\positive}[1]{{\color{green!50!black}{\textbf{#1}}}}
+\newcommand{\negative}[1]{{\color{red}{\textbf{#1}}}}
+
+\hypersetup{colorlinks, linkcolor=, urlcolor=blue}
+
+\newcommand{\transparentize}[1]{{\transparent{0.4} #1}}
+
+\newcommand\algocommentfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{algocommentfont}
+\resetcounteronoverlays{algocf}
+
+\usetheme{CambridgeUS}
+
+\usefonttheme{serif}
+\usepackage{lmodern}
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\sfdefault}{phv}
+
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{%
+    % https://github.com/josephwright/beamer/blob/main/base/themes/outer/beamerouterthemeinfolines.sty
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1ex,
+                           leftskip=2ex, rightskip=2ex, sep=0pt]{transparent}%
+        \hfill\footnotesize%
+        \usebeamercolor[fg]{date in head/foot}%
+        \usebeamertemplate{page number in head/foot}%
+    \end{beamercolorbox}%
+}
+
+\newcommand{\sectiontitleframe}{
+\begin{frame}
+    \vfill
+    \centering
+    \begin{beamercolorbox}[sep=6pt, center, shadow=true, rounded=true]{title}
+        \usebeamerfont{title}\insertsectionhead
+    \end{beamercolorbox}
+    \vfill
+\end{frame}
+}
+
+\usebackgroundtemplate{
+    \transparent{0.10}
+    \includegraphics[width=\paperwidth,height=\paperheight]{figures/LLVM.png}
+}
