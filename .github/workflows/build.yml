@@ -44,3 +44,8 @@ jobs:
                   docker-compose run --rm \
                       -w /mnt/Tutorial06-Scalar_Evolution \
                       dev bash -ce "${CMAKE_BUILD_AND_TEST}"
+            - name: Tutorial 7 Register Allocation
+              run: |
+                  docker-compose run --rm \
+                      -w /mnt/Tutorial07-Register_Allocation \
+                      dev bash -ce "${CMAKE_BUILD_AND_TEST}"
