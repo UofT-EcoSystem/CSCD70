@@ -29,7 +29,7 @@ void initializeRAMinimalPass(PassRegistry &Registry);
 
 /// A minimal register allocator that goes through the list of live intervals
 /// and materialize them whenever there are physical registers available. If
-/// none is available then the interval is split and spilled.
+/// none is available then the interval is spilled.
 class RAMinimal final : public MachineFunctionPass,
                         private LiveRangeEdit::Delegate {
 private:
