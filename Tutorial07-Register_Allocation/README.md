@@ -4,6 +4,8 @@
 
 ## TL'DR
 
+
+
 - x86 Registers
   - Register Overlapping
   - Caller- vs. Callee-Saved Registers
