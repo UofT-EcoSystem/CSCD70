@@ -1,6 +1,6 @@
 # Tutorial 7 Register Allocation
 
-**Handout**: [\[Overleaf\]](https://www.overleaf.com/read/qyzvpfzxkrns)
+**Handout**: [\[Overleaf\]](https://www.overleaf.com/read/bjrphznfydcg)
 
 ## TL'DR
 
