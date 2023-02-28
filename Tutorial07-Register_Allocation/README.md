@@ -17,6 +17,7 @@ RAGreedy
   
   </th>
   </tr>
+  <tr>
   <td>
 
 ![](./RAMinimal.png)
@@ -27,7 +28,6 @@ RAGreedy
 ![](./RAGreedy.png)
   
   </td>
-  <tr>
   </tr>
 </table>
 
