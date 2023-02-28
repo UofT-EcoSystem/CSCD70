@@ -21,6 +21,8 @@ Lec 5     LICM and Strength Reduction [|PPTX Lec5|]
 Tut 5     Lazy Code Motion            [|Overleaf Tut5|_]
 Lec 6     Register Allocation         [|PPTX Lec6|]
 Tut 6     Scalar Evolution            [|Overleaf Tut6|_]
+Lec 7     Pointer Analysis            [|PPTX Lec7|]
+Tut 7     Register Allocation         [|Overleaf Tut7|_]
 ========= =========================== =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
@@ -46,3 +48,7 @@ Tut 6     Scalar Evolution            [|Overleaf Tut6|_]
 .. |PPTX Lec6| replace:: :download:`pptx <Lecture_Slides/Lecture 6 [Register Allocation] 02.13.2023.pptx>`
 .. |Overleaf Tut6| replace:: Overleaf
 .. _Overleaf Tut6: https://www.overleaf.com/read/qyzvpfzxkrns
+
+.. |PPTX Lec7| replace:: :download:`pptx <Lecture_Slides/Lecture 7 [Pointer Analysis] 02.27.2023.pptx>`
+.. |Overleaf Tut7| replace:: Overleaf
+.. _Overleaf Tut7: https://www.overleaf.com/read/bjrphznfydcg
