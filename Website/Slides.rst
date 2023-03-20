@@ -6,24 +6,26 @@ posted at the `GitHub repository`_.
 
 .. _GitHub repository: https://github.com/UofT-EcoSystem/CSCD70
 
-========= =========================== =========================
-#         Topic                       Slides
-========= =========================== =========================
-Lec 1     Introduction                [|PPTX Lec1|]
-Tut 1     Introduction to LLVM        [|Overleaf Tut1|_]
-Lec 2     Dataflow                    [|PPTX Lec2|]
-Tut 2     Introduction to LLVM ii     [|Overleaf Tut2|_]
-Lec 3     Dataflow-2 and Loops        [|PPTX Lec3|]
-Tut 3     Dataflow Analysis           [|Overleaf Tut3|_]
-Lec 4     SSA                         [|PPTX Lec4|]
-Tut 4     Dataflow Analysis ii        [|Overleaf Tut4|_]
-Lec 5     LICM and Strength Reduction [|PPTX Lec5|]
-Tut 5     Lazy Code Motion            [|Overleaf Tut5|_]
-Lec 6     Register Allocation         [|PPTX Lec6|]
-Tut 6     Scalar Evolution            [|Overleaf Tut6|_]
-Lec 7     Pointer Analysis            [|PPTX Lec7|]
-Tut 7     Register Allocation         [|Overleaf Tut7|_]
-========= =========================== =========================
+========= ============================== =========================
+#         Topic                          Slides
+========= ============================== =========================
+Lec 1     Introduction                   [|PPTX Lec1|]
+Tut 1     Introduction to LLVM           [|Overleaf Tut1|_]
+Lec 2     Dataflow                       [|PPTX Lec2|]
+Tut 2     Introduction to LLVM ii        [|Overleaf Tut2|_]
+Lec 3     Dataflow-2 and Loops           [|PPTX Lec3|]
+Tut 3     Dataflow Analysis              [|Overleaf Tut3|_]
+Lec 4     SSA                            [|PPTX Lec4|]
+Tut 4     Dataflow Analysis ii           [|Overleaf Tut4|_]
+Lec 5     LICM and Strength Reduction    [|PPTX Lec5|]
+Tut 5     Lazy Code Motion               [|Overleaf Tut5|_]
+Lec 6     Register Allocation            [|PPTX Lec6|]
+Tut 6     Scalar Evolution               [|Overleaf Tut6|_]
+Lec 7     Pointer Analysis               [|PPTX Lec7|]
+Tut 7     Register Allocation            [|Overleaf Tut7|_]
+Lec 8     Memory Optimizations           [|PPTX Lec8|]
+Lec 9     Machine Learning Compilers     [|PPTX Lec9|][|PDF Lec9|]
+========= ============================== =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
 .. |Overleaf Tut1| replace:: Overleaf
@@ -52,3 +54,8 @@ Tut 7     Register Allocation         [|Overleaf Tut7|_]
 .. |PPTX Lec7| replace:: :download:`pptx <Lecture_Slides/Lecture 7 [Pointer Analysis] 02.27.2023.pptx>`
 .. |Overleaf Tut7| replace:: Overleaf
 .. _Overleaf Tut7: https://www.overleaf.com/read/bjrphznfydcg
+
+.. |PPTX Lec8| replace:: :download:`pptx <Lecture_Slides/Lecture 8 [Memory Optimizations] 03.213.2023.pptx>`
+
+.. |PPTX Lec9| replace:: :download:`pptx <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pptx>`
+.. |PDF Lec9| replace:: :download:`pdf <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pdf>`
