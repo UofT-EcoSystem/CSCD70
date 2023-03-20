@@ -55,7 +55,7 @@ Lec 9     Machine Learning Compilers     [|PPTX Lec9|][|PDF Lec9|]
 .. |Overleaf Tut7| replace:: Overleaf
 .. _Overleaf Tut7: https://www.overleaf.com/read/bjrphznfydcg
 
-.. |PPTX Lec8| replace:: :download:`pptx <Lecture_Slides/Lecture 8 [Memory Optimizations] 03.213.2023.pptx>`
+.. |PPTX Lec8| replace:: :download:`pptx <Lecture_Slides/Lecture 8 [Memory Optimizations] 03.13.2023.pptx>`
 
 .. |PPTX Lec9| replace:: :download:`pptx <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pptx>`
 .. |PDF Lec9| replace:: :download:`pdf <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pdf>`
