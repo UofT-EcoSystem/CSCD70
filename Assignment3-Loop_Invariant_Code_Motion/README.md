@@ -12,7 +12,3 @@ GitHub Classroom. Note that
 - TODO items have been marked using `todo(CSCD70)` in the source code. **These
   include both the optimization passes and the test cases.** Please make sure
   that you have completed both parts before submitting.
-
-## Changelog
-
-- `[2/6]`: Update the LCM test case with expression uses.
