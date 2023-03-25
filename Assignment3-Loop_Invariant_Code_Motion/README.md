@@ -2,7 +2,7 @@
 
 **Due Date**: April. 7th, **Handout**:
 [\[Overleaf\]](https://www.overleaf.com/read/cncbrtszrfpx), **GitHub
-Classroom**: [\[Invitation\]](https://classroom.github.com/a/uifbknCz)
+Classroom**: [\[Invitation\]](https://classroom.github.com/a/PLVehVFF)
 
 Please click on the links above for the assignment handout and the invitation to
 GitHub Classroom. Note that
