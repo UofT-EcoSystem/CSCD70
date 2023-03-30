@@ -1,5 +1,5 @@
 // RUN: clang -O0 -Xclang -disable-O0-optnone -emit-llvm -c %s -o %basename_t.bc
-// RUN: opt -S -mem2reg %basename_t.bc -o %basename_t.ll
+// RUN: opt -S -passes=mem2reg %basename_t.bc -o %basename_t.ll
 // RUN: llc -load %dylibdir/libLICM.so \
 // RUN:     -regalloc=basic --relocation-model=pic \
 // RUN:     %basename_t.ll -o %basename_t.s
