@@ -25,6 +25,7 @@ Lec 7     Pointer Analysis               [|PPTX Lec7|]
 Tut 7     Register Allocation            [|Overleaf Tut7|_]
 Lec 8     Memory Optimizations           [|PPTX Lec8|]
 Lec 9     Machine Learning Compilers     [|PPTX Lec9|][|PDF Lec9|]
+Lec 10    Parallelization                [|PPTX Lec10|]
 ========= ============================== =========================
 
 .. |PPTX Lec1| replace:: :download:`pptx <Lecture_Slides/Lecture 1 [Intro] 01.09.2023.pptx>`
@@ -59,3 +60,5 @@ Lec 9     Machine Learning Compilers     [|PPTX Lec9|][|PDF Lec9|]
 
 .. |PPTX Lec9| replace:: :download:`pptx <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pptx>`
 .. |PDF Lec9| replace:: :download:`pdf <Lecture_Slides/CSCD70-Machine_Learning_Compilers-20230320.pdf>`
+
+.. |PPTX Lec10| replace:: :download:`pptx <Lecture_Slides/Lecture 10 [Parallelization] 04.03.2023.pptx>`
